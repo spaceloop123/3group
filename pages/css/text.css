@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+}
+
+.text-display-4 {
+    font-size: 112px;
+    font-weight: 300;
+    line-height: 128px;
+    letter-spacing: -5px;
+}
+
+.text-display-3 {
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 64px;
+}
+
+.text-display-2 {
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 64px;
+}
+
+.text-display-1 {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 52px;
+}
+
+.text-headline {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 44px;
+}
+
+.text-title {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 44px;
+}
+
+.text-subhead {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+.text-body {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25px;
+}
+
+.text-caption {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+.text-menu {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.text-button {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+/* show class names */
+
+.text-display-4:before,
+.text-display-3:before,
+.text-display-2:before,
+.text-display-1:before,
+.text-headline:before,
+.text-title:before,
+.text-subhead:before,
+.text-body:before,
+.text-caption:before,
+.text-menu:before,
+.text-button:before {
+    font-size: 13px;
+    font-weight: 300;
+    color: #aaa;
+    letter-spacing: 0;
+    display: none;
+    float: left;
+    text-transform: none;
+}
+
+@media all and (min-width: 520px) {
+    .text-display-4:before,
+    .text-display-3:before,
+    .text-display-2:before,
+    .text-display-1:before,
+    .text-headline:before,
+    .text-title:before,
+    .text-subhead:before,
+    .text-body:before,
+    .text-caption:before,
+    .text-menu:before,
+    .text-button:before {
+        display: block;
+        margin-left: -128px;
+    }
+}
+
+.text-display-4:before {
+    line-height: 126px;
+}
+
+.text-display-3:before {
+    line-height: 65px;
+}
+
+.text-display-2:before {
+    line-height: 65px;
+}
+
+.text-display-1:before {
+    line-height: 53px;
+}
+
+.text-headline:before {
+    line-height: 45px;
+}
+
+.text-title:before {
+    line-height: 45px;
+}
+
+.text-subhead:before {
+    line-height: 32px;
+}
+
+.text-body:before {
+    line-height: 25px;
+}
+
+.text-caption:before {
+    line-height: 32px;
+}
+
+.text-menu:before {
+    line-height: 32px;
+}
+
+.text-button:before {
+    line-height: 32px;
+}
