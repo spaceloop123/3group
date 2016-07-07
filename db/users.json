@@ -1,0 +1,17 @@
+{ 
+    "_id" : ObjectId("577ce9c849c5b94828f56089"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("577cea553c6a185036a94720"), 
+    "username" : "max", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("577e109c568e65dc378f11e3"), 
+    "hash" : "40bae0b46ca884ff1b44bbfd76a09f63c7a9594666fc6d14b9823a11bfbecf3a8820c82e8836c383d6f0fb1bd0d45805bd0a506b970351eae4870e864ce437f7", 
+    "salt" : "3bed64f2bb3fafc44330abc2adc5e189", 
+    "username" : "username", 
+    "email" : "username@gmail.com", 
+    "__v" : NumberInt(0)
+}
