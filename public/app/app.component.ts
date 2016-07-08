@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {LoginComponent} from './login/login.component';
-import {HomepageComponent} from './login/homepage.component';
+import {HomepageComponent} from './homepage/homepage.component';
 import {HeaderComponent} from './header/header.component';
 import {Page1Component} from './page1/page1.component';
 
