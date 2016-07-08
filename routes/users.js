@@ -1,7 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var mongoose = require('mongoose');
-//var User = mongoose.model('User');
+var User = mongoose.model('User');
 var router = express.Router();
 var jwt = require('express-jwt');
 
@@ -30,7 +30,7 @@ router.post('/register', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  if(!req.body.username || !req.body._password) {
+  if(!req.body.username || !req.body.password) {
     return res.status(400).json({message: 'Please fill out all fields'});
   }
 
@@ -49,5 +49,5 @@ router.post('/posts', auth, function (req, res, next) {
     var post = new Post(req.body);
     post.author = req.payload.username;
 });
-
+ 
 module.exports = router;
