@@ -7,7 +7,7 @@ var User = mongoose.model('User');
 var mdlwares = require('../libs/mdlwares');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/',  function(req, res, next) {
   // var question = new TestQuestion();
   // question.difficulty = 1;
   // question.maxCost = 10;

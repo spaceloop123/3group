@@ -7,13 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- 1. Load libraries -->
-  <!--&lt;!&ndash; Polyfill(s) for older browsers &ndash;&gt;-->
-  <!--<script type="text/javascript" src="../node_modules/core-js/client/shim.min.js"></script>-->
-  <!--<script src="../node_modules/zone.js/dist/zone.js"></script>-->
-  <!--<script src="../node_modules/reflect-metadata/Reflect.js"></script>-->
-  <!--<script src="../node_modules/systemjs/dist/system.src.js"></script>-->
+  <!-- Polyfill(s) for older browsers -->
+  <!--<script src="scripts/requirejs/require.js"></script>-->
+  <script src="scripts/systemjs/dist/system.src.js"></script>
+  <script type="text/javascript" src="scripts/core-js/client/shim.min.js"></script>
+  <script src="scripts/zone.js/dist/zone.js"></script>
+  <script src="scripts/reflect-metadata/Reflect.js"></script>
+
    <!--2. Configure SystemJS-->
-  <script type="text/javascript" src="../systemjs.config.js"></script>
+  <script type="text/javascript" src="systemjs.config.js"></script>
   <script>
     System.import('app').catch(function (err) {
       console.error(err);
@@ -22,8 +24,8 @@
   <!--Import Google Icon Font-->
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="libs/materialize.min.css" media="screen,projection"/>
-  <link href="stylesheets/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="../assets/libs/materialize.min.css" media="screen,projection"/>
+  <link href="../assets/stylesheets/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -35,7 +37,7 @@
 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="libs/materialize.min.js"></script>
+<script type="text/javascript" src="../assets/libs/materialize.min.js"></script>
 
 </body>
 </html>

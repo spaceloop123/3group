@@ -86,4 +86,4 @@ fabric.properties
 .idea/misc.xml
 .idea/modules.xml
 node_modules/
-public/images/
+assets/images/

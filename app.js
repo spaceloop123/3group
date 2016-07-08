@@ -8,24 +8,23 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
-require('./models/Users');
+require('./server/models/Users');
 //require('./models/questions/Questions');
 //require('./models/questions/TestQuestions');
 
 mongoose.connect("mongodb://localhost/test");
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var login = require('./routes/login');
+var routes = require('./server/routes/index');
+var users = require('./server/routes/users');
+var login = require('./server/routes/login');
 
-require('./config/passport');
+require('./server/config/passport');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public'));
 app.set('view engine', 'ejs');
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,6 +35,9 @@ app.use(cookieParser());
 app.use(expressSession({ secret: 'SECRET' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/scripts', express.static(__dirname + '/node_modules/'));
+app.use('/', express.static(__dirname));
+app.use('/fonts', express.static(__dirname + 'public'));
 
 // passport
 app.use(passport.initialize());
@@ -43,7 +45,7 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/materialize', login);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

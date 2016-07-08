@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "system",
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
@@ -10,5 +10,8 @@
     "noImplicitAny": false,
     "rootDir" : "public/app",
     "outDir" : "public/dist/app"
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }
