@@ -19,8 +19,9 @@ router.get('/',  function(req, res, next) {
 
   // console.log('1');
   // var user = new User({
-  //   username: 'blabla',
-  //   email: 'username@gmail.com'
+  //   username: 'username',
+  //   email: 'username@gmail.com',
+  //   role: 'User'
   // });
   // user.setPassword('password');
   // user.save();

@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
         if(err){ return next(err); }
 
         if(user) {
-            return res.json({token: user.generateJWT()});
+            return res.json({role: user.role});
         } else {
             return res.status(401).json(info);
         }
