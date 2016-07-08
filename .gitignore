@@ -87,3 +87,6 @@ fabric.properties
 .idea/modules.xml
 node_modules/
 assets/images/
+public/dist
+public/dist/
+typings/
