@@ -1,17 +1,18 @@
 { 
-    "_id" : ObjectId("577ce9c849c5b94828f56089"), 
+    "_id" : ObjectId("577fde1a94f813304e821167"), 
+    "hash" : "1f37eb317789e00d3f907d69e0491efb12d924dc4e15fc62d346bf3cf429ab305298d9bf94bfe92c25aa1e72ce88459463b6d412173e5411bd2881e071b55407", 
+    "salt" : "e80c341815359dce184c521804a91ac4", 
+    "username" : "admin", 
+    "email" : "admin@gmail.com", 
+    "role" : "Admin", 
     "__v" : NumberInt(0)
 }
 { 
-    "_id" : ObjectId("577cea553c6a185036a94720"), 
-    "username" : "max", 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("577e109c568e65dc378f11e3"), 
-    "hash" : "40bae0b46ca884ff1b44bbfd76a09f63c7a9594666fc6d14b9823a11bfbecf3a8820c82e8836c383d6f0fb1bd0d45805bd0a506b970351eae4870e864ce437f7", 
-    "salt" : "3bed64f2bb3fafc44330abc2adc5e189", 
+    "_id" : ObjectId("577fde5f37b8df3041b2afc9"), 
+    "hash" : "29c06de5a16aefad34140f6c69113aab0514fe372bd66d4cac82a0be4f92b11854831ae3b511f541bfe094b3a4a902495c05eaca2f47fef8e9a9fd66862ea52c", 
+    "salt" : "f521922b6192481dfa6f41a5552693fe", 
     "username" : "username", 
     "email" : "username@gmail.com", 
+    "role" : "User", 
     "__v" : NumberInt(0)
 }
