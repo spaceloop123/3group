@@ -9,13 +9,12 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 require('./server/models/Users');
-//require('./models/questions/Questions');
-//require('./models/questions/TestQuestions');
+require('./server/models/questions/Questions');
+require('./server/models/questions/TestQuestions');
 
 mongoose.connect("mongodb://localhost/test");
 
 var routes = require('./server/routes/index');
-var users = require('./server/routes/users');
 var login = require('./server/routes/login');
 
 require('./server/config/passport');
@@ -44,7 +43,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/login', login);
 
 // catch 404 and forward to error handler
