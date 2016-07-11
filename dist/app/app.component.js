@@ -36,7 +36,6 @@ System.register(["@angular/core", "./login/login.component", "./homepage/homepag
             AppComponent = (function () {
                 function AppComponent() {
                 }
-
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
@@ -44,7 +43,7 @@ System.register(["@angular/core", "./login/login.component", "./homepage/homepag
                         directives: [header_component_1.HeaderComponent, router_1.ROUTER_DIRECTIVES],
                         precompile: [login_component_1.LoginComponent, homepage_component_1.HomepageComponent],
                         providers: [login_service_1.LoginService]
-                    }),
+                    }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;

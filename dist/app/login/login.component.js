@@ -37,7 +37,6 @@ System.register(["@angular/core", "./login.data", "@angular/router", "./login.se
                     this.constants = constants;
                     this.model = new login_data_1.LoginData('', '');
                 }
-
                 LoginComponent.prototype.loginRequest = function () {
                     this.loginService.postAndRedirect(this.model, this.router);
                 };
@@ -46,7 +45,7 @@ System.register(["@angular/core", "./login.data", "@angular/router", "./login.se
                         templateUrl: 'app/login/login.html',
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [login_service_1.LoginService]
-                    }),
+                    }), 
                     __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router, constants_data_1.Constants])
                 ], LoginComponent);
                 return LoginComponent;

@@ -1,10 +1,10 @@
-System.register([], function (exports_1, context_1) {
+System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var Constants;
     return {
-        setters: [],
-        execute: function () {
+        setters:[],
+        execute: function() {
             Constants = (function () {
                 function Constants() {
                     this.PROJECT_NAME = "PROJECT NAME";
@@ -12,7 +12,6 @@ System.register([], function (exports_1, context_1) {
                         "commodi ducimus earum eum eveniet ex excepturi expedita facilis, itaque, modi nam porro quaerat quisquam " +
                         "quo reiciendis tenetur unde, ut.";
                 }
-
                 return Constants;
             }());
             exports_1("Constants", Constants);

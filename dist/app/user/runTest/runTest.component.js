@@ -21,11 +21,10 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             RunTestComponent = (function () {
                 function RunTestComponent() {
                 }
-
                 RunTestComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/homepage/empty.html'
-                    }),
+                    }), 
                     __metadata('design:paramtypes', [])
                 ], RunTestComponent);
                 return RunTestComponent;

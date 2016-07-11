@@ -10,7 +10,6 @@ System.register([], function (exports_1, context_1) {
                     this.username = username;
                     this.password = password;
                 }
-
                 return LoginData;
             }());
             exports_1("LoginData", LoginData);

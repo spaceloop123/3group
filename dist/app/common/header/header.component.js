@@ -24,13 +24,12 @@ System.register(["@angular/core", "@angular/router"], function (exports_1, conte
             HeaderComponent = (function () {
                 function HeaderComponent() {
                 }
-
                 HeaderComponent = __decorate([
                     core_1.Component({
                         selector: 'header-component',
                         templateUrl: '../app/common/header/header-logo.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
-                    }),
+                    }), 
                     __metadata('design:paramtypes', [])
                 ], HeaderComponent);
                 return HeaderComponent;

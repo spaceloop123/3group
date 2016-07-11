@@ -28,7 +28,6 @@ System.register(["@angular/core", "@angular/http", "rxjs/add/operator/toPromise"
                     this.http = http;
                     this.loginUrl = '/login';
                 }
-
                 LoginService.prototype.redirect = function (response, router) {
                     console.log("respose " + response);
                     router.navigate(['/homepage', response]);
@@ -51,7 +50,7 @@ System.register(["@angular/core", "@angular/http", "rxjs/add/operator/toPromise"
                     return Promise.reject(error.message || error);
                 };
                 LoginService = __decorate([
-                    core_1.Injectable(),
+                    core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], LoginService);
                 return LoginService;

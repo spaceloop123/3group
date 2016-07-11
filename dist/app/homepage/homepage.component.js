@@ -31,7 +31,6 @@ System.register(["@angular/core", "@angular/router", "@angular/http"], function 
                     this.http = http;
                     this.availTest = true;
                 }
-
                 HomepageComponent.prototype.ngOnInit = function () {
                     var that = this;
                     this.sub = this.route.params.subscribe(function (params) {
@@ -64,7 +63,7 @@ System.register(["@angular/core", "@angular/router", "@angular/http"], function 
                         styleUrls: ['../assets/libs/materialize.css',
                             '../assets/libs/materialize.min.css',],
                         directives: [router_1.ROUTER_DIRECTIVES]
-                    }),
+                    }), 
                     __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, http_1.Http])
                 ], HomepageComponent);
                 return HomepageComponent;
