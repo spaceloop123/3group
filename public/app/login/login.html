@@ -1,11 +1,9 @@
 <div class="container valign">
     <div class="row">
         <div class="col m5 offset-m1 s12">
-            <div class="text text-title"><a [routerLink]="['/page1']" style="color: black">Welcome to Project Name</a></div>
-            <div class="text text-subhead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi
-                consequuntur fuga architecto dolores at praesentium totam, quo rem, nostrum nisi fugiat
-                provident dolorum doloribus. Corporis blanditiis aperiam assumenda neque voluptas!
-            </div>
+            <div class="text text-title"><a [routerLink]="['/page1']"
+                                            style="color: black">{{constants.PROJECT_NAME}}</a></div>
+            <div class="text text-subhead">{{constants.PROJECT_DESCRIPTION}}</div>
         </div>
         <div class="col m5 offset-m1 s12">
             <div class="card-panel">
