@@ -9,21 +9,17 @@ router.post('/', function(req, res, next) {
         return res.status(400).json({message: 'Please fill out all fields'});
     }
 
-    // User.findOne({username: req.body.username}, function (err, user) {
-    //     if(user.validPassword(req.body.password)) {
-    //         return res.json({token: user.generateJWT()});
-    //     } else {
-    //         return res.status(401);
-    //     }
-    // });
-
     passport.authenticate('local', function (err, user, info) {
-        if(err){ return next(err); }
-
-        if(user) {
-            return res.json({role: user.role});
+        if (user) {
+            req.login(user, function (err) {
+                if (err) {
+                    return res.status(401).json(err);
+                } else {
+                    return res.json({role: user.role});
+                }
+            });
         } else {
-            return res.status(401).json(info);
+            return res.status(401).json(err);
         }
     })(req, res, next);
 });
