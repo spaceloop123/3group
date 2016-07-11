@@ -1,9 +1,7 @@
-import {Injectable}    from '@angular/core';
-import {Headers, Http} from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-import {LoginData} from './login.data';
-
-
+import {Injectable} from "@angular/core";
+import {Headers, Http} from "@angular/http";
+import "rxjs/add/operator/toPromise";
+import {LoginData} from "./login.data";
 
 @Injectable()
 export class LoginService {
@@ -16,29 +14,19 @@ export class LoginService {
     }
 
     public redirect(response, router) {
-        console.log('All good ' + response);
-        if(router === undefined){
-            console.log('Bad, bad, bad..');
-        }
-        else {
-            router.navigate(['/homepage']);
-        }
+        console.log("respose " + response);
+        router.navigate(['/homepage', response]);
+        //
     }
 
     public postAndRedirect(loginData:LoginData, router) {
         var header = new Headers();
         var that = this;
-
         header.append('Content-Type', 'application/json');
-        console.log(this.loginUrl, JSON.stringify(loginData), {headers: header});
-        console.log(' json ' + JSON.stringify(loginData));
-        console.log('url ' + this.loginUrl);
-
-
         this.http
             .post(this.loginUrl, JSON.stringify(loginData), {headers: header})
             .toPromise()
-            .then(res => that.redirect(res.json().data, router))
+            .then(res => that.redirect(res.json().role, router))
             .catch(that.handleError);
     }
 

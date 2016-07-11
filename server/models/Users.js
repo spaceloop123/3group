@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var UserSchema = new mongoose.Schema({
     username: {type: String, required:true, lowercase: true, unique: true},
     email: {type: String, required:true, unique: true},
-    role: {type: String, enum: ['Admin', 'Teacher', 'User', 'Guest'], required: true},
+    role: {type: String, enum: ['admin', 'teacher', 'user', 'guest'], required: true},
     hash: {type: String, required:true},
     salt: {type: String, required:true}
 });
