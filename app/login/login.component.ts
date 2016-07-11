@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {LoginData} from "./login.data";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {LoginService} from "./login.service";
-import {Constants} from "../constants/constants.data";
+import {Constants} from "../common/constants/constants.data";
 
 @Component({
     templateUrl: 'app/login/login.html',
