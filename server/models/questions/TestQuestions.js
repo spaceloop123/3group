@@ -10,4 +10,4 @@ var TestQuestion = {
 
 var TestQuestionsSchema = new mongoose.Schema(Object.extended(Question).merge(TestQuestion));
 
-mongoose.model('TestQuestion', TestQuestionsSchema);
+mongoose.model('TestQuestion', TestQuestionsSchema, 'questions'); 

@@ -11,6 +11,8 @@ var passport = require('passport');
 require('./server/models/Users');
 require('./server/models/questions/Questions');
 require('./server/models/questions/TestQuestions');
+require('./server/models/questions/AudioQuestions');
+require('./server/models/questions/ReadingQuestions');
 
 mongoose.connect("mongodb://localhost/test");
 
