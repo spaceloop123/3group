@@ -19,8 +19,7 @@ mongoose.connect("mongodb://localhost/test");
 
 var routes = require('./server/routes/index');
 var users = require('./server/routes/users');
-var login = require('./server/routes/login');
-var logout = require('./server/routes/logout');
+var auth = require('./server/routes/auth');
 var admin = require('./server/routes/admin');
 var teacher = require('./server/routes/teacher');
 var user = require('./server/routes/user');
@@ -63,14 +62,10 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/users', users);
 
-app.use('/login', login);
-app.use('/logout', logout);
+app.post('/login', auth.login);
+app.get('/logout', auth.logout);
 
 app.use(mdlwares.isAuthenticated);
-app.all('/admin*', mdlwares.isAdmin);
-app.all('/teacher*', mdlwares.isTeacher);
-app.all('/user*', mdlwares.isUser);
-app.all('guest*', mdlwares.isGuest);
 
 app.use('/admin', admin);
 app.use('/teacher', teacher);
