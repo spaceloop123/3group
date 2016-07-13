@@ -1,7 +1,7 @@
-System.register(["@angular/router", "./login/login.component", "./homepage/homepage.component", "./homepage/homepage.routes", "./teacher/teacher.routes"], function(exports_1, context_1) {
+System.register(["@angular/router", "./login/login.component", "./homepage/homepage.component", "./homepage/homepage.routes"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var router_1, login_component_1, homepage_component_1, homepage_routes_1, teacher_routes_1;
+    var router_1, login_component_1, homepage_component_1, homepage_routes_1;
     var routes, APP_ROUTER_PROVIDERS;
     return {
         setters:[
@@ -16,9 +16,6 @@ System.register(["@angular/router", "./login/login.component", "./homepage/homep
             },
             function (homepage_routes_1_1) {
                 homepage_routes_1 = homepage_routes_1_1;
-            },
-            function (teacher_routes_1_1) {
-                teacher_routes_1 = teacher_routes_1_1;
             }],
         execute: function() {
             routes = [
@@ -40,7 +37,7 @@ System.register(["@angular/router", "./login/login.component", "./homepage/homep
                     path: 'homepage/:status',
                     component: homepage_component_1.HomepageComponent
                 }
-            ].concat(homepage_routes_1.HomepageRoutes, teacher_routes_1.TeacherRoutes);
+            ].concat(homepage_routes_1.HomepageRoutes);
             exports_1("APP_ROUTER_PROVIDERS", APP_ROUTER_PROVIDERS = [
                 router_1.provideRouter(routes)
             ]);
