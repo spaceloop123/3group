@@ -1,10 +1,16 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from "@angular/router";
 import {Http} from "@angular/http";
+import {TeacherComponent} from '../teacher/teacher.component';
+import {UserComponent} from "../user/user.component";
+
 
 @Component({
     templateUrl: 'app/homepage/homepage.html',
-    directives: [ROUTER_DIRECTIVES]
+    //styleUrls: ['../assets/libs/materialize.css', ---does nothing
+    //    '../assets/libs/materialize.min.css',],
+
+    directives: [ROUTER_DIRECTIVES, TeacherComponent, UserComponent]
 })
 
 export class HomepageComponent implements OnInit, OnDestroy {
