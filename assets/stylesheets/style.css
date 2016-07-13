@@ -14,3 +14,8 @@
 main {
   flex: 1 1 auto;
 }
+
+#notifications-list {
+    height: 338px;
+    overflow-y: hidden;
+}
