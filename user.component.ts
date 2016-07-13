@@ -9,26 +9,30 @@ import {Http} from "@angular/http";
     })
 
 export class UserComponent implements OnInit{
-    testStatus;
+    testInfo;
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
-        this.testStatus = 'requestedTest';
-        console.log(this.testStatus);
+        this.testInfo = {
+            status:'availTest',
+            time: '20 min',
+            numQuestions:'50'
+        };
+        console.log(this.testInfo.status);
     }
 
     ngOnInit() {
-        //this.getTestStatus ();
+        //this.getTestInfo ();
 
 
 
     }
 
-    getTestStatus() {
+    getTestInfo() {
         var that = this;
-        this.http.get('/testStatus')
+        this.http.get('/testInfo')
             .toPromise()
-            .then(response => that.testStatus = response.json().testStatus)
+            .then(response => that.testInfo = response.json().testStatusInfo)
             .catch(this.handleError);
     }
 
