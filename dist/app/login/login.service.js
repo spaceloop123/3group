@@ -33,14 +33,13 @@ System.register(["@angular/core", "@angular/http", "rxjs/add/operator/toPromise"
                     //
                 };
                 LoginService.prototype.postAndRedirect = function (loginData, router) {
-                    var that = this;
                     var header = new http_1.Headers();
+                    var that = this;
                     header.append('Content-Type', 'application/json');
-                    this.http.post(this.loginUrl, JSON.stringify(loginData), { headers: header }).toPromise().then(function (res) {
-                        return that.redirect(res.json().role, router);
-                    }, function (error) {
-                        return console.log(error);
-                    })
+                    this.http
+                        .post(this.loginUrl, JSON.stringify(loginData), { headers: header })
+                        .toPromise()
+                        .then(function (res) { return that.redirect(res.json().role, router); })
                         .catch(that.handleError);
                 };
                 LoginService.prototype.handleError = function (error) {
