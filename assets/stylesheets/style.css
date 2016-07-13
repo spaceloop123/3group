@@ -14,3 +14,8 @@
 main {
   flex: 1 1 auto;
 }
+
+#notifications-list {
+    height: 255px; /* 338px for 4 rows */
+    overflow-y: scroll;
+}
