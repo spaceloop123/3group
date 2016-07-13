@@ -33,7 +33,7 @@ export class AdminComponent {
     addUser() {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        console.log(this.http.post("/user-" + this.member.role, JSON.stringify(this.member), {headers: headers})
+        console.log(this.http.post("/admin/new-" + this.member.role, JSON.stringify(this.member), {headers: headers})
             .toPromise());
     }
 }
