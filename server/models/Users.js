@@ -6,7 +6,8 @@ var UserSchema = new mongoose.Schema({
     email: {type: String, required:true, unique: true},
     role: {type: String, enum: ['admin', 'teacher', 'user', 'guest'], required: true},
     hash: {type: String, required:true},
-    salt: {type: String, required:true}
+    salt: {type: String, required:true},
+    level: {type: Number}
 });
 
 UserSchema.methods.setPassword = function(password) {

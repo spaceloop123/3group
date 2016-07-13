@@ -12,8 +12,6 @@ var mdlwares = require('../libs/mdlwares');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    //addQuestion();
-    getQuestion('speech');
     res.render('index');
 });
 
