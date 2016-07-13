@@ -39,7 +39,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
 
     getData() {
         var that = this;
-        this.http.get('/' + status + '/availtest')
+        this.http.get('/availtest')
             .toPromise()
             .then(response => that.availTest = response.json().data)
             .catch(this.handleError);

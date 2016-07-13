@@ -2,17 +2,17 @@
 <div class="container valign">
     <div class="row" align=center>
 
-        <div *ngIf="availTest" class="col s12 m5 l4 card-width" >
-            <div class="valign">
-                <div class="card-content" align=center style="min-height:330px">
-                    <span style=" font-size: 24px;   font-weight: 300;">Test Information</span>
-                    <p class="card-content">Some text</p>
-                </div>
+        <div class="col s12 m5 l4 card-width" >
+        <div class="valign">
+            <div class="card-content" align=center style="min-height:330px">
+                <span style=" font-size: 24px;   font-weight: 300;">Test Information</span>
+                <p class="card-content">Some text</p>
             </div>
         </div>
+    </div>
 
 
-        <div *ngIf="availTest" class="col s12 m5 l4 offset-m2  card-width" align=center>
+        <div *ngIf="testStatus==='availTest'" class="col s12 m5 l4 offset-m2  card-width" align=center>
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=center style="min-height:250px">
                     <span class="card-title">Current Test</span>
@@ -25,6 +25,36 @@
             </div>
         </div>
 
+        <div *ngIf="testStatus==='notAvailTest'" class="col s12 m5 l4 offset-m2  card-width" align=center>
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=center style="min-height:250px">
+                    <span class="card-title">Current Test</span>
+                    <p class="red-text">Nobody appointed you any test</p>
+                    <p class="card-content">You can ask for it</p>
+                </div>
+                <div class="card-action" align=center>
+                    <a class="waves-effect default btn" [routerLink]="['/runTest']">Start</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="testStatus==='requestedTest'" class="col s12 m5 l4 offset-m2  card-width" align=center>
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=center style="min-height:250px">
+                    <span class="card-title">Current Test</span>
+                    <p class="red-text">Nobody appointed you any test</p>
+                    <p class="card-content">You've already ask for test</p>
+                </div>
+                <div class="card-action" align=center>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
         <div class="col s12 m5 l4  card-width" align=center>
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=center style="min-height:250px">
@@ -34,10 +64,8 @@
                 <div class="card-action" align=center>
                     <a class="waves-effect default btn" [routerLink]="['/showTests']">Show</a>
                 </div>
-
-        
+            </div>
+        </div>
     </div>
 </div>
-    </div>
-    </div>
     </div>
