@@ -1,0 +1,75 @@
+{ 
+    "_id" : ObjectId("57862a01c1d55d5c0eaa8e3b"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "type" : "test", 
+    "question" : "My mother _____ to stay with us next weekend.", 
+    "correctAnswer" : "a", 
+    "answers" : [
+        "a. comes", 
+        "b. is coming", 
+        "c. came"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57862a01c1d55d5c0eaa8e3d"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "type" : "test", 
+    "question" : "Can you explain this word _____me?", 
+    "correctAnswer" : "a", 
+    "answers" : [
+        "a. for", 
+        "b. to", 
+        "c. by"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57862a01c1d55d5c0eaa8e3e"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "type" : "test", 
+    "question" : "There is _____waiting for you in the lobby.", 
+    "correctAnswer" : "b", 
+    "answers" : [
+        "a. anybody", 
+        "b. somebody", 
+        "c. nobody"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57862a01c1d55d5c0eaa8e3c"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "type" : "test", 
+    "question" : "Be careful, you’ve made _____.", 
+    "correctAnswer" : "a", 
+    "answers" : [
+        "a. the mistake", 
+        "b. mistake", 
+        "c. a mistake"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57862a01c1d55d5c0eaa8e3f"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "type" : "test", 
+    "question" : "I didn’t hear the alarm clock and slept until eight _____.", 
+    "correctAnswer" : "b", 
+    "answers" : [
+        "a. hour", 
+        "b. o’clock", 
+        "c. hours"
+    ], 
+    "__v" : NumberInt(0)
+}
