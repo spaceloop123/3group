@@ -6,24 +6,24 @@ import {Http} from "@angular/http";
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
     directives: [ROUTER_DIRECTIVES],
-    })
+})
 
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit {
     testInfo;
+
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
         this.testInfo = {
-            status:'availTest',
+            status: 'availTest',
             time: '20 min',
-            numQuestions:'50'
+            numQuestions: '50'
         };
         console.log(this.testInfo.status);
     }
 
     ngOnInit() {
         //this.getTestInfo ();
-
 
 
     }

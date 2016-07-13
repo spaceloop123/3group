@@ -29,7 +29,7 @@
                         <p class="card-content">You can ask for it</p>
                     </div>
                     <div class="card-action" align=center>
-                        <a class="waves-effect default btn" [routerLink]="['/runTest']">Start</a>
+                        <a class="waves-effect default btn" [routerLink]="['/showTests']">Ask</a>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,21 @@
                         <p class="card-content">You've already ask for test</p>
                     </div>
                     <div class="card-action" align=center>
-                        <a class="waves-effect default btn" [routerLink]="['/showTests']">Show</a>
+                        <a class="waves-effect default btn" [routerLink]="['/logo']">Back</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="testInfo.status==='requestedTest'" class="col s12 m7 l7 card-width " align=center>
+                <div class="card #fafafa grey lighten-5 valign ">
+                    <div class="card-content" align=center style="min-height:250px">
+                        <span class="card-title">Current Test</span>
+                        <p class="red-text">Nobody appointed you any test</p>
+                        <p class="card-content">You've already ask for test</p>
+                    </div>
+                    <div class="card-action" align=center>
+                        <a class="waves-effect default btn" [routerLink]="['/logo']">Back</a>
                     </div>
                 </div>
             </div>
