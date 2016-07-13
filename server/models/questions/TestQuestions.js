@@ -10,4 +10,13 @@ var TestQuestion = {
 
 var TestQuestionsSchema = new mongoose.Schema(Object.extended(Question).merge(TestQuestion));
 
-mongoose.model('TestQuestion', TestQuestionsSchema, 'questions'); 
+TestQuestionsSchema.methods.getQuestion = function () {
+    return {
+        type: this.type,
+        header: this.header,
+        question: this.question,
+        answers: this.answers
+    };
+};
+
+mongoose.model('TestQuestion', TestQuestionsSchema); 

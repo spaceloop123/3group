@@ -14,6 +14,7 @@ require('./server/models/questions/Questions');
 require('./server/models/questions/TestQuestions');
 require('./server/models/questions/AudioQuestions');
 require('./server/models/questions/ReadingQuestions');
+require('./server/models/questions/SpeechQuestion');
 
 mongoose.connect("mongodb://localhost/test");
 

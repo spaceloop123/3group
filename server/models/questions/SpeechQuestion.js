@@ -3,9 +3,17 @@ var sugar = require('sugar');
 var Question = require('./Questions').QuestionInterface;
 
 var SpeechQuestion = {
-    subQuestions: [{type: String, required: true}]
+    question: {type: String, required: true}
 };
 
 var SpeechQuestionsSchema = new mongoose.Schema(Object.extended(Question).merge(SpeechQuestion));
 
-mongoose.model('SpeechQuestion', SpeechQuestionsSchema, 'questions');
+SpeechQuestionsSchema.methods.getQuestion = function () {
+    return {
+        type: this.type,
+        header: this.header,
+        question: this.question
+    };
+};
+
+mongoose.model('SpeechQuestion', SpeechQuestionsSchema);
