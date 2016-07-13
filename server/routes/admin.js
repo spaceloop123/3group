@@ -25,7 +25,8 @@ router.post('/new-guest', function (req, res, next) {
     User.count({}, function (err, count) {
         var user = new User({
             email: req.body.email,
-            role: 'guest'
+            role: 'guest',
+            level: 0
         });
         user.username = 'Guest' + count;
         user.setPassword('11111');
