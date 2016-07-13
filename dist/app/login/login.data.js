@@ -1,10 +1,10 @@
-System.register([], function (exports_1, context_1) {
+System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var LoginData;
     return {
-        setters: [],
-        execute: function () {
+        setters:[],
+        execute: function() {
             LoginData = (function () {
                 function LoginData(username, password) {
                     this.username = username;

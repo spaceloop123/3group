@@ -1,10 +1,10 @@
-System.register(["@angular/router", "./login/login.component", "./homepage/homepage.component", "./homepage/homepage.routes"], function (exports_1, context_1) {
+System.register(["@angular/router", "./login/login.component", "./homepage/homepage.component", "./homepage/homepage.routes"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var router_1, login_component_1, homepage_component_1, homepage_routes_1;
     var routes, APP_ROUTER_PROVIDERS;
     return {
-        setters: [
+        setters:[
             function (router_1_1) {
                 router_1 = router_1_1;
             },
@@ -17,7 +17,7 @@ System.register(["@angular/router", "./login/login.component", "./homepage/homep
             function (homepage_routes_1_1) {
                 homepage_routes_1 = homepage_routes_1_1;
             }],
-        execute: function () {
+        execute: function() {
             routes = [
                 {
                     path: '',

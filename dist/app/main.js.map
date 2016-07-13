@@ -1,10 +1,1 @@
-{
-  "version": 3,
-  "file": "main.js",
-  "sourceRoot": "",
-  "sources": [
-    "../../app/main.ts"
-  ],
-  "names": [],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;YAMA,oCAAS,CAAC,4BAAY,EAAE;gBACpB,qBAAc,EAAE,iCAAoB,EAAE,0BAAS;aAClD,CAAC,CAAC"
-}
+{"version":3,"file":"main.js","sourceRoot":"","sources":["../../app/main.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;YASA,oCAAS,CAAC,4BAAY,EAAE;gBACpB,qBAAc,EAAE,iCAAoB,EAAE,0BAAiB,EAAE,0BAAS;gBAClE,EAAC,OAAO,EAAE,yBAAgB,EAAE,QAAQ,EAAE,6BAAoB,EAAC;aAC9D,CAAC,CAAC"}
