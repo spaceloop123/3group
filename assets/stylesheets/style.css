@@ -16,6 +16,6 @@ main {
 }
 
 #notifications-list {
-    height: 338px;
-    overflow-y: hidden;
+    height: 255px; /* 338px for 4 rows */
+    overflow-y: scroll;
 }
