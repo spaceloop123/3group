@@ -15,18 +15,17 @@ export class LoginService {
 
     public redirect(response, router) {
         console.log("respose " + response);
-        router.navigate(['/homepage', response]);
+        router.navigate(['/' + response]);
         //
     }
 
     public postAndRedirect(loginData:LoginData, router) {
-        var header = new Headers();
         var that = this;
+        var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http
             .post(this.loginUrl, JSON.stringify(loginData), {headers: header})
-            .toPromise()
-            .then(res => that.redirect(res.json().role, router))
+            .toPromise().then(res =>that.redirect(res.json().role, router), error =>console.log(error))
             .catch(that.handleError);
     }
 

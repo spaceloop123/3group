@@ -11,7 +11,7 @@ System.register(["@angular/core", "@angular/router"], function(exports_1, contex
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1;
-    var HeaderComponent;
+    var AdminComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -21,21 +21,37 @@ System.register(["@angular/core", "@angular/router"], function(exports_1, contex
                 router_1 = router_1_1;
             }],
         execute: function() {
-            HeaderComponent = (function () {
-                function HeaderComponent() {
+            AdminComponent = (function () {
+                function AdminComponent() {
+                    this.member = {
+                        role: 'guest',
+                        username: '',
+                        password: '',
+                        email: ''
+                    };
                 }
-                HeaderComponent = __decorate([
+                AdminComponent.prototype.changeMemberType = function () {
+                    if (this.member.role === 'guest') {
+                        this.member.role = 'teacher';
+                    }
+                    else {
+                        this.member.role = 'guest';
+                        this.member.username = '';
+                        this.member.password = '';
+                    }
+                };
+                AdminComponent = __decorate([
                     core_1.Component({
-                        selector: 'header-component',
-                        templateUrl: '../app/common/header/header-logo.html',
+                        selector: 'admin-component',
+                        templateUrl: 'app/admin/admin.home.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], HeaderComponent);
-                return HeaderComponent;
+                ], AdminComponent);
+                return AdminComponent;
             }());
-            exports_1("HeaderComponent", HeaderComponent);
+            exports_1("AdminComponent", AdminComponent);
         }
     }
 });
-//# sourceMappingURL=header.component.js.map
+//# sourceMappingURL=admin.component.js.map

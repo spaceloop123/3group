@@ -1,23 +1,29 @@
-System.register(["@angular/router", "./login/login.component", "./homepage/homepage.component", "./homepage/homepage.routes"], function (exports_1, context_1) {
+System.register(["@angular/router", "./login/login.component", "./admin/admin.component", "./user/user.component", "./teacher/teacher.component", "./user/user.routes"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var router_1, login_component_1, homepage_component_1, homepage_routes_1;
+    var router_1, login_component_1, admin_component_1, user_component_1, teacher_component_1, user_routes_1;
     var routes, APP_ROUTER_PROVIDERS;
     return {
-        setters: [
+        setters:[
             function (router_1_1) {
                 router_1 = router_1_1;
             },
             function (login_component_1_1) {
                 login_component_1 = login_component_1_1;
             },
-            function (homepage_component_1_1) {
-                homepage_component_1 = homepage_component_1_1;
+            function (admin_component_1_1) {
+                admin_component_1 = admin_component_1_1;
             },
-            function (homepage_routes_1_1) {
-                homepage_routes_1 = homepage_routes_1_1;
+            function (user_component_1_1) {
+                user_component_1 = user_component_1_1;
+            },
+            function (teacher_component_1_1) {
+                teacher_component_1 = teacher_component_1_1;
+            },
+            function (user_routes_1_1) {
+                user_routes_1 = user_routes_1_1;
             }],
-        execute: function () {
+        execute: function() {
             routes = [
                 {
                     path: '',
@@ -34,10 +40,18 @@ System.register(["@angular/router", "./login/login.component", "./homepage/homep
                     pathMatch: 'full'
                 },
                 {
-                    path: 'homepage/:status',
-                    component: homepage_component_1.HomepageComponent
+                    path: 'admin',
+                    component: admin_component_1.AdminComponent
+                },
+                {
+                    path: 'user',
+                    component: user_component_1.UserComponent
+                },
+                {
+                    path: 'teacher',
+                    component: teacher_component_1.TeacherComponent
                 }
-            ].concat(homepage_routes_1.HomepageRoutes);
+            ].concat(user_routes_1.UserRoutes);
             exports_1("APP_ROUTER_PROVIDERS", APP_ROUTER_PROVIDERS = [
                 router_1.provideRouter(routes)
             ]);

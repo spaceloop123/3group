@@ -1,0 +1,98 @@
+<div *ngIf="question.type==='test'">
+    <div class="row">
+        <div class="col s12 m5 l8 card-width offset-l1" align=center>
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.description}}</blockquote>
+                    </div>
+                    <p class="black-text">{{question.info}}</p>
+                </div>
+            </div>
+            <!--попытка 1-->
+            <!--form [formGroup]="mainFormGroup" action="#">
+
+                <p *ngFor="let control of mainFormGroup.controls.options.controls; let i of index">
+                    <input type="checkbox"
+                           [formControl]="control">
+                    <label>{{controlNames[i]}}</label>
+                </p>
+            </form-->
+
+            <!--попытка 2-->
+            <form action="#">
+                <p *ngFor="let option of question.opt; let i of index">
+                    <input id="f_{{i}}" type="checkbox" [checked]="option['checked']"
+                           (click)="changeCheckState(i)">
+                    <label [attr.for]="'f_'+i">{{option.name}}</label>
+                </p>
+            </form>
+
+            <!--попытка 3, плохая попытка-->
+            <!--span *ngFor="let option of opt; let i of index">
+                <input type="checkbox" id="{{option.id}}" (change)="checkbox(option.selected)"
+                 (change)="onChange(option.id,cv.checked)">
+                 {{option.name}},{{cv.checked}} <br>
+            </span-->
+
+             <button class="btn waves-effect waves-light left" type="submit" name="action">Send<i
+                    class="material-icons right">send</i></button>
+        </div>
+    </div>
+</div>
+<div *ngIf="question.type==='open'">
+    <div class="row">
+        <div class="col s12 m12 l9 offset-l1">
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.description}}</blockquote>
+                    </div>
+                    <div class="row">
+                        <div class="left">{{question.description}}
+                            <input placeholder="enter your answer" type="test" class="validate">
+                            {{question.info}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action">Send
+            <i class="material-icons right">send</i></button>
+    </div>
+</div>
+<div *ngIf="question.type==='listening'">
+    <div class="row">
+        <!--i class="large material-icons circle red">volume_up</i-->
+        <div class="col s12 m12 l9 offset-l1">
+            <blockquote>{{question.description}}</blockquote>
+        </div>
+    </div>
+    <div class="card-action center">
+        <!--a class="btn-floating btn-large grey">
+            <i class="material-icons">volume_up</i>
+        </a-->
+        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="playAydio()">listen
+        </button>
+    </div>
+</div>
+<div *ngIf="question.type==='reading'">
+    <div class="row">
+        <div class="col s12 m5 l8 card-width offset-l1" align=center>
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.description}}</blockquote>
+                    </div>
+                    <p class="black-text">{{question.info}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action">let's start<i
+                class="material-icons right">send</i></button>
+    </div>
+</div>
