@@ -1,51 +1,113 @@
 <div *ngIf="status==='teacher'">
-    <teacher-component></teacher-component>
-</div>
-
-<div *ngIf="status==='admin'">
-    <div class="container col m4 card-width" align=center>
-
-        <div class="card #fafafa grey lighten-5">
-            <div class="card-content" align=center>
-                <span class="card-title">Users control panel</span>
-            </div>
-            <div class="card-action" align=center>
-                <a class="waves-effect default btn start-button button-margin">Add user</a>
-                <a class="waves-effect default btn start-button button-margin">User info</a>
-            </div>
+    <div class="statistics-div">
+        <div class="col s4 m4 float-left"> Test Header
         </div>
-
-
-        <div class="card #fafafa grey lighten-5">
-            <div class="card-content" align=center>
-                <span class="card-title">Tests control panel</span>
-            </div>
-            <div class="card-action" align=center>
-                <a class="waves-effect default btn start-button button-margin">Create</a>
-                <a class="waves-effect default btn start-button button-margin">Modify</a>
+        <div class="check-button">
+            <div class="col s4 m4 "><a class="waves-effect default btn">Check</a>
             </div>
         </div>
     </div>
+    <div class="back-button">
+        <a class="waves-effect default btn">Back to menu</a>
+    </div>
+</div>
 
-    <div class="container col m8 " valign=top>
-        <div class="line-width">
-            <div>
-                <span class="text-title">Notifications</span>
+<div *ngIf="status==='admin'">
+    <div class="valign-wrapper">
+        <div class="container col m4 card-width" align=center>
+
+            <div class="card #fafafa grey lighten-5">
+                <div class="card-content" align=center >
+                    <span class="card-title">Users control panel</span>
+                </div>
+                <div class="card-action" align=center>
+                    <a class="waves-effect default btn start-button button-margin">Add user</a>
+                    <a class="waves-effect default btn start-button button-margin">User info</a>
+                </div>
             </div>
-            <span>User1 requests to get the test</span>
-            <a class="waves-effect default btn float-right button-margin">Decline</a>
-            <a class="waves-effect default btn float-right button-margin">Accept</a>
+
+
+            <div class="card #fafafa grey lighten-5">
+                <div class="card-content" align=center >
+                    <span class="card-title">Tests control panel</span>
+                </div>
+                <div class="card-action" align=center>
+                    <a class="waves-effect default btn start-button button-margin">Create</a>
+                    <a class="waves-effect default btn start-button button-margin">Modify</a>
+                </div>
+            </div>
         </div>
 
-        <div class="line-width">
-            <div class="text-title">Notifications</div>
-            <span>User2 requests to get the test</span>
-            <a class="waves-effect default btn float-right button-margin">Decline</a>
-            <a class="waves-effect default btn float-right button-margin">Accept</a>
+        <div class="container col m8 " valign=top>
+            <div class="line-width" >
+                <div>
+                    <span  class="text-title">Notifications</span>
+                </div>
+                <span>User1 requests to get the test</span>
+                <a class="waves-effect default btn float-right button-margin" >Decline</a>
+                <a class="waves-effect default btn float-right button-margin">Accept</a>
+            </div>
+
+            <div class="line-width" >
+                <div class="text-title">Notifications</div>
+                <span>User2 requests to get the test</span>
+                <a class="waves-effect default btn float-right button-margin" >Decline</a>
+                <a class="waves-effect default btn float-right button-margin">Accept</a>
+            </div>
         </div>
     </div>
 </div>
 
 <div *ngIf="status==='user'">
-     <user-component></user-component>
+    <div class="valign-wrapper ">
+        <div class="container ">
+            <div class="row ">
+
+                <div *ngIf="!availTest" class="col s12 m5 card-width" align=center>
+                    <div class="card #fafafa grey lighten-5 valign">
+                        <div class="card-content" align=center>
+                            <span class="card-title">Current Test</span>
+                            <p class="red-text">Nobody appointed you any test</p>
+                            <p class="card-content">You can ask for it</p>
+                        </div>
+                        <div class="card-action" align=center>
+                            <a class="waves-effect default btn">Ask</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="availTest" class="col s12 m5 card-width " align=center>
+                    <div class="card #fafafa grey lighten-5 valign">
+                        <div class="card-content" align=center>
+                            <span class="card-title">Current Test</span>
+                            <p class="green-text">At the end of the test you will get a percentage and an approximation
+                                of your level</p>
+                            <p class="card-content">At the end of the test you will get a percentage and an
+                                approximation of your level</p>
+                        </div>
+
+
+                        <div class="card-action" align=center>
+                            <a class="waves-effect default btn" [routerLink]="['/runTest']">Start</a>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="col s12 m5 offset-m2 card-width" align=center>
+                    <div class="card #fafafa grey lighten-5 ">
+                        <div class="card-content" align=center>
+                            <span class="card-title">Past Test</span>
+                            <p class="card-content">Check out your previous attempts</p>
+                        </div>
+                        <div class="card-action" align=center>
+                            <a class="waves-effect default btn" [routerLink]="['/showTests']">Show</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

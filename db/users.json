@@ -4,15 +4,33 @@
     "salt" : "e80c341815359dce184c521804a91ac4", 
     "username" : "admin", 
     "email" : "admin@gmail.com", 
-    "role" : "Admin", 
+    "role" : "admin", 
     "__v" : NumberInt(0)
 }
 { 
-    "_id" : ObjectId("577fde5f37b8df3041b2afc9"), 
-    "hash" : "29c06de5a16aefad34140f6c69113aab0514fe372bd66d4cac82a0be4f92b11854831ae3b511f541bfe094b3a4a902495c05eaca2f47fef8e9a9fd66862ea52c", 
-    "salt" : "f521922b6192481dfa6f41a5552693fe", 
-    "username" : "username", 
-    "email" : "username@gmail.com", 
-    "role" : "User", 
+    "_id" : ObjectId("5782a87a8ef025441931cb5b"), 
+    "email" : "a", 
+    "role" : "user", 
+    "hash" : "5212ecb1c77505544e4c0df5146fefb269975004b502527369c3389dd692eced724991a0252abc482aadea6d6c53ca25d66a8f685576e2f68ba857b981cedf67", 
+    "salt" : "0064d245017f3e57b9f571ec4aed8196", 
+    "username" : "user", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5782a8ae8ef025441931cb5d"), 
+    "email" : "b", 
+    "role" : "teacher", 
+    "hash" : "11b37961e2f3c1c5dd09610e1752b6ef5248ab04f1756aec5d2f03a003535390c0aebcee588e41608f338e4969e9330531a995e4e3405868ec03966562898908", 
+    "salt" : "f9611c2d5299275476d0acf23aa3f18f", 
+    "username" : "teacher", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5782a8c18ef025441931cb5e"), 
+    "email" : "c", 
+    "role" : "guest", 
+    "hash" : "97dc54ad078ca1499226f78ac392c6242f39ec16312a4af63c80c11382a953dc2374dd3b9c8fa5cb4845775ff7b99d9dbc1274f27ae9c1cbfcc59285195da817", 
+    "salt" : "7ce4d17ee17c75bcc7aa3524c1af7472", 
+    "username" : "guest", 
     "__v" : NumberInt(0)
 }

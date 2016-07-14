@@ -1,16 +1,15 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from "@angular/router";
 import {Http} from "@angular/http";
-import {TeacherComponent} from '../teacher/teacher.component';
-import {UserComponent} from "../user/user.component";
-
+import {TeacherComponent} from "../teacher/teacher.component";
+import {AdminComponent} from "../admin/admin.component";
 
 @Component({
     templateUrl: 'app/homepage/homepage.html',
+    directives: [ROUTER_DIRECTIVES, AdminComponent, TeacherComponent]
     //styleUrls: ['../assets/libs/materialize.css', ---does nothing
     //    '../assets/libs/materialize.min.css',],
 
-    directives: [ROUTER_DIRECTIVES, TeacherComponent, UserComponent]
 })
 
 export class HomepageComponent implements OnInit, OnDestroy {
@@ -39,7 +38,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
 
     getData() {
         var that = this;
-        this.http.get('/availtest')
+        this.http.get('/' + status + '/availtest')
             .toPromise()
             .then(response => that.availTest = response.json().data)
             .catch(this.handleError);

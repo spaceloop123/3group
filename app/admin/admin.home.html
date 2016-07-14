@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12 m5 l5">
+
+            <!-- Add a member -->
+
+            <div class="card grey lighten-5 ">
+                <div class="card-content black-text">
+                    <span class="card-title">Add a member</span>
+                    <div class="row">
+                        <form class="col s12" action="#">
+                            <p>
+                                <input [checked]="member.role === 'guest'" (click)="changeMemberType()"
+                                       name="member-type" type="radio" id="test1" class="with-gap"/>
+                                <label for="test1" class="black-text">Guest</label>
+                            </p>
+                            <p>
+                                <input [checked]="member.role === 'teacher'" (click)="changeMemberType()"
+                                       name="member-type" type="radio" id="test2" class="with-gap"/>
+                                <label for="test2" class="black-text">Teacher</label>
+                            </p>
+                        </form>
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="icon_prefix_login" type="text" class="validate"
+                                           [disabled]="member.role === 'guest'"
+                                           [(ngModel)]="member.username"/>
+                                    <label *ngIf="member.role === 'guest'"
+                                           for="icon_prefix_login">Auto-generated</label>
+                                    <label *ngIf="member.role === 'teacher'" for="icon_prefix_login">Login</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">vpn_key</i>
+                                    <input id="icon_prefix_password" type="text" class="validate"
+                                           [disabled]="member.role === 'guest'"
+                                           [(ngModel)]="member.password"/>
+                                    <label *ngIf="member.role === 'guest'"
+                                           for="icon_prefix_password">Auto-generated</label>
+                                    <label *ngIf="member.role === 'teacher'" for="icon_prefix_password">Password</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">email</i>
+                                    <input id="email" type="email" class="validate" [(ngModel)]="member.email"
+                                           required/>
+                                    <label for="email" data-error="wrong" data-success="right">Email</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-action" align="center">
+                    <a class="waves-effect waves-light btn" *ngIf="isMemberFieldsEmpty()" (click)="addUser()">add</a>
+                    <a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">add</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col s12 offset-m2 m5 offset-l2 l5">
+            <div class="collection-header"><h5>Notifications</h5></div>
+            <ul class="collection with-header grey lighten-5" id="notifications-list">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle red">error_outline</i>
+                    <span class="title">Error</span>
+                    <p>Error message<br>
+                    </p>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle yellow">new_releases</i>
+                    <span class="title">New test</span>
+                    <p>Click to assign a teacher to username<br>
+
+                    </p>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle green">done_all</i>
+                    <span class="title">Success</span>
+                    <p>User: Name<br>
+                        Teacher: Name
+                    </p>
+                </li>
+                <li class="divider"></li>
+            </ul>
+        </div>
+    </div>
+</div>
