@@ -1,0 +1,18 @@
+{ 
+    "_id" : ObjectId("577fde1a94f813304e821167"), 
+    "hash" : "1f37eb317789e00d3f907d69e0491efb12d924dc4e15fc62d346bf3cf429ab305298d9bf94bfe92c25aa1e72ce88459463b6d412173e5411bd2881e071b55407", 
+    "salt" : "e80c341815359dce184c521804a91ac4", 
+    "username" : "admin", 
+    "email" : "admin@gmail.com", 
+    "role" : "Admin", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("577fde5f37b8df3041b2afc9"), 
+    "hash" : "29c06de5a16aefad34140f6c69113aab0514fe372bd66d4cac82a0be4f92b11854831ae3b511f541bfe094b3a4a902495c05eaca2f47fef8e9a9fd66862ea52c", 
+    "salt" : "f521922b6192481dfa6f41a5552693fe", 
+    "username" : "username", 
+    "email" : "username@gmail.com", 
+    "role" : "User", 
+    "__v" : NumberInt(0)
+}
