@@ -9,16 +9,17 @@ import {Http, Headers} from "@angular/http";
 })
 
 export class AdminComponent {
+    private member;
+    private newMemberUrl = '/admin/new-';
+
     constructor(private http:Http) {
-
+        this.member = {
+            role: 'guest',
+            username: '',
+            password: '',
+            email: ''
+        };
     }
-
-    private member = {
-        role: 'guest',
-        username: '',
-        password: '',
-        email: ''
-    };
 
     changeMemberType() {
         if (this.member.role === 'guest') {
@@ -30,10 +31,20 @@ export class AdminComponent {
         }
     }
 
+    isMemberFieldsEmpty() {
+        if (this.member.role === 'guest') {
+            return this.member.email != '';
+        } else {
+            return (this.member.email != '' && this.member.username != '' && this.member.password != '');
+        }
+    }
+
     addUser() {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        console.log(this.http.post("/admin/new-" + this.member.role, JSON.stringify(this.member), {headers: headers})
+        console.log(this.http.post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), {headers: headers})
             .toPromise());
     }
+
+    
 }
