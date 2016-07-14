@@ -44,7 +44,8 @@
     "serve-favicon": "~2.3.0",
     "sugar": "^1.4.1",
     "systemjs": "0.19.27",
-    "zone.js": "^0.6.12"
+    "zone.js": "^0.6.12",
+    "tsd": "^0.6.5"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",

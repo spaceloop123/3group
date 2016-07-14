@@ -1,4 +1,6 @@
-import {Component} from "@angular/core";
+///<reference path="../../typings/jquery/jquery.d.ts" />
+
+import {Component, AfterViewInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {Http, Headers} from "@angular/http";
 
@@ -8,7 +10,7 @@ import {Http, Headers} from "@angular/http";
     directives: [ROUTER_DIRECTIVES]
 })
 
-export class AdminComponent {
+export class AdminComponent implements AfterViewInit {
     private member;
     private newMemberUrl = '/admin/new-';
 
@@ -19,6 +21,12 @@ export class AdminComponent {
             password: '',
             email: ''
         };
+    }
+
+    ngAfterViewInit():any {
+        $('.collapsible').collapsible({
+            accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
     }
 
     changeMemberType() {
@@ -46,5 +54,5 @@ export class AdminComponent {
             .toPromise());
     }
 
-    
+
 }

@@ -11,6 +11,7 @@
     "materialize-css": "node-modules/materialize-css",
     "materialize": "node_modules/angular2-materialize",
     "angular2-materialize": "node_modules/angular2-materialize",
+    'jquery': 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js',
     'rxjs':                       'node_modules/rxjs'
   };
   // packages tells the System loader how to load when no filename and/or no extension
@@ -19,6 +20,7 @@
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
     'angular2-materialize': {main: 'dist/index.js', defaultExtension: 'js'},
+    'jquery': {main: 'dist/jquery.js', defaultExtension: 'js'},
     "materialize-css": {
       "main": "dist/js/materialize"
     },
