@@ -1,6 +1,7 @@
 import {provideRouter, RouterConfig} from "@angular/router";
 import {LoginComponent} from "./login/login.component";
 import {HomepageComponent} from "./homepage/homepage.component";
+import {TeacherCheckingComponent} from './teacher/teacher-checking.component';
 import {HomepageRoutes} from "./homepage/homepage.routes";
 
 
@@ -22,6 +23,10 @@ const routes:RouterConfig = [
     {
         path: 'homepage/:status',
         component: HomepageComponent
+    },
+    {
+        path: 'check_test',
+        component: TeacherCheckingComponent
     },
     ...HomepageRoutes
 ];

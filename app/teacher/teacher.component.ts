@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {TestsListData} from './tests-list.data';
 import {CardsColorsData} from "./cards-colors.data";
 import {Http} from "@angular/http";
@@ -13,10 +13,12 @@ import {Http} from "@angular/http";
 
 export class TeacherComponent implements OnInit {
     private assignedTests;
+    public selectedTest;
     private color;
 
     constructor(private cardsColorsData:CardsColorsData,
                 private http:Http,
+                private router:Router,
                 private testsListData:TestsListData) {
     }
 
@@ -38,6 +40,11 @@ export class TeacherComponent implements OnInit {
         //     .toPromise()
         //     .then(response => that.assignedTests = response.json().data)
         //     .catch(this.handleError);
+    }
+
+    checkTest(test:TestsListData) {
+        this.selectedTest = test;
+        this.router.navigate(['/check_test']);
     }
 
     ngOnInit() {
