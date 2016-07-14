@@ -28,7 +28,7 @@ router.post('/new-guest', function (req, res, next) {
             role: 'guest',
             level: 0
         });
-        user.username = 'Guest' + count;
+        user.username = generateGuestName();
         user.setPassword('11111');
         user.save();
         res.end();
