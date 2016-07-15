@@ -1,20 +1,29 @@
-import {Component, OnInit} from '@angular/core';
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {TestsListData} from './tests-list.data';
-import {TeacherComponent} from './teacher.component';
 
 @Component({
     templateUrl: 'app/teacher/teacher-checking.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [TestsListData, TeacherComponent]
+    providers: [TestsListData]
 })
+export class TeacherCheckingComponent implements OnInit, OnDestroy{
 
-export class TeacherCheckingComponent implements OnInit {
+    public currentTest : any;
+    private sub;
 
-    constructor(private teacherComponent:TeacherComponent) {
-    }
+    constructor(private route:ActivatedRoute) {}
 
     ngOnInit() {
-        console.log(this.teacherComponent.selectedTest);
+        var that = this;
+        this.sub = this.route.params.subscribe(params => {
+            that.currentTest = params['name'];
+            console.log('that.currentTest ' + that.currentTest);
+        });
     }
+
+    ngOnDestroy():any {
+        this.sub.unsubscribe();
+    }
+
 }
