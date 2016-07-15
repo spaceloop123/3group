@@ -70,14 +70,14 @@ function addQuestion() {
     question5.save();
 }
 
-function getQuestion(type) {
+function getQuestion(res, type) {
     var questionTypes = [];
     questionTypes.test = TestQuestion;
     questionTypes.reading = ReadingQuestion;
     questionTypes.audition = AudioQuestion;
     questionTypes.speech = SpeechQuestion;
     questionTypes[type].findOne({type: type}, function (err, question) {
-        console.log(question.getQuestion());
+        res.send(question.getQuestion());
     });
 }
 
