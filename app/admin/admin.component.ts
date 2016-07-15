@@ -1,27 +1,20 @@
-///<reference path="../../typings/jquery/jquery.d.ts" />
-
-import {Component, AfterViewInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
+import {MaterializeDirective} from 'angular2-materialize';
 
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective]
 })
 
-export class AdminComponent implements AfterViewInit {
+export class AdminComponent {
     private member = {
         role: 'guest',
         username: '',
         password: '',
         email: ''
     };
-
-    ngAfterViewInit():any {
-        $('.collapsible').collapsible({
-            accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-        });
-    }
 
     changeMemberType() {
         if (this.member.role === 'guest') {
