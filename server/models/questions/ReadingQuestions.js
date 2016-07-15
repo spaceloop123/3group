@@ -1,25 +1,16 @@
 var mongoose = require('mongoose');
-var sugar = require('sugar');
-var Question = require('./Questions').QuestionInterface;
-var TestQuestion = mongoose.model('TestQuestion');
 
-var ReadingQuestion = {
+var ReadingQuestionsSchema = new mongoose.Schema({
     text: {type: String, required: true},
-    subQuestions: [{type: mongoose.Schema.Types.Mixed, ref: 'Question', required: true}]
-};
-
-var ReadingQuestionsSchema = new mongoose.Schema(Object.extended(Question).merge(ReadingQuestion));
+    subQuestions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question', required: true}]
+}, {
+    discriminatorKey: 'type'
+});
 
 ReadingQuestionsSchema.methods.getQuestion = function () {
     var subQuestions = [];
     this.subQuestions.forEach(function (subQuestion, arr) {
-        var question;
-        switch(subQuestion.type) {
-            case 'test':
-                question = new TestQuestion(subQuestion);
-                break;
-        }
-        subQuestions.push(question.getQuestion());
+        subQuestions.push(subQuestion.getQuestion());
     });
     return {
         type: this.type,
@@ -29,4 +20,4 @@ ReadingQuestionsSchema.methods.getQuestion = function () {
     }
 };
 
-mongoose.model('ReadingQuestion', ReadingQuestionsSchema);
+mongoose.model('Question').discriminator('ReadingQuestion', ReadingQuestionsSchema);

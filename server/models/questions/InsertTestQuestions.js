@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-var sugar = require('sugar');
-var Question = require('./Questions').QuestionInterface;
 
 var InsertTestQuestion = {
     questionParts: {type: [String], required: true},
@@ -8,7 +6,11 @@ var InsertTestQuestion = {
     correctAnswer: {type: String, required: true}
 };
 
-var InsertTestQuestionSchema = new mongoose.Schema(Object.extended(Question).merge(InsertTestQuestion));
+var InsertTestQuestionSchema = new mongoose.Schema({
+    questionParts: {type: [String], required: true},
+    answers: {type: [String], required: true},
+    correctAnswer: {type: String, required: true}
+});
 
 InsertTestQuestionSchema.methods.getQuestion = function () {
     return {
@@ -19,4 +21,4 @@ InsertTestQuestionSchema.methods.getQuestion = function () {
     };
 };
 
-mongoose.model('InsertTestQuestion', InsertTestQuestionSchema);
+mongoose.model('Question').discriminator('InsertTestQuestion', InsertTestQuestionSchema);

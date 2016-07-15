@@ -1,12 +1,10 @@
 var mongoose = require('mongoose');
-var sugar = require('sugar');
-var Question = require('./Questions').QuestionInterface;
 
-var OpenQuestion = {
+var OpenQuestionSchema = new mongoose.Schema({
     question: {type: String, required: true}
-};
-
-var OpenQuestionSchema = new mongoose.Schema(Object.extended(Question).merge(OpenQuestion));
+}, {
+    discriminatorKey: 'type'
+});
 
 OpenQuestionSchema.methods.getQuestion = function () {
     return {
@@ -16,4 +14,4 @@ OpenQuestionSchema.methods.getQuestion = function () {
     };
 };
 
-mongoose.model('OpenQuestion', OpenQuestionSchema); 
+mongoose.model('Question').discriminator('OpenQuestion', OpenQuestionSchema); 
