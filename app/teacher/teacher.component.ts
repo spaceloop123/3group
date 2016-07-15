@@ -3,18 +3,19 @@ import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {TestsListData} from './tests-list.data';
 import {CardsColorsData} from "./cards-colors.data";
 import {Http} from "@angular/http";
+//import {TeacherCheckingComponent} from './teacher-checking.component';
 
 @Component({
     selector: 'teacher-component',
     templateUrl: 'app/teacher/teacher-home.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [CardsColorsData, TestsListData]
+    providers: [CardsColorsData, TestsListData]//,
+    //precompile: [TeacherCheckingComponent]
 })
 
 export class TeacherComponent implements OnInit {
     private assignedTests;
     public selectedTest;
-    private color;
 
     constructor(private cardsColorsData:CardsColorsData,
                 private http:Http,
@@ -44,7 +45,7 @@ export class TeacherComponent implements OnInit {
 
     checkTest(test:TestsListData) {
         this.selectedTest = test;
-        this.router.navigate(['/check_test']);
+        //this.router.navigate(['/check_test']);
     }
 
     ngOnInit() {
