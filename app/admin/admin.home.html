@@ -1,9 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col s12 m5 l5">
-
-            <!-- Add a member -->
-
+        <div class="col s12 m4 l4">
             <div class="card grey lighten-5 ">
                 <div class="card-content black-text">
                     <span class="card-title">Add a member</span>
@@ -26,7 +23,8 @@
                                     <i class="material-icons prefix">account_circle</i>
                                     <input id="icon_prefix_login" type="text" class="validate"
                                            [disabled]="member.role === 'guest'"
-                                           [(ngModel)]="member.username"/>
+                                           [(ngModel)]="member.username"
+                                    />
                                     <label *ngIf="member.role === 'guest'"
                                            for="icon_prefix_login">Auto-generated</label>
                                     <label *ngIf="member.role === 'teacher'" for="icon_prefix_login">Login</label>
@@ -35,32 +33,45 @@
                                     <i class="material-icons prefix">vpn_key</i>
                                     <input id="icon_prefix_password" type="text" class="validate"
                                            [disabled]="member.role === 'guest'"
-                                           [(ngModel)]="member.password"/>
+                                           [(ngModel)]="member.password"
+                                    />
                                     <label *ngIf="member.role === 'guest'"
                                            for="icon_prefix_password">Auto-generated</label>
                                     <label *ngIf="member.role === 'teacher'" for="icon_prefix_password">Password</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">email</i>
-                                    <input id="email" type="email" class="validate" [(ngModel)]="member.email"
-                                           required/>
+                                    <input id="email" type="email" class="validate" [(ngModel)]="member.email">
                                     <label for="email" data-error="wrong" data-success="right">Email</label>
                                 </div>
                             </div>
                         </form>
+                        {{member | json}}
                     </div>
                 </div>
-                <div class="card-action" align="center">
-                    <a class="waves-effect waves-light btn" *ngIf="isMemberFieldsEmpty()" (click)="addUser()">add</a>
-                    <a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">add</a>
+                <div class="card-action">
+                    <a href="#">Accept</a>
                 </div>
             </div>
-
         </div>
 
-        <div class="col s12 offset-m2 m5 offset-l2 l5">
+        <div class="col s12 offset-m1 m7 offset-l1 l7">
             <div class="collection-header"><h5>Notifications</h5></div>
-            <ul class="collection with-header grey lighten-5" id="notifications-list">
+            <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                </li>
+            </ul>
+            <!--<ul class="collection with-header grey lighten-5" id="notifications-list">
                 <li class="collection-item avatar">
                     <i class="material-icons circle red">error_outline</i>
                     <span class="title">Error</span>
@@ -82,7 +93,7 @@
                     </p>
                 </li>
                 <li class="divider"></li>
-            </ul>
+            </ul>-->
         </div>
     </div>
 </div>
