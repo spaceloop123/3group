@@ -12,6 +12,8 @@ var mdlwares = require('../libs/mdlwares');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+//    addQuestion();
+//    getQuestion('speech');
     res.render('index');
 });
 
@@ -68,14 +70,14 @@ function addQuestion() {
     question5.save();
 }
 
-function getQuestion(res, type) {
+function getQuestion(type) {
     var questionTypes = [];
     questionTypes.test = TestQuestion;
     questionTypes.reading = ReadingQuestion;
     questionTypes.audition = AudioQuestion;
     questionTypes.speech = SpeechQuestion;
     questionTypes[type].findOne({type: type}, function (err, question) {
-        res.send(question.getQuestion());
+        console.log(question.getQuestion());
     });
 }
 

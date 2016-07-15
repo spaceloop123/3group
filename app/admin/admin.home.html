@@ -1,9 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col s12 m5 l5">
-
-            <!-- Add a member -->
-
+        <div class="col s12 m4 l4">
             <div class="card grey lighten-5 ">
                 <div class="card-content black-text">
                     <span class="card-title">Add a member</span>
@@ -49,20 +46,18 @@
                                 </div>
                             </div>
                         </form>
+                        {{member | json}}
                     </div>
                 </div>
-                <div class="card-action" align="center">
-                    <a class="waves-effect waves-light btn" *ngIf="isMemberFieldsEmpty()" (click)="addUser()">add</a>
-                    <a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">add</a>
+                <div class="card-action">
+                    <a href="#">Accept</a>
                 </div>
             </div>
-
         </div>
 
-        <div class="col s12 offset-m2 m5 offset-l2 l5">
+        <div class="col s12 offset-m1 m7 offset-l1 l7">
             <div class="collection-header"><h5>Notifications</h5></div>
-            <ul class="collection with-header grey lighten-5" id="notifications-list">
-            <ul id="testAccordion" class="collapsible" data-collapsible="accordion">
+            <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
                 <li>
                     <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
                     <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
@@ -98,7 +93,7 @@
                     </p>
                 </li>
                 <li class="divider"></li>
-            </ul>
+            </ul>-->
         </div>
     </div>
 </div>
