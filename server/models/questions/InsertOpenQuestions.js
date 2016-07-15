@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
-var sugar = require('sugar');
-var Question = require('./Questions').QuestionInterface;
 
 var InsertOpenQuestion = {
     questionParts: {type: [String], required: true}
 };
 
-var InsertOpenQuestionSchema = new mongoose.Schema(Object.extended(Question).merge(InsertOpenQuestion));
+var InsertOpenQuestionSchema = new mongoose.Schema({
+    questionParts: {type: [String], required: true}
+});
 
 InsertOpenQuestionSchema.methods.getQuestion = function () {
     return {
@@ -16,4 +16,4 @@ InsertOpenQuestionSchema.methods.getQuestion = function () {
     };
 };
 
-mongoose.model('InsertOpenQuestion', InsertOpenQuestionSchema); 
+mongoose.model('Question').discriminator('InsertOpenQuestion', InsertOpenQuestionSchema); 

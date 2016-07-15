@@ -5,10 +5,7 @@ var User = mongoose.model('User');
 var Question = mongoose.model('Question');
 var AudioQuestion = mongoose.model('AudioQuestion');
 var TestQuestion = mongoose.model('TestQuestion');
-var ReadingQuestion = mongoose.model('ReadingQuestion');
-var SpeechQuestion = mongoose.model('SpeechQuestion');
-
-var mdlwares = require('../libs/mdlwares');
+var OpenQuestion = mongoose.model('OpenQuestion');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -20,7 +17,6 @@ function addQuestion() {
         header: 'Choose the correct variant',
         difficulty: 5,
         maxCost: 10,
-        type: 'test',
         question: 'My mother _____ to stay with us next weekend.',
         answers: ['a. comes', 'b. is coming', 'c. came'],
         correctAnswer: 'a'
@@ -29,7 +25,6 @@ function addQuestion() {
         header: 'Choose the correct variant',
         difficulty: 5,
         maxCost: 10,
-        type: 'test',
         question: 'Be careful, you’ve made _____.',
         answers: ['a. the mistake', 'b. mistake', 'c. a mistake'],
         correctAnswer: 'a'
@@ -38,7 +33,6 @@ function addQuestion() {
         header: 'Choose the correct variant',
         difficulty: 5,
         maxCost: 10,
-        type: 'test',
         question: 'Can you explain this word _____me?',
         answers: ['a. for', 'b. to', 'c. by'],
         correctAnswer: 'a'
@@ -47,7 +41,6 @@ function addQuestion() {
         header: 'Choose the correct variant',
         difficulty: 5,
         maxCost: 10,
-        type: 'test',
         question: 'There is _____waiting for you in the lobby.',
         answers: ['a. anybody', 'b. somebody', 'c. nobody'],
         correctAnswer: 'b'
@@ -56,16 +49,42 @@ function addQuestion() {
         header: 'Choose the correct variant',
         difficulty: 5,
         maxCost: 10,
-        type: 'test',
         question: 'I didn’t hear the alarm clock and slept until eight _____.',
         answers: ['a. hour', 'b. o’clock', 'c. hours'],
         correctAnswer: 'b'
     });
+    var q6 = new OpenQuestion({
+        header: 'Write the correct variant',
+        difficulty: 5,
+        maxCost: 10,
+        question: 'I didn’t hear the alarm clock and slept until eight _____.',
+    });
+    var q7 = new OpenQuestion({
+        header: 'Write the correct variant',
+        difficulty: 5,
+        maxCost: 10,
+        question: 'I didn’t clock and slept until eight _____.',
+    });
+    var q8 = new AudioQuestion({
+        header: 'Listen the story',
+        difficulty: 5,
+        maxCost: 10,
+        path: 'здесь будет путь к файлу'
+    });
+    q8.subQuestions.push(question2.id);
+    q8.subQuestions.push(question3.id);
+    q8.subQuestions.push(q6.id);
+    question2.parent = q8.id;
+    question3.parent = q8.id;
+    q6.parent = q8.id;
     question1.save();
     question2.save();
     question3.save();
     question4.save();
     question5.save();
+    q6.save();
+    q7.save();
+    q8.save();
 }
 
 function getQuestion(res, type) {
@@ -78,5 +97,12 @@ function getQuestion(res, type) {
         res.send(question.getQuestion());
     });
 }
+
+router.get('/qtest', function (req, res) {
+    Question.findOne({parent: undefined, type: 'AudioQuestion'}).populate('subQuestions').exec(function (err, q) {
+        console.log(q.getQuestion());
+    });
+    res.end();
+});
 
 module.exports = router;

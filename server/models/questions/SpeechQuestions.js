@@ -1,12 +1,10 @@
 var mongoose = require('mongoose');
-var sugar = require('sugar');
-var Question = require('./Questions').QuestionInterface;
 
-var SpeechQuestion = {
+var SpeechQuestionsSchema = new mongoose.Schema({
     question: {type: String, required: true}
-};
-
-var SpeechQuestionsSchema = new mongoose.Schema(Object.extended(Question).merge(SpeechQuestion));
+}, {
+    discriminatorKey: 'type'
+});
 
 SpeechQuestionsSchema.methods.getQuestion = function () {
     return {
@@ -16,4 +14,4 @@ SpeechQuestionsSchema.methods.getQuestion = function () {
     };
 };
 
-mongoose.model('SpeechQuestion', SpeechQuestionsSchema);
+mongoose.model('Question').discriminator('SpeechQuestion', SpeechQuestionsSchema);
