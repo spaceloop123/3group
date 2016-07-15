@@ -19,4 +19,4 @@ TestQuestionsSchema.methods.getQuestion = function () {
     };
 };
 
-mongoose.model('TestQuestion', TestQuestionsSchema);
+mongoose.model('TestQuestion', TestQuestionsSchema); 

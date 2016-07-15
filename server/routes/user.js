@@ -9,7 +9,7 @@ router.get('/test', function(req, res, next) {
 });
 
 router.get('/testinfo', function (req, res, next) {
-   res.send({testStatus: 'availTest'});
+    res.send({testStatus: 'availTest'});
 });
 
 module.exports = router;

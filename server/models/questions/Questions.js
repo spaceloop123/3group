@@ -4,7 +4,7 @@ var QuestionInterface = {
     header: {type: String, required: true},
     difficulty: {type: Number},
     maxCost: {type: Number},
-    type: {type: String, enum: ['test', 'open', 'insertTest', 'insertOpen', 'reading', 'audition', 'speech', 'essay'], required: true}
+    type: {type: String, enum: ['test', 'open', 'reading', 'audition', 'speech', 'essay'], required: true}
 };
 
 var QuestionSchema = new mongoose.Schema(QuestionInterface);
