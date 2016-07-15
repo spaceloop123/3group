@@ -18,7 +18,7 @@
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
-    'jquery':                     { main: 'dist/jquery.min.js', defaultExtension: 'js', format: 'global'},
+    'jquery':                     { main: 'dist/jquery.min.js', defaultExtension: 'js'},
     'materialize':                { main: 'dist/js/materialize.min.js', defaultExtension: 'js', format: 'global'},
     'angular2-materialize':       { main: 'dist/index.js', defaultExtension: 'js' }
   };
