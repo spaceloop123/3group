@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
 
     getTestInfo() {
         var that = this;
-        this.http.get('/user/testInfo')
+        this.http.get('/testInfo')
             .toPromise()
             .then(response => that.testInfo = response.json().testStatusInfo)
             .catch(that.handleError);
