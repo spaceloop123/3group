@@ -9,8 +9,6 @@ var OpenQuestion = mongoose.model('OpenQuestion');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-//    addQuestion();
-//    getQuestion('speech');
     res.render('index');
 });
 
@@ -89,7 +87,7 @@ function addQuestion() {
     q8.save();
 }
 
-function getQuestion(res, type) {
+function getQuestion(type) {
     var questionTypes = [];
     questionTypes.test = TestQuestion;
     questionTypes.reading = ReadingQuestion;
