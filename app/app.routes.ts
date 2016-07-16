@@ -25,7 +25,7 @@ const routes:RouterConfig = [
         component: HomepageComponent
     },
     {
-        path: 'teacher/check_test/:name',
+        path: 'teacher/check_test/:id',
         component: TeacherCheckingComponent
     },
     ...HomepageRoutes

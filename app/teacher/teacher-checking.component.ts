@@ -17,7 +17,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy{
     ngOnInit() {
         var that = this;
         this.sub = this.route.params.subscribe(params => {
-            that.currentTest = params['name'];
+            that.currentTest = params['id'];
             console.log('that.currentTest ' + that.currentTest);
         });
     }

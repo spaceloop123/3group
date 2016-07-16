@@ -4,28 +4,34 @@ export class TestsListData {
 
     public ASSIGNED_TESTS = [
         {
-            name: 'Test1',
-            descr: 'descr1'
+            id: 1,
+            name: "Test1",
+            descr: "descr1"
         },
         {
-            name: 'Test2',
-            descr: 'descr2'
+            id: 2,
+            name: "Test2",
+            descr: "descr2"
         },
         {
-            name: 'Test3',
-            descr: 'descr3'
+            id: 3,
+            name: "Test3",
+            descr: "descr3"
         },
         {
-            name: 'Test4',
-            descr: 'descr4'
+            id: 4,
+            name: "Test4",
+            descr: "descr4"
         },
         {
-            name: 'Test5',
-            descr: 'descr5'
+            id: 5,
+            name: "Test5",
+            descr: "descr5"
         },
         {
-            name: 'Test6',
-            descr: 'descr6'
+            id: 6,
+            name: "Test6",
+            descr: "descr6"
         }
     ]
 
