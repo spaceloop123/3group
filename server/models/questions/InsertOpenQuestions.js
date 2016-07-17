@@ -1,11 +1,9 @@
 var mongoose = require('mongoose');
 
-var InsertOpenQuestion = {
-    questionParts: {type: [String], required: true}
-};
-
 var InsertOpenQuestionSchema = new mongoose.Schema({
     questionParts: {type: [String], required: true}
+}, {
+    discriminatorKey: 'type'
 });
 
 InsertOpenQuestionSchema.methods.getQuestion = function () {

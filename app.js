@@ -16,6 +16,9 @@ require('./server/models/questions/AudioQuestions');
 require('./server/models/questions/ReadingQuestions');
 require('./server/models/questions/SpeechQuestions');
 require('./server/models/questions/OpenQuestions');
+require('./server/models/questions/InsertTestQuestions');
+require('./server/models/questions/InsertOpenQuestions');
+require('./server/models/TestTemplate');
 
 mongoose.connect("mongodb://localhost/test");
 

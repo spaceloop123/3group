@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var TestTemplateSchema = new mongoose.Schema({
-    questions: [{type: mongoose.Schema.Types.Mixed, required: true}]
+    questions: {type: [String], required: true}
 });
 
 mongoose.model('TestTemplate', TestTemplateSchema);
