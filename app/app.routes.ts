@@ -1,8 +1,10 @@
 import {provideRouter, RouterConfig} from "@angular/router";
 import {LoginComponent} from "./login/login.component";
-import {HomepageComponent} from "./homepage/homepage.component";
-import {TeacherCheckingComponent} from './teacher/teacher-checking.component';
-import {HomepageRoutes} from "./homepage/homepage.routes";
+import {TeacherComponent} from "./teacher/teacher.component";
+import {UserComponent} from "./user/user.component";
+import {AdminComponent} from "./admin/admin.component";
+import {UserRoutes} from "./user/user.routes";
+import {RunTestComponent} from "./user/runTest/runTest.component";
 
 
 const routes:RouterConfig = [
@@ -21,14 +23,18 @@ const routes:RouterConfig = [
         pathMatch: 'full'
     },
     {
-        path: 'homepage/:status',
-        component: HomepageComponent
+        path: 'admin',
+        component: AdminComponent
     },
     {
-        path: 'check_test',
-        component: TeacherCheckingComponent
+        path: 'user',
+        component: UserComponent
     },
-    ...HomepageRoutes
+    {
+        path: 'teacher',
+        component: TeacherComponent
+    },
+    ...UserRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [

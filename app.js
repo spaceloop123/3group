@@ -64,7 +64,7 @@ app.use('/', routes);
 app.use('/users', users);
 
 app.post('/login', auth.login);
-app.get('/logout', auth.logout);
+//app.get('/logout', auth.logout);
 
 app.use(mdlwares.isAuthenticated);
 
