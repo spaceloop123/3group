@@ -5,7 +5,7 @@ import {Http} from "@angular/http";
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, UserComponent],
 })
 
 export class UserComponent implements OnInit {
