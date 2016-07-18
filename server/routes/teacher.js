@@ -6,22 +6,23 @@ var mdlwares = require('../libs/mdlwares');
 
 router.use(mdlwares.isTeacher);
 
-router.get('/tests', function(req, res, next) {
+router.get('/tests', function (req, res, next) {
     Test.find({teacher: req.user.username, status: 'checked'}, function (err, tests) {
         var response = [];
-        if(tests != undefined) {
+
+        if (tests != undefined) {
             tests.forEach(function (test, tests) {
                 response.push(test.getTestInfo());
             });
         }
-        res.send(response);
+        res.send(JSON.stringify(response));
     });
 });
 
 router.post('/check_test', function (req, res, next) {
-    Test.findOne({id: req.body.id}, function(err, test) {
+    Test.findOne({id: req.body.id}, function (err, test) {
         var response;
-        if(test != null)
+        if (test != null)
             response = test.getAnswers();
         res.send(response);
     });
