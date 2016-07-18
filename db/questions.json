@@ -12,7 +12,6 @@
     ], 
     "questionParts" : [
         "My mother ", 
-        "", 
         " to stay with us next weekend."
     ], 
     "__v" : NumberInt(0)
@@ -31,7 +30,6 @@
     ], 
     "questionParts" : [
         "Be careful, you’ve made ", 
-        "", 
         " ."
     ], 
     "__v" : NumberInt(0)
@@ -50,7 +48,6 @@
     ], 
     "questionParts" : [
         "Can you explain this word ", 
-        "", 
         " me?"
     ], 
     "__v" : NumberInt(0)
@@ -69,7 +66,6 @@
     ], 
     "questionParts" : [
         "There is ", 
-        "", 
         " waiting for you in the lobby."
     ], 
     "__v" : NumberInt(0)
@@ -88,7 +84,6 @@
     ], 
     "questionParts" : [
         "I didn’t hear the alarm clock and slept until eight ", 
-        "", 
         " ."
     ], 
     "__v" : NumberInt(0)
