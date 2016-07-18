@@ -30,9 +30,8 @@ export class TeacherComponent implements OnInit {
 
     private generateRandomColor = function () {
         //generates whole color name randomly
-        this.randomColorLeft = this.cardsColorsData.CARDS_COLORS_LEFT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_LEFT.length)];
-        this.randomColorRight = this.cardsColorsData.CARDS_COLORS_RIGHT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_RIGHT.length)];
-        return (this.randomColorLeft + " " + this.randomColorRight);
+        this.randomColor = this.cardsColorsData.CARDS_COLORS_NEUTRAL[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_NEUTRAL.length)];
+        return (this.randomColor);
     }
 
     getTests() {
