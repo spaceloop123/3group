@@ -15,7 +15,7 @@ AudioQuestionsSchema.methods.getQuestion = function () {
     return {
         type: this.type,
         header: this.header,
-        file: 'Здесь будет файл',
+        file: path,
         subQuestions: subQuestions
     };
 };

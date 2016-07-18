@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Test = mongoose.model('Test');
 var mdlwares = require('../libs/mdlwares');
 
 router.use(mdlwares.isAdmin);
@@ -33,6 +34,9 @@ router.post('/new-guest', function (req, res, next) {
         user.save();
         res.end();
     });
+});
+
+router.post('/new-test', function (req, res, next) {
 });
 
 module.exports = router;
