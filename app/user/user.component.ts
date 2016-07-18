@@ -16,8 +16,8 @@ export class UserComponent implements OnInit {
                 private http:Http) {
         this.testInfo = {
             status: '',
-            time: '',
-            numQuestions: ''
+            time: '20 min',//'',
+            numQuestions: '50'//''
         };
 
     }
@@ -61,9 +61,4 @@ export class UserComponent implements OnInit {
         return Promise.reject(error.message || error);
     }
 }
-
-
-
-
-
 
