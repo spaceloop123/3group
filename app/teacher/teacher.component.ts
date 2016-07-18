@@ -43,6 +43,8 @@ export class TeacherComponent implements OnInit {
         for (let i = 0; i < this.assignedTests.length; i++) {
             this.assignedTests[i].color = this.generateRandomColor();
         }
+
+
         console.log(this.assignedTests);
 
         return(this.assignedTests);

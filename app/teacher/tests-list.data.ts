@@ -7,12 +7,12 @@ export class TestsListData {
             id: 1,
             name: "Test1",
             descr: "descr1"
-        },
+        }/*,
         {
             id: 2,
             name: "Test2",
             descr: "descr2"
-        },
+        }*//*,,
         {
             id: 3,
             name: "Test3",
@@ -32,7 +32,7 @@ export class TestsListData {
             id: 6,
             name: "Test6",
             descr: "descr6"
-        }
+        }*/
     ]
 
 }
