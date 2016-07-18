@@ -1,95 +1,246 @@
 { 
-    "_id" : ObjectId("5788d4f84326812428e6c0ba"), 
-    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
+    "_id" : ObjectId("578be43e2c3bf5583fb3ca8a"), 
     "header" : "Choose the correct variant", 
     "difficulty" : NumberInt(5), 
     "maxCost" : NumberInt(10), 
-    "question" : "Be careful, you’ve made _____.", 
-    "correctAnswer" : "a", 
-    "type" : "TestQuestion", 
+    "correctAnswer" : "comes", 
+    "type" : "InsertTestQuestion", 
     "answers" : [
-        "a. the mistake", 
-        "b. mistake", 
-        "c. a mistake"
+        "comes", 
+        "is coming", 
+        "came"
+    ], 
+    "questionParts" : [
+        "My mother ", 
+        "", 
+        " to stay with us next weekend."
     ], 
     "__v" : NumberInt(0)
 }
 { 
-    "_id" : ObjectId("5788d4f84326812428e6c0bb"), 
-    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
+    "_id" : ObjectId("578be43e2c3bf5583fb3ca8b"), 
     "header" : "Choose the correct variant", 
     "difficulty" : NumberInt(5), 
     "maxCost" : NumberInt(10), 
-    "question" : "Can you explain this word _____me?", 
-    "correctAnswer" : "a", 
-    "type" : "TestQuestion", 
+    "correctAnswer" : "the mistake", 
+    "type" : "InsertTestQuestion", 
     "answers" : [
-        "a. for", 
-        "b. to", 
-        "c. by"
+        "the mistake", 
+        "mistake", 
+        "a mistake"
+    ], 
+    "questionParts" : [
+        "Be careful, you’ve made ", 
+        "", 
+        " ."
     ], 
     "__v" : NumberInt(0)
 }
 { 
-    "_id" : ObjectId("5788d4f84326812428e6c0bc"), 
+    "_id" : ObjectId("578be43e2c3bf5583fb3ca8c"), 
     "header" : "Choose the correct variant", 
     "difficulty" : NumberInt(5), 
     "maxCost" : NumberInt(10), 
-    "question" : "There is _____waiting for you in the lobby.", 
-    "correctAnswer" : "b", 
-    "type" : "TestQuestion", 
+    "correctAnswer" : "for", 
+    "type" : "InsertTestQuestion", 
     "answers" : [
-        "a. anybody", 
-        "b. somebody", 
-        "c. nobody"
+        "for", 
+        "to", 
+        "by"
+    ], 
+    "questionParts" : [
+        "Can you explain this word ", 
+        "", 
+        " me?"
     ], 
     "__v" : NumberInt(0)
 }
 { 
-    "_id" : ObjectId("5788d4f84326812428e6c0bd"), 
+    "_id" : ObjectId("578be43e2c3bf5583fb3ca8d"), 
     "header" : "Choose the correct variant", 
     "difficulty" : NumberInt(5), 
     "maxCost" : NumberInt(10), 
-    "question" : "I didn’t hear the alarm clock and slept until eight _____.", 
-    "correctAnswer" : "b", 
-    "type" : "TestQuestion", 
+    "correctAnswer" : "somebody", 
+    "type" : "InsertTestQuestion", 
     "answers" : [
-        "a. hour", 
-        "b. o’clock", 
-        "c. hours"
+        "anybody", 
+        "somebody", 
+        "nobody"
+    ], 
+    "questionParts" : [
+        "There is ", 
+        "", 
+        " waiting for you in the lobby."
     ], 
     "__v" : NumberInt(0)
 }
 { 
-    "_id" : ObjectId("5788d4f84326812428e6c0be"), 
-    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
-    "header" : "Write the correct variant", 
+    "_id" : ObjectId("578be465336e2c042d4bc7a7"), 
+    "header" : "Choose the correct variant", 
     "difficulty" : NumberInt(5), 
     "maxCost" : NumberInt(10), 
-    "question" : "I didn’t hear the alarm clock and slept until eight _____.", 
-    "type" : "OpenQuestion", 
+    "correctAnswer" : "o’clock", 
+    "type" : "InsertTestQuestion", 
+    "answers" : [
+        "hour", 
+        "o’clock", 
+        "hours"
+    ], 
+    "questionParts" : [
+        "I didn’t hear the alarm clock and slept until eight ", 
+        "", 
+        " ."
+    ], 
     "__v" : NumberInt(0)
 }
 { 
-    "_id" : ObjectId("5788d4f84326812428e6c0bf"), 
-    "header" : "Write the correct variant", 
-    "difficulty" : NumberInt(5), 
-    "maxCost" : NumberInt(10), 
-    "question" : "I didn’t clock and slept until eight _____.", 
-    "type" : "OpenQuestion", 
+    "_id" : ObjectId("578be9187b2344c02ce59a8e"), 
+    "header" : "Read the story", 
+    "difficulty" : NumberInt(10), 
+    "text" : "I found the puppy by the roadside one summer evening. I had no idea how much trouble a growing dog could cause. mMy cleaning and repair bills doubled. I could never be sure of finding an undamaged pair of shoes and an unchewed copy of the astropfysical journal. But finally, the puppy became a well-trained dog. She was the only dog that was ever allowed to come into the Observatory. She lay there quietly for hours while I was busy, quite happy if she could hear my voice from time to time. The other astronomers also became fond of her, but from the beginning she was my dog, and obeyes no one else. Not that she always obeyed me.", 
+    "type" : "ReadingQuestion", 
+    "subQuestions" : [
+        ObjectId("578be9187b2344c02ce59a8f"), 
+        ObjectId("578be9187b2344c02ce59a90"), 
+        ObjectId("578be9187b2344c02ce59a91"), 
+        ObjectId("578be9187b2344c02ce59a92"), 
+        ObjectId("578be9187b2344c02ce59a93")
+    ], 
     "__v" : NumberInt(0)
 }
 { 
-    "_id" : ObjectId("5788d4f84326812428e6c0c0"), 
-    "header" : "Listen the story", 
-    "difficulty" : NumberInt(5), 
+    "_id" : ObjectId("578be9187b2344c02ce59a8f"), 
+    "header" : "Mark the statements below as TRUE or FALSE", 
     "maxCost" : NumberInt(10), 
-    "path" : "здесь будет путь к файлу", 
+    "question" : "The puppy often damaged the narrator’s shoes and journals.", 
+    "correctAnswer" : "FALSE", 
+    "parent" : ObjectId("578be9187b2344c02ce59a8e"), 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "TRUE", 
+        "FALSE"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578be9187b2344c02ce59a90"), 
+    "header" : "Mark the statements below as TRUE or FALSE", 
+    "maxCost" : NumberInt(10), 
+    "question" : "Dogs weren’t generally allowed to come into the Observatory.", 
+    "correctAnswer" : "TRUE", 
+    "parent" : ObjectId("578be9187b2344c02ce59a8e"), 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "TRUE", 
+        "FALSE"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578be9187b2344c02ce59a91"), 
+    "header" : "Mark the statements below as TRUE or FALSE", 
+    "maxCost" : NumberInt(10), 
+    "question" : "The dog obeyed the narrator only.", 
+    "correctAnswer" : "TRUE", 
+    "parent" : ObjectId("578be9187b2344c02ce59a8e"), 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "TRUE", 
+        "FALSE"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578be9187b2344c02ce59a92"), 
+    "header" : "Choose the appropriate Russian equivalents for the following English phrases and sentences", 
+    "maxCost" : NumberInt(10), 
+    "question" : "I had no idea how much trouble a growing dog could cause.", 
+    "correctAnswer" : "Я не представлял, сколько хлопот может доставить подрастающая собака.", 
+    "parent" : ObjectId("578be9187b2344c02ce59a8e"), 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "Я не представлял, что подрастающая собака доставляет одни хлопоты.", 
+        "Я не представлял, сколько хлопот может доставить подрастающая собака.", 
+        "Я не думал, что вырастить собаку доставит мне много хлопот."
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578be9187b2344c02ce59a93"), 
+    "header" : "Choose the appropriate Russian equivalents for the following English phrases and sentences", 
+    "maxCost" : NumberInt(10), 
+    "question" : "My cleaning and repair bills doubled.", 
+    "correctAnswer" : "Мои счета за уборку и починку выросли вдвое.", 
+    "parent" : ObjectId("578be9187b2344c02ce59a8e"), 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "Мои счета за уборку и починку выросли вдвое.", 
+        "На уборку и починку у меня теперь уходило вдвое больше времени.", 
+        "Уборки и починки стало в два раза больше."
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578bebc54c7d4b3c3fcbb9b2"), 
+    "header" : "Listen to the story", 
+    "difficulty" : NumberInt(15), 
+    "path" : "Здесь будет путь к файлу", 
     "type" : "AudioQuestion", 
     "subQuestions" : [
-        ObjectId("5788d4f84326812428e6c0ba"), 
-        ObjectId("5788d4f84326812428e6c0bb"), 
-        ObjectId("5788d4f84326812428e6c0be")
+        ObjectId("578bebc54c7d4b3c3fcbb9b3"), 
+        ObjectId("578bebc54c7d4b3c3fcbb9b4"), 
+        ObjectId("578bebc54c7d4b3c3fcbb9b5")
     ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578bebc54c7d4b3c3fcbb9b3"), 
+    "header" : "Choose the right variant to finish the sentence according to the story you’ve listened", 
+    "maxCost" : NumberInt(10), 
+    "question" : "When Jane looked out she saw David", 
+    "correctAnswer" : "hiding in a tree", 
+    "parent" : ObjectId("578bebc54c7d4b3c3fcbb9b2"), 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "playing on the lawn", 
+        "climbing a tree", 
+        "hiding in a tree"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578bebc54c7d4b3c3fcbb9b4"), 
+    "header" : "Answer the questions about the story you’ve listened", 
+    "maxCost" : NumberInt(10), 
+    "question" : "What did Jane decide to bake on Monday morning?", 
+    "parent" : ObjectId("578bebc54c7d4b3c3fcbb9b2"), 
+    "type" : "OpenQuestion", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578bebc54c7d4b3c3fcbb9b5"), 
+    "header" : "Answer the questions about the story you’ve listened", 
+    "maxCost" : NumberInt(10), 
+    "question" : "Why wasn’t Jane worried when she saw David climbing the tree?", 
+    "parent" : ObjectId("578bebc54c7d4b3c3fcbb9b2"), 
+    "type" : "OpenQuestion", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578bee619e4e15343e7d13a1"), 
+    "header" : "Give answers for the following questions and record them", 
+    "difficulty" : NumberInt(20), 
+    "maxCost" : NumberInt(10), 
+    "question" : "When did you feel annoyed last time?", 
+    "type" : "SpeechQuestion", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578bee619e4e15343e7d13a2"), 
+    "header" : "Give answers for the following questions and record them", 
+    "difficulty" : NumberInt(20), 
+    "maxCost" : NumberInt(10), 
+    "question" : "What other country of the world would you like to live in? Why?", 
+    "type" : "SpeechQuestion", 
     "__v" : NumberInt(0)
 }

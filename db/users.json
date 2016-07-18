@@ -8,13 +8,24 @@
     "__v" : NumberInt(0)
 }
 { 
+    "_id" : ObjectId("577fde5f37b8df3041b2afc9"), 
+    "hash" : "29c06de5a16aefad34140f6c69113aab0514fe372bd66d4cac82a0be4f92b11854831ae3b511f541bfe094b3a4a902495c05eaca2f47fef8e9a9fd66862ea52c", 
+    "salt" : "f521922b6192481dfa6f41a5552693fe", 
+    "username" : "username", 
+    "email" : "username@gmail.com", 
+    "role" : "user", 
+    "__v" : NumberInt(0), 
+    "level" : NumberInt(15)
+}
+{ 
     "_id" : ObjectId("5782a87a8ef025441931cb5b"), 
     "email" : "a", 
     "role" : "user", 
     "hash" : "5212ecb1c77505544e4c0df5146fefb269975004b502527369c3389dd692eced724991a0252abc482aadea6d6c53ca25d66a8f685576e2f68ba857b981cedf67", 
     "salt" : "0064d245017f3e57b9f571ec4aed8196", 
     "username" : "user", 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "level" : NumberInt(5)
 }
 { 
     "_id" : ObjectId("5782a8ae8ef025441931cb5d"), 
@@ -32,5 +43,35 @@
     "hash" : "97dc54ad078ca1499226f78ac392c6242f39ec16312a4af63c80c11382a953dc2374dd3b9c8fa5cb4845775ff7b99d9dbc1274f27ae9c1cbfcc59285195da817", 
     "salt" : "7ce4d17ee17c75bcc7aa3524c1af7472", 
     "username" : "guest", 
+    "__v" : NumberInt(0), 
+    "level" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578644d5f39590f421fe8f5a"), 
+    "hash" : "ee233d804f29b3ee730762a72485617b0c62c11953dcf5176a3696b6c9373bf1ffe9e27777240b27aa206b9e87a104ae158c0bb61c11c39216c91dad6aee3f56", 
+    "salt" : "e056c82d05263d24dcbd48e518626b5d", 
+    "username" : "test", 
+    "email" : "test@gmail.com", 
+    "role" : "user", 
+    "level" : NumberInt(5), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57865acb6330735c2ed68dee"), 
+    "hash" : "acd361427f111cc22aa5e6fe51fc1286b72bde25a25c47c76cbc2eeaba1844f909e97727fa7806df5e9c624fe7c07f00337a88c88c9baaa18ee90adeee2d4e48", 
+    "salt" : "7d303fcdc173bb91e9a8813f2cb4b754", 
+    "username" : "guest6", 
+    "email" : "iamguest@gmail.com", 
+    "role" : "guest", 
+    "level" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5788ec2a9e241fc82e74afb9"), 
+    "hash" : "b9a47a95de32ad98764bdc0d60e2c90cbbf5a672869e3c620d1e4c13ff14066c140be9614339add4539a5eefa3ff9db4af775e22a4ae26a173b378a9e7743fb7", 
+    "salt" : "1a08a223fb68fa998883d2ca2b123437", 
+    "username" : "teacher1", 
+    "email" : "teacher1@gmail.com", 
+    "role" : "teacher", 
     "__v" : NumberInt(0)
 }
