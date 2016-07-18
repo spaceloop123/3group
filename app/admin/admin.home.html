@@ -1,77 +1,111 @@
 <div class="container">
     <div class="row">
-        <div class="col s12 m4 l4">
-            <div class="card grey lighten-5 ">
-                <div class="card-content black-text">
-                    <span class="card-title">Add a member</span>
-                    <div class="row">
-                        <form class="col s12" action="#">
-                            <p>
-                                <input [checked]="member.role === 'guest'" (click)="changeMemberType()"
-                                       name="member-type" type="radio" id="test1" class="with-gap"/>
-                                <label for="test1" class="black-text">Guest</label>
-                            </p>
-                            <p>
-                                <input [checked]="member.role === 'teacher'" (click)="changeMemberType()"
-                                       name="member-type" type="radio" id="test2" class="with-gap"/>
-                                <label for="test2" class="black-text">Teacher</label>
-                            </p>
-                        </form>
-                        <form class="col s12">
+        <div class="col s12 m5 l5">
+
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs" materialize="tabs">
+                        <li class="tab col s3"><a class="active" href="#tab1">Action 1</a></li>
+                        <li class="tab col s3"><a href="#tab2">Action 2</a></li>
+                        <li class="tab col s3"><a href="#tab3">Action 3</a></li>
+                    </ul>
+                </div>
+                <div id="tab1" class="col s12">
+                    <div class="card grey lighten-5 ">
+                        <div class="card-content black-text">
+                            <span class="card-title">Add a member</span>
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <input id="icon_prefix_login" type="text" class="validate"
-                                           [disabled]="member.role === 'guest'"
-                                           [(ngModel)]="member.username"
-                                    />
-                                    <label *ngIf="member.role === 'guest'"
-                                           for="icon_prefix_login">Auto-generated</label>
-                                    <label *ngIf="member.role === 'teacher'" for="icon_prefix_login">Login</label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">vpn_key</i>
-                                    <input id="icon_prefix_password" type="text" class="validate"
-                                           [disabled]="member.role === 'guest'"
-                                           [(ngModel)]="member.password"
-                                    />
-                                    <label *ngIf="member.role === 'guest'"
-                                           for="icon_prefix_password">Auto-generated</label>
-                                    <label *ngIf="member.role === 'teacher'" for="icon_prefix_password">Password</label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">email</i>
-                                    <input id="email" type="email" class="validate" [(ngModel)]="member.email">
-                                    <label for="email" data-error="wrong" data-success="right">Email</label>
-                                </div>
+                                <form class="col s12" action="#">
+                                    <p>
+                                        <input [checked]="member.role === 'guest'" (click)="changeMemberType()"
+                                               name="member-type" type="radio" id="admin-member-1" class="with-gap"/>
+                                        <label for="admin-member-1" class="black-text">Guest</label>
+                                    </p>
+                                    <p>
+                                        <input [checked]="member.role === 'teacher'" (click)="changeMemberType()"
+                                               name="member-type" type="radio" id="admin-member-2" class="with-gap"/>
+                                        <label for="admin-member-2" class="black-text">Teacher</label>
+                                    </p>
+                                </form>
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            <input id="icon_prefix_login" type="text" class="validate"
+                                                   [disabled]="member.role === 'guest'"
+                                                   [(ngModel)]="member.username"/>
+                                            <label *ngIf="member.role === 'guest'"
+                                                   for="icon_prefix_login">Auto-generated</label>
+                                            <label *ngIf="member.role === 'teacher'"
+                                                   for="icon_prefix_login">Login</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">vpn_key</i>
+                                            <input id="icon_prefix_password" type="text" class="validate"
+                                                   [disabled]="member.role === 'guest'"
+                                                   [(ngModel)]="member.password"/>
+                                            <label *ngIf="member.role === 'guest'"
+                                                   for="icon_prefix_password">Auto-generated</label>
+                                            <label *ngIf="member.role === 'teacher'"
+                                                   for="icon_prefix_password">Password</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">email</i>
+                                            <input id="email" type="email" class="validate" [(ngModel)]="member.email"
+                                                   required/>
+                                            <label for="email" data-error="wrong" data-success="right">Email</label>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-                        {{member | json}}
+                        </div>
+                        <div class="card-action" align="center">
+                            <a class="waves-effect waves-light btn" *ngIf="isMemberFieldsEmpty()" (click)="addUser()">add</a>
+                            <a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">add</a>
+                        </div>
                     </div>
                 </div>
-                <div class="card-action">
-                    <a href="#">Accept</a>
+                <div id="tab2" class="col s12">
+                    <div class="card grey lighten-5 ">
+                        <div class="card-content black-text">
+                            <span class="card-title">Show profiles</span>
+                            <div class="row">
+                                <form class="col s12" action="#">
+                                    <p>
+                                        <input name="stats-type" type="checkbox" id="admin-stats-1" class="with-gap"/>
+                                        <label for="admin-stats-1" class="black-text">Users</label>
+                                    </p>
+                                    <p>
+                                        <input name="stats-type" type="checkbox" id="admin-stats-2" class="with-gap"/>
+                                        <label for="admin-member-2" class="black-text">Teachers</label>
+                                    </p>
+                                    <p>
+                                        <input name="stats-type" type="checkbox" id="admin-stats-3" class="with-gap"/>
+                                        <label for="admin-stats-3" class="black-text">Guests</label>
+                                    </p>
+                                    <p>
+                                        <input name="stats-type" type="checkbox" id="admin-stats-4" class="with-gap"/>
+                                        <label for="admin-stats-4" class="black-text">Admins</label>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-action" align="center">
+                            <a class="waves-effect waves-light btn">show</a>
+                            <!--<a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">show</a>-->
+                        </div>
+                    </div>
+                </div>
+                <div id="tab3" class="col s12">
+                    <p>Add a question</p>
                 </div>
             </div>
+
         </div>
 
-        <div class="col s12 offset-m1 m7 offset-l1 l7">
+        <div class="col s12 offset-m2 m5 offset-l2 l5">
             <div class="collection-header"><h5>Notifications</h5></div>
-            <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                </li>
-            </ul>
-            <!--<ul class="collection with-header grey lighten-5" id="notifications-list">
+            <ul class="collection with-header grey lighten-5" id="notifications-list">
                 <li class="collection-item avatar">
                     <i class="material-icons circle red">error_outline</i>
                     <span class="title">Error</span>
@@ -93,7 +127,8 @@
                     </p>
                 </li>
                 <li class="divider"></li>
-            </ul>-->
+            </ul>
+
         </div>
     </div>
 </div>

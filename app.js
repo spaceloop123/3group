@@ -19,6 +19,7 @@ require('./server/models/questions/OpenQuestions');
 require('./server/models/questions/InsertTestQuestions');
 require('./server/models/questions/InsertOpenQuestions');
 require('./server/models/TestTemplate');
+require('./server/models/Tests');
 
 mongoose.connect("mongodb://localhost/test");
 
