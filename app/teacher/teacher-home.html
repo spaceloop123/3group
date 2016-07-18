@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col s12 m6 l4" *ngFor="let test of assignedTests">
+                <div class="card {{test.color}}">
+                    <div class="card-content white-text">
+                        <span class="card-title">{{test.name}}</span>
+                        <p>{{test.descr}}</p>
+                    </div>
+                    <div class="card-action">
+                        <a class="white-text" (click)="checkTest(test)">Check</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="assignedTests.length == 0">
+            <div class="center">
+                <h5>No any tests available to check</h5>
+            </div>
+        </div>
+    </div>
+</div>
