@@ -1,14 +1,14 @@
 <div class="container">
     <div class="section">
-        <div class="row">
+        <div class="row center">
             <div class="col s12 m6 l4" *ngFor="let test of assignedTests">
-                <div class="card {{test.color}}">
-                    <div class="card-content white-text">
+                    <div class="card small" [style.background-color]="'grey'">
+                    <div class="card-content white-text center">
                         <span class="card-title">{{test.name}}</span>
                         <p>{{test.descr}}</p>
                     </div>
-                    <div class="card-action">
-                        <a class="white-text" (click)="checkTest(test)">Check</a>
+                    <div class="card-action center">
+                        <a class="waves-effect white{{test.color}}-text grey btn" (click)="checkTest(test)">Check</a>
                     </div>
                 </div>
             </div>

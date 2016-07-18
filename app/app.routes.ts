@@ -1,6 +1,7 @@
 import {provideRouter, RouterConfig} from "@angular/router";
 import {LoginComponent} from "./login/login.component";
 import {HomepageComponent} from "./homepage/homepage.component";
+import {ChartsComponent} from "./user/charts/charts.component";
 import {TeacherCheckingComponent} from './teacher/teacher-checking.component';
 import {HomepageRoutes} from "./homepage/homepage.routes";
 
@@ -25,8 +26,12 @@ const routes:RouterConfig = [
         component: HomepageComponent
     },
     {
-        path: 'teacher/check_test/:name',
+        path: 'teacher/check_test/:id',
         component: TeacherCheckingComponent
+    },
+    {
+        path: 'user/charts',
+        component: ChartsComponent
     },
     ...HomepageRoutes
 ];
