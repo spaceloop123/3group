@@ -37,6 +37,13 @@ router.post('/new-guest', function (req, res, next) {
 });
 
 router.post('/new-test', function (req, res, next) {
+    var test = new Test({
+        status: 'available',
+        user: req.body.username,
+        fromTime: req.body.fromTime,
+        toTime: req.body.toTime
+    });
+    test.save();
 });
 
 module.exports = router;

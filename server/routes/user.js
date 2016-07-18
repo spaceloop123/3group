@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var testTemplate = mongoose.model('TestTemplate');
+var Test = mongoose.model('Test');
 var Question = mongoose.model('Question');
 
 var mdlwares = require('../libs/mdlwares');
@@ -14,6 +15,14 @@ router.get('/test', function(req, res, next) {
 
 router.get('/testinfo', function (req, res, next) {
    res.send({testStatus: 'availTest'});
+});
+
+router.post('/test_request', function (req, res, next) {
+    var test = new Test({
+        status: 'requested',
+        user: req.user.username
+    });
+    test.save();
 });
 
 router.post('/next_question', function (req, res,next) {
