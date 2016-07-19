@@ -17,14 +17,9 @@ export class TeacherComponent implements OnInit {
 
     private assignedTests:any;
 
-
-
-
     constructor(private cardsColorsData:CardsColorsData,
                 private http:Http,
                 private router:Router) {
-
-
     }
 
     private generateRandomColor = function () {
@@ -40,8 +35,6 @@ export class TeacherComponent implements OnInit {
             .toPromise()
             .then(response => that.setTests(response.json()))
             .catch(that.handleError);
-
-
     }
 
     setTests(response) {
