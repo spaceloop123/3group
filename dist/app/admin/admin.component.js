@@ -64,8 +64,8 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "@a
                     console.log(this.http.post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), { headers: headers })
                         .toPromise()
                         .then(function (responce) {
-                            console.log(responce.json());
-                        }));
+                        console.log(responce.json());
+                    }));
                 };
                 //*** Show user's profile with filter ***
                 AdminComponent.prototype.isProfilesFieldsEmpty = function () {
