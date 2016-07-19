@@ -11,7 +11,7 @@ import {Http, Headers} from "@angular/http";
 
 export class AdminComponent {
     private member;
-    private newMemberUrl = '/admin/new-';
+    private newMemberUrl = '/admin/new_';
 
     private statsFor;
     private statsForUrl = '/admin/show';
@@ -49,7 +49,10 @@ export class AdminComponent {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         console.log(this.http.post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), {headers: headers})
-            .toPromise());
+            .toPromise()
+            .then(responce => {
+                console.log(responce.json());
+            }));
     }
 
     //*** Show user's profile with filter ***
