@@ -52,11 +52,7 @@ export class TeacherComponent implements OnInit {
         return Promise.reject(error.message || error);
     }
 
-    checkTest(test:TestsListData) {
-        //this happens when teacher clicks CHECK button
-        this.selectedTest = test;
-        this.router.navigate(['/teacher/check_test', this.selectedTest.id]);
-    }
+    
 
     ngOnInit() {
         this.getTests();

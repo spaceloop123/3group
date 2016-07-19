@@ -3,10 +3,11 @@ import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from "@angular/router";
 import {Http} from "@angular/http";
 import {TeacherComponent} from "../teacher/teacher.component";
 import {AdminComponent} from "../admin/admin.component";
+import {UserComponent} from "../user/user.component";
 
 @Component({
     templateUrl: 'app/homepage/homepage.html',
-    directives: [ROUTER_DIRECTIVES, AdminComponent, TeacherComponent]
+    directives: [ROUTER_DIRECTIVES, AdminComponent, TeacherComponent, UserComponent]
     //styleUrls: ['../assets/libs/materialize.css', ---does nothing
     //    '../assets/libs/materialize.min.css',],
 
