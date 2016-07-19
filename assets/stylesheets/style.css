@@ -1,0 +1,25 @@
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.page-flexbox-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 1 auto;
+}
+
+#notifications-list {
+    height: 255px; /* 338px for 4 rows */
+    overflow-y: scroll;
+}
+
+.teacher-card-content {
+    word-wrap: break-word !important;
+}
