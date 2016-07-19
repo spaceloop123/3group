@@ -16,8 +16,8 @@ export class UserComponent implements OnInit {
                 private http:Http) {
         this.testInfo = {
             status: '',
-            time: '',
-            numQuestions: ''
+            time: '20 min',
+            numQuestions: '50'
         };
 
     }
@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
             .catch(that.handleError);
         console.log("testInfo.status-" + this.testInfo);
     }
-
+    
     testWaiter() {
         while (this.testInfo.status !== 'availTest') {
             setTimeout(function () {
@@ -53,6 +53,12 @@ export class UserComponent implements OnInit {
             .toPromise()
             .then(response => that.testInfo.status = 'requestedTest')
             .catch(this.handleError);
+    }
+
+    runTest(){
+        console.log('runtest');
+        this.router.navigate(['/runTest', 'user']);
+
     }
 
 
