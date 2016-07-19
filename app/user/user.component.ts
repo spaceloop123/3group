@@ -31,11 +31,14 @@ export class UserComponent implements OnInit {
 
     getTestInfo() {
         var that = this;
-        this.http.get('/user/testInfo')
+        this.http.get('/user/test_info')
             .toPromise()
-            .then(response => that.testInfo.status = response.json().testStatus)
+            .then(response => {
+                console.log("!" + response.json());
+                that.testInfo.status = response.json().testStatus
+            })
             .catch(that.handleError);
-        console.log("testInfo.status-" + this.testInfo);
+        console.log("testInfo.status-" + this.testInfo.status);
     }
 
     testWaiter() {
@@ -49,7 +52,7 @@ export class UserComponent implements OnInit {
     askTest() {
         alert('test is asked');
         var that = this;
-        this.http.get('/user/askTest')
+        this.http.get('/user/ask_test')
             .toPromise()
             .then(response => that.testInfo.status = 'requestedTest')
             .catch(this.handleError);
