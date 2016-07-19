@@ -7,63 +7,6 @@
 </div>
 
 <div *ngIf="status==='user'">
-
-    <div class="row">
-        <div class="center">
-            <a class="waves-effect red btn" [routerLink]="['/user/charts']">Show Charts Page (just a test button)</a>
-        </div>
-    </div>
-
-    <br>
-    <div class="valign-wrapper ">
-        <div class="container ">
-            <div class="row ">
-
-                <div *ngIf="!availTest" class="col s12 m5 card-width" align=center>
-                    <div class="card #fafafa grey lighten-5 valign">
-                        <div class="card-content" align=center>
-                            <span class="card-title">Current Test</span>
-                            <p class="red-text">Nobody appointed you any test</p>
-                            <p class="card-content">You can ask for it</p>
-                        </div>
-                        <div class="card-action" align=center>
-                            <a class="waves-effect default btn">Ask</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngIf="availTest" class="col s12 m5 card-width " align=center>
-                    <div class="card #fafafa grey lighten-5 valign">
-                        <div class="card-content" align=center>
-                            <span class="card-title">Current Test</span>
-                            <p class="green-text">At the end of the test you will get a percentage and an approximation
-                                of your level</p>
-                            <p class="card-content">At the end of the test you will get a percentage and an
-                                approximation of your level</p>
-                        </div>
-
-
-                        <div class="card-action" align=center>
-                            <a class="waves-effect default btn" [routerLink]="['/runTest']">Start</a>
-                        </div>
-
-
-                    </div>
-                </div>
-
-
-                <div class="col s12 m5 offset-m2 card-width" align=center>
-                    <div class="card #fafafa grey lighten-5 ">
-                        <div class="card-content" align=center>
-                            <span class="card-title">Past Test</span>
-                            <p class="card-content">Check out your previous attempts</p>
-                        </div>
-                        <div class="card-action" align=center>
-                            <a class="waves-effect default btn" [routerLink]="['/showTests']">Show</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <user-component></user-component>
 </div>
+
