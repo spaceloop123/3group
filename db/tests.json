@@ -2,7 +2,7 @@
     "_id" : ObjectId("578dda75d90f3a50252401cc"), 
     "status" : "checked", 
     "teacher" : ObjectId("5782a8ae8ef025441931cb5d"), 
-    "user" : ObjectId("5782a8ae8ef025441931cb5d"), 
+    "user" : ObjectId("5782a87a8ef025441931cb5b"), 
     "finishTime" : ISODate("2016-07-19T07:44:53.950+0000"), 
     "fromTime" : ISODate("2016-07-19T07:44:53.950+0000"), 
     "answers" : [
