@@ -33,13 +33,13 @@ export class TeacherComponent implements OnInit {
 
     getTests() {
 
-        var that = this;    
+        var that = this;
         this.http.get('/teacher/tests')
             .toPromise()
             .then(
                 response => {
                     that.assignedTests = response.json();
-                    console.log(that.assignedTests);
+                    //console.log(that.assignedTests);
                 }
             )
             .catch(this.handleError);
@@ -53,8 +53,9 @@ export class TeacherComponent implements OnInit {
     }
 
     checkTest() {
+        //console.log('this.selectedTest.id ' + this.selectedTest.id);
         //this happens when teacher clicks CHECK button
-        this.router.navigate(['/teacher/check_test', this.selectedTest.id]);
+        this.router.navigate(['/teacher/check_test', 5]);//this.selectedTest.id]);
     }
 
     ngOnInit() {

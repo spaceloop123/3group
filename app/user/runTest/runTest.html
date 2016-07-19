@@ -1,0 +1,171 @@
+<div *ngIf="question.type==='nothing'">
+    loading...
+</div>
+<div *ngIf="question.type==='TestQuestion'">
+    <div class="row">
+        <div class="col s12 m5 l8 card-width offset-l1" align=center>
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.header}}</blockquote>
+                    </div>
+
+                    <p class="black-text">{{question.question}}</p>
+                </div>
+            </div>
+            <form action="#">
+                <p *ngFor="let option of options; let i = index">
+                    <input id={{i}} type="checkbox" [checked]="option['checked']"
+                           (change)="changeCheckState(i)">
+                    <label [attr.for]="i">{{option.name}}</label>
+                </p>
+            </form>
+            <!--button class="btn waves-effect waves-light left" type="submit" name="action" (click)="nextQuestion()">
+                Send<i
+                    class="material-icons right">send</i></button-->
+
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="nextQuestion()">Send
+            <i class="material-icons right">send</i></button>
+    </div>
+
+</div>
+<div *ngIf="question.type==='InsertOpenQuestion'">
+    <div class="row">
+        <div class="col s12 m12 l9 offset-l1">
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.header}}</blockquote>
+                    </div>
+                    <div class="row">
+                        <div class="left">{{question.description}}
+                            <input placeholder="enter your answer" type="test" class="validate">
+                            {{question.info}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="nextQuestion()">Send
+            <i class="material-icons right">send</i></button>
+    </div>
+</div>
+<div *ngIf="question.type==='AudioQuestion'">
+    <div class="row">
+        <div class="col s12 m12 l9 offset-l1">
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div class="col s12 m12 l9 offset-l1">
+                        <blockquote>{{question.header}}</blockquote>
+                    </div>
+
+                    <div class="card-action center">
+                        <a class="btn-floating btn-large grey" style="width: 100pt; height: 100pt;" name="action"
+                           (click)="playAydio()">
+                            <div style="display: table; height: 100%; position: absolute; overflow: hidden; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <i class="material-icons" style="font-size: 70pt; margin: 0 auto">volume_up</i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action"
+                (click)="printSubquestions()">let's start<i
+                class="material-icons right">send</i></button>
+    </div>
+</div>
+<div *ngIf="question.type==='ReadingQuestion'">
+    <div class="row">
+        <div class="col s12 m5 l8 card-width offset-l1" align=center>
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.header}}</blockquote>
+                    </div>
+                    <p class="black-text">{{question.text}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action"
+                (click)="printSubquestions()">let's start<i
+                class="material-icons right">send</i></button>
+    </div>
+</div>
+<div *ngIf="question.type==='InsertTestQuestion'">
+    <div class="row">
+        <div class="col s12 m12 l9 offset-l1">
+
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.header}}</blockquote>
+                    </div>
+                    <div class="row">
+                        <div class="left">{{question.questionParts[0]}}
+                            <select class="browser-default"
+                                    style="width: 150px; height:30px; display: inline-block;"
+                                    [(ngModel)]="question.answer">
+                                <option *ngFor="let opt of question.answers" [value]="opt">{{opt}}</option>
+                            </select>
+                            {{question.questionParts[1]}}
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action"
+                (click)="nextQuestion()">Send
+            <i class="material-icons right">send</i></button>
+    </div>
+</div>
+<div *ngIf="question.type==='OpenQuestion'">
+    <div class="row">
+        <div class="col s12 m12 l9 offset-l1">
+
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div class="card-content" align=left>
+                        <div>
+                            <blockquote>{{question.header}}</blockquote>
+                        </div>
+                        <p class="black-text">{{question.question}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <form>
+            <div class="row">
+                <div>
+                    <div class="input-field col s12 m12 l8 offset-l2">
+                    <textarea id="textarea" class="materialize-textarea" length="120"
+                              placeholder="enter your answer"></textarea>
+                        <button class="btn waves-effect right" type="submit" name="action"
+                                (click)="nextQuestion()">
+                            <i class="material-icons right">send</i></button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+

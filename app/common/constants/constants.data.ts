@@ -4,5 +4,4 @@ export class Constants {
         "commodi ducimus earum eum eveniet ex excepturi expedita facilis, itaque, modi nam porro quaerat quisquam " +
         "quo reiciendis tenetur unde, ut.";
 
-
 }
