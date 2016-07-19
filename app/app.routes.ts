@@ -5,14 +5,10 @@ import {TeacherComponent} from "./teacher/teacher.component";
 import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
 import {UserRoutes} from "./user/user.routes";
+import {ChartsComponent} from "./user/charts/charts.component";
 
 
 const routes:RouterConfig = [
-
-    {
-        path: 'teacher/check_test/:name',
-        component: TeacherCheckingComponent
-    },
     {
         path: '',
         redirectTo: '/login',
@@ -38,6 +34,14 @@ const routes:RouterConfig = [
     {
         path: 'teacher',
         component: TeacherComponent
+    },
+    {
+        path: 'teacher/check_test/:id',
+        component: TeacherCheckingComponent
+    },
+    {
+        path: 'user/charts',
+        component: ChartsComponent
     },
     ...UserRoutes
 

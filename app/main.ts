@@ -22,3 +22,4 @@ bootstrap(AppComponent, [
         useClass: HashLocationStrategy
     }
 ]);
+

@@ -24,7 +24,6 @@ require('./server/models/Tests');
 mongoose.connect("mongodb://localhost/test");
 
 var routes = require('./server/routes/index');
-var users = require('./server/routes/users');
 var auth = require('./server/routes/auth');
 var admin = require('./server/routes/admin');
 var teacher = require('./server/routes/teacher');
@@ -66,7 +65,6 @@ app.use(passport.session());
 
 //routes
 app.use('/', routes);
-app.use('/users', users);
 
 app.post('/login', auth.login);
 app.get('/logout', auth.logout);
@@ -77,6 +75,8 @@ app.use('/admin', admin);
 app.use('/teacher', teacher);
 app.use('/user', user);
 app.use('/guest', guest);
+app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

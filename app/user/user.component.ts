@@ -1,12 +1,15 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http} from "@angular/http";
+<<<<<<< HEAD
 import {Observable} from "rxjs/Rx";
+=======
+>>>>>>> origin/develop
 
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, UserComponent],
 })
 
 export class UserComponent implements OnInit {
@@ -16,31 +19,29 @@ export class UserComponent implements OnInit {
                 private router:Router,
                 private http:Http) {
         this.testInfo = {
-            status: 'availTest',
+            status: '',
             time: '20 min',
             numQuestions: '50'
         };
-        console.log(this.testInfo.status);
+
     }
 
     ngOnInit() {
-       // this.getTestInfo();
+        this.getTestInfo();
+        if (this.testInfo.status === 'requestedTest') {
+            this.testWaiter();
+        }
     }
 
     getTestInfo() {
         var that = this;
-        this.http.get('/testInfo')
+        this.http.get('/user/testInfo')
             .toPromise()
-            .then(response => that.testInfo = response.json().testInfo)
-            .catch(this.handleError);
+            .then(response => that.testInfo.status = response.json().testStatus)
+            .catch(that.handleError);
+        console.log("testInfo.status-" + this.testInfo);
     }
-
-
-    handleError(error:any) {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
-    }
-
+    
     testWaiter() {
         while (this.testInfo.status !== 'availTest') {
             setTimeout(function () {
@@ -49,15 +50,8 @@ export class UserComponent implements OnInit {
         }
     }
 
-    runTest(){
-        console.log('runtest');
-        this.router.navigate(['/runTest', 'user']);
-
-    }
-
-
     askTest() {
-        console.log('test is asked');
+        alert('test is asked');
         var that = this;
         this.http.get('/user/askTest')
             .toPromise()
@@ -65,11 +59,15 @@ export class UserComponent implements OnInit {
             .catch(this.handleError);
     }
 
-    /*private logOut() {
-        this.http.get('/logOut')
-            .toPromise()
-            .then(response => response.json().something)
-            .catch(this.handleError);
 
-    }*/
+    handleError(error:any) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
 }
+
+
+
+
+
+

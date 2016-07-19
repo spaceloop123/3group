@@ -8,12 +8,15 @@ import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
 import {TeacherComponent} from "./teacher/teacher.component";
 import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
+import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
+import {ChartsComponent} from "./user/charts/charts.component";
+
 
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES],
-    precompile: [LoginComponent,  UserComponent, AdminComponent, TeacherComponent, RunTestComponent, FinishTestPageComponent],
+    precompile: [LoginComponent,  UserComponent, AdminComponent, TeacherComponent, RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent],
     providers: [LoginService]
 })
 
