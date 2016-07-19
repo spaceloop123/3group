@@ -45,7 +45,7 @@ System.register(['@angular/core', "@angular/router", "./cards-colors.data", "@an
                         .toPromise()
                         .then(function (response) {
                         that.assignedTests = response.json();
-                        //console.log(that.assignedTests);
+                        console.log(that.assignedTests);
                     })
                         .catch(this.handleError);
                     return (this.assignedTests);
@@ -55,9 +55,9 @@ System.register(['@angular/core', "@angular/router", "./cards-colors.data", "@an
                     return Promise.reject(error.message || error);
                 };
                 TeacherComponent.prototype.checkTest = function () {
-                    //console.log('this.selectedTest.id ' + this.selectedTest.id);
                     //this happens when teacher clicks CHECK button
-                    this.router.navigate(['/teacher/check_test', 5]); //this.selectedTest.id]);
+                    this.selectedTest = this.assignedTests;
+                    this.router.navigate(['/teacher/check_test', this.selectedTest.id]);
                 };
                 TeacherComponent.prototype.ngOnInit = function () {
                     this.getTests();
