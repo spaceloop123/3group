@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/router"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/router", "angular2-materialize", "@angular/http"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/router"], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, angular2_materialize_1, http_1;
     var AdminComponent;
     return {
         setters:[
@@ -19,10 +19,19 @@ System.register(["@angular/core", "@angular/router"], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (angular2_materialize_1_1) {
+                angular2_materialize_1 = angular2_materialize_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
             }],
         execute: function() {
             AdminComponent = (function () {
-                function AdminComponent() {
+                function AdminComponent(http) {
+                    this.http = http;
+                    this.newMemberUrl = '/admin/new-';
+                    this.statsForUrl = '/admin/show';
                     this.member = {
                         role: 'guest',
                         username: '',
@@ -30,6 +39,7 @@ System.register(["@angular/core", "@angular/router"], function(exports_1, contex
                         email: ''
                     };
                 }
+                //*** Add a member ***
                 AdminComponent.prototype.changeMemberType = function () {
                     if (this.member.role === 'guest') {
                         this.member.role = 'teacher';
@@ -40,13 +50,32 @@ System.register(["@angular/core", "@angular/router"], function(exports_1, contex
                         this.member.password = '';
                     }
                 };
+                AdminComponent.prototype.isMemberFieldsEmpty = function () {
+                    if (this.member.role === 'guest') {
+                        return this.member.email != '';
+                    }
+                    else {
+                        return (this.member.email != '' && this.member.username != '' && this.member.password != '');
+                    }
+                };
+                AdminComponent.prototype.addUser = function () {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    console.log(this.http.post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), { headers: headers })
+                        .toPromise());
+                };
+                //*** Show user's profile with filter ***
+                AdminComponent.prototype.isProfilesFieldsEmpty = function () {
+                };
+                AdminComponent.prototype.showProfiles = function () {
+                };
                 AdminComponent = __decorate([
                     core_1.Component({
                         selector: 'admin-component',
                         templateUrl: 'app/admin/admin.home.html',
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        directives: [router_1.ROUTER_DIRECTIVES, angular2_materialize_1.MaterializeDirective]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [http_1.Http])
                 ], AdminComponent);
                 return AdminComponent;
             }());

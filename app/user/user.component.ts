@@ -1,10 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http} from "@angular/http";
-<<<<<<< HEAD
-import {Observable} from "rxjs/Rx";
-=======
->>>>>>> origin/develop
 
 @Component({
     selector: 'user-component',
@@ -57,6 +53,12 @@ export class UserComponent implements OnInit {
             .toPromise()
             .then(response => that.testInfo.status = 'requestedTest')
             .catch(this.handleError);
+    }
+
+    runTest(){
+        console.log('runtest');
+        this.router.navigate(['/runTest', 'user']);
+
     }
 
 

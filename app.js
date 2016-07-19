@@ -75,7 +75,7 @@ app.use('/admin', admin);
 app.use('/teacher', teacher);
 app.use('/user', user);
 app.use('/guest', guest);
-app.use('/users', users);
+// app.use('/users', users);
 
 
 // catch 404 and forward to error handler

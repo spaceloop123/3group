@@ -7,24 +7,25 @@ System.register([], function(exports_1, context_1) {
         execute: function() {
             CardsColorsData = (function () {
                 function CardsColorsData() {
-                    this.CARDS_COLORS_LEFT = [
-                        'pink',
-                        'indigo',
-                        'blue',
-                        'red',
-                        'cyan',
-                        'teal',
-                        'green',
-                        'lime',
-                        'amber',
-                        'yellow',
-                        'orange'
+                    this.CARDS_COLORS_ACCENT = [
+                        '#00A8E5',
+                        '#7F3F98',
+                        '#A2171B',
+                        '#DA2032',
+                        '#EF4136',
+                        '#FFDE17',
+                        '#006064',
+                        '#00A79D',
+                        '#8DC63F',
+                        '#F7941E'
                     ];
-                    this.CARDS_COLORS_RIGHT = [
-                        'darken-1',
-                        'darken-2',
-                        'darken-3',
-                        'darken-4'
+                    this.CARDS_COLORS_NEUTRAL = [
+                        '#276FA0',
+                        '#7C8D97',
+                        '#0A4C75',
+                        '#DDE5E9',
+                        '#75bEE9',
+                        '#C7EAFB'
                     ];
                 }
                 return CardsColorsData;

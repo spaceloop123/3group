@@ -15,8 +15,9 @@ import {ChartsComponent} from "./user/charts/charts.component";
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
-    directives: [ROUTER_DIRECTIVES],
-    precompile: [LoginComponent,  UserComponent, AdminComponent, TeacherComponent, RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent],
+    directives: [ROUTER_DIRECTIVES, HeaderComponent],
+    precompile: [LoginComponent,  UserComponent, AdminComponent, TeacherComponent,
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent],
     providers: [LoginService]
 })
 

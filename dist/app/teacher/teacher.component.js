@@ -1,4 +1,4 @@
-System.register(['@angular/core', "@angular/router", './cards-colors.data'], function(exports_1, context_1) {
+System.register(['@angular/core', "@angular/router", "./cards-colors.data", "@angular/http", 'rxjs/add/operator/toPromise'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', "@angular/router", './cards-colors.data'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, cards_colors_data_1;
+    var core_1, router_1, cards_colors_data_1, http_1;
     var TeacherComponent;
     return {
         setters:[
@@ -22,39 +22,45 @@ System.register(['@angular/core', "@angular/router", './cards-colors.data'], fun
             },
             function (cards_colors_data_1_1) {
                 cards_colors_data_1 = cards_colors_data_1_1;
-            }],
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
+            function (_1) {}],
         execute: function() {
             TeacherComponent = (function () {
-                /*
-                 constructor(private testsImg:TestsImgData) {}
-            
-                 private randomImg1 = this.testsImg.TESTS_IMG[Math.floor(Math.random()*this.testsImg.TESTS_IMG.length)];
-            
-                 //Without ng-repeat-----------------------------------------------------------------------------------
-            
-                 private randomImg2 = this.testsImg.TESTS_IMG[Math.floor(Math.random()*this.testsImg.TESTS_IMG.length)];
-                 private randomImg3 = this.testsImg.TESTS_IMG[Math.floor(Math.random()*this.testsImg.TESTS_IMG.length)];
-                 private randomImg4 = this.testsImg.TESTS_IMG[Math.floor(Math.random()*this.testsImg.TESTS_IMG.length)];
-                 private randomImg5 = this.testsImg.TESTS_IMG[Math.floor(Math.random()*this.testsImg.TESTS_IMG.length)];
-                 private randomImg6 = this.testsImg.TESTS_IMG[Math.floor(Math.random()*this.testsImg.TESTS_IMG.length)];
-                 */
-                function TeacherComponent(cardsColorsData) {
+                function TeacherComponent(cardsColorsData, http, router) {
                     this.cardsColorsData = cardsColorsData;
+                    this.http = http;
+                    this.router = router;
                     this.generateRandomColor = function () {
-                        this.randomColorLeft = this.cardsColorsData.CARDS_COLORS_LEFT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_LEFT.length)];
-                        this.randomColorRight = this.cardsColorsData.CARDS_COLORS_RIGHT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_RIGHT.length)];
-                        return (this.randomColorLeft + " " + this.randomColorRight);
+                        //generates whole color name randomly
+                        this.randomColor = this.cardsColorsData.CARDS_COLORS_NEUTRAL[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_NEUTRAL.length)];
+                        return (this.randomColor);
                     };
-                    //Without ng-repeat-----------------------------------------------------------------------------------
-                    this.randomCol1 = this.generateRandomColor();
-                    this.randomCol2 = this.generateRandomColor();
-                    this.randomCol3 = this.generateRandomColor();
-                    this.randomCol4 = this.generateRandomColor();
-                    this.randomCol5 = this.generateRandomColor();
-                    this.randomCol6 = this.generateRandomColor();
                 }
+                TeacherComponent.prototype.getTests = function () {
+                    var that = this;
+                    this.http.get('/teacher/tests')
+                        .toPromise()
+                        .then(function (response) {
+                        that.assignedTests = response.json();
+                        //console.log(that.assignedTests);
+                    })
+                        .catch(this.handleError);
+                    return (this.assignedTests);
+                };
+                TeacherComponent.prototype.handleError = function (error) {
+                    console.error('An error occurred', error);
+                    return Promise.reject(error.message || error);
+                };
+                TeacherComponent.prototype.checkTest = function () {
+                    //console.log('this.selectedTest.id ' + this.selectedTest.id);
+                    //this happens when teacher clicks CHECK button
+                    this.router.navigate(['/teacher/check_test', 5]); //this.selectedTest.id]);
+                };
                 TeacherComponent.prototype.ngOnInit = function () {
-                    console.log(this.randomCol1);
+                    this.getTests();
                 };
                 TeacherComponent = __decorate([
                     core_1.Component({
@@ -63,7 +69,7 @@ System.register(['@angular/core', "@angular/router", './cards-colors.data'], fun
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [cards_colors_data_1.CardsColorsData]
                     }), 
-                    __metadata('design:paramtypes', [cards_colors_data_1.CardsColorsData])
+                    __metadata('design:paramtypes', [cards_colors_data_1.CardsColorsData, http_1.Http, router_1.Router])
                 ], TeacherComponent);
                 return TeacherComponent;
             }());
