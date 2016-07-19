@@ -1,11 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
-import {TestsListData} from './tests-list.data';
 
 @Component({
     templateUrl: 'app/teacher/teacher-checking.html',
-    directives: [ROUTER_DIRECTIVES],
-    providers: [TestsListData]
+    directives: [ROUTER_DIRECTIVES]
 })
 export class TeacherCheckingComponent implements OnInit, OnDestroy{
 

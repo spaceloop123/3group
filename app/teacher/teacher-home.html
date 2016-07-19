@@ -5,8 +5,8 @@
             <div class="col s12 m6 l4" *ngFor="let test of assignedTests">
                     <div class="card small center-align" [style.background-color]="'grey'">
                     <div class="card-content white-text center">
-                        <span class="card-title">{{test.name}}</span>
-                        <p>{{test.descr}}</p>
+                        <span class="card-title">{{test.date}}</span>
+                        <p>Some descr</p>
                     </div>
                     <div class="card-action center">
                         <a class="waves-effect white{{test.color}}-text grey btn" (click)="checkTest(test)">Check</a>
