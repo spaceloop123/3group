@@ -5,12 +5,13 @@ import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
     templateUrl: 'app/teacher/teacher-checking.html',
     directives: [ROUTER_DIRECTIVES]
 })
-export class TeacherCheckingComponent implements OnInit, OnDestroy{
+export class TeacherCheckingComponent implements OnInit, OnDestroy {
 
-    public currentTest : any;
+    public currentTest:any;
     private sub;
 
-    constructor(private route:ActivatedRoute) {}
+    constructor(private route:ActivatedRoute) {
+    }
 
     ngOnInit() {
         var that = this;
