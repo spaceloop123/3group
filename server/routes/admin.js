@@ -11,7 +11,7 @@ router.get('/test', function(req, res, next) {
     res.status(200).send('Hello, admin!');
 });
 
-router.post('/new-teacher', function (req, res, next) {
+router.post('/new_teacher', function (req, res, next) {
     var user = new User({
         username: req.body.username,
         email: req.body.email,
@@ -22,7 +22,7 @@ router.post('/new-teacher', function (req, res, next) {
     res.end();
 });
 
-router.post('/new-guest', function (req, res, next) {
+router.post('/new_guest', function (req, res, next) {
     User.count({}, function (err, count) {
         var user = new User({
             email: req.body.email,
@@ -36,7 +36,7 @@ router.post('/new-guest', function (req, res, next) {
     });
 });
 
-router.post('/new-test', function (req, res, next) {
+router.post('/new_test', function (req, res, next) {
     var test = new Test({
         status: 'available',
         user: req.body.username,

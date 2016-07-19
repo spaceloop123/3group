@@ -13,7 +13,7 @@ router.get('/test', function(req, res, next) {
     res.status(200).send('Hello, user!');
 });
 
-router.get('/testinfo', function (req, res, next) {
+router.get('/test_info', function (req, res, next) {
    res.send({testStatus: 'availTest'});
 });
 
