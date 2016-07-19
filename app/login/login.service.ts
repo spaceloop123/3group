@@ -25,7 +25,8 @@ export class LoginService {
         header.append('Content-Type', 'application/json');
         this.http
             .post(this.loginUrl, JSON.stringify(loginData), {headers: header})
-            .toPromise().then(res =>that.redirect(res.json().role, router), error =>console.log(error))
+            .toPromise()
+            .then(res =>that.redirect(res.json().role, router), error =>console.log(error))
             .catch(that.handleError);
     }
 

@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="card-action" align=center>
-                        <a class="waves-effect default btn" [routerLink]="['/runTest']">Start</a>
+                        <a class="waves-effect default btn" (click)="runTest()">Start</a>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                         <p class="card-content">You can ask for it</p>
                     </div>
                     <div class="card-action" align=center>
-                        <a class="waves-effect default btn" [routerLink]="['/showTests']">Ask</a>
+                        <a class="waves-effect default btn" (click)="askTest()">Ask</a>
                     </div>
                 </div>
             </div>
@@ -77,6 +77,3 @@
         </div>
     </div>
 </div>
-
-
-

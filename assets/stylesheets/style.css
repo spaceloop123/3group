@@ -14,14 +14,8 @@
 main {
   flex: 1 1 auto;
 }
-input[type="test"] :focus {
-  //display: block;
-  //margin: 0;
-  width: 16px;
-  length: 18px;
-  border: none;
-  font-family: sans-serif;
-  font-size: 16px;
-  appearance: none;
-  box-shadow: none;
+
+#notifications-list {
+    height: 255px; /* 338px for 4 rows */
+    overflow-y: scroll;
 }

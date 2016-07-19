@@ -1,12 +1,23 @@
 var mongoose = require('mongoose');
-var sugar = require('sugar');
-var Question = require('./Questions').QuestionInterface;
 
-var AudioQuestion = {
+var AudioQuestionsSchema = new mongoose.Schema({
     path: {type: String, required: true},
-    subQuestions: [{type: String, required: true}]
+    subQuestions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question', required: true}]
+}, {
+    discriminatorKey: 'type'
+});
+
+AudioQuestionsSchema.methods.getQuestion = function () {
+    var subQuestions = [];
+    this.subQuestions.forEach(function (subQuestion, arr) {
+        subQuestions.push(subQuestion.getQuestion());
+    });
+    return {
+        type: this.type,
+        header: this.header,
+        file: this.path,
+        subQuestions: subQuestions
+    };
 };
 
-var AudioQuestionsSchema = new mongoose.Schema(Object.extended(Question).merge(AudioQuestion));
-
-mongoose.model('AudioQuestion', AudioQuestionsSchema, 'questions');
+mongoose.model('Question').discriminator('AudioQuestion', AudioQuestionsSchema);

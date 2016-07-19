@@ -1,9 +1,16 @@
-var QuestionInterface = {
+var mongoose = require('mongoose');
+
+var QuestionSchema = new mongoose.Schema({
     header: {type: String, required: true},
-    difficulty: {type: Number},
-    maxCost: {type: Number},
-    dependent: {type: Boolean, required: true},
-    type: {type: String, enum: ['test', 'open', 'reading', 'audition', 'speech', 'essay'], required: true}
+    difficulty: Number,
+    maxCost: Number,
+    parent: {type: mongoose.Schema.Types.ObjectId, ref: 'Question'}
+}, {
+    discriminatorKey: 'type'
+});
+
+QuestionSchema.methods.getQuestion = function () {
+    return JSON.stringify(this);
 };
 
-module.exports.QuestionInterface = QuestionInterface;
+mongoose.model('Question', QuestionSchema);

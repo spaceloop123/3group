@@ -1,4 +1,4 @@
-System.register(["@angular/core", "./login/login.component", "./common/header/header.component", "@angular/router", "./login/login.service", "./user/runTest/runTest.component", "./admin/admin.component", "./user/user.component", "./teacher/teacher.component"], function(exports_1, context_1) {
+System.register(["@angular/core", "./login/login.component", "@angular/router", "./login/login.service", "./user/runTest/runTest.component", "./user/user.component", "./admin/admin.component", "./teacher/teacher.component", "./user/runTest/finish.page.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "./login/login.component", "./common/header/he
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, login_component_1, header_component_1, router_1, login_service_1, runTest_component_1, admin_component_1, user_component_1, teacher_component_1;
+    var core_1, login_component_1, router_1, login_service_1, runTest_component_1, user_component_1, admin_component_1, teacher_component_1, finish_page_component_1;
     var AppComponent;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(["@angular/core", "./login/login.component", "./common/header/he
             },
             function (login_component_1_1) {
                 login_component_1 = login_component_1_1;
-            },
-            function (header_component_1_1) {
-                header_component_1 = header_component_1_1;
             },
             function (router_1_1) {
                 router_1 = router_1_1;
@@ -32,14 +29,17 @@ System.register(["@angular/core", "./login/login.component", "./common/header/he
             function (runTest_component_1_1) {
                 runTest_component_1 = runTest_component_1_1;
             },
-            function (admin_component_1_1) {
-                admin_component_1 = admin_component_1_1;
-            },
             function (user_component_1_1) {
                 user_component_1 = user_component_1_1;
             },
+            function (admin_component_1_1) {
+                admin_component_1 = admin_component_1_1;
+            },
             function (teacher_component_1_1) {
                 teacher_component_1 = teacher_component_1_1;
+            },
+            function (finish_page_component_1_1) {
+                finish_page_component_1 = finish_page_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -49,8 +49,8 @@ System.register(["@angular/core", "./login/login.component", "./common/header/he
                     core_1.Component({
                         selector: 'my-app',
                         templateUrl: 'app/app.component.html',
-                        directives: [header_component_1.HeaderComponent, router_1.ROUTER_DIRECTIVES],
-                        precompile: [login_component_1.LoginComponent, runTest_component_1.RunTestComponent, user_component_1.UserComponent, admin_component_1.AdminComponent, teacher_component_1.TeacherComponent],
+                        directives: [router_1.ROUTER_DIRECTIVES],
+                        precompile: [login_component_1.LoginComponent, user_component_1.UserComponent, admin_component_1.AdminComponent, teacher_component_1.TeacherComponent, runTest_component_1.RunTestComponent, finish_page_component_1.FinishTestPageComponent],
                         providers: [login_service_1.LoginService]
                     }), 
                     __metadata('design:paramtypes', [])

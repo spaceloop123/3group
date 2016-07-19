@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 
 @Component({
     selector: 'user-component',
@@ -23,9 +24,7 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-        //this.getTestInfo ();
-
-
+       // this.getTestInfo();
     }
 
     getTestInfo() {
@@ -42,21 +41,35 @@ export class UserComponent implements OnInit {
         return Promise.reject(error.message || error);
     }
 
+    testWaiter() {
+        while (this.testInfo.status !== 'availTest') {
+            setTimeout(function () {
+                this.getTestInfo();
+            }, 3000);
+        }
+    }
+
+    runTest(){
+        console.log('runtest');
+        this.router.navigate(['/runTest', 'user']);
+
+    }
+
+
+    askTest() {
+        console.log('test is asked');
+        var that = this;
+        this.http.get('/user/askTest')
+            .toPromise()
+            .then(response => that.testInfo.status = 'requestedTest')
+            .catch(this.handleError);
+    }
+
+    /*private logOut() {
+        this.http.get('/logOut')
+            .toPromise()
+            .then(response => response.json().something)
+            .catch(this.handleError);
+
+    }*/
 }
-
-/*
- getHeroes() {
- this.heroService.getHeroes()
- .then(
- heroes => this.heroes = heroes,
- error =>  this.errorMessage = <any>error);
- }
- addHero (name: string) {
- if (!name) { return; }
- this.heroService.addHero(name)
- .then(
- hero  => this.heroes.push(hero),
- error =>  this.errorMessage = <any>error);
- }
-
-    */

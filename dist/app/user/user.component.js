@@ -37,7 +37,7 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
                     console.log(this.testInfo.status);
                 }
                 UserComponent.prototype.ngOnInit = function () {
-                    //this.getTestInfo ();
+                    // this.getTestInfo();
                 };
                 UserComponent.prototype.getTestInfo = function () {
                     var that = this;
@@ -49,6 +49,25 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
                 UserComponent.prototype.handleError = function (error) {
                     console.error('An error occurred', error);
                     return Promise.reject(error.message || error);
+                };
+                UserComponent.prototype.testWaiter = function () {
+                    while (this.testInfo.status !== 'availTest') {
+                        setTimeout(function () {
+                            this.getTestInfo();
+                        }, 3000);
+                    }
+                };
+                UserComponent.prototype.runTest = function () {
+                    console.log('runtest');
+                    this.router.navigate(['/runTest', 'user']);
+                };
+                UserComponent.prototype.askTest = function () {
+                    console.log('test is asked');
+                    var that = this;
+                    this.http.get('/user/askTest')
+                        .toPromise()
+                        .then(function (response) { return that.testInfo.status = 'requestedTest'; })
+                        .catch(this.handleError);
                 };
                 UserComponent = __decorate([
                     core_1.Component({
@@ -64,20 +83,4 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
         }
     }
 });
-/*
- getHeroes() {
- this.heroService.getHeroes()
- .then(
- heroes => this.heroes = heroes,
- error =>  this.errorMessage = <any>error);
- }
- addHero (name: string) {
- if (!name) { return; }
- this.heroService.addHero(name)
- .then(
- hero  => this.heroes.push(hero),
- error =>  this.errorMessage = <any>error);
- }
-
-    */ 
 //# sourceMappingURL=user.component.js.map

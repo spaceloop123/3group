@@ -1,52 +1,44 @@
-<div *ngIf="question.type==='test'">
+<div *ngIf="question.type==='nothing'">
+    loading...
+</div>
+<div *ngIf="question.type==='TestQuestion'">
     <div class="row">
         <div class="col s12 m5 l8 card-width offset-l1" align=center>
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
                     <div>
-                        <blockquote>{{question.description}}</blockquote>
+                        <blockquote>{{question.header}}</blockquote>
                     </div>
-                    <p class="black-text">{{question.info}}</p>
+
+                    <p class="black-text">{{question.question}}</p>
                 </div>
             </div>
-            <!--попытка 1-->
-            <!--form [formGroup]="mainFormGroup" action="#">
-
-                <p *ngFor="let control of mainFormGroup.controls.options.controls; let i of index">
-                    <input type="checkbox"
-                           [formControl]="control">
-                    <label>{{controlNames[i]}}</label>
-                </p>
-            </form-->
-
-            <!--попытка 2-->
             <form action="#">
-                <p *ngFor="let option of question.opt; let i of index">
-                    <input id="f_{{i}}" type="checkbox" [checked]="option['checked']"
-                           (click)="changeCheckState(i)">
-                    <label [attr.for]="'f_'+i">{{option.name}}</label>
+                <p *ngFor="let option of options; let i = index">
+                    <input id={{i}} type="checkbox" [checked]="option['checked']"
+                           (change)="changeCheckState(i)">
+                    <label [attr.for]="i">{{option.name}}</label>
                 </p>
             </form>
+            <!--button class="btn waves-effect waves-light left" type="submit" name="action" (click)="nextQuestion()">
+                Send<i
+                    class="material-icons right">send</i></button-->
 
-            <!--попытка 3, плохая попытка-->
-            <!--span *ngFor="let option of opt; let i of index">
-                <input type="checkbox" id="{{option.id}}" (change)="checkbox(option.selected)"
-                 (change)="onChange(option.id,cv.checked)">
-                 {{option.name}},{{cv.checked}} <br>
-            </span-->
-
-             <button class="btn waves-effect waves-light left" type="submit" name="action">Send<i
-                    class="material-icons right">send</i></button>
         </div>
     </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="nextQuestion()">Send
+            <i class="material-icons right">send</i></button>
+    </div>
+
 </div>
-<div *ngIf="question.type==='open'">
+<div *ngIf="question.type==='InsertOpenQuestion'">
     <div class="row">
         <div class="col s12 m12 l9 offset-l1">
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
                     <div>
-                        <blockquote>{{question.description}}</blockquote>
+                        <blockquote>{{question.header}}</blockquote>
                     </div>
                     <div class="row">
                         <div class="left">{{question.description}}
@@ -59,40 +51,121 @@
         </div>
     </div>
     <div class="card-action center">
-        <button class="btn waves-effect waves-light center" type="submit" name="action">Send
+        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="nextQuestion()">Send
             <i class="material-icons right">send</i></button>
     </div>
 </div>
-<div *ngIf="question.type==='listening'">
+<div *ngIf="question.type==='AudioQuestion'">
     <div class="row">
-        <!--i class="large material-icons circle red">volume_up</i-->
         <div class="col s12 m12 l9 offset-l1">
-            <blockquote>{{question.description}}</blockquote>
-        </div>
-    </div>
-    <div class="card-action center">
-        <!--a class="btn-floating btn-large grey">
-            <i class="material-icons">volume_up</i>
-        </a-->
-        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="playAydio()">listen
-        </button>
-    </div>
-</div>
-<div *ngIf="question.type==='reading'">
-    <div class="row">
-        <div class="col s12 m5 l8 card-width offset-l1" align=center>
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
-                    <div>
-                        <blockquote>{{question.description}}</blockquote>
+                    <div class="col s12 m12 l9 offset-l1">
+                        <blockquote>{{question.header}}</blockquote>
                     </div>
-                    <p class="black-text">{{question.info}}</p>
+
+                    <div class="card-action center">
+                        <a class="btn-floating btn-large grey" style="width: 100pt; height: 100pt;" name="action"
+                           (click)="playAydio()">
+                            <div style="display: table; height: 100%; position: absolute; overflow: hidden; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <i class="material-icons" style="font-size: 70pt; margin: 0 auto">volume_up</i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="card-action center">
-        <button class="btn waves-effect waves-light center" type="submit" name="action">let's start<i
+        <button class="btn waves-effect waves-light center" type="submit" name="action"
+                (click)="printSubquestions()">let's start<i
                 class="material-icons right">send</i></button>
     </div>
 </div>
+<div *ngIf="question.type==='ReadingQuestion'">
+    <div class="row">
+        <div class="col s12 m5 l8 card-width offset-l1" align=center>
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.header}}</blockquote>
+                    </div>
+                    <p class="black-text">{{question.text}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action"
+                (click)="printSubquestions()">let's start<i
+                class="material-icons right">send</i></button>
+    </div>
+</div>
+<div *ngIf="question.type==='InsertTestQuestion'">
+    <div class="row">
+        <div class="col s12 m12 l9 offset-l1">
+
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div>
+                        <blockquote>{{question.header}}</blockquote>
+                    </div>
+                    <div class="row">
+                        <div class="left">{{question.questionParts[0]}}
+                            <select class="browser-default"
+                                    style="width: 150px; height:30px; display: inline-block;"
+                                    [(ngModel)]="question.answer">
+                                <option *ngFor="let opt of question.answers" [value]="opt">{{opt}}</option>
+                            </select>
+                            {{question.questionParts[1]}}
+                            <br>
+                            // User answered {{question.answer}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light center" type="submit" name="action"
+                (click)="nextQuestion()">Send
+            <i class="material-icons right">send</i></button>
+    </div>
+</div>
+<div *ngIf="question.type==='OpenQuestion'">
+    <div class="row">
+        <div class="col s12 m12 l9 offset-l1">
+
+            <div class="card #fafafa grey lighten-5 valign">
+                <div class="card-content" align=left>
+                    <div class="card-content" align=left>
+                        <div>
+                            <blockquote>{{question.header}}</blockquote>
+                        </div>
+                        <p class="black-text">{{question.question}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action center">
+        <form>
+            <div class="row">
+                <div>
+                    <div class="input-field col s12 m12 l8 offset-l2">
+                    <textarea id="textarea" class="materialize-textarea" length="120"
+                              placeholder="enter your answer"></textarea>
+                        <button class="btn waves-effect right" type="submit" name="action"
+                                (click)="nextQuestion()">
+                            <i class="material-icons right">send</i></button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
