@@ -14,7 +14,7 @@ var Test = mongoose.model('Test');
 /* GET home page. */
 router.get('/', function (req, res, next) {
     var test = new Test({
-       status: 'cheked' 
+        status: 'cheked'
     });
     res.render('index');
 });

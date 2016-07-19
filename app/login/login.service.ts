@@ -14,7 +14,7 @@ export class LoginService {
     }
 
     public redirect(response, router) {
-        console.log("respose " + response);
+        console.log("response " + response);
         router.navigate(['/homepage', response]);
         //
     }
