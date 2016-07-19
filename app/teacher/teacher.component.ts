@@ -16,7 +16,6 @@ export class TeacherComponent implements OnInit {
     //assignedTests - array of tests' descriptions, selectedTest - one test's description of the test being clicked
     private assignedTestsJson;
     private assignedTests : any;
-    //private assignedTestsParced;
     public selectedTest;
 
 
@@ -54,6 +53,7 @@ export class TeacherComponent implements OnInit {
 
     checkTest() {
         //this happens when teacher clicks CHECK button
+        this.selectedTest = this.assignedTests;
         this.router.navigate(['/teacher/check_test', this.selectedTest.id]);
     }
 
