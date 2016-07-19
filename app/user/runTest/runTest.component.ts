@@ -4,7 +4,6 @@ import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 import {MaterializeDirective} from 'angular2-materialize'
 import {TestInfo} from "./test.info";
-import {toPromise} from "rxjs/operator/toPromise";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
@@ -33,6 +32,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
+        this.subQuestions = [];
         /* this.question = {
          type: 'test',
          header: "Add a  model for the list of checked recipients. ",
@@ -60,11 +60,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     }
 
-    changeCheckState(idx) {
-        console.log(idx);
-        console.log(this.options[idx].checked);
-        this.options[idx].checked = !this.options[idx].checked;
-    }
+
 
     ngOnInit() {
         var that = this;
@@ -72,56 +68,129 @@ export class RunTestComponent implements OnInit, OnDestroy {
             that.role = params['role'];
             console.log('that.status ' + that.role);
         });
+        this.testInfo = this.getTestInfo();
+        console.log(this.testInfo);
+        if(this.testInfo === null) {
+            this.initTest();
+        } else {
+            this.getQuestion();
+        }
+
+    }
+
+    initTest(){
+        var that = this;
         this.http.get('/' + this.role + '/initTest')
             .toPromise()
             .then(response => that.onResponse(response))
             .catch(this.handleError);
-
     }
 
-    nextQuestion() {
-        console.log('data ' + this.testInfo.numQuestions + '  ' + this.counter);
-        if(this.index >= this.subQuestions.length){
-          
-            this.subQ = false;
-            this.index = 0;
-            this.subQuestions = [];
-            //this.question.type = 'nothing';
-        }
-        if (this.counter >= 7 && !this.subQ) {
-            this.finishTest();
-        } else if(!this.subQ){
-            this.testInfo = localStorage.getItem("testInfo");
-            //this.testInfo.num = this.testInfo.num + 1;
-            ++this.counter;
-            this.getNextQuestion();
-        } else if(this.index < this.subQuestions.length){
+    saveTestInfo(){
+        localStorage.setItem('testInfo', JSON.stringify(this.testInfo));
+    }
 
-            this.question = this.subQuestions[this.index];
-            console.log("this.question " + this.subQuestions);
-            ++this.index;
-            if(this.question.type === 'TestQuestion'){
-                this.makeOptions();
-            }
+    getTestInfo(){
+        return JSON.parse(localStorage.getItem('testInfo'));
+    }
 
-        } else{
-            
-        }
+    saveQuestion(){
+        localStorage.setItem('question', JSON.stringify(this.question));
+        localStorage.setItem('subQuestions', JSON.stringify(this.subQuestions));
+    }
+
+    getQuestion(){
+        this.question = JSON.parse(localStorage.getItem('question'));
+        this.subQuestions = JSON.parse(localStorage.getItem('subQuestions'));
+        console.log( this.subQuestions);
+    }
+
+    onResponse(response) {
+        this.parseTestInfo(response.json().time, response.json().count, response.json().testId);
+        this.getNextQuestion();
+    }
+
+    parseTestInfo(time, numQuestion, id) {
+        this.testInfo = new TestInfo(time, numQuestion, id, this.counter);
+        this.saveTestInfo();
     }
 
     getNextQuestion() {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
+        this.testInfo = this.getTestInfo();
+        console.log(' testInfo ' + this.testInfo.num );
         this.http
             .post('/' + this.role + '/next_question',
-                JSON.stringify({n: that.counter, testId: that.testInfo.id}), {headers: header})
+                JSON.stringify({n: that.testInfo.num, testId: that.testInfo.id}), {headers: header})
             .toPromise()
-            .then(response => that.print(response.json()))
+            .then(response => that.updateQuestion(response.json()))
             .catch(that.handleError);
 
 
     }
+
+    updateQuestion(response) {
+
+        this.question = response;
+        this.saveQuestion();
+        this.processQuestion();
+    }
+
+    processQuestion(){
+        /*switch (this.question.type){
+            case 'TestQuestion':
+                this.makeOptions();
+                break;
+
+
+        };*/
+        if(this.question.type === 'TestQuestion'){
+            this.makeOptions();
+        }
+    }
+
+    changeCheckState(idx) {
+        console.log(idx);
+        console.log(this.options[idx].checked);
+        this.options[idx].checked = !this.options[idx].checked;
+    }
+
+    nextQuestion() {
+        this.testInfo = this.getTestInfo();
+        this.getQuestion();
+        console.log(!this.subQuestions);
+        console.log(this.subQuestions.length);
+
+        if(this.question.index >= this.subQuestions.length){
+            this.question.index = 0;
+            this.subQuestions = [];
+        }
+
+        if (this.testInfo.num >= (this.testInfo.numQuestions - 1) && !this.subQuestions.length) {
+            this.finishTest();
+        } else if(!this.subQuestions.length){
+            ++this.testInfo.num;
+            this.saveTestInfo();
+            this.getNextQuestion();
+        } else if(this.question.index < this.subQuestions.length){
+            console.log('index = ' + this.question.index);
+            var i = this.question.index;
+            this.question = this.subQuestions[this.question.index];
+
+            console.log(' this.question = ' +  this.question.type);
+            this.processQuestion();
+            this.question.index = (i + 1);
+
+            console.log('index = ' + this.question.index);
+            this.saveQuestion();
+
+        }
+
+    }
+
+
 
     makeOptions(){
 
@@ -133,31 +202,12 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     }
 
-
-    print(response) {
-        localStorage.setItem('testInfo', JSON.stringify(this.testInfo));
-        this.question = response;
-        if(this.question.type === 'TestQuestion') {
-            this.makeOptions();
-        }
-    }
-
-
-    onResponse(response) {
-        this.parse(response.json().time, response.json().count, response.json().testId);
-        this.getNextQuestion();
-    }
-
-
     handleError(error:any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
 
-    parse(time, numQuestion, id) {
-        this.testInfo = new TestInfo(time, numQuestion, id, this.counter);
-        localStorage.setItem('testInfo', JSON.stringify(this.testInfo));
-    }
+
 
     ngOnDestroy() {
         this.sub.unsubscribe();
@@ -169,10 +219,14 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     printSubquestions(){
-        this.subQ = true;
-        this.index = 0;
+
+        if(this.question.type === 'AudioQuestion'){
+            this.myAudio.pause();
+        }
+
+        this.question.index = 0;
         this.subQuestions = this.question.subQuestions;
-        console.log('subQuestions ' + this.subQuestions);
+        this.saveQuestion();
         this.nextQuestion();
     }
 
