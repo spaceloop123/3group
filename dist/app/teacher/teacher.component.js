@@ -43,21 +43,19 @@ System.register(['@angular/core', "@angular/router", "./cards-colors.data", "@an
                     var that = this;
                     this.http.get('/teacher/tests')
                         .toPromise()
-                        .then(function (response) {
-                        that.assignedTests = response.json();
-                        console.log(that.assignedTests);
-                    })
-                        .catch(this.handleError);
-                    return (this.assignedTests);
+                        .then(function (response) { return that.setTests(response.json()); })
+                        .catch(that.handleError);
+                };
+                TeacherComponent.prototype.setTests = function (response) {
+                    this.assignedTests = response;
+                };
+                TeacherComponent.prototype.checkTest = function (test) {
+                    //this happens when teacher clicks CHECK button
+                    this.router.navigate(['/teacher/check_test', test.id]);
                 };
                 TeacherComponent.prototype.handleError = function (error) {
                     console.error('An error occurred', error);
                     return Promise.reject(error.message || error);
-                };
-                TeacherComponent.prototype.checkTest = function () {
-                    //this happens when teacher clicks CHECK button
-                    this.selectedTest = this.assignedTests;
-                    this.router.navigate(['/teacher/check_test', this.selectedTest.id]);
                 };
                 TeacherComponent.prototype.ngOnInit = function () {
                     this.getTests();
