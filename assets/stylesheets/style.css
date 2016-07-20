@@ -19,3 +19,7 @@ main {
     height: 255px; /* 338px for 4 rows */
     overflow-y: scroll;
 }
+
+.teacher-card-content {
+    word-wrap: break-word !important;
+}

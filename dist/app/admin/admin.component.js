@@ -30,8 +30,14 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "@a
             AdminComponent = (function () {
                 function AdminComponent(http) {
                     this.http = http;
-                    this.newMemberUrl = '/admin/new-';
+                    this.newMemberUrl = '/admin/new_';
                     this.statsForUrl = '/admin/show';
+                    this.rows = [
+                        {username: "Pacan 1", role: "Admin", email: "email"},
+                        {username: "Pacan 2", role: "Teacher", email: "email"},
+                        {username: "Pacan 3", role: "Guest", email: "email"},
+                        {username: "Pacan 4", role: "User", email: "email"}
+                    ];
                     this.member = {
                         role: 'guest',
                         username: '',
@@ -61,8 +67,12 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "@a
                 AdminComponent.prototype.addUser = function () {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
-                    console.log(this.http.post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), { headers: headers })
-                        .toPromise());
+                    this.http
+                        .post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), {headers: headers})
+                        .toPromise()
+                        .then(function (response) {
+                            return console.log(response.json());
+                        });
                 };
                 //*** Show user's profile with filter ***
                 AdminComponent.prototype.isProfilesFieldsEmpty = function () {

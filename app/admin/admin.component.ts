@@ -11,7 +11,7 @@ import {Http, Headers} from "@angular/http";
 
 export class AdminComponent {
     private member;
-    private newMemberUrl = '/admin/new-';
+    private newMemberUrl = '/admin/new_';
 
     private statsFor;
     private statsForUrl = '/admin/show';
@@ -48,8 +48,10 @@ export class AdminComponent {
     addUser() {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        console.log(this.http.post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), {headers: headers})
-            .toPromise());
+        this.http
+            .post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), {headers: headers})
+            .toPromise()
+            .then(response => console.log(response.json()));
     }
 
     //*** Show user's profile with filter ***
@@ -61,4 +63,11 @@ export class AdminComponent {
     showProfiles() {
 
     }
+
+    private rows = [
+        {username: "Pacan 1", role: "Admin", email: "email"},
+        {username: "Pacan 2", role: "Teacher", email: "email"},
+        {username: "Pacan 3", role: "Guest", email: "email"},
+        {username: "Pacan 4", role: "User", email: "email"}
+    ]
 }

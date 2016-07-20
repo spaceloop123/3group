@@ -75,3 +75,22 @@
     "role" : "teacher", 
     "__v" : NumberInt(0)
 }
+{ 
+    "_id" : ObjectId("578e1b2e34cac4b0550f0eaa"), 
+    "hash" : "2713293fdfccbf83e87939f2590ac9d24c7066be26e731e18bca11606d35f0ce02dad20a2b67094fea1560a2dabd7755e19243f420c54e070181fc8f60f34c67", 
+    "salt" : "2c643c0d17365a24253f4f8bef825a52", 
+    "username" : "Guest8", 
+    "email" : "test.guest@gmail.com", 
+    "role" : "guest", 
+    "level" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578e1b6234cac4b0550f0eab"), 
+    "hash" : "1da88f0b8a81d9855ebbf69cc9059b6312662005b82b9c06c0cbeeb6c7b4793b50c3f317894e8a81155d16ba987102b9759d728f9a05b8a84f0ae7ff4ad80960", 
+    "salt" : "1d181b0b5fc621cc5decfaf030bcc171", 
+    "username" : "ticher", 
+    "email" : "test.teacher@gmail.com", 
+    "role" : "teacher", 
+    "__v" : NumberInt(0)
+}
