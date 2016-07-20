@@ -22,10 +22,6 @@
                     <label [attr.for]="i">{{option.name}}</label>
                 </p>
             </form>
-            <!--button class="btn waves-effect waves-light left" type="submit" name="action" (click)="nextQuestion()">
-                Send<i
-                    class="material-icons right">send</i></button-->
-
         </div>
     </div>
     <div class="card-action center">
@@ -45,7 +41,8 @@
                     </div>
                     <div class="row">
                         <div class="left">{{question.description}}
-                            <input placeholder="enter your answer" type="test" class="validate">
+                            <input placeholder="enter your answer" type="test" class="validate"
+                                   [(ngModel)]="question.answer" name = "answer">
                             {{question.info}}
                         </div>
                     </div>
@@ -166,8 +163,8 @@
             <div class="row">
                 <div>
                     <div class="input-field col s12 m12 l8 offset-l2">
-                    <textarea id="textarea" class="materialize-textarea" length="120"
-                              placeholder="enter your answer"></textarea>
+                    <textarea  id="textarea" class="materialize-textarea" length="120"
+                              placeholder="enter your answer" [(ngModel)]="question.answer" name="answer"></textarea>
                         <button class="btn waves-effect right" type="submit" name="action"
                                 (click)="nextQuestion()">
                             <i class="material-icons right">send</i></button>

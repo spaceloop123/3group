@@ -13,6 +13,7 @@ ReadingQuestionsSchema.methods.getQuestion = function () {
         subQuestions.push(subQuestion.getQuestion());
     });
     return {
+        id: this.id,
         type: this.type,
         header: this.header,
         text: this.text,

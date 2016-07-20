@@ -8,6 +8,7 @@ var SpeechQuestionsSchema = new mongoose.Schema({
 
 SpeechQuestionsSchema.methods.getQuestion = function () {
     return {
+        id: this.id,
         type: this.type,
         header: this.header,
         question: this.question
