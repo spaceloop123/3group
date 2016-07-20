@@ -37,15 +37,15 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
                 }
                 UserComponent.prototype.ngOnInit = function () {
                     this.getTestInfo();
-                    if (this.testInfo.status === 'requestedTest') {
+                    if (this.testInfo.status === 'requested') {
                         this.testWaiter();
                     }
                 };
                 UserComponent.prototype.getTestInfo = function () {
                     var that = this;
-                    this.http.get('/user/testInfo')
+                    this.http.get('/user/test_info')
                         .toPromise()
-                        .then(function (response) { return that.testInfo.status = response.json().testStatus; })
+                        .then(function (response) { return that.testInfo.status = response.json().status; })
                         .catch(that.handleError);
                     console.log("testInfo.status-" + this.testInfo);
                 };

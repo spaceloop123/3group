@@ -32,6 +32,7 @@ System.register(["@angular/forms", "@angular/core", "@angular/router", "@angular
                     this.route = route;
                     this.router = router;
                     this.http = http;
+                    this.role = 'nobody';
                 }
                 FinishTestPageComponent.prototype.ngOnInit = function () {
                     var that = this;
@@ -46,7 +47,7 @@ System.register(["@angular/forms", "@angular/core", "@angular/router", "@angular
                 };
                 FinishTestPageComponent.prototype.autoExit = function () {
                     var that = this;
-                    //setTimeout(() => that.exit(), 5000);
+                    setTimeout(function () { return that.exit(); }, 5000);
                 };
                 FinishTestPageComponent.prototype.exit = function () {
                     var link = (this.role === "user") ? "/user" : "/logo"; //потом сделать для quest logOut

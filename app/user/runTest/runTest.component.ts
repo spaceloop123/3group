@@ -4,7 +4,6 @@ import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 import {MaterializeDirective} from 'angular2-materialize'
 import {TestInfo} from "./test.info";
-import {toPromise} from "rxjs/operator/toPromise";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
@@ -12,52 +11,148 @@ import {toPromise} from "rxjs/operator/toPromise";
 })
 
 export class RunTestComponent implements OnInit, OnDestroy {
-    subQ: boolean;
     question:any;
     subQuestions: any[];
     myAudio:any;
-
     sub:any;
     role:any;
-    index: number;
     controlNames:string[];
     isPlayed:boolean;
     playCount:number;
     openAnswer:string;
     testInfo:TestInfo;
-    r:any;
-    id:string;
     options:any[];
-    counter:number;
+    answer: string[];
 
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
-        /* this.question = {
-         type: 'test',
-         header: "Add a  model for the list of checked recipients. ",
-         question: 'Type the search and replacement text explicitly, or specify patterns using regular expression, or select a previously used piece of text or a pattern from the recent history drop-down list. ',
-         options: [{name: 'aaa', checked: true},
-         {name: 'bbb', checked: true},
-         {name: 'ccc', checked: false},
-         {name: 'ddd', checked: false},
-         {name: 'eee', checked: true},],
-         answer: 'buka'
-         //options: ["Hello1", "Hello2", "Hello3"]
-         };*/
+        this.subQuestions = [];
+        this.myAudio = new Audio();
         this.subQuestions = new Array();
-        this.index = 0;
-        this.subQ = false;
         this.options = new Array();
         this.controlNames = ["aaa", "bbb", "ccc"];
         this.isPlayed = false;
-        this.openAnswer = "bukaOpen";
         /*this.id = '';
          localStorage.setItem(name, 'Vasia');
          console.log(localStorage.getItem(name));*/
         this.question = {type: "nothing"};
-        this.counter = 1;
+        this.answer = [''];
 
+    }
+
+
+
+    ngOnInit() {
+        var that = this;
+        this.sub = this.route.params.subscribe(params => {
+            that.role = params['role'];
+            console.log('that.status ' + that.role);
+        });
+        this.testInfo = this.getTestInfo();
+        console.log(this.testInfo);
+        if(this.testInfo === null) {
+            this.initTest();
+        } else {
+            this.getQuestion();
+        }
+
+    }
+
+    initTest(){
+        var that = this;
+        this.http.get('/' + this.role + '/init_test')
+            .toPromise()
+            .then(response => that.onResponse(response))
+            .catch(this.handleError);
+    }
+
+    saveTestInfo(){
+        localStorage.setItem('testInfo', JSON.stringify(this.testInfo));
+    }
+
+    getTestInfo(){
+        return JSON.parse(localStorage.getItem('testInfo'));
+    }
+
+    saveQuestion(){
+        localStorage.setItem('question', JSON.stringify(this.question));
+        localStorage.setItem('subQuestions', JSON.stringify(this.subQuestions));
+    }
+
+    getQuestion(){
+        this.question = JSON.parse(localStorage.getItem('question'));
+        this.subQuestions = JSON.parse(localStorage.getItem('subQuestions'));
+        console.log( this.subQuestions);
+    }
+
+    onResponse(response) {
+        this.parseTestInfo(response.json().time, response.json().count, response.json().testId);
+        this.getNextQuestion();
+    }
+
+    parseTestInfo(time, numQuestion, id) {
+        this.testInfo = new TestInfo(time, numQuestion, id, 1);
+        this.saveTestInfo();
+    }
+
+    getNextQuestion() {
+        var that = this;
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        this.testInfo = this.getTestInfo();
+        console.log(' testInfo ' + this.testInfo.num );
+        this.http
+            .post('/' + this.role + '/next_question',
+                JSON.stringify({n: that.testInfo.num, testId: that.testInfo.id}), {headers: header})
+            .toPromise()
+            .then(response => that.updateQuestion(response.json()))
+            .catch(that.handleError);
+
+
+    }
+
+    createAnswer(){
+        this.answer = new Array();
+        if(this.question.type === 'TestQuestion') {
+            for(let index = 0; index < this.options.length; ++index){
+                if(this.options[index].checked){
+                    this.answer.push(this.options[index].name);
+                }
+            }
+
+        } else{
+            this.answer = new Array(this.question.answer);
+        }
+    }
+
+    sendAnswer(){
+
+        console.log(' this.openAnswer ' + this.question.answer)
+        this.createAnswer();
+        var that = this;
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        this.testInfo = this.getTestInfo();
+        console.log(' testInfo ' + this.testInfo.num );
+        this.http
+            .post('/' + this.role + '/answer',
+                JSON.stringify({test: that.testInfo.id, question: that.question.id, answer: that.answer}), {headers: header})
+            .toPromise()
+            .then(response => console.log(response))
+            .catch(that.handleError);
+    }
+
+    updateQuestion(response) {
+        this.question = response;
+        this.saveQuestion();
+        this.processQuestion();
+    }
+
+    processQuestion(){
+        if(this.question.type === 'TestQuestion'){
+            this.makeOptions();
+        }
     }
 
     changeCheckState(idx) {
@@ -66,65 +161,38 @@ export class RunTestComponent implements OnInit, OnDestroy {
         this.options[idx].checked = !this.options[idx].checked;
     }
 
-    ngOnInit() {
-        var that = this;
-        this.sub = this.route.params.subscribe(params => {
-            that.role = params['role'];
-            console.log('that.status ' + that.role);
-        });
-        this.http.get('/' + this.role + '/initTest')
-            .toPromise()
-            .then(response => that.onResponse(response))
-            .catch(this.handleError);
-
-    }
-
     nextQuestion() {
-        console.log('data ' + this.testInfo.numQuestions + '  ' + this.counter);
-        if(this.index >= this.subQuestions.length){
-          
-            this.subQ = false;
-            this.index = 0;
-            this.subQuestions = [];
-            //this.question.type = 'nothing';
-        }
-        if (this.counter >= 7 && !this.subQ) {
-            this.finishTest();
-        } else if(!this.subQ){
-            this.testInfo = localStorage.getItem("testInfo");
-            //this.testInfo.num = this.testInfo.num + 1;
-            ++this.counter;
-            this.getNextQuestion();
-        } else if(this.index < this.subQuestions.length){
 
-            this.question = this.subQuestions[this.index];
-            console.log("this.question " + this.subQuestions);
-            ++this.index;
-            if(this.question.type === 'TestQuestion'){
-                this.makeOptions();
+        this.sendAnswer();
+        this.testInfo = this.getTestInfo();
+        this.getQuestion();
+
+        if(this.question.index >= this.subQuestions.length){
+            this.question.index = 0;
+            this.subQuestions = [];
+        }
+
+        if ( !this.subQuestions.length) {
+            if(this.testInfo.num >= (this.testInfo.numQuestions - 1)){
+                this.finishTest();
+            }else{
+                ++this.testInfo.num;
+                this.saveTestInfo();
+                this.getNextQuestion();
             }
 
-        } else{
-            
+        } else if(this.question.index < this.subQuestions.length){
+            var i = this.question.index;
+            this.question = this.subQuestions[this.question.index];
+            this.processQuestion();
+            this.question.index = (i + 1);
+            this.saveQuestion();
         }
     }
 
-    getNextQuestion() {
-        var that = this;
-        var header = new Headers();
-        header.append('Content-Type', 'application/json');
-        this.http
-            .post('/' + this.role + '/next_question',
-                JSON.stringify({n: that.counter, testId: that.testInfo.id}), {headers: header})
-            .toPromise()
-            .then(response => that.print(response.json()))
-            .catch(that.handleError);
 
-
-    }
 
     makeOptions(){
-
             this.options = [];
             for (let index = 0; index < this.question.answers.length; ++index) {
                 console.log('answer' + this.question.answers[index]);
@@ -133,71 +201,52 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     }
 
-
-    print(response) {
-        localStorage.setItem('testInfo', JSON.stringify(this.testInfo));
-        this.question = response;
-        if(this.question.type === 'TestQuestion') {
-            this.makeOptions();
-        }
-    }
-
-
-    onResponse(response) {
-        this.parse(response.json().time, response.json().count, response.json().testId);
-        this.getNextQuestion();
-    }
-
-
     handleError(error:any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
 
-    parse(time, numQuestion, id) {
-        this.testInfo = new TestInfo(time, numQuestion, id, this.counter);
-        localStorage.setItem('testInfo', JSON.stringify(this.testInfo));
-    }
+
 
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
 
     finishTest() {
-       
+        localStorage.clear();
         this.router.navigate(['/finishTest', this.role]);
     }
 
     printSubquestions(){
-        this.subQ = true;
-        this.index = 0;
+
+        if(this.question.type === 'AudioQuestion'){
+            this.myAudio.pause();
+        }
+
+        this.question.index = 0;
         this.subQuestions = this.question.subQuestions;
-        console.log('subQuestions ' + this.subQuestions);
+
+        this.saveQuestion();
         this.nextQuestion();
     }
 
     playAydio() {
-
         if (!this.isPlayed) {
             this.myAudio = new Audio();
             this.myAudio.src = "http://vignette4.wikia.nocookie.net/starwars/images/f/f5/A_little_short.ogg/revision/latest?cb=20090519125603";
             this.myAudio.load();
-            //audio.play();
             this.isPlayed = true;
             this.playCount = 0;
-            //audio.addEventListener("ended")
         }
+
         if (this.playCount < 2 && this.myAudio.paused) {
             this.myAudio.play();
             var that = this;
             this.myAudio.addEventListener("ended", () => that.playCount += 1);
         }
+
         if (this.playCount >= 2) {
             console.log('Your have spent all of the attempts!');
-
-
         }
     }
-
-
 }
