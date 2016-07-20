@@ -16,7 +16,7 @@
                 <div id="tab1" class="col s12">
                     <div class="card grey lighten-5">
                         <div class="card-content black-text">
-                            <span class="card-title">Add a member</span>
+                            <span class="card-title">Add member</span>
                             <div class="row">
                                 <form class="col s12" action="#">
                                     <p>
@@ -72,6 +72,26 @@
                 <!-- Action 2 -->
 
                 <div id="tab2" class="col s12">
+                    <div class="card grey lighten-5">
+                        <div class="card-content black-text">
+                            <span class="card-title">Add questions</span>
+                            <div class="row">
+
+                            </div>
+                        </div>
+                        <div class="card-action" align="center">
+                            <a class="waves-effect waves-light btn">show</a>
+                            <!--<a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">show</a>-->
+                        </div>
+                    </div>
+                    <div class="hide-on-small-only">
+                        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    </div>
+                </div>
+
+                <!-- Action 3 -->
+
+                <div id="tab3" class="col s12">
                     <div class="card grey lighten-5 ">
                         <div class="card-content black-text">
                             <span class="card-title">Show profiles</span>
@@ -97,7 +117,8 @@
                             </div>
                         </div>
                         <div class="card-action" align="center">
-                            <a class="waves-effect waves-light btn">show</a>
+                            <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
+                               class="waves-effect waves-light btn modal-trigger" href="#modal1">show</a>
                             <!--<a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">show</a>-->
                         </div>
                     </div>
@@ -106,25 +127,6 @@
                     </div>
                 </div>
 
-                <!-- Action 3 -->
-
-                <div id="tab3" class="col s12">
-                    <div class="card grey lighten-5 ">
-                        <div class="card-content black-text">
-                            <span class="card-title">Add questions</span>
-                            <div class="row">
-
-                            </div>
-                        </div>
-                        <div class="card-action" align="center">
-                            <a class="waves-effect waves-light btn">show</a>
-                            <!--<a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">show</a>-->
-                        </div>
-                    </div>
-                    <div class="hide-on-small-only">
-                        <br><br><br><br><br><br><br><br><br><br><br><br><br>
-                    </div>
-                </div>
             </div>
 
         </div>
@@ -152,9 +154,81 @@
                         Teacher: Name
                     </p>
                 </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle yellow">new_releases</i>
+                    <span class="title">New test</span>
+                    <p>Click to assign a teacher to username<br>
+
+                    </p>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle green">done_all</i>
+                    <span class="title">Success</span>
+                    <p>User: Name<br>
+                        Teacher: Name
+                    </p>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle yellow">new_releases</i>
+                    <span class="title">New test</span>
+                    <p>Click to assign a teacher to username<br>
+
+                    </p>
+                </li>
                 <li class="divider"></li>
             </ul>
 
         </div>
+    </div>
+</div>
+
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Profiles</h4>
+        <p></p>
+        <table class="bordered highlight centered">
+            <thead>
+            <tr>
+                <th data-field="username">Username</th>
+                <th data-field="role">Role</th>
+                <th data-field="email">Email</th>
+            </tr>
+            </thead>
+
+            <!--<tbody *ngfor="row in rows">
+            <tr>
+                <td>{{row.username}}</td>
+                <td>{{row.role}}</td>
+                <td>{{row.email}}</td>
+            </tr>
+
+            </tbody>-->
+            <tbody>
+            <tr>
+                <td>Pacan 1</td>
+                <td>Admin</td>
+                <td>email@email.com</td>
+            </tr>
+            <tr>
+                <td>Pacan 2</td>
+                <td>Teacher</td>
+                <td>email@email.com</td>
+            </tr>
+            <tr>
+                <td>Pacan 3</td>
+                <td>User</td>
+                <td>email@email.com</td>
+            </tr>
+            <tr>
+                <td>Pacan 4</td>
+                <td>Guest</td>
+                <td>email@email.com</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#/admin"
+           class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
 </div>

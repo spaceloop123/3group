@@ -3,9 +3,9 @@
 
         <div class="row" *ngIf="assignedTests.length > 2">
             <div class="col s12 m6 l4" *ngFor="let test of assignedTests">
-                    <div class="card small center-align" [style.background-color]="'grey'">
-                    <div class="card-content white-text center">
-                        <span class="card-title">{{test.date}}</span>
+                <div class="card small center-align" [style.background-color]="'grey'">
+                    <div class="card-content white-text center teacher-card-content">
+                        <span class="card-title">26.04.2016<!--{{test.date}}--></span>
                         <p>Some descr</p>
                     </div>
                     <div class="card-action center">
@@ -18,9 +18,9 @@
         <div class="row" *ngIf="assignedTests.length == 1">
             <div class="col offset-s1 s10 offset-m4 m4" *ngFor="let test of assignedTests">
                 <div class="card small center-align" [style.background-color]="'grey'">
-                    <div class="card-content white-text center">
-                        <span class="card-title">{{test.name}}</span>
-                        <p>{{test.descr}}</p>
+                    <div class="card-content white-text center teacher-card-content">
+                        <span class="card-title">15.07.2016<!--{{test.date}}--></span>
+                        <p>Some descr</p>
                     </div>
                     <div class="card-action center">
                         <a class="waves-effect white{{test.color}}-text grey btn" (click)="checkTest(test)">Check</a>
@@ -32,9 +32,9 @@
         <div class="row" *ngIf="assignedTests.length == 2">
             <div class="col offset-s1 s10 offset-m2 m3" *ngFor="let test of assignedTests">
                 <div class="card small center-align" [style.background-color]="'grey'">
-                    <div class="card-content white-text center">
-                        <span class="card-title">{{test.name}}</span>
-                        <p>{{test.descr}}</p>
+                    <div class="card-content white-text center teacher-card-content">
+                        <span class="card-title">24.05.2016<!--{{test.date}}--></span>
+                        <p>Some descr</p>
                     </div>
                     <div class="card-action center">
                         <a class="waves-effect white{{test.color}}-text grey btn" (click)="checkTest(test)">Check</a>

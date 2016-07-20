@@ -16,28 +16,4 @@ router.get('/', function (req, res, next) {
     res.render('index');
 });
 
-function addQuestion() {
-    var question1 = new SpeechQuestion({
-        header: 'Give answers for the following questions and record them',
-        difficulty: 20,
-        maxCost: 10,
-        question: 'When did you feel annoyed last time?'
-    });
-    var question2 = new SpeechQuestion({
-        header: 'Give answers for the following questions and record them',
-        difficulty: 20,
-        maxCost: 10,
-        question: 'What other country of the world would you like to live in? Why?'
-    });
-    question1.save();
-    question2.save();
-}
-
-router.get('/qtest', function (req, res) {
-    Question.findOne({parent: undefined, type: 'AudioQuestion'}).populate('subQuestions').exec(function (err, q) {
-        console.log(q.getQuestion());
-    });
-    res.end();
-});
-
 module.exports = router;
