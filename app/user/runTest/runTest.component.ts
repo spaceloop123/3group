@@ -112,7 +112,13 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     createAnswer(){
+        this.answer = new Array();
         if(this.question.type === 'TestQuestion') {
+            for(let index = 0; index < this.options.length; ++index){
+                if(this.options[index].checked){
+                    this.answer.push(this.options[index].name);
+                }
+            }
 
         } else{
             this.answer = new Array(this.question.answer);
