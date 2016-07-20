@@ -11,52 +11,32 @@ import {TestInfo} from "./test.info";
 })
 
 export class RunTestComponent implements OnInit, OnDestroy {
-    subQ: boolean;
     question:any;
     subQuestions: any[];
     myAudio:any;
-
     sub:any;
     role:any;
-    index: number;
     controlNames:string[];
     isPlayed:boolean;
     playCount:number;
     openAnswer:string;
     testInfo:TestInfo;
-    r:any;
-    id:string;
     options:any[];
-    counter:number;
-
+    answer: string[];
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
         this.subQuestions = [];
-        /* this.question = {
-         type: 'test',
-         header: "Add a  model for the list of checked recipients. ",
-         question: 'Type the search and replacement text explicitly, or specify patterns using regular expression, or select a previously used piece of text or a pattern from the recent history drop-down list. ',
-         options: [{name: 'aaa', checked: true},
-         {name: 'bbb', checked: true},
-         {name: 'ccc', checked: false},
-         {name: 'ddd', checked: false},
-         {name: 'eee', checked: true},],
-         answer: 'buka'
-         //options: ["Hello1", "Hello2", "Hello3"]
-         };*/
+
         this.subQuestions = new Array();
-        this.index = 0;
-        this.subQ = false;
         this.options = new Array();
         this.controlNames = ["aaa", "bbb", "ccc"];
         this.isPlayed = false;
-        this.openAnswer = "bukaOpen";
         /*this.id = '';
          localStorage.setItem(name, 'Vasia');
          console.log(localStorage.getItem(name));*/
         this.question = {type: "nothing"};
-        this.counter = 1;
+        this.answer = [''];
 
     }
 
@@ -80,7 +60,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     initTest(){
         var that = this;
-        this.http.get('/' + this.role + '/initTest')
+        this.http.get('/' + this.role + '/init_test')
             .toPromise()
             .then(response => that.onResponse(response))
             .catch(this.handleError);
@@ -111,7 +91,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     parseTestInfo(time, numQuestion, id) {
-        this.testInfo = new TestInfo(time, numQuestion, id, this.counter);
+        this.testInfo = new TestInfo(time, numQuestion, id, 1);
         this.saveTestInfo();
     }
 
@@ -131,21 +111,38 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     }
 
-    updateQuestion(response) {
+    createAnswer(){
+        if(this.question.type === 'TestQuestion') {
 
+        } else{
+            this.answer = new Array(this.question.answer);
+        }
+    }
+
+    sendAnswer(){
+
+        console.log(' this.openAnswer ' + this.question.answer)
+        this.createAnswer();
+        var that = this;
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        this.testInfo = this.getTestInfo();
+        console.log(' testInfo ' + this.testInfo.num );
+        this.http
+            .post('/' + this.role + '/answer',
+                JSON.stringify({test: that.testInfo.id, question: that.question.id, answer: that.answer}), {headers: header})
+            .toPromise()
+            .then(response => console.log(response))
+            .catch(that.handleError);
+    }
+
+    updateQuestion(response) {
         this.question = response;
         this.saveQuestion();
         this.processQuestion();
     }
 
     processQuestion(){
-        /*switch (this.question.type){
-            case 'TestQuestion':
-                this.makeOptions();
-                break;
-
-
-        };*/
         if(this.question.type === 'TestQuestion'){
             this.makeOptions();
         }
@@ -158,10 +155,10 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     nextQuestion() {
+
+        this.sendAnswer();
         this.testInfo = this.getTestInfo();
         this.getQuestion();
-        console.log(!this.subQuestions);
-        console.log(this.subQuestions.length);
 
         if(this.question.index >= this.subQuestions.length){
             this.question.index = 0;
@@ -175,25 +172,17 @@ export class RunTestComponent implements OnInit, OnDestroy {
             this.saveTestInfo();
             this.getNextQuestion();
         } else if(this.question.index < this.subQuestions.length){
-            console.log('index = ' + this.question.index);
             var i = this.question.index;
             this.question = this.subQuestions[this.question.index];
-
-            console.log(' this.question = ' +  this.question.type);
             this.processQuestion();
             this.question.index = (i + 1);
-
-            console.log('index = ' + this.question.index);
             this.saveQuestion();
-
         }
-
     }
 
 
 
     makeOptions(){
-
             this.options = [];
             for (let index = 0; index < this.question.answers.length; ++index) {
                 console.log('answer' + this.question.answers[index]);
@@ -214,7 +203,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     finishTest() {
-       
+        localStorage.clear();
         this.router.navigate(['/finishTest', this.role]);
     }
 
@@ -226,32 +215,28 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
         this.question.index = 0;
         this.subQuestions = this.question.subQuestions;
+
         this.saveQuestion();
         this.nextQuestion();
     }
 
     playAydio() {
-
         if (!this.isPlayed) {
             this.myAudio = new Audio();
             this.myAudio.src = "http://vignette4.wikia.nocookie.net/starwars/images/f/f5/A_little_short.ogg/revision/latest?cb=20090519125603";
             this.myAudio.load();
-            //audio.play();
             this.isPlayed = true;
             this.playCount = 0;
-            //audio.addEventListener("ended")
         }
+
         if (this.playCount < 2 && this.myAudio.paused) {
             this.myAudio.play();
             var that = this;
             this.myAudio.addEventListener("ended", () => that.playCount += 1);
         }
+
         if (this.playCount >= 2) {
             console.log('Your have spent all of the attempts!');
-
-
         }
     }
-
-
 }
