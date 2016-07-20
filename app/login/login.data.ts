@@ -1,5 +1,7 @@
 export class LoginData {
     constructor(public username:string,
-                public password:string) {
+                public usernameValid: boolean = false,
+                public password:string,
+                public submitAttempt: boolean) {
     }
 }

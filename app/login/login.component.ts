@@ -4,10 +4,11 @@ import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {LoginService} from "./login.service";
 import {Constants} from "../common/constants/constants.data";
 import { NgForm }    from '@angular/forms';
+import {MaterializeDirective} from "angular2-materialize/dist/index";
 
 @Component({
     templateUrl: 'app/login/login.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective],
     providers: [LoginService]
 
 })
@@ -20,7 +21,7 @@ export class LoginComponent {
 
     }
 
-    model = new LoginData('', '');
+    model = new LoginData('', '', false);
 
     submitted = false;
 
@@ -33,6 +34,8 @@ export class LoginComponent {
     onSubmit() { this.submitted = true; }
 
     loginRequest() {
+        this.model.submitAttempt = true;
+        this.model.usernameValid = this.model.username !== '';
         this.loginService.postAndRedirect(this.model, this.router);
 
     }

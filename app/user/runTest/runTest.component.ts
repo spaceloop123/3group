@@ -49,17 +49,17 @@ export class RunTestComponent implements OnInit, OnDestroy {
             that.role = params['role'];
             console.log('that.status ' + that.role);
         });
-        this.testInfo = this.getTestInfo();
+        this.testInfo = this.restoreTestInfo();
         console.log(this.testInfo);
         if(this.testInfo === null) {
-            this.initTest();
+            this.getTestInfoFromServer();
         } else {
-            this.getQuestion();
+            this.restoreQuestions();
         }
 
     }
 
-    initTest(){
+    getTestInfoFromServer(){
         var that = this;
         this.http.get('/' + this.role + '/init_test')
             .toPromise()
@@ -71,42 +71,42 @@ export class RunTestComponent implements OnInit, OnDestroy {
         localStorage.setItem('testInfo', JSON.stringify(this.testInfo));
     }
 
-    getTestInfo(){
+    restoreTestInfo(){
         return JSON.parse(localStorage.getItem('testInfo'));
     }
 
-    saveQuestion(){
+    saveQuestions(){
         localStorage.setItem('question', JSON.stringify(this.question));
         localStorage.setItem('subQuestions', JSON.stringify(this.subQuestions));
     }
 
-    getQuestion(){
+    restoreQuestions(){
         this.question = JSON.parse(localStorage.getItem('question'));
         this.subQuestions = JSON.parse(localStorage.getItem('subQuestions'));
         console.log( this.subQuestions);
     }
 
     onResponse(response) {
-        this.parseTestInfo(response.json().time, response.json().count, response.json().testId);
-        this.getNextQuestion();
+        this.initTestInfo(response.json().time, response.json().count, response.json().testId);
+        this.getNextQuestionFromServer();
     }
 
-    parseTestInfo(time, numQuestion, id) {
+    initTestInfo(time, numQuestion, id) {
         this.testInfo = new TestInfo(time, numQuestion, id, 1);
         this.saveTestInfo();
     }
 
-    getNextQuestion() {
+    getNextQuestionFromServer() {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        this.testInfo = this.getTestInfo();
+        this.testInfo = this.restoreTestInfo();
         console.log(' testInfo ' + this.testInfo.num );
         this.http
             .post('/' + this.role + '/next_question',
                 JSON.stringify({n: that.testInfo.num, testId: that.testInfo.id}), {headers: header})
             .toPromise()
-            .then(response => that.updateQuestion(response.json()))
+            .then(response => that.saveQuestionFromResponse(response.json()))
             .catch(that.handleError);
 
 
@@ -133,7 +133,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        this.testInfo = this.getTestInfo();
+        this.testInfo = this.restoreTestInfo();
         console.log(' testInfo ' + this.testInfo.num );
         this.http
             .post('/' + this.role + '/answer',
@@ -143,9 +143,9 @@ export class RunTestComponent implements OnInit, OnDestroy {
             .catch(that.handleError);
     }
 
-    updateQuestion(response) {
+    saveQuestionFromResponse(response) {
         this.question = response;
-        this.saveQuestion();
+        this.saveQuestions();
         this.processQuestion();
     }
 
@@ -161,11 +161,11 @@ export class RunTestComponent implements OnInit, OnDestroy {
         this.options[idx].checked = !this.options[idx].checked;
     }
 
-    nextQuestion() {
+    goToNextQuestion() {
 
         this.sendAnswer();
-        this.testInfo = this.getTestInfo();
-        this.getQuestion();
+        this.testInfo = this.restoreTestInfo();
+        this.restoreQuestions();
 
         if(this.question.index >= this.subQuestions.length){
             this.question.index = 0;
@@ -178,7 +178,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
             }else{
                 ++this.testInfo.num;
                 this.saveTestInfo();
-                this.getNextQuestion();
+                this.getNextQuestionFromServer();
             }
 
         } else if(this.question.index < this.subQuestions.length){
@@ -186,7 +186,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
             this.question = this.subQuestions[this.question.index];
             this.processQuestion();
             this.question.index = (i + 1);
-            this.saveQuestion();
+            this.saveQuestions();
         }
     }
 
@@ -226,8 +226,8 @@ export class RunTestComponent implements OnInit, OnDestroy {
         this.question.index = 0;
         this.subQuestions = this.question.subQuestions;
 
-        this.saveQuestion();
-        this.nextQuestion();
+        this.saveQuestions();
+        this.goToNextQuestion();
     }
 
     playAydio() {

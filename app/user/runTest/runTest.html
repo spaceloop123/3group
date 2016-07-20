@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="card-action center">
-        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="nextQuestion()">Send
+        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="goToNextQuestion()">Send
             <i class="material-icons right">send</i></button>
     </div>
 
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="card-action center">
-        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="nextQuestion()">Send
+        <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="goToNextQuestion()">Send
             <i class="material-icons right">send</i></button>
     </div>
 </div>
@@ -127,7 +127,7 @@
     </div>
     <div class="card-action center">
         <button class="btn waves-effect waves-light center" type="submit" name="action"
-                (click)="nextQuestion()">Send
+                (click)="goToNextQuestion()">Send
             <i class="material-icons right">send</i></button>
     </div>
 </div>
@@ -155,7 +155,7 @@
                     <textarea  id="textarea" class="materialize-textarea" length="120"
                               placeholder="enter your answer" [(ngModel)]="question.answer" name="answer"></textarea>
                         <button class="btn waves-effect right" type="submit" name="action"
-                                (click)="nextQuestion()">
+                                (click)="goToNextQuestion()">
                             <i class="material-icons right">send</i></button>
                     </div>
                 </div>
