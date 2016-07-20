@@ -1,19 +1,22 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from '../common/auth/auth.service';
 import {Http} from "@angular/http";
 
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
     directives: [ROUTER_DIRECTIVES, UserComponent],
+    providers: [AuthService]
 })
 
 export class UserComponent implements OnInit {
     testInfo;
 
-    constructor(private route:ActivatedRoute,
+    constructor(
                 private router:Router,
-                private http:Http) {
+                private http:Http,
+                private auth: AuthService) {
         this.testInfo = {
             status: '',
             time: '20 min',
@@ -23,6 +26,7 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.auth.checkAuth();
         this.getTestInfo();
         if (this.testInfo.status === 'requestedTest') {
             this.testWaiter();

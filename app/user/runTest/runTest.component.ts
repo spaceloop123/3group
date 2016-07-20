@@ -2,13 +2,15 @@ import {Component, OnDestroy, OnInit, ElementRef} from "@angular/core";
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from "@angular/router";
 import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
+import {AuthService} from '../../common/auth/auth.service';
 import {MaterializeDirective} from 'angular2-materialize'
 import {TestInfo} from "./test.info";
 import {toPromise} from "rxjs/operator/toPromise";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
-    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, ROUTER_DIRECTIVES]
+    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, ROUTER_DIRECTIVES],
+    providers: [AuthService]
 })
 
 export class RunTestComponent implements OnInit, OnDestroy {
@@ -32,6 +34,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     constructor(private route:ActivatedRoute,
                 private router:Router,
+                private auth: AuthService,
                 private http:Http) {
         /* this.question = {
          type: 'test',
@@ -67,6 +70,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.auth.checkAuth();
         var that = this;
         this.sub = this.route.params.subscribe(params => {
             that.role = params['role'];

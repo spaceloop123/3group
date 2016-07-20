@@ -1,4 +1,4 @@
-System.register(['@angular/core', "@angular/router", "@angular/http"], function(exports_1, context_1) {
+System.register(['@angular/core', "@angular/router", '../common/auth/auth.service', "@angular/http"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, http_1;
+    var core_1, router_1, auth_service_1, http_1;
     var UserComponent;
     return {
         setters:[
@@ -20,15 +20,18 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (auth_service_1_1) {
+                auth_service_1 = auth_service_1_1;
+            },
             function (http_1_1) {
                 http_1 = http_1_1;
             }],
         execute: function() {
             UserComponent = (function () {
-                function UserComponent(route, router, http) {
-                    this.route = route;
+                function UserComponent(router, http, auth) {
                     this.router = router;
                     this.http = http;
+                    this.auth = auth;
                     this.testInfo = {
                         status: '',
                         time: '20 min',
@@ -36,6 +39,7 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
                     };
                 }
                 UserComponent.prototype.ngOnInit = function () {
+                    this.auth.checkAuth();
                     this.getTestInfo();
                     if (this.testInfo.status === 'requestedTest') {
                         this.testWaiter();
@@ -77,8 +81,9 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
                         selector: 'user-component',
                         templateUrl: 'app/user/user-home.html',
                         directives: [router_1.ROUTER_DIRECTIVES, UserComponent],
+                        providers: [auth_service_1.AuthService]
                     }), 
-                    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, http_1.Http])
+                    __metadata('design:paramtypes', [router_1.Router, http_1.Http, auth_service_1.AuthService])
                 ], UserComponent);
                 return UserComponent;
             }());

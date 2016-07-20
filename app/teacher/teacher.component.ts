@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {CardsColorsData} from "./cards-colors.data";
+import {AuthService} from '../common/auth/auth.service';
 import {Http} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 
@@ -8,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
     selector: 'teacher-component',
     templateUrl: 'app/teacher/teacher-home.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [CardsColorsData]
+    providers: [CardsColorsData, AuthService]
 })
 
 export class TeacherComponent implements OnInit {
@@ -19,6 +20,7 @@ export class TeacherComponent implements OnInit {
 
     constructor(private cardsColorsData:CardsColorsData,
                 private http:Http,
+                private auth: AuthService,
                 private router:Router) {
     }
 
@@ -34,11 +36,15 @@ export class TeacherComponent implements OnInit {
         this.http.get('/teacher/tests')
             .toPromise()
             .then(response => that.setTests(response.json()))
-            .catch(that.handleError);
+             .catch( that.handleError.bind(that));
     }
 
     setTests(response) {
         this.assignedTests = response;
+        for (let i = 0; i < this.assignedTests.length; i++) {
+            this.assignedTests[i].color = this.generateRandomColor();
+            console.log('this.assignedTests[i] ' + typeof(this.assignedTests[i].color) + " " + this.assignedTests[i].color.length);
+        }
     }
 
     checkTest(test) {
@@ -48,11 +54,17 @@ export class TeacherComponent implements OnInit {
 
 
     handleError(error:any) {
-        console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
 
     ngOnInit() {
+        this.auth.checkAuth();
         this.getTests();
     }
 }
+
+/*
+ for (let i = 0; i < this.assignedTests.length; i++) {
+ this.assignedTests[i].color = this.generateRandomColor();
+ }
+ */

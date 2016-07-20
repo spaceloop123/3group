@@ -11,6 +11,7 @@ import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
 import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
+import {AuthErrorComponent} from "./common/auth/auth.error.component";
 
 
 @Component({
@@ -18,7 +19,7 @@ import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [LoginComponent,  UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent],
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent, AuthErrorComponent],
     providers: [LoginService]
 })
 

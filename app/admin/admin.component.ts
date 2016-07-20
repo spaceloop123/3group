@@ -1,22 +1,26 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
+import {AuthService} from '../common/auth/auth.service';
 import {MaterializeDirective} from "angular2-materialize";
 import {Http, Headers} from "@angular/http";
 
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective],
+    providers: [AuthService]
 })
 
-export class AdminComponent {
+export class AdminComponent implements OnInit{
     private member;
     private newMemberUrl = '/admin/new_';
 
     private statsFor;
     private statsForUrl = '/admin/show';
 
-    constructor(private http:Http) {
+    constructor(
+        private http:Http,
+        private auth: AuthService) {
         this.member = {
             role: 'guest',
             firstName: '',
@@ -56,6 +60,15 @@ export class AdminComponent {
 
     showProfiles() {
 
+    }
+
+    //handleError(error:any) {
+        //return Promise.reject(error.message || error);
+     //   this.router.navigate(['/error', error]);
+    //}
+
+    ngOnInit() {
+        this.auth.checkAuth();
     }
 
     private rows = [
