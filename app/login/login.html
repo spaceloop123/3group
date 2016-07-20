@@ -9,15 +9,15 @@
                 <form>
                     <div class="row">
                         <div class="input-field col s10 offset-s1">
-                            <input id="login-field" type="text" class="validate"
+                            <input id="login-field" type="text" class="validate" ngControl="username"
                                    [(ngModel)]="model.username" name="login">
-                            <label for="login-field" data-error="wrong" data-success="right">Login</label>
+                            <label for="login-field">Login</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s10 offset-s1">
                             <input id="password-field" type="password" class="validate"
-                                   [(ngModel)]="model.password" name="password" required>
+                                   [(ngModel)]="model.password" name="password">
                             <label for="password-field">Password</label>
                         </div>
                     </div>

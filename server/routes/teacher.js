@@ -28,4 +28,26 @@ router.post('/check_test', function (req, res, next) {
     });
 });
 
+router.get('/get_test', function(req,res){
+    Test.findOne({id: req.body.testId}).populate({
+        path: 'answers',
+        model: 'Answer',
+        populate: {
+            path: 'question',
+            model: 'Question'
+        }
+    }).exec(function (err, test) {
+        var result = [];
+        test.answers.forEach(function (answer) {
+            result.push({
+                questionId : answer.question.id,
+                header: answer.question.header,
+                answerId: answer.id,
+                answer: answer.answer
+            });
+        });
+        res.json(result);
+    });
+});
+
 module.exports = router;

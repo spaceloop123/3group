@@ -1,4 +1,4 @@
-System.register(['@angular/core', "@angular/router"], function(exports_1, context_1) {
+System.register(['@angular/core', "@angular/router", "@angular/http"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', "@angular/router"], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, http_1;
     var TeacherCheckingComponent;
     return {
         setters:[
@@ -19,11 +19,15 @@ System.register(['@angular/core', "@angular/router"], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
             }],
         execute: function() {
             TeacherCheckingComponent = (function () {
-                function TeacherCheckingComponent(route) {
+                function TeacherCheckingComponent(route, http) {
                     this.route = route;
+                    this.http = http;
                 }
                 TeacherCheckingComponent.prototype.ngOnInit = function () {
                     var that = this;
@@ -31,6 +35,10 @@ System.register(['@angular/core', "@angular/router"], function(exports_1, contex
                         that.currentTest = params['id'];
                         console.log('that.currentTest ' + that.currentTest);
                     });
+                    this.http.get('/teacher/get_test')
+                        .toPromise()
+                        .then(function (response) { return console.log("kxjfhgjkxhjfgxk"); })
+                        .catch();
                 };
                 TeacherCheckingComponent.prototype.ngOnDestroy = function () {
                     this.sub.unsubscribe();
@@ -40,7 +48,7 @@ System.register(['@angular/core', "@angular/router"], function(exports_1, contex
                         templateUrl: 'app/teacher/teacher-checking.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [router_1.ActivatedRoute])
+                    __metadata('design:paramtypes', [router_1.ActivatedRoute, http_1.Http])
                 ], TeacherCheckingComponent);
                 return TeacherCheckingComponent;
             }());

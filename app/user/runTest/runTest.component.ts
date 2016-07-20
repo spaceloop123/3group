@@ -23,11 +23,12 @@ export class RunTestComponent implements OnInit, OnDestroy {
     testInfo:TestInfo;
     options:any[];
     answer: string[];
+
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
         this.subQuestions = [];
-
+        this.myAudio = new Audio();
         this.subQuestions = new Array();
         this.options = new Array();
         this.controlNames = ["aaa", "bbb", "ccc"];
@@ -171,12 +172,15 @@ export class RunTestComponent implements OnInit, OnDestroy {
             this.subQuestions = [];
         }
 
-        if (this.testInfo.num >= (this.testInfo.numQuestions - 1) && !this.subQuestions.length) {
-            this.finishTest();
-        } else if(!this.subQuestions.length){
-            ++this.testInfo.num;
-            this.saveTestInfo();
-            this.getNextQuestion();
+        if ( !this.subQuestions.length) {
+            if(this.testInfo.num >= (this.testInfo.numQuestions - 1)){
+                this.finishTest();
+            }else{
+                ++this.testInfo.num;
+                this.saveTestInfo();
+                this.getNextQuestion();
+            }
+
         } else if(this.question.index < this.subQuestions.length){
             var i = this.question.index;
             this.question = this.subQuestions[this.question.index];
