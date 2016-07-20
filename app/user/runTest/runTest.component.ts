@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit, ElementRef} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from "@angular/router";
 import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
-import {MaterializeDirective} from 'angular2-materialize'
+import {MaterializeDirective} from "angular2-materialize";
 import {TestInfo} from "./test.info";
-import {toPromise} from "rxjs/operator/toPromise";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
@@ -12,14 +11,14 @@ import {toPromise} from "rxjs/operator/toPromise";
 })
 
 export class RunTestComponent implements OnInit, OnDestroy {
-    subQ: boolean;
+    subQ:boolean;
     question:any;
-    subQuestions: any[];
+    subQuestions:any[];
     myAudio:any;
 
     sub:any;
     role:any;
-    index: number;
+    index:number;
     controlNames:string[];
     isPlayed:boolean;
     playCount:number;
@@ -45,10 +44,10 @@ export class RunTestComponent implements OnInit, OnDestroy {
          answer: 'buka'
          //options: ["Hello1", "Hello2", "Hello3"]
          };*/
-        this.subQuestions = new Array();
+        this.subQuestions = [];
         this.index = 0;
         this.subQ = false;
-        this.options = new Array();
+        this.options = [];
         this.controlNames = ["aaa", "bbb", "ccc"];
         this.isPlayed = false;
         this.openAnswer = "bukaOpen";
@@ -76,13 +75,11 @@ export class RunTestComponent implements OnInit, OnDestroy {
             .toPromise()
             .then(response => that.onResponse(response))
             .catch(this.handleError);
-
     }
 
     nextQuestion() {
         console.log('data ' + this.testInfo.numQuestions + '  ' + this.counter);
-        if(this.index >= this.subQuestions.length){
-          
+        if (this.index >= this.subQuestions.length) {
             this.subQ = false;
             this.index = 0;
             this.subQuestions = [];
@@ -90,22 +87,20 @@ export class RunTestComponent implements OnInit, OnDestroy {
         }
         if (this.counter >= 7 && !this.subQ) {
             this.finishTest();
-        } else if(!this.subQ){
+        } else if (!this.subQ) {
             this.testInfo = localStorage.getItem("testInfo");
             //this.testInfo.num = this.testInfo.num + 1;
             ++this.counter;
             this.getNextQuestion();
-        } else if(this.index < this.subQuestions.length){
-
+        } else if (this.index < this.subQuestions.length) {
             this.question = this.subQuestions[this.index];
             console.log("this.question " + this.subQuestions);
             ++this.index;
-            if(this.question.type === 'TestQuestion'){
+            if (this.question.type === 'TestQuestion') {
                 this.makeOptions();
             }
+        } else {
 
-        } else{
-            
         }
     }
 
@@ -119,35 +114,28 @@ export class RunTestComponent implements OnInit, OnDestroy {
             .toPromise()
             .then(response => that.print(response.json()))
             .catch(that.handleError);
-
-
     }
 
-    makeOptions(){
-
-            this.options = [];
-            for (let index = 0; index < this.question.answers.length; ++index) {
-                console.log('answer' + this.question.answers[index]);
-                this.options.push({name: this.question.answers[index], checked: false});
-            }
-
+    makeOptions() {
+        this.options = [];
+        for (let index = 0; index < this.question.answers.length; ++index) {
+            console.log('answer' + this.question.answers[index]);
+            this.options.push({name: this.question.answers[index], checked: false});
+        }
     }
-
 
     print(response) {
         localStorage.setItem('testInfo', JSON.stringify(this.testInfo));
         this.question = response;
-        if(this.question.type === 'TestQuestion') {
+        if (this.question.type === 'TestQuestion') {
             this.makeOptions();
         }
     }
-
 
     onResponse(response) {
         this.parse(response.json().time, response.json().count, response.json().testId);
         this.getNextQuestion();
     }
-
 
     handleError(error:any) {
         console.error('An error occurred', error);
@@ -164,11 +152,10 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     finishTest() {
-       
         this.router.navigate(['/finishTest', this.role]);
     }
 
-    printSubquestions(){
+    printSubquestions() {
         this.subQ = true;
         this.index = 0;
         this.subQuestions = this.question.subQuestions;
@@ -177,7 +164,6 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     playAydio() {
-
         if (!this.isPlayed) {
             this.myAudio = new Audio();
             this.myAudio.src = "http://vignette4.wikia.nocookie.net/starwars/images/f/f5/A_little_short.ogg/revision/latest?cb=20090519125603";
@@ -194,10 +180,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
         }
         if (this.playCount >= 2) {
             console.log('Your have spent all of the attempts!');
-
-
         }
     }
-
 
 }

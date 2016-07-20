@@ -1,9 +1,11 @@
 <div *ngIf="question.type==='nothing'">
     loading...
 </div>
+
+
 <div *ngIf="question.type==='TestQuestion'">
     <div class="row">
-        <div class="col s12 m5 l8 card-width offset-l1" align=center>
+        <div class="col s12 m5 l10 card-width offset-l1" align=center>
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
                     <div>
@@ -30,11 +32,12 @@
         <button class="btn waves-effect waves-light center" type="submit" name="action" (click)="nextQuestion()">Send
             <i class="material-icons right">send</i></button>
     </div>
-
 </div>
+
+
 <div *ngIf="question.type==='InsertOpenQuestion'">
     <div class="row">
-        <div class="col s12 m12 l9 offset-l1">
+        <div class="col s12 m12 l10 offset-l1">
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
                     <div>
@@ -55,9 +58,11 @@
             <i class="material-icons right">send</i></button>
     </div>
 </div>
+
+
 <div *ngIf="question.type==='AudioQuestion'">
     <div class="row">
-        <div class="col s12 m12 l9 offset-l1">
+        <div class="col s12 m12 l10 offset-l1">
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
                     <div class="col s12 m12 l9 offset-l1">
@@ -84,9 +89,11 @@
                 class="material-icons right">send</i></button>
     </div>
 </div>
+
+
 <div *ngIf="question.type==='ReadingQuestion'">
     <div class="row">
-        <div class="col s12 m5 l8 card-width offset-l1" align=center>
+        <div class="col s12 m5 l10 card-width offset-l1" align=center>
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
                     <div>
@@ -103,9 +110,11 @@
                 class="material-icons right">send</i></button>
     </div>
 </div>
+
+
 <div *ngIf="question.type==='InsertTestQuestion'">
     <div class="row">
-        <div class="col s12 m12 l9 offset-l1">
+        <div class="col s12 m12 l10 offset-l1">
 
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
@@ -134,9 +143,11 @@
             <i class="material-icons right">send</i></button>
     </div>
 </div>
+
+
 <div *ngIf="question.type==='OpenQuestion'">
     <div class="row">
-        <div class="col s12 m12 l9 offset-l1">
+        <div class="col s12 m12 l10 offset-l1">
 
             <div class="card #fafafa grey lighten-5 valign">
                 <div class="card-content" align=left>
