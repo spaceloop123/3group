@@ -8,6 +8,7 @@ var InsertOpenQuestionSchema = new mongoose.Schema({
 
 InsertOpenQuestionSchema.methods.getQuestion = function () {
     return {
+        id: this.id,
         type: this.type,
         header: this.header,
         questionParts: this.questionParts

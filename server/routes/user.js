@@ -4,12 +4,13 @@ var mongoose = require('mongoose');
 var testTemplate = mongoose.model('TestTemplate');
 var Test = mongoose.model('Test');
 var Question = mongoose.model('Question');
+var Answer = mongoose.model('Answer');
 
 var mdlwares = require('../libs/mdlwares');
 
 router.use(mdlwares.isUser);
 
-router.get('/testinfo', function (req, res, next) {
+router.get('/test_info', function (req, res, next) {
     Test.findOne({user: req.user.id}, function (err, test) {
         var result = {};
         err || test.status !== 'available' || test.status !== 'requested'
@@ -41,7 +42,7 @@ function randomIndex(maxIndex) {
     return Math.floor(Math.random() * maxIndex);
 }
 
-router.get('/initTest', function (req, res) {
+router.get('/init_test', function (req, res) {
     Test.findOne({user: req.user.id}, function (err, test) {
         if (err || !test || test.status !== 'available') {
             res.status(400).end();
@@ -59,7 +60,7 @@ router.get('/initTest', function (req, res) {
 });
 
 router.post('/answer', function (req, res) {
-    Test.finOne({id: req.body.testId, user: req.user.id}, function (err, test) {
+    Test.findOne({id: req.body.testId, user: req.user.id}, function (err, test) {
         if (err || !test || test.status !== 'available') {
             res.status(400).end();
             return;

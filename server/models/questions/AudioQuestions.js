@@ -13,6 +13,7 @@ AudioQuestionsSchema.methods.getQuestion = function () {
         subQuestions.push(subQuestion.getQuestion());
     });
     return {
+        id: this.id,
         type: this.type,
         header: this.header,
         file: this.path,

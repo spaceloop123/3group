@@ -10,6 +10,7 @@ var InsertTestQuestionSchema = new mongoose.Schema({
 
 InsertTestQuestionSchema.methods.getQuestion = function () {
     return {
+        id: this.id,
         type: this.type,
         header: this.header,
         questionParts: this.questionParts,
