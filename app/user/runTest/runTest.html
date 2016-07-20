@@ -38,7 +38,8 @@
                     </div>
                     <div class="row">
                         <div class="left">{{question.description}}
-                            <input placeholder="enter your answer" type="test" class="validate">
+                            <input placeholder="enter your answer" type="test" class="validate"
+                                   [(ngModel)]="question.answer" name = "answer">
                             {{question.info}}
                         </div>
                     </div>
