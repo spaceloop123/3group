@@ -51,7 +51,7 @@ System.register(['@angular/core', "@angular/router", '../common/auth/auth.servic
                         .toPromise()
                         .then(function (response) { return that.testInfo.status = response.json().status; })
                         .catch(that.handleError);
-                    console.log("testInfo.status-" + this.testInfo);
+                    console.log("403_TEST" + this.testInfo);
                 };
                 UserComponent.prototype.testWaiter = function () {
                     while (this.testInfo.status !== 'availTest') {

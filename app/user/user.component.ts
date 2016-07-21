@@ -39,7 +39,7 @@ export class UserComponent implements OnInit {
             .toPromise()
             .then(response => that.testInfo.status = response.json().status)
             .catch(that.handleError);
-        console.log("testInfo.status-" + this.testInfo);
+        console.log("403_TEST" + this.testInfo);
     }
     
     testWaiter() {
