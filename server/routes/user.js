@@ -1,22 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var testTemplate = mongoose.model('TestTemplate');
+var TestTemplate = mongoose.model('TestTemplate');
 var Test = mongoose.model('Test');
 var Question = mongoose.model('Question');
 var Answer = mongoose.model('Answer');
+var testService = require('../services/test');
 
 var mdlwares = require('../libs/mdlwares');
 
 router.use(mdlwares.isUser);
 
 router.get('/test_info', function (req, res, next) {
-    Test.findOne({user: req.user.id}, function (err, test) {
-        var result = {};
-        err || test.status !== 'available' || test.status !== 'requested'
-            ? result.status = 'notAvailable'
-            : result.status = test.status;
-        res.json(result);
+    testService.getTestStatus(req.user.id, function (err, status) {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.json({status: status});
+        }
     });
 });
 
@@ -30,9 +31,14 @@ router.post('/next_question', function (req, res, next) {
     });
 });
 
+router.post('/next_question_by_id', function (req, res) {
+    Question.findOne({id: req.body.id}, function (err, question) {
+        res.json(question.getQuestion());
+    });
+})
 
 function sendQuestion(res, type) {
-    Question.find({parent: undefined, type: type}).populate('subQuestions').exec(function (err, questions) {
+    Question.find({parent: undefined, type: type}).exec(function (err, questions) {
         var question = questions[randomIndex(questions.length)];
         res.send(question.getQuestion());
     });

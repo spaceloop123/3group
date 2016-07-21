@@ -23,6 +23,7 @@
     "angular2-in-memory-web-api": "0.0.14",
     "angular2-local-storage": "^0.2.0",
     "angular2-materialize": "^3.0.1",
+    "async": "^2.0.0",
     "body-parser": "~1.15.1",
     "bootstrap": "^3.3.6",
     "connect-mongo": "^1.2.1",

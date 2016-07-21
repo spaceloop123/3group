@@ -8,16 +8,12 @@ var ReadingQuestionsSchema = new mongoose.Schema({
 });
 
 ReadingQuestionsSchema.methods.getQuestion = function () {
-    var subQuestions = [];
-    this.subQuestions.forEach(function (subQuestion, arr) {
-        subQuestions.push(subQuestion.getQuestion());
-    });
     return {
         id: this.id,
         type: this.type,
         header: this.header,
         text: this.text,
-        subQuestions: subQuestions
+        subQuestions: this.subQuestions
     }
 };
 
