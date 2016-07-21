@@ -1,20 +1,57 @@
-<div class="valign-wrapper ">
+<div class="valign-wrapper">
     <div class="container valign">
+    <div class="row">
+        <div class="col s12 m6 l6">
 
 
-        <div class="collection">
-            <a href="#!" class="collection-item" align=left>
-                <p>Test Header<span class="badge">Result 90%</span></p>
-                <p>Date<span class="badge">Show full result</span></p>
-            </a>
+<line-chart-demo class="chart-wrapper"></line-chart-demo>
 
-            <a href="#!" class="collection-item" align=left>
-                <p>Test Header<span class="badge">Result 90%</span></p>
-                <p>Date<span class="badge">Show full result</span></p>
-            </a>
+</div>
+<div class="col s12 m6 l6">
 
-        </div>
+        <table class="bordered highlight centered">
+            <thead>
+            <tr>
+                <th *ngFor="let label of lineChartLabels"></th>
 
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Alvin</td>
+                <td>Eclair</td>
+                <td>$0.87</td>
+            </tr>
+            <tr>
+                <td>Alan</td>
+                <td>Jellybean</td>
+                <td>$3.76</td>
+            </tr>
+            <tr>
+                <td>Jonathan</td>
+                <td>Lollipop</td>
+                <td>$7.00</td>
+            </tr>
+            </tbody>
+        </table>
 
     </div>
+
+      <!--  <div class="collection">
+          <a href="#!" class="collection-item" align=left>
+              <p>Test Header<span class="badge">Result 90%</span></p>
+                <p>Date<span class="badge">Show full result</span></p>
+            </a>
+
+            <a href="#!" class="collection-item" align=left>
+                <p>Test Header<span class="badge">Result 90%</span></p>
+                <p>Date<span class="badge">Show full result</span></p>
+            </a>
+
+       </div>
+-->
+
+   </div>
+</div>
 </div>

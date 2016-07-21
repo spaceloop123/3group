@@ -11,12 +11,14 @@
     'jquery':                     'node_modules/jquery',
     'materialize':                'node_modules/materialize-css',
     'angular2-materialize':       'node_modules/angular2-materialize',
-    'rxjs':                       'node_modules/rxjs'
+    'rxjs':                       'node_modules/rxjs',
+    'ng2-charts': 'node_modules/ng2-charts'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
+    'ng2-charts':                 { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
     'jquery':                     { main: 'dist/jquery.min.js', defaultExtension: 'js'},
     'materialize':                { main: 'dist/js/materialize.min.js', defaultExtension: 'js', format: 'global'},

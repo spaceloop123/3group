@@ -29,10 +29,7 @@ const routes:RouterConfig = [
         path: 'teacher/check_test/:id',
         component: TeacherCheckingComponent
     },
-    {
-        path: 'user/charts',
-        component: ChartsComponent
-    },
+
     ...HomepageRoutes
 ];
 

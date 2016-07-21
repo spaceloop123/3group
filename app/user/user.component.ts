@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http} from "@angular/http";
 
+
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',

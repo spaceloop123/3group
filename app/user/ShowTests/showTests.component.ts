@@ -1,11 +1,18 @@
 import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
-import {Http} from "@angular/http";
+import {LineChartDemoComponent} from "../charts.component";
 
 @Component({
-    templateUrl: 'app/user/showTests.html'
+    templateUrl: 'app/user/showTests.html',
+    directives: [LineChartDemoComponent]
 })
 
 export class ShowTestsComponent {
 
 }
+
+
+
+
+
+
+
