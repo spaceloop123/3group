@@ -16,4 +16,8 @@ router.get('/', function (req, res, next) {
     res.render('index');
 });
 
+router.get('/role', function (req, res, next) {
+   req.isAuthenticated() ? res.send(req.user.role) : res.status(401).end();
+});
+
 module.exports = router;

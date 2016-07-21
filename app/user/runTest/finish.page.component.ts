@@ -17,6 +17,7 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http){
+        this.role = 'nobody';
     }
     ngOnInit(){
         var that = this;
@@ -34,7 +35,7 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
 
     autoExit(){
         var that = this;
-        //setTimeout(() => that.exit(), 5000);
+        setTimeout(() => that.exit(), 5000);
     }
 
     exit(){

@@ -28,16 +28,16 @@ export class UserComponent implements OnInit {
     ngOnInit() {
         this.auth.checkAuth();
         this.getTestInfo();
-        if (this.testInfo.status === 'requestedTest') {
+        if (this.testInfo.status === 'requested') {
             this.testWaiter();
         }
     }
 
     getTestInfo() {
         var that = this;
-        this.http.get('/user/testInfo')
+        this.http.get('/user/test_info')
             .toPromise()
-            .then(response => that.testInfo.status = response.json().testStatus)
+            .then(response => that.testInfo.status = response.json().status)
             .catch(that.handleError);
         console.log("testInfo.status-" + this.testInfo);
     }
