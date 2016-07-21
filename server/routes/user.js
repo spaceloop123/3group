@@ -32,7 +32,7 @@ router.post('/next_question', function (req, res, next) {
 });
 
 router.post('/next_question_by_id', function (req, res) {
-    Question.findOne({id: req.body.id}, function (err, question) {
+    Question.findOne({_id : req.body.id}, function (err, question) {
         res.json(question.getQuestion());
     });
 })

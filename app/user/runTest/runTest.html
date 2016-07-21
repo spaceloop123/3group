@@ -29,6 +29,7 @@
 
 </div>
 <div *ngIf="question.type==='InsertOpenQuestion'">
+
     <div class="row">
         <div class="col s12 m12 l9 offset-l1">
             <div class="card #fafafa grey lighten-5 valign">
@@ -101,11 +102,12 @@
     </div>
 </div>
 <div *ngIf="question.type==='InsertTestQuestion'">
+    <!--countdown-timer [timeLeft]="timerSec"></countdown-timer-->
     <div class="row">
         <div class="col s12 m12 l9 offset-l1">
 
             <div class="card #fafafa grey lighten-5 valign">
-                <div class="card-content" align=left>
+                <div class="card-content flow-text"  align=left>
                     <div>
                         <blockquote>{{question.header}}</blockquote>
                     </div>

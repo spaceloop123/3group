@@ -9,22 +9,26 @@
                 <form action="#">
                     <div class="row">
                         <div class="input-field col s10 offset-s1">
-                            <em *ngIf="!model.usernameValid && model.submitAttempt">Required</em>
+
                             <input id="login-field" type="text" class="validate" required="" aria-required="true"
                                    [(ngModel)]="model.username" name="login">
-                            <label for="login-field" data-error="wrong" data-success="buka">Login</label>
+                            <label for="login-field">Login</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s10 offset-s1">
                             <input id="password-field" type="password" class="validate" required
                                    [(ngModel)]="model.password" name="password">
-                            <label for="password-field" data-error="wrong" data-success="buka">Password</label>
+                            <label for="password-field">Password</label>
+                            <div *ngIf="(!model.usernameValid && model.submitAttempt) || errorFlag ">
+                                <p style='color: darkred;'>{{error}}</p>
+                            </div>
                         </div>
+
                     </div>
                     <div class="center-align">
                         <a class="waves-effect waves-light btn" id="login-btn"
-                                style="width: 80%; background-color: #000000;" (click)="loginRequest()">login</a>
+                           style="width: 80%; background-color: #000000;" (click)="loginRequest()">login</a>
                     </div>
                 </form>
                 <br>
