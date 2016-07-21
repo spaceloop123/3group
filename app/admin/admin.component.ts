@@ -19,8 +19,8 @@ export class AdminComponent {
     constructor(private http:Http) {
         this.member = {
             role: 'guest',
-            username: '',
-            password: '',
+            firstName: '',
+            lastName: '',
             email: ''
         };
     }
@@ -32,17 +32,11 @@ export class AdminComponent {
             this.member.role = 'teacher';
         } else {
             this.member.role = 'guest';
-            this.member.username = '';
-            this.member.password = '';
         }
     }
 
     isMemberFieldsEmpty() {
-        if (this.member.role === 'guest') {
-            return this.member.email != '';
-        } else {
-            return (this.member.email != '' && this.member.username != '' && this.member.password != '');
-        }
+        return (this.member.email != '' && this.member.firstName != '' && this.member.lastName != '');
     }
 
     addUser() {
