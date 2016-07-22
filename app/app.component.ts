@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {LoginComponent} from "./login/login.component";
 import {HeaderComponent} from "./common/header/header.component";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {LoginService} from "./login/login.service";
 import {RunTestComponent} from "./user/runTest/runTest.component";
 import {UserComponent} from "./user/user.component";
@@ -17,7 +17,7 @@ import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
-    precompile: [LoginComponent,  UserComponent, AdminComponent, TeacherComponent,
+    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
         RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent],
     providers: [LoginService, Location]
 })

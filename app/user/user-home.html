@@ -2,6 +2,9 @@
     <div class="container valign">
         <div class="row" align=center>
 
+            <div class="col s12">
+                <a class="waves-effect waves-light btn" (click)="logOut()">logout</a>
+            </div>
 
             <div *ngIf="testInfo.status==='available'" class="col s12 m7 l7 card-width" align=center>
                 <div class="card #fafafa grey lighten-5 valign">
