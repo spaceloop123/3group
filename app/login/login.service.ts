@@ -1,15 +1,12 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http} from "@angular/http";
-import "rxjs/add/operator/toPromise";
-import {LoginData} from "./login.data";
+import {CustomHttp} from "../common/services/CustomHttp";
+import {LoginData}  from "./login.data";
 
 @Injectable()
 export class LoginService {
-
-
     private loginUrl = '/login';
 
-    constructor(private http:Http) {
+    constructor(private http:CustomHttp) {
 
     }
 
@@ -21,16 +18,12 @@ export class LoginService {
 
     public logIn(loginData:LoginData) {
         var that = this;
-        var header = new Headers();
-        header.append('Content-Type', 'application/json');
         this.http
-            .post(this.loginUrl, JSON.stringify(loginData), {headers: header})
-            .toPromise()
-            .then(res => {
-                // console.log("POST in login service: res = " + res.json().role);
-                location.reload();
-            }, error =>console.log(error))
-            .catch(that.handleError);
+            .post(this.loginUrl, loginData)
+            .subscribe(
+                res => location.reload(),
+                err => that.handleError(err)
+            );
     }
 
     public isAuthenticated(router) {
@@ -47,10 +40,8 @@ export class LoginService {
             .catch(this.handleError);
     }
 
-    handleError(error:any) {
+    handleError(error) {
         console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+        //return Promise.reject(error.message || error);
     }
-
-    //.get("")
 }

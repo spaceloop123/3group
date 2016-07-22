@@ -6,7 +6,6 @@ import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
 import {UserRoutes} from "./user/user.routes";
 import {ChartsComponent} from "./user/charts/charts.component";
-import {TeacherCheckingComponent} from './teacher/teacher-checking.component';
 import {HomepageRoutes} from "./homepage/homepage.routes";
 
 
