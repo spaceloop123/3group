@@ -192,7 +192,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
         this.questionInfo = new QuestionInfo(false, this.question.id);
         this.saveQuestionInfo();
         console.log(this.subQuestionsInfo);
-        
+
         this.processQuestion();
     }
 
@@ -213,6 +213,9 @@ export class RunTestComponent implements OnInit, OnDestroy {
     goToNextQuestion() {
         if((this.question.type !== 'AudioQuestion') && (this.question.type !== 'ReadingQuestion')) {
             this.sendAnswer();
+
+        }else{
+            this.subQuestionsInfo.index = 0;
         }
 
         if(this.subQuestionsInfo) {
@@ -234,7 +237,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
                 this.subQuestionsInfo = null;
                 this.getNextQuestionFromServer();
 
-    
+
             }
         } else {
             if(this.testInfo.num >= (this.testInfo.numQuestions )){
@@ -251,11 +254,11 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
 
     makeOptions(){
-            this.options = [];
-            for (let index = 0; index < this.question.answers.length; ++index) {
-                console.log('answer' + this.question.answers[index]);
-                this.options.push({name: this.question.answers[index], checked: false});
-            }
+        this.options = [];
+        for (let index = 0; index < this.question.answers.length; ++index) {
+            console.log('answer' + this.question.answers[index]);
+            this.options.push({name: this.question.answers[index], checked: false});
+        }
 
     }
 
@@ -274,10 +277,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
         this.router.navigate(['/finishTest', this.role]);
     }
 
-    printSubquestions(){
-        this.subQuestionsInfo.index = 0;
-        this.goToNextQuestion();
-    }
+
 
     playAydio() {
         if (!this.isPlayed) {

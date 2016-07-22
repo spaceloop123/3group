@@ -1,8 +1,5 @@
 import {OnDestroy, OnInit, Component, Input} from "@angular/core";
 import {Observable} from "rxjs/Rx";
-/**
- * Created by nastya on 21.7.16.
- */
 
 @Component({
     selector: 'countdown-timer',
