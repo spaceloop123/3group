@@ -17,8 +17,8 @@ export class LineChartDemoComponent {
     constructor(private http:Http) {
         this.lineChartData =[ {
            // label: 15, //[],
-            data: [170, 160, 150],//[],
-            label: 'Series A'
+            data: [120, 160, 150],//[],
+            label: 'Result'
         }];
 
     }
@@ -43,11 +43,7 @@ export class LineChartDemoComponent {
 
 
 
-  /*  public lineChartData:Array<any> = [
 
-    {data: [150, 160, 150], label: 'Series A'}
-     ];
-*/
     public lineChartLabels:Array<any> = ['20/04/2014', '20/04/2015', '20/04/2016'];
     public lineChartOptions:any = {
         animation: false,
