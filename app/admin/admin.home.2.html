@@ -61,7 +61,26 @@
                 <div class="col s12">
                     <notifications-component></notifications-component>
                 </div>
+
+                <!--  For Zhenya -->
+                <div class="col s12">
+                    <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
+                       class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+                </div>
+                <!--  For Zhenya -->
             </div>
         </div>
     </div>
 </div>
+
+<!--  For Zhenya -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#/home" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+<!--  For Zhenya -->
