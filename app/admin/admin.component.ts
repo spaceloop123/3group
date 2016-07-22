@@ -5,18 +5,20 @@ import {AddMemberComponent} from "./actions/add-member/add-member.component";
 import {NotificationsComponent} from "./actions/notifications/notifications.component";
 import {AddQuestionComponent} from "./actions/add-question/add-question.component";
 import {Http, Headers} from "@angular/http";
+import {CustomHttp} from "../common/services/CustomHttp";
 
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.2.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
+    providers: [CustomHttp]
 })
 
 export class AdminComponent implements OnInit{
-    constructor(private http: Http) {
+    constructor(private customHttp: CustomHttp) {
 
     }
 
     ngOnInit():any {
-        //TODO add customHttp.checkRole()
+        this.customHttp.checkRole();
     }

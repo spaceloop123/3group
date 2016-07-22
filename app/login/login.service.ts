@@ -19,7 +19,7 @@ export class LoginService {
     public logIn(loginData:LoginData) {
         var that = this;
         this.http
-            .post(this,loginUrl, loginData)
+            .post(this.loginUrl, loginData)
             .subscribe(
                 res => location.reload(),
                 err => that.handleError(err)

@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/router", "angular2-materialize", "@angular/http"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/router", "angular2-materialize", "./actions/add-member/add-member.component", "./actions/notifications/notifications.component", "./actions/add-question/add-question.component", "../common/services/CustomHttp"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "@a
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, angular2_materialize_1, http_1;
+    var core_1, router_1, angular2_materialize_1, add_member_component_1, notifications_component_1, add_question_component_1, CustomHttp_1;
     var AdminComponent;
     return {
         setters:[
@@ -23,67 +23,34 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "@a
             function (angular2_materialize_1_1) {
                 angular2_materialize_1 = angular2_materialize_1_1;
             },
-            function (http_1_1) {
-                http_1 = http_1_1;
+            function (add_member_component_1_1) {
+                add_member_component_1 = add_member_component_1_1;
+            },
+            function (notifications_component_1_1) {
+                notifications_component_1 = notifications_component_1_1;
+            },
+            function (add_question_component_1_1) {
+                add_question_component_1 = add_question_component_1_1;
+            },
+            function (CustomHttp_1_1) {
+                CustomHttp_1 = CustomHttp_1_1;
             }],
         execute: function() {
             AdminComponent = (function () {
-                function AdminComponent(http) {
-                    this.http = http;
-                    this.newMemberUrl = '/admin/new_';
-                    this.statsForUrl = '/admin/show';
-                    this.rows = [
-                        { username: "Pacan 1", role: "Admin", email: "email" },
-                        { username: "Pacan 2", role: "Teacher", email: "email" },
-                        { username: "Pacan 3", role: "Guest", email: "email" },
-                        { username: "Pacan 4", role: "User", email: "email" }
-                    ];
-                    this.member = {
-                        role: 'guest',
-                        firstName: '',
-                        lastName: '',
-                        email: ''
-                    };
+                function AdminComponent(customHttp) {
+                    this.customHttp = customHttp;
                 }
-                //*** Add a member ***
-                AdminComponent.prototype.changeMemberType = function () {
-                    if (this.member.role === 'guest') {
-                        this.member.role = 'teacher';
-                    }
-                    else {
-                        this.member.role = 'guest';
-                    }
-                };
-                AdminComponent.prototype.isMemberFieldsEmpty = function () {
-                    return (this.member.email != '' && this.member.firstName != '' && this.member.lastName != '');
-                };
-                AdminComponent.prototype.addUser = function () {
-                    var headers = new http_1.Headers();
-                    headers.append('Content-Type', 'application/json');
-                    this.http
-                        .post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), { headers: headers })
-                        .toPromise()
-                        .then(function (response) { return console.log(response.json()); });
-                };
-                //*** Show user's profile with filter ***
-                AdminComponent.prototype.isProfilesFieldsEmpty = function () {
-                };
-                AdminComponent.prototype.showProfiles = function () {
-                };
-                //handleError(error:any) {
-                //return Promise.reject(error.message || error);
-                //   this.router.navigate(['/error', error]);
-                //}
                 AdminComponent.prototype.ngOnInit = function () {
-                    //TODO add customHttp.checkRole()
+                    this.customHttp.checkRole();
                 };
                 AdminComponent = __decorate([
                     core_1.Component({
                         selector: 'admin-component',
-                        templateUrl: 'app/admin/admin.home.html',
-                        directives: [router_1.ROUTER_DIRECTIVES, angular2_materialize_1.MaterializeDirective]
+                        templateUrl: 'app/admin/admin.home.2.html',
+                        directives: [router_1.ROUTER_DIRECTIVES, angular2_materialize_1.MaterializeDirective, add_member_component_1.AddMemberComponent, notifications_component_1.NotificationsComponent, add_question_component_1.AddQuestionComponent],
+                        providers: [CustomHttp_1.CustomHttp]
                     }), 
-                    __metadata('design:paramtypes', [http_1.Http])
+                    __metadata('design:paramtypes', [CustomHttp_1.CustomHttp])
                 ], AdminComponent);
                 return AdminComponent;
             }());

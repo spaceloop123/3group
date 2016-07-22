@@ -35,7 +35,7 @@ export class CustomHttp {
 	wrap(observable: Observable<Response>): Observable<any> {
 		return observable
 			.catch(this.errorHandler.bind(this))
-			.map( (response) => response.json() );
+			.map( (response) => response );
 	}
 
 	prepareOptionsObject(options?: RequestOptionsArgs) : RequestOptionsArgs {
