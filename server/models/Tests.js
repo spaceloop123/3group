@@ -18,7 +18,7 @@ TestSchema.methods.getTestInfo = function () {
 };
 
 TestSchema.methods.getAnswers = function () {
-    return {answers: this.answers}
+    return {answers: this.answers};
 };
 
 mongoose.model('Test', TestSchema);

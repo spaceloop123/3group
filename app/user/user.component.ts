@@ -17,15 +17,15 @@ export class UserComponent implements OnInit {
                 private http:Http) {
         this.testInfo = {
             status: '',
-            time: '',
-            numQuestions: ''
+            time: '20 min',
+            numQuestions: '50'
         };
 
     }
 
     ngOnInit() {
         this.getTestInfo();
-        if (this.testInfo.status === 'requestedTest') {
+        if (this.testInfo.status === 'requested') {
             this.testWaiter();
         }
     }
@@ -34,12 +34,9 @@ export class UserComponent implements OnInit {
         var that = this;
         this.http.get('/user/test_info')
             .toPromise()
-            .then(response => {
-                console.log("!" + response.json());
-                that.testInfo.status = response.json().testStatus
-            })
+            .then(response => that.testInfo.status = response.json().status)
             .catch(that.handleError);
-        console.log("testInfo.status-" + this.testInfo.status);
+        console.log("testInfo.status-" + this.testInfo);
     }
 
     testWaiter() {
@@ -53,10 +50,16 @@ export class UserComponent implements OnInit {
     askTest() {
         alert('test is asked');
         var that = this;
-        this.http.get('/user/ask_test')
+        this.http.get('/user/askTest')
             .toPromise()
             .then(response => that.testInfo.status = 'requestedTest')
             .catch(this.handleError);
+    }
+
+    runTest(){
+        console.log('runtest');
+        this.router.navigate(['/runTest', 'user']);
+
     }
 
 

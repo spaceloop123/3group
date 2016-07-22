@@ -14,11 +14,8 @@ import 'rxjs/add/operator/toPromise';
 export class TeacherComponent implements OnInit {
 
     //assignedTests - array of tests' descriptions, selectedTest - one test's description of the test being clicked
-    private assignedTestsJson;
-    private assignedTests : any;
-    //private assignedTestsParced;
-    public selectedTest;
 
+    private assignedTests:any;
 
     constructor(private cardsColorsData:CardsColorsData,
                 private http:Http,
@@ -33,26 +30,27 @@ export class TeacherComponent implements OnInit {
 
     getTests() {
 
-        var that = this;    
+        var that = this;
         this.http.get('/teacher/tests')
             .toPromise()
-            .then(
-                response => {
-                    that.assignedTests = response.json();
-                    console.log(that.assignedTests);
-                }
-            )
-            .catch(this.handleError);
-        return(this.assignedTests);
-
+            .then(response => that.setTests(response.json()))
+            .catch(that.handleError);
     }
+
+    setTests(response) {
+        this.assignedTests = response;
+    }
+
+    checkTest(test) {
+        //this happens when teacher clicks CHECK button
+        this.router.navigate(['/teacher/check_test', test.id]);
+    }
+
 
     handleError(error:any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
-
-    
 
     ngOnInit() {
         this.getTests();

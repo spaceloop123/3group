@@ -10,6 +10,7 @@ var SpeechQuestionsSchema = new mongoose.Schema(Object.extended(Question).merge(
 
 SpeechQuestionsSchema.methods.getQuestion = function () {
     return {
+        id: this.id,
         type: this.type,
         header: this.header,
         question: this.question

@@ -1,8 +1,10 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {LoginData} from "./login.data";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {LoginService} from "./login.service";
 import {Constants} from "../common/constants/constants.data";
+import {NgForm} from "@angular/forms";
+import {Headers, Http} from "@angular/http";
 
 @Component({
     templateUrl: 'app/login/login.html',
@@ -11,7 +13,11 @@ import {Constants} from "../common/constants/constants.data";
 
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+    ngOnInit():any {
+        this.loginService.isAuthenticated(this.router);
+    }
 
     constructor(private loginService:LoginService,
                 private router:Router,
@@ -21,9 +27,18 @@ export class LoginComponent {
 
     model = new LoginData('', '');
 
-    loginRequest() {
-        this.loginService.postAndRedirect(this.model, this.router);
+    submitted = false;
 
+    showFormControls(form:NgForm) {
+
+        return form && form.controls['login'] &&
+            form.controls['lognin'].value; // Dr. IQ
+    }
+
+    onSubmit() { this.submitted = true; }
+
+    loginRequest() {
+        this.loginService.logIn(this.model);
     }
 
 }

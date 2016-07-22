@@ -1,6 +1,10 @@
+import {TeacherCheckingComponent} from './teacher/teacher-checking.component';
 import {provideRouter, RouterConfig} from "@angular/router";
 import {LoginComponent} from "./login/login.component";
-import {HomepageComponent} from "./homepage/homepage.component";
+import {TeacherComponent} from "./teacher/teacher.component";
+import {UserComponent} from "./user/user.component";
+import {AdminComponent} from "./admin/admin.component";
+import {UserRoutes} from "./user/user.routes";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {TeacherCheckingComponent} from './teacher/teacher-checking.component';
 import {HomepageRoutes} from "./homepage/homepage.routes";
@@ -22,15 +26,27 @@ const routes:RouterConfig = [
         pathMatch: 'full'
     },
     {
-        path: 'homepage/:status',
-        component: HomepageComponent
+        path: 'admin',
+        component: AdminComponent
+    },
+    {
+        path: 'user',
+        component: UserComponent
+    },
+    {
+        path: 'teacher',
+        component: TeacherComponent
     },
     {
         path: 'teacher/check_test/:id',
         component: TeacherCheckingComponent
     },
+    {
+        path: 'user/charts',
+        component: ChartsComponent
+    },
+    ...UserRoutes
 
-    ...HomepageRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [

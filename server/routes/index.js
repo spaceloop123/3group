@@ -10,34 +10,23 @@ var AudioQuestion = mongoose.model('AudioQuestion');
 var OpenQuestion = mongoose.model('OpenQuestion');
 var SpeechQuestion = mongoose.model('SpeechQuestion');
 var Test = mongoose.model('Test');
+var path = require('path');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     res.render('index');
 });
 
-function addQuestion() {
-    var question1 = new SpeechQuestion({
-        header: 'Give answers for the following questions and record them',
-        difficulty: 20,
-        maxCost: 10,
-        question: 'When did you feel annoyed last time?'
-    });
-    var question2 = new SpeechQuestion({
-        header: 'Give answers for the following questions and record them',
-        difficulty: 20,
-        maxCost: 10,
-        question: 'What other country of the world would you like to live in? Why?'
-    });
-    question1.save();
-    question2.save();
-}
+router.get('/is_authenticated', function (req, res) {
+    res.json(req.isAuthenticated());
+});
 
-router.get('/qtest', function (req, res) {
-    Question.findOne({parent: undefined, type: 'AudioQuestion'}).populate('subQuestions').exec(function (err, q) {
-        console.log(q.getQuestion());
-    });
-    res.end();
+router.get('/app_routes', function (req, res) {
+   res.sendFile(__dirname + '\\index.js');
+});
+
+router.get('/dist/app/app.routes.js', function (req, res) {
+    res.sendFile(path.join(__dirname, '../config/app.routes.' + (req.user ? req.user.role + '.' : '') + 'js'));
 });
 
 module.exports = router;

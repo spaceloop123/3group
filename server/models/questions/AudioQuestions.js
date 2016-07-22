@@ -8,15 +8,12 @@ var AudioQuestionsSchema = new mongoose.Schema({
 });
 
 AudioQuestionsSchema.methods.getQuestion = function () {
-    var subQuestions = [];
-    this.subQuestions.forEach(function (subQuestion, arr) {
-        subQuestions.push(subQuestion.getQuestion());
-    });
     return {
+        id: this.id,
         type: this.type,
         header: this.header,
         file: this.path,
-        subQuestions: subQuestions
+        subQuestions: this.subQuestions
     };
 };
 

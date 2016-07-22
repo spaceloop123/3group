@@ -7,7 +7,9 @@
         "InsertTestQuestion", 
         "InsertTestQuestion", 
         "ReadingQuestion", 
-        "AudioQuestion"
+        "AudioQuestion", 
+        "SpeechQuestion"
     ], 
+    "time" : NumberInt(20), 
     "__v" : NumberInt(0)
 }

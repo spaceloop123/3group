@@ -5,31 +5,29 @@
             <div class="text text-subhead">{{constants.PROJECT_DESCRIPTION}}</div>
         </div>
         <div class="col m5 offset-m1 s12">
-            <div class="card-panel" (keydown.Enter)="loginRequest()">
-                <div class="row">
-                    <div class="input-field col s10 offset-s1">
-                        <input id="login-field" type="text" class="validate"
-                               [(ngModel)]="model.username">
-                        <label for="login-field">Login</label>
+            <div class="card-panel">
+                <form>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1">
+                            <input id="login-field" type="text" class="validate" ngControl="username"
+                                   [(ngModel)]="model.username" name="login">
+                            <label for="login-field">Login</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s10 offset-s1"> <!-- не меняйте тип этого input'a ниже, за**али -_- -->
-                        <input id="password-field" type="password" class="validate"
-                               [(ngModel)]="model.password">
-                        <label for="password-field">Password</label>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1">
+                            <input id="password-field" type="password" class="validate"
+                                   [(ngModel)]="model.password" name="password">
+                            <label for="password-field">Password</label>
+                        </div>
                     </div>
-                </div>
-                <div class="center-align">
-                    <a class="waves-effect waves-light btn" id="login-btn"
-                       style="width: 80%; background-color: #000000;" (click)="loginRequest()">login</a>
-                </div>
+                    <div class="center-align">
+                        <button class="waves-effect waves-light btn" id="login-btn"
+                                style="width: 80%; background-color: #000000;" (click)="loginRequest()" type="submit">login</button>
+                    </div>
+                </form>
                 <br>
             </div>
         </div>
     </div>
 </div>
-
-
-
-

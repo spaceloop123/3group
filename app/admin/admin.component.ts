@@ -1,64 +1,41 @@
-import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {Component, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
-import {Http, Headers} from "@angular/http";
+import {AddMemberComponent} from "./actions/add-member/add-member.component";
+import {NotificationsComponent} from "./actions/notifications/notifications.component";
+import {AddQuestionComponent} from "./actions/add-question/add-question.component";
+import {Http} from "@angular/http";
 
 @Component({
     selector: 'admin-component',
-    templateUrl: 'app/admin/admin.home.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective]
+    templateUrl: 'app/admin/admin.home.2.html',
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent]
 })
 
-export class AdminComponent {
-    private member;
-    private newMemberUrl = '/admin/new-';
-
-    private statsFor;
-    private statsForUrl = '/admin/show';
-
-    constructor(private http:Http) {
-        this.member = {
-            role: 'guest',
-            username: '',
-            password: '',
-            email: ''
-        };
-    }
-
-    //*** Add a member ***
-
-    changeMemberType() {
-        if (this.member.role === 'guest') {
-            this.member.role = 'teacher';
-        } else {
-            this.member.role = 'guest';
-            this.member.username = '';
-            this.member.password = '';
-        }
-    }
-
-    isMemberFieldsEmpty() {
-        if (this.member.role === 'guest') {
-            return this.member.email != '';
-        } else {
-            return (this.member.email != '' && this.member.username != '' && this.member.password != '');
-        }
-    }
-
-    addUser() {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        console.log(this.http.post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), {headers: headers})
-            .toPromise());
-    }
-
-    //*** Show user's profile with filter ***
-
-    isProfilesFieldsEmpty() {
+export class AdminComponent implements OnInit{
+    constructor(private http: Http,
+                private router:Router) {
 
     }
 
-    showProfiles() {
+    ngOnInit():any {
+        
+    }
 
+    handleError(error:any) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
+
+    logOut() {
+        var that = this;
+        this.http
+            .get("/dist/app/app.routes.js")
+            .toPromise()
+            .then(res => {
+                console.log("logOut ADMIN COMPONENT THAT: " + res.json());
+                that.router.navigate('/login');
+            }, error =>console.log(error))
+            .catch(that.handleError);
     }
 }

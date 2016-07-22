@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "admin.component.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../app/admin/admin.component.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;YAaA;gBAAA;gBAEA,CAAC;gBARD;oBAAC,gBAAS,CAAC;wBACP,QAAQ,EAAE,iBAAiB;wBAC3B,WAAW,EAAE,6BAA6B;wBAC1C,UAAU,EAAE,CAAC,0BAAiB,EAAE,2CAAoB,EAAE,yCAAkB,EAAE,gDAAsB,EAAE,6CAAoB,CAAC;qBAC1H,CAAC;;kCAAA;gBAIF,qBAAC;YAAD,CAAC,AAFD,IAEC;YAFD,2CAEC,CAAA"
+}

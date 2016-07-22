@@ -20,6 +20,7 @@ require('./server/models/questions/InsertTestQuestions');
 require('./server/models/questions/InsertOpenQuestions');
 require('./server/models/TestTemplate');
 require('./server/models/Tests');
+require('./server/models/Answers');
 
 mongoose.connect("mongodb://localhost/test");
 
@@ -37,13 +38,10 @@ var app = express();
 app.set('views', path.join(__dirname, 'app'));
 app.set('view engine', 'ejs');
 
-app.use('/node_modules', express.static(__dirname + '/node_modules/'));
-app.use('/', express.static(__dirname));
-app.use('/fonts', express.static(__dirname + 'public'));
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(express.static(path.join(__dirname, 'public')));
 
 require('./server/config/passport');
 
@@ -63,9 +61,16 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//routes
 app.use('/', routes);
 
+app.use('/node_modules', express.static(__dirname + '/node_modules/'));
+app.use('/server', function (req, res){
+    res.status(403).end();
+})
+app.use('/', express.static(__dirname));
+app.use('/fonts', express.static(__dirname + 'public'));
+
+//routes
 app.post('/login', auth.login);
 app.get('/logout', auth.logout);
 
