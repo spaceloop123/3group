@@ -1,14 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
-import {AuthService} from '../common/auth/auth.service';
 import {MaterializeDirective} from "angular2-materialize";
 import {Http, Headers} from "@angular/http";
 
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective],
-    providers: [AuthService]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective]
 })
 
 export class AdminComponent implements OnInit{
@@ -19,8 +17,7 @@ export class AdminComponent implements OnInit{
     private statsForUrl = '/admin/show';
 
     constructor(
-        private http:Http,
-        private auth: AuthService) {
+        private http:Http) {
         this.member = {
             role: 'guest',
             firstName: '',
@@ -68,7 +65,7 @@ export class AdminComponent implements OnInit{
     //}
 
     ngOnInit() {
-        this.auth.checkAuth();
+        //TODO add customHttp.checkRole()
     }
 
     private rows = [

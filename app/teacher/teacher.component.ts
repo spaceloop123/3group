@@ -1,15 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {CardsColorsData} from "./cards-colors.data";
-import {AuthService} from '../common/auth/auth.service';
 import {Http} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
+import {CustomHttp} from "../common/services/CustomHttp";
+
 
 @Component({
     selector: 'teacher-component',
     templateUrl: 'app/teacher/teacher-home.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [CardsColorsData, AuthService]
+    providers: [CardsColorsData, CustomHttp]
 })
 
 export class TeacherComponent implements OnInit {
@@ -19,8 +20,7 @@ export class TeacherComponent implements OnInit {
     private assignedTests:any;
 
     constructor(private cardsColorsData:CardsColorsData,
-                private http:Http,
-                private auth: AuthService,
+                private customHttp: CustomHttp,
                 private router:Router) {
     }
 
@@ -33,10 +33,9 @@ export class TeacherComponent implements OnInit {
     getTests() {
 
         var that = this;
-        this.http.get('/teacher/tests')
-            .toPromise()
-            .then(response => that.setTests(response.json()))
-             .catch( that.handleError.bind(that));
+        this.customHttp.get('/teacher/tests')
+            .subscribe(response => that.setTests(response));
+             //.catch( that.handleError.bind(that));
     }
 
     setTests(response) {
@@ -58,7 +57,7 @@ export class TeacherComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.auth.checkAuth();
+        this.customHttp.checkRole();
         this.getTests();
     }
 }

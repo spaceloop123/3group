@@ -1,4 +1,4 @@
-System.register(['@angular/core', "@angular/router", "./cards-colors.data", '../common/auth/auth.service', "@angular/http", 'rxjs/add/operator/toPromise'], function(exports_1, context_1) {
+System.register(['@angular/core', "@angular/router", "./cards-colors.data", 'rxjs/add/operator/toPromise', "../common/services/CustomHttp"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', "@angular/router", "./cards-colors.data", '../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, cards_colors_data_1, auth_service_1, http_1;
+    var core_1, router_1, cards_colors_data_1, CustomHttp_1;
     var TeacherComponent;
     return {
         setters:[
@@ -23,19 +23,15 @@ System.register(['@angular/core', "@angular/router", "./cards-colors.data", '../
             function (cards_colors_data_1_1) {
                 cards_colors_data_1 = cards_colors_data_1_1;
             },
-            function (auth_service_1_1) {
-                auth_service_1 = auth_service_1_1;
-            },
-            function (http_1_1) {
-                http_1 = http_1_1;
-            },
-            function (_1) {}],
+            function (_1) {},
+            function (CustomHttp_1_1) {
+                CustomHttp_1 = CustomHttp_1_1;
+            }],
         execute: function() {
             TeacherComponent = (function () {
-                function TeacherComponent(cardsColorsData, http, auth, router) {
+                function TeacherComponent(cardsColorsData, customHttp, router) {
                     this.cardsColorsData = cardsColorsData;
-                    this.http = http;
-                    this.auth = auth;
+                    this.customHttp = customHttp;
                     this.router = router;
                     this.generateRandomColor = function () {
                         //generates whole color name randomly
@@ -45,10 +41,9 @@ System.register(['@angular/core', "@angular/router", "./cards-colors.data", '../
                 }
                 TeacherComponent.prototype.getTests = function () {
                     var that = this;
-                    this.http.get('/teacher/tests')
-                        .toPromise()
-                        .then(function (response) { return that.setTests(response.json()); })
-                        .catch(that.handleError.bind(that));
+                    this.customHttp.get('/teacher/tests')
+                        .subscribe(function (response) { return that.setTests(response); });
+                    //.catch( that.handleError.bind(that));
                 };
                 TeacherComponent.prototype.setTests = function (response) {
                     this.assignedTests = response;
@@ -65,7 +60,7 @@ System.register(['@angular/core', "@angular/router", "./cards-colors.data", '../
                     return Promise.reject(error.message || error);
                 };
                 TeacherComponent.prototype.ngOnInit = function () {
-                    this.auth.checkAuth();
+                    this.customHttp.checkRole();
                     this.getTests();
                 };
                 TeacherComponent = __decorate([
@@ -73,9 +68,9 @@ System.register(['@angular/core', "@angular/router", "./cards-colors.data", '../
                         selector: 'teacher-component',
                         templateUrl: 'app/teacher/teacher-home.html',
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        providers: [cards_colors_data_1.CardsColorsData, auth_service_1.AuthService]
+                        providers: [cards_colors_data_1.CardsColorsData, CustomHttp_1.CustomHttp]
                     }), 
-                    __metadata('design:paramtypes', [cards_colors_data_1.CardsColorsData, http_1.Http, auth_service_1.AuthService, router_1.Router])
+                    __metadata('design:paramtypes', [cards_colors_data_1.CardsColorsData, CustomHttp_1.CustomHttp, router_1.Router])
                 ], TeacherComponent);
                 return TeacherComponent;
             }());

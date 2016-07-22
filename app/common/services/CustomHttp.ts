@@ -6,39 +6,36 @@ import {Observable} from 'rxjs/Observable';
 import {Injectable} from "@angular/core";
 
 @Injectable()
-export class CustomHttp extends Http {
+export class CustomHttp {
 
 	constructor(
-		backend: ConnectionBackend,
-		defaultOptions: RequestOptions,
-		private router: Router) {
-		super(backend, defaultOptions);
-	}
+		private http: Http,
+		private router: Router) {}
 
 	request(url: string | Request, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(super.request(url, options));
+		return this.wrap(this.http.request(url, options));
 	}
 
 	get(url: string, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(super.get(url,options));
+		return this.wrap(this.http.get(url,options));
 	}
 
 	post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(super.post(url, JSON.stringify(body), this.prepareOptionsObject(options)));
+		return this.wrap(this.http.post(url, JSON.stringify(body), this.prepareOptionsObject(options)));
 	}
 
 	put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(super.put(url, JSON.stringify(body), this.prepareOptionsObject(options)));
+		return this.wrap(this.http.put(url, JSON.stringify(body), this.prepareOptionsObject(options)));
 	}
 
 	delete(url: string, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(super.delete(url, options));
+		return this.wrap(this.http.delete(url, options));
 	}
 
 	wrap(observable: Observable<Response>): Observable<any> {
 		return observable
-			.map( (response) => response.json() )
-			.catch(this.errorHandler);
+			.catch(this.errorHandler.bind(this))
+			.map( (response) => response.json() );
 	}
 
 	prepareOptionsObject(options?: RequestOptionsArgs) : RequestOptionsArgs {
@@ -50,13 +47,29 @@ export class CustomHttp extends Http {
 		return options;
 	}
 
+	checkRole() {
+			return this.wrap(this.get('/role'));
+	}
+
 	errorHandler(err): Observable<any> {
-		if ([401, 403].indexOf(err.status) + 1 && !(('' + err.url).indexOf('/login') + 1)) {
-			console.log('Hey, I\'m catching an asked request status !!!');
-			this.router.navigate(['/login']);
-			return Observable.empty();
-		} else {
-			return Observable.throw(err);
+		var state = (('' + err.url).indexOf('/login') + 1) ? null : err.status;
+
+		switch (state) {
+			case 401:
+				console.log('Hey, I\'m catching 401 !!!');
+				this.router.navigate(['/login']);
+				return Observable.empty();
+			case 403:
+				console.log('Hey, I\'m catching 403 !!!');
+				this.router.navigate(['/home']);
+				return Observable.empty();
+			case 404:
+				console.log('Hey, I\'m catching 404 !!!');
+				this.router.navigate(['/error']);
+				return Observable.empty();
+			default:
+				return Observable.throw(err);
 		}
+
 	}
 }

@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {LoginComponent} from "./login/login.component";
 import {HeaderComponent} from "./common/header/header.component";
 import {ROUTER_DIRECTIVES} from "@angular/router";
@@ -11,7 +11,6 @@ import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
 import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
-import {AuthErrorComponent} from "./common/auth/auth.error.component";
 
 
 @Component({
@@ -19,10 +18,28 @@ import {AuthErrorComponent} from "./common/auth/auth.error.component";
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [LoginComponent,  UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent, AuthErrorComponent],
-    providers: [LoginService]
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent],
+    providers: [LoginService, Location]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+    private href;
+    private valignWrapper;
+
+    checkPath () {
+        this.href = window.location.href;
+        if (this.href == 'http://localhost:3000/#/login') {
+            this.valignWrapper = 'valign-wrapper';
+        }
+        else {
+            this.valignWrapper = '';
+        }
+        return this.valignWrapper;
+    }
+
+    ngOnInit () {
+        this.checkPath();
+    }
 
 }

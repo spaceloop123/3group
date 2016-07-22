@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/router", '../common/auth/auth.service', "angular2-materialize", "@angular/http"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/router", "angular2-materialize", "@angular/http"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/router", '../common/auth/auth.servic
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, auth_service_1, angular2_materialize_1, http_1;
+    var core_1, router_1, angular2_materialize_1, http_1;
     var AdminComponent;
     return {
         setters:[
@@ -20,9 +20,6 @@ System.register(["@angular/core", "@angular/router", '../common/auth/auth.servic
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (auth_service_1_1) {
-                auth_service_1 = auth_service_1_1;
-            },
             function (angular2_materialize_1_1) {
                 angular2_materialize_1 = angular2_materialize_1_1;
             },
@@ -31,9 +28,8 @@ System.register(["@angular/core", "@angular/router", '../common/auth/auth.servic
             }],
         execute: function() {
             AdminComponent = (function () {
-                function AdminComponent(http, auth) {
+                function AdminComponent(http) {
                     this.http = http;
-                    this.auth = auth;
                     this.newMemberUrl = '/admin/new_';
                     this.statsForUrl = '/admin/show';
                     this.rows = [
@@ -79,16 +75,15 @@ System.register(["@angular/core", "@angular/router", '../common/auth/auth.servic
                 //   this.router.navigate(['/error', error]);
                 //}
                 AdminComponent.prototype.ngOnInit = function () {
-                    this.auth.checkAuth();
+                    //TODO add customHttp.checkRole()
                 };
                 AdminComponent = __decorate([
                     core_1.Component({
                         selector: 'admin-component',
                         templateUrl: 'app/admin/admin.home.html',
-                        directives: [router_1.ROUTER_DIRECTIVES, angular2_materialize_1.MaterializeDirective],
-                        providers: [auth_service_1.AuthService]
+                        directives: [router_1.ROUTER_DIRECTIVES, angular2_materialize_1.MaterializeDirective]
                     }), 
-                    __metadata('design:paramtypes', [http_1.Http, auth_service_1.AuthService])
+                    __metadata('design:paramtypes', [http_1.Http])
                 ], AdminComponent);
                 return AdminComponent;
             }());
