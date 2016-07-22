@@ -42,7 +42,7 @@ System.register(['./teacher/teacher-checking.component', "@angular/router", "./l
                 },
                 {
                     path: 'logo',
-                    redirectTo: '/login',
+                    redirectTo: '/home',
                     pathMatch: 'full'
                 },
                 {
