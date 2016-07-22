@@ -18,20 +18,20 @@ export class LoginService {
         router.navigate(['/' + response]);
         //
     }
-    noAuthorized(message, errorFlag){
-        errorFlag = true;
-        message = 'incorect user name or password';
+    noAuthorized(errorData){
+        errorData.errorFlag = true;
+        errorData.errorMessage = 'incorrect user name or password';
                 
     }
 
-    public postAndRedirect(loginData:LoginData, router, message, errorFlag) {
+    public postAndRedirect(loginData:LoginData, router, errorData) {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http
             .post(this.loginUrl, JSON.stringify(loginData), {headers: header})
             .toPromise()
-            .then(res =>that.redirect(res.json().role, router), error =>(that.noAuthorized(message, errorFlag)));
+            .then(res =>that.redirect(res.json().role, router), error =>(that.noAuthorized(errorData)));
 
     }
 

@@ -41,6 +41,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
         this.answer = [''];
         this.timerSec = 7000;
         this.questionInfo = new QuestionInfo(false, '');
+        this.subQuestionsInfo = null;
     }
 
 
@@ -57,7 +58,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
             this.getTestInfoFromServer();
         } else {
             this.questionInfo = this.restoreQuestionInfo();
-            this.subQuestionsInfo = this.restoreSubQuestionInfo();
+            //this.subQuestionsInfo = this.restoreSubQuestionInfo();
             if(!this.questionInfo.sent){
                 this.getNextQuestionFromServerById(this.questionInfo.id);
             }else{
@@ -179,14 +180,19 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     saveQuestionFromResponse(response) {
         this.question = response;
-        if(!this.subQuestionsInfo && this.question.subQuestions) {
+        var buffer = this.restoreSubQuestionInfo();
+        if(buffer){
+            this.subQuestionsInfo = buffer;
+        } else if(this.question.subQuestions) {
             console.log(this.question.subQuestions);
             this.subQuestionsInfo = new SubQuestionsInfo(this.question.subQuestions, 0);
+            this.saveSubQuestionInfo();
 
         }
         this.questionInfo = new QuestionInfo(false, this.question.id);
         this.saveQuestionInfo();
-        this.saveSubQuestionInfo();
+        console.log(this.subQuestionsInfo);
+        
         this.processQuestion();
     }
 
@@ -215,6 +221,9 @@ export class RunTestComponent implements OnInit, OnDestroy {
                 this.getNextQuestionFromServerById(this.subQuestionsInfo.subQuestionsId[this.subQuestionsInfo.index]);
                 console.log('index ' + this.subQuestionsInfo.index);
                 ++this.subQuestionsInfo.index;
+                if(this.subQuestionsInfo.index === this.subQuestionsInfo.subQuestionsId.length){
+                    this.subQuestionsInfo = null;
+                }
                 this.saveSubQuestionInfo();
             }else {
                 if(this.testInfo.num > (this.testInfo.numQuestions )){

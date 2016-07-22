@@ -20,8 +20,8 @@
                             <input id="password-field" type="password" class="validate" required
                                    [(ngModel)]="model.password" name="password">
                             <label for="password-field">Password</label>
-                            <div *ngIf="(!model.usernameValid && model.submitAttempt) || errorFlag ">
-                                <p style='color: darkred;'>{{error}}</p>
+                            <div *ngIf="(!model.usernameValid && model.submitAttempt) || errorData.errorFlag ">
+                                <p style='color: darkred;'>{{errorData.errorMessage}}</p>
                             </div>
                         </div>
 

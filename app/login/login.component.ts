@@ -25,11 +25,13 @@ export class LoginComponent {
                 private http:Http) {
 
     }
-    error = '';
-    errorFlag = false;
-    model = new LoginData('', false, '', false);
+    errorData = {
+        errorMessage :'',
+        errorFlag : false
+    };
 
-    submitted = false;
+
+    model = new LoginData('', false, '', false);
 
     public redirect(response, router) {
         console.log("response " + response);
@@ -37,25 +39,7 @@ export class LoginComponent {
         //
     }
 
-    public postAndRedirect() {
-        var that = this;
-        var header = new Headers();
-        header.append('Content-Type', 'application/json');
-        this.http
-            .post('/login', JSON.stringify({username: that.model.username, password: that.model.password}),
-                {headers: header})
-            .toPromise()
-            .then(res =>that.redirect(res.json().role, that.router), error =>(that.noAuthorized()));
 
-    }
-
-    showFormControls(form: NgForm) {
-
-        return form && form.controls['login'] &&
-            form.controls['lognin'].value; // Dr. IQ
-    }
-
-    onSubmit() { this.submitted = true; }
     
     errorMessage(): string{
         var nameIsEmpty = false;
@@ -73,19 +57,15 @@ export class LoginComponent {
         return message;
     }
 
-    noAuthorized(){
-        this.errorFlag = true;
-        this.error = 'incorect user name or password';
-    }
 
     loginRequest() {
         this.model.submitAttempt = true;
         this.model.usernameValid = (this.model.username !== '' && this.model.password !== '');
-        this.error = this.errorMessage();
+        this.errorData.errorMessage = this.errorMessage();
         if(this.model.usernameValid) {
            
-           // this.loginService.postAndRedirect(this.model, this.router, this.error, this.errorFlag);
-            this.postAndRedirect();
+            this.loginService.postAndRedirect(this.model, this.router, this.errorData);
+
         }
         
 
