@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {LoginComponent} from "./login/login.component";
 import {HeaderComponent} from "./common/header/header.component";
 import {ROUTER_DIRECTIVES, Router, NavigationEnd} from "@angular/router";
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit () {
         this.checkPath();
-        this.sub = this.router.events.subscribe((event:Event) => {
+        this.sub = this.router.events.subscribe(event => {
             if(event instanceof NavigationEnd) {
                 this.checkPath();
             }
