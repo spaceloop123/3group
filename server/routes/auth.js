@@ -23,6 +23,11 @@ module.exports.login = function(req, res, next) {
 };
 
 module.exports.logout = function (req, res, next) {
-    req.logout();
-    res.status(200).end();
+    req.logout(user, function (err) {
+        if (err) {
+            return res.status(401).json(err);
+        } else {
+            return res.json({status: "deleted"});
+        }
+    });
 };

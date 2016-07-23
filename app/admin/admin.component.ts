@@ -14,11 +14,12 @@ import {CustomHttp} from "../common/services/CustomHttp";
     providers: [CustomHttp]
 })
 
-export class AdminComponent implements OnInit{
-    constructor(private customHttp: CustomHttp) {
+export class AdminComponent implements OnInit {
+    constructor(private customHttp:CustomHttp) {
 
     }
 
     ngOnInit():any {
         this.customHttp.checkRole();
     }
+}

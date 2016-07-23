@@ -1,1 +1,9 @@
 <a id="logo-container" href="#" class="brand-logo" [routerLink]="['/logo']">Logo</a>
+<div class="right hide-on-small-and-down">
+    <a class="waves-effect waves-light btn" (click)="goAway()">Logout</a>
+</div>
+<div class="right hide-on-med-and-up">
+    <a class="btn-floating btn-large waves-effect waves-light white">
+        <i class="btn-floating btn-large waves-effect waves-light material-icons" (click)="goAway()">power_settings_new</i>
+    </a>
+</div>

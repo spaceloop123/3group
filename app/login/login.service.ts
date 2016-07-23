@@ -6,7 +6,7 @@ import {LoginData}  from "./login.data";
 export class LoginService {
     private loginUrl = '/login';
 
-    constructor(private http:CustomHttp) {
+    constructor(private customHttp:CustomHttp) {
 
     }
 
@@ -18,7 +18,7 @@ export class LoginService {
 
     public logIn(loginData:LoginData) {
         var that = this;
-        this.http
+        this.customHttp
             .post(this.loginUrl, loginData)
             .subscribe(
                 res => location.reload(),
@@ -26,18 +26,34 @@ export class LoginService {
             );
     }
 
+    public logOut(router) {
+        this.customHttp
+            .get("/logout")
+            .subscribe(
+                res => {
+                    if (res.json().status === "deleted") {
+                        location.reload()
+                    } else {
+                        console.log(":(");
+                    }
+                },
+                err => this.handleError(err)
+            );
+    }
+
     public isAuthenticated(router) {
-        this.http
+        this.customHttp
             .get("/is_authenticated")
-            .toPromise()
-            .then(res => {
-                if (res.json()) {
-                    router.navigate(['/home']);
-                } else {
-                    console.log(":(");
-                }
-            }, error =>console.log(error))
-            .catch(this.handleError);
+            .subscribe(
+                res => {
+                    if (res.json()) {
+                        router.navigate(['/home']);
+                    } else {
+                        console.log(":(");
+                    }
+                },
+                err => this.handleError(err)
+            );
     }
 
     handleError(error) {
