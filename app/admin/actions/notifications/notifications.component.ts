@@ -17,56 +17,36 @@ export class NotificationsComponent implements OnInit {
     private notifyList;
     /* {
      *   color: 'red/yellow/green',
-     *   icon: 'error_outline/new_releases/done_all',
-     *   title: 'Error/New test/Done',
+     *   icon: 'error_outline/new_releases/done',
+     *   title: 'Request/New/Done',
      *   firstLine: 'first line text',
      *   secondLine: 'second line text'
      *  }
      * */
 
     constructor(private http:Http) {
+        //this.notifyList = [];
         this.notifyList = [
             {
                 color: 'yellow',
                 icon: 'new_releases',
                 title: 'New test',
-                firstLine: 'first line',
-                secondLine: 'second line'
+                firstLine: 'Username passed test',
+                secondLine: 'Assign teacher'
             },
             {
-                color: 'yellow',
-                icon: 'new_releases',
-                title: 'New test',
-                firstLine: 'first line',
-                secondLine: 'second line'
+                color: 'red',
+                icon: 'error_outline',
+                title: 'Request',
+                firstLine: 'Username requested test',
+                secondLine: 'Accept or decline'
             },
             {
-                color: 'yellow',
-                icon: 'new_releases',
-                title: 'New test',
-                firstLine: 'first line',
-                secondLine: 'second line'
-            },
-            {
-                color: 'yellow',
-                icon: 'new_releases',
-                title: 'New test',
-                firstLine: 'first line',
-                secondLine: 'second line'
-            },
-            {
-                color: 'yellow',
-                icon: 'new_releases',
-                title: 'New test',
-                firstLine: 'first line',
-                secondLine: 'second line'
-            },
-            {
-                color: 'yellow',
-                icon: 'new_releases',
-                title: 'New test',
-                firstLine: 'first line',
-                secondLine: 'second line'
+                color: 'green',
+                icon: 'done',
+                title: 'Done',
+                firstLine: 'Username passed test',
+                secondLine: 'Teachername checked test'
             }
         ];
     }

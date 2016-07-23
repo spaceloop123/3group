@@ -8,7 +8,7 @@ import {CustomHttp} from "../common/services/CustomHttp";
 
 @Component({
     selector: 'admin-component',
-    templateUrl: 'app/admin/admin.home.2.html',
+    templateUrl: 'app/admin/admin.home.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
     providers: [CustomHttp]
 })
