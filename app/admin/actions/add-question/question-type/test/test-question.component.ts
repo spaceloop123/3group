@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
-import {TestQuestion} from "./test-question.class";
 
 @Component({
     selector: 'test-question-component',
@@ -11,14 +10,13 @@ import {TestQuestion} from "./test-question.class";
 
 export class TestQuestionComponent implements OnInit {
 
-    private testQuestion:TestQuestion;
+    // private testQuestion:TestQuestion;
 
     ngOnInit():any {
 
     }
 
     constructor() {
-        this.testQuestion.header = "test header";
         //...
     }
 }
