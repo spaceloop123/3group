@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, SimpleChanges, OnChanges} from "@angular/core";
+import {Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 import {MaterializeDirective} from 'angular2-materialize'
@@ -17,6 +17,7 @@ export class TestComponent implements OnChanges {
 
 
     @Input() testInfo:TestInfo;
+    @Output() progress = new EventEmitter<number>();
     question:any;
     top:any;
     subQuestion:any;
@@ -69,6 +70,7 @@ export class TestComponent implements OnChanges {
                 this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
             }
             this.requestCurrentQuestion();
+            this.reportProgress();
         }
         return undefined;
     }
@@ -280,6 +282,12 @@ export class TestComponent implements OnChanges {
         if(canGo){
             this.requestCurrentQuestion();
         }
+        this.reportProgress();
         return canGo;
+    }
+    
+    reportProgress(){
+        console.log("Progress report");
+        this.progress.emit((this.questionInfo.questionIndex - 1) * 100 / this.testInfo.numQuestions);
     }
 }

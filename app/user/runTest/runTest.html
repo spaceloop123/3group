@@ -1,16 +1,26 @@
-
-    <div class='row'>
-        <div class="col s6 m2 l2 card-width offset-l9  offset-m9 offset-s6" align=center>
-            <div class="card #fafafa grey lighten-5 valign" style='font-size: x-large'>
-                <countdown-timer [timeLeft]="timerSec"></countdown-timer>
+<div class='row'>
+    <div class="col s6 m2 l2 card-width offset-l9  offset-m9 offset-s6" align=center>
+        <div class="card #fafafa grey lighten-5 valign" style='font-size: x-large'>
+            <countdown-timer [timeLeft]="timerSec"></countdown-timer>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col s12 m10 l10 card-width offset-l1  offset-m1" align=center>
+        <div class="progress">
+            <div class="determinate" [style.width] = "progress + '%'"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m10 l10 card-width offset-l1  offset-m1" align=center>
+        <div class="card white valign">
+            <display-test #test [testInfo]="testInfo" (progress)="setProgress($event)"></display-test>
+            <div class="card-action center flow-text">
+                <button class="btn waves-effect waves-light center" type="submit" name="action"
+                        (click)="sendAndGo(test)">Send
+                    <i class="material-icons right">send</i></button>
             </div>
         </div>
     </div>
-    <div>
-        <display-test #test [testInfo]="testInfo"></display-test>
-    </div>
-    <div class="card-action center flow-text">
-        <button class="btn waves-effect waves-light center" type="submit" name="action"
-                (click)="sendAndGo(test)">Send
-            <i class="material-icons right">send</i></button>
-    </div>
+</div>

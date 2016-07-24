@@ -17,11 +17,13 @@ export class RunTestComponent implements OnInit, OnDestroy {
     role:any;
     testInfo:TestInfo;
     timerSec: number;
+    progress: number;
 
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
-        this.timerSec = 7000;        
+        this.timerSec = 7000;
+        this.progress = 80;
     }
 
     restoreTestInfo(){
@@ -87,5 +89,9 @@ export class RunTestComponent implements OnInit, OnDestroy {
     sendAndGo(tc :TestComponent){
         let that = this;
         tc.sendAnswer(() => that.afterSent(tc));
+    }
+
+    setProgress(newValue: number){
+        this.progress = newValue;
     }
 }
