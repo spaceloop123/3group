@@ -23,6 +23,8 @@ main {
 
 .notifications-list {
     height: 425px; /* 338px for 4 rows; 255px for 3 rows */
+    /*min-height: 64px;*/
+    /*max-height: 425px;*/
 }
 
 .questions-list {
