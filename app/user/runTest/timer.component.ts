@@ -1,5 +1,6 @@
-import {OnDestroy, OnInit, Component, Input} from "@angular/core";
+import {OnDestroy, OnInit, Component, Input, Output, EventEmitter} from "@angular/core";
 import {Observable} from "rxjs/Rx";
+import {emit} from "cluster";
 
 @Component({
     selector: 'countdown-timer',
@@ -9,14 +10,22 @@ import {Observable} from "rxjs/Rx";
     
 export class TimerComponent implements OnInit, OnDestroy {
     @Input() timeLeft: number = 0;
+    @Output() onExpired = new EventEmitter<void>();
     timerSec: number;
     subscription: any;
     
     ngOnInit() {
-        var that = this;
+        let that = this;
         this.timerSec = this.timeLeft;
         let timer = Observable.timer(2000,1000);
-        this.subscription = timer.subscribe(t => that.timeLeft = that.timerSec - t);
+        this.subscription = timer.subscribe((t) => that.updateTimer(t));
+    }
+
+    updateTimer(ticks: number){
+        this.timeLeft = this.timerSec - ticks;
+        if(this.timeLeft <= 0){
+            this.exit();
+        }
     }
 
     ngOnDestroy() {
@@ -42,6 +51,11 @@ export class TimerComponent implements OnInit, OnDestroy {
         return 'has-few-time';        
     }
 
+    exit(){
+        console.log("exit");
+        this.onExpired.emit(null);
+    }
+    
     public showTime() : string {
         let hour = Math.floor(this.timeLeft / 3600);
         let theRest = this.timeLeft - hour * 3600;
