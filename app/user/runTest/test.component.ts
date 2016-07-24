@@ -14,8 +14,6 @@ import {SubQuestionsInfo} from "./subQuestions.info";
 
 export class TestComponent implements OnChanges {
 
-
-
     @Input() testInfo:TestInfo;
     @Output() progress = new EventEmitter<number>();
     question:any;
@@ -27,8 +25,6 @@ export class TestComponent implements OnChanges {
     isPlayed:boolean;
     playCount:number;
     openAnswer:string;
-
-    
 
 
     options:any[];
@@ -125,22 +121,7 @@ export class TestComponent implements OnChanges {
             .then(response => that.saveSubQuestionFromResponse(response.json()))
             .catch(that.handleError);
     }
-
-    /*getQuestionFromServerById(id: string) {
-        var that = this;
-        var header = new Headers();
-        header.append('Content-Type', 'application/json');
-        console.log(' testInfo ' + id + ' ' + this.testInfo.id);
-        this.http
-            .post('/next_question_by_id',
-                JSON.stringify({id: id, testId: that.testInfo.id}), {headers: header})
-            .toPromise()
-            .then(response => that.saveQuestionFromResponse(response.json()))
-            .catch(that.handleError);
-
-
-    }*/
-
+    
     grabAnswer() : string[]{
         let result = new Array();
         if(this.top.type === 'TestQuestion') {
@@ -151,7 +132,9 @@ export class TestComponent implements OnChanges {
             }
         } else{
             result = new Array(this.answer);
+            this.answer = '';
         }
+
         return result;
     }
 
@@ -239,6 +222,7 @@ export class TestComponent implements OnChanges {
             .catch(that.handleError);
 
 
+
     }
 
     goToNextQuestion() :boolean{
@@ -289,5 +273,9 @@ export class TestComponent implements OnChanges {
     reportProgress(){
         console.log("Progress report");
         this.progress.emit((this.questionInfo.questionIndex - 1) * 100 / this.testInfo.numQuestions);
+    }
+
+    getClassForAnswer(answer : string){
+        return answer === "" ? "invalid-answer" : "valid-answer";
     }
 }

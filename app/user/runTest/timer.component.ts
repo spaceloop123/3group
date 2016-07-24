@@ -32,6 +32,16 @@ export class TimerComponent implements OnInit, OnDestroy {
         }
     }
 
+    getClassForTime(timeLeft) : string{
+        if(timeLeft > 600){
+            return "has-enough-time";
+        }
+        if(timeLeft > 200) {
+            return "has-middle-amount-of-time";
+        }
+        return 'has-few-time';        
+    }
+
     public showTime() : string {
         let hour = Math.floor(this.timeLeft / 3600);
         let theRest = this.timeLeft - hour * 3600;
