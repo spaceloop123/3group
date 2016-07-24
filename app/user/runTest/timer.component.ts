@@ -10,17 +10,26 @@ import {Observable} from "rxjs/Rx";
 export class TimerComponent implements OnInit, OnDestroy {
     @Input() timeLeft: number = 0;
     timerSec: number;
-    timer: any;
+    subscription: any;
     
     ngOnInit() {
         var that = this;
         this.timerSec = this.timeLeft;
-        this.timer = Observable.timer(2000,1000);
-        this.timer.subscribe(t => that.timeLeft = that.timerSec - t);
+        let timer = Observable.timer(2000,1000);
+        this.subscription = timer.subscribe(t => that.timeLeft = that.timerSec - t);
     }
 
     ngOnDestroy() {
-        this.timer.unsubscribe();
+        this.subscription.unsubscribe();
+    }
+
+    zeroPad(num: number) : string{
+        if(num < 10){
+            return ("0" + num.toString());
+        }
+        else{
+            return num.toString();
+        }
     }
 
     public showTime() : string {
@@ -28,6 +37,6 @@ export class TimerComponent implements OnInit, OnDestroy {
         let theRest = this.timeLeft - hour * 3600;
         let min = Math.floor(theRest / 60);
         let sec = theRest - min * 60;
-        return (hour.toString() + ":" + min.toString() + ":" + sec.toString());
+        return (hour.toString() + ":" + this.zeroPad(min) + ":" + this.zeroPad(sec));
     }
 }
