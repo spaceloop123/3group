@@ -3,12 +3,13 @@ import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {CardsColorsData} from "./cards-colors.data";
 import "rxjs/add/operator/toPromise";
 import {CustomHttp} from "../common/services/CustomHttp";
+import {MaterializeDirective} from "angular2-materialize/dist/index";
 
 
 @Component({
     selector: 'teacher-component',
     templateUrl: 'app/teacher/teacher-home.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective],
     providers: [CardsColorsData, CustomHttp]
 })
 
@@ -25,7 +26,7 @@ export class TeacherComponent implements OnInit {
 
     private generateRandomColor = function () {
         //generates whole color name randomly
-        this.randomColor = this.cardsColorsData.CARDS_COLORS_NEUTRAL[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_NEUTRAL.length)];
+        this.randomColor = this.cardsColorsData.CARDS_COLORS_ACCENT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_ACCENT.length)];
         return (this.randomColor);
     }
 
@@ -33,15 +34,15 @@ export class TeacherComponent implements OnInit {
 
         var that = this;
         this.customHttp.get('/teacher/tests')
-            .subscribe(response => that.setTests(response));
+            .subscribe(response => {that.setTests(response.json())});
              //.catch( that.handleError.bind(that));
     }
 
     setTests(response) {
         this.assignedTests = response;
+        console.log(this.assignedTests);
         for (let i = 0; i < this.assignedTests.length; i++) {
             this.assignedTests[i].color = this.generateRandomColor();
-            console.log('this.assignedTests[i] ' + typeof(this.assignedTests[i].color) + " " + this.assignedTests[i].color.length);
         }
     }
 
