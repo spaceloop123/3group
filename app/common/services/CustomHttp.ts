@@ -1,7 +1,7 @@
 import 'rxjs/Rx';
 
 import {Http, Request, RequestOptionsArgs, Response, RequestOptions, ConnectionBackend, Headers} from '@angular/http';
-import {Router} from '@angular/router';
+import {Router, NavigationError} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from "@angular/core";
 

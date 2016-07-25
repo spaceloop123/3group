@@ -46,7 +46,7 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "./
                 AdminComponent = __decorate([
                     core_1.Component({
                         selector: 'admin-component',
-                        templateUrl: 'app/admin/admin.home.2.html',
+                        templateUrl: 'app/admin/admin.home.html',
                         directives: [router_1.ROUTER_DIRECTIVES, angular2_materialize_1.MaterializeDirective, add_member_component_1.AddMemberComponent, notifications_component_1.NotificationsComponent, add_question_component_1.AddQuestionComponent],
                         providers: [CustomHttp_1.CustomHttp]
                     }), 
