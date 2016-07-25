@@ -13,7 +13,7 @@ export class AddQuestionComponent implements OnInit {
     private questionsList;
 
     ngOnInit():any {
-
+        this.questionsList = [];
     }
 
     constructor() {

@@ -12,42 +12,36 @@ import {TestQuestion} from "./test-question.class";
 export class TestQuestionComponent implements OnInit {
 
     private testQuestion:TestQuestion;
-    private answers:any;
-    private answersLength:number;
-    private correctAnswerIdx:number;
+    private oldAnswersLength:number;
 
     ngOnInit():any {
-        this.answers = [{content: ''}, {content: ''}, {content: ''}];
-        this.answersLength = this.answers.length;
-        this.correctAnswerIdx = 0;
+        this.oldAnswersLength = this.testQuestion.answers.length;
     }
 
     constructor() {
         this.testQuestion = new TestQuestion();
-        this.answers = [{content: ''}, {content: ''}, {content: ''}];
-        this.answersLength = this.answers.length;
-        this.correctAnswerIdx = 0;
+        this.oldAnswersLength = this.testQuestion.answers.length;
     }
 
     resizeAnswers() {
-        if (this.answersLength < 2 || this.answersLength > 5) {
+        if (this.oldAnswersLength < 2 || this.oldAnswersLength > 5) {
             return;
         }
-        let diff = this.answersLength - this.answers.length;
-        if (this.answersLength > this.answers.length) {
+        let diff = this.oldAnswersLength - this.testQuestion.answers.length;
+        if (this.oldAnswersLength > this.testQuestion.answers.length) {
             for (let i = 0; i < diff; ++i) {
-                this.answers.push({content: ''});
+                this.testQuestion.answers.push({content: ''});
             }
-        } else if (this.answersLength < this.answers.length) {
+        } else if (this.oldAnswersLength < this.testQuestion.answers.length) {
             for (let i = 0; i < -diff; ++i) {
-                this.answers.splice(this.answers.length - 1, 1);
+                this.testQuestion.answers.splice(this.testQuestion.answers.length - 1, 1);
             }
         }
-        this.answersLength = this.answers.length;
+        this.oldAnswersLength = this.testQuestion.answers.length;
     }
 
     changeCorrectAnswerIdx() {
-        if (this.testQuestion.correctAnswerIdx < 1 || this.testQuestion.correctAnswerIdx > this.answersLength) {
+        if (this.testQuestion.correctAnswerIdx < 1 || this.testQuestion.correctAnswerIdx > this.oldAnswersLength) {
             return;
         }
         this.testQuestion.correctAnswerIdx--;
@@ -55,7 +49,6 @@ export class TestQuestionComponent implements OnInit {
     }
 
     onCreateFinish() {
-        this.testQuestion.answers = this.answers;
         console.log(this.testQuestion);
     }
 }
