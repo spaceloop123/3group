@@ -32,7 +32,7 @@ export class LoginService {
             .subscribe(
                 res => {
                     console.log(res);
-                    if (res.json().status === "deleted") {
+                    if (res.status ===200) {
                         location.reload()
                     } else {
                         console.log(":(");

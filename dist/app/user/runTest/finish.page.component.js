@@ -51,7 +51,7 @@ System.register(["@angular/forms", "@angular/core", "@angular/router", "@angular
                     this.timeout_id = setTimeout(function () { return that.exit(); }, 5000);
                 };
                 FinishTestPageComponent.prototype.exit = function () {
-                    var link = (this.role === "user") ? "/user" : "/logo"; //потом сделать для quest logOut
+                    var link = (this.role === "user") ? "/home" : "/logo"; //потом сделать для quest logOut
                     this.router.navigate([link]);
                 };
                 FinishTestPageComponent = __decorate([
