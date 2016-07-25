@@ -227,7 +227,7 @@ export class TestComponent implements OnChanges {
         header.append('Content-Type', 'application/json');
         this.http
             .post('/user/answer',
-                JSON.stringify({test: that.testInfo.id, question: that.top.id, answer: answer}), {headers: header})
+                JSON.stringify({testId: that.testInfo.id, questionId: that.top.id, answer: answer}), {headers: header})
             .toPromise()
             .then(response => {
                 console.log(response);

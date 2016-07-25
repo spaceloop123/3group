@@ -12,7 +12,6 @@ var SpeechQuestion = mongoose.model('SpeechQuestion');
 var Test = mongoose.model('Test');
 var path = require('path');
 
-/* GET home page. */
 router.get('/', function (req, res) {
     res.render('index');
 });

@@ -7,7 +7,9 @@ var TestSchema = new mongoose.Schema({
     answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
     fromTime: {type: Date, default: Date.now},
     toTime: {type: Date},
-    finishTime: {type: Date}
+    finishTime: {type: Date},
+    result: {type: Number, required: true, default: 0},
+    maxResult: {type: Number, required: true, default: 0}
 });
 
 TestSchema.methods.getTestInfo = function () {
@@ -17,8 +19,14 @@ TestSchema.methods.getTestInfo = function () {
     };
 };
 
-TestSchema.methods.getAnswers = function () {
-    return {answers: this.answers};
+TestSchema.methods.getNotAutomaticallyCheckAnswers = function () {
+    var answers = [];
+    this.answers.forEach(function(answer, arr) {
+        if(!answer.autoCheck) {
+            answers.push(answer.getAnswer());
+        }
+    });
+    return answers;
 };
 
 mongoose.model('Test', TestSchema);

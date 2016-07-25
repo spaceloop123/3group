@@ -14,8 +14,10 @@ module.exports.getTestStatus = function (userId, done) {
 };
 
 module.exports.requestTest = function (userId, done) {
-    var test = new Test({user: userId});
-    test.save(done(err));
+    var test = new Test({user: userId, status: 'requested'});
+    test.save(function(err) {
+        done(err);
+    });
 };
 
 module.exports.initTest = function (userId, done) {
@@ -51,4 +53,18 @@ module.exports.initTest = function (userId, done) {
             deadline: curDate
         });
     }, done);
+};
+
+module.exports.endTest = function (testId, done) {
+    Test.findOne({_id: testId}, function (err, test) {
+        if (err) {
+            done(err);
+        }
+        
+        test.status = 'checked';
+        test.finishTime = Date.now();
+        test.save(function(err) {
+            done(err);
+        });
+    });
 };
