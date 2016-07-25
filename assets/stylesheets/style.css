@@ -46,3 +46,11 @@ main {
 .has-few-time{
     color: #d8363a !important;
 }
+
+.timer-style{
+    width: 160px;
+}
+
+.progress-bar-style{
+
+}
