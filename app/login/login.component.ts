@@ -1,28 +1,27 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {LoginData} from "./login.data";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {LoginService} from "./login.service";
 import {Constants} from "../common/constants/constants.data";
-import { NgForm }    from '@angular/forms';
-import {MaterializeDirective} from "angular2-materialize/dist/index";
-import {Http, Headers} from "@angular/http";
-import {toPromise} from "rxjs/operator/toPromise";
+import {NgForm} from "@angular/forms";
+import {Headers, Http} from "@angular/http";
 
 @Component({
     templateUrl: 'app/login/login.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective],
+    directives: [ROUTER_DIRECTIVES],
     providers: [LoginService]
 
 })
 
-export class LoginComponent {
-    private loginUrl = '/login';
+export class LoginComponent implements OnInit{
 
+    ngOnInit():any {
+        this.loginService.isAuthenticated(this.router);
+    }
 
     constructor(private loginService:LoginService,
                 private router:Router,
-                private constants:Constants,
-                private http:Http) {
+                private constants:Constants) {
 
     }
     errorData = {
@@ -30,17 +29,10 @@ export class LoginComponent {
         errorFlag : false
     };
 
+   
 
     model = new LoginData('', false, '', false);
-
-    public redirect(response, router) {
-        console.log("response " + response);
-        router.navigate(['/' + response]);
-        //
-    }
-
-
-    
+        
     errorMessage(): string{
         var nameIsEmpty = false;
         var message = 'Please enter '
@@ -57,18 +49,10 @@ export class LoginComponent {
         return message;
     }
 
+    onSubmit() { this.submitted = true; }
 
     loginRequest() {
-        this.model.submitAttempt = true;
-        this.model.usernameValid = (this.model.username !== '' && this.model.password !== '');
-        this.errorData.errorMessage = this.errorMessage();
-        if(this.model.usernameValid) {
-           
-            this.loginService.postAndRedirect(this.model, this.router, this.errorData);
-
-        }
-        
-
+        this.loginService.logIn(this.model);
     }
 
 }

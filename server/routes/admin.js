@@ -15,52 +15,37 @@ router.get('/test', function(req, res, next) {
 });
 
 router.post('/new_teacher', function (req, res, next) {
-    var password = generatePassword(12, false);
     User.count({}, function (err, count) {
-        var user = new User({
-            email: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            username: 'Teacher' + count,
-            role: 'teacher'
-        });
-        user.setPassword(password);
+        var username = 'Teacher' + count;
+        var password = generatePassword(12, false);
+        addUser(username, password, 'teacher', req);
         mailer.sendMail(
-            user.email,
+            req.body.email,
             'Welcome to ProjectName',
-            'Hello, ' + user.firstName + ' ' + user.lastName + '\n' +
-            'Your username: ' + user.username + '\n' +
+            'Hello, ' + req.body.firstName + ' ' + req.body.lastName + '\n' +
+            'Your username: ' + username + '\n' +
             'Your password: ' + password
         );
-        user.save();
         res.end();
     });
 });
 
 router.post('/new_guest', function (req, res, next) {
     User.count({}, function (err, count) {
-        var user = new User({
-            email: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            username: 'Guest' + count,
-            role: 'guest',
-            level: 0
-        });
-        user.setPassword('11111');
+        var username = 'Guest' + count;
+        var password = '11111';
+        addUser(username, password, 'guest', req);
         mailer.sendMail(
-            user.email,
+            req.body.email,
             'Welcome to ProjectName',
-            'Hello, ' + user.firstName + ' ' + user.lastName + '\n' +
+            'Hello, ' + req.body.firstName + ' ' + req.body.lastName + '\n' +
             'Follow the link to start the test: '
         );
-        user.save();
         res.end();
     });
 });
 
 router.post('/new_test', function (req, res, next) {
-
     var test = new Test({
         status: 'available',
         user: req.body.username,
@@ -69,5 +54,18 @@ router.post('/new_test', function (req, res, next) {
     });
     test.save();
 });
+
+function addUser(username, password, role, req) {
+    var user = new User({
+        email: req.body.email,
+        firstName: req.body.firsName,
+        lastName: req.body.lastName,
+        username: username,
+        role: role,
+        level: 0
+    });
+    user.setPassword(password);
+    user.save();
+}
 
 module.exports = router;

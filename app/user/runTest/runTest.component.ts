@@ -31,6 +31,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        //TODO add customHttp.checkRole()
         var that = this;
         this.sub = this.route.params.subscribe(params => {
             that.role = params['role'];

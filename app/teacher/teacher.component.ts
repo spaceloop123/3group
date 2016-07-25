@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {CardsColorsData} from "./cards-colors.data";
-import {Http} from "@angular/http";
-import 'rxjs/add/operator/toPromise';
+import "rxjs/add/operator/toPromise";
+import {CustomHttp} from "../common/services/CustomHttp";
+
 
 @Component({
     selector: 'teacher-component',
     templateUrl: 'app/teacher/teacher-home.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [CardsColorsData]
+    providers: [CardsColorsData, CustomHttp]
 })
 
 export class TeacherComponent implements OnInit {
@@ -18,7 +19,7 @@ export class TeacherComponent implements OnInit {
     private assignedTests:any;
 
     constructor(private cardsColorsData:CardsColorsData,
-                private http:Http,
+                private customHttp: CustomHttp,
                 private router:Router) {
     }
 
@@ -31,14 +32,17 @@ export class TeacherComponent implements OnInit {
     getTests() {
 
         var that = this;
-        this.http.get('/teacher/tests')
-            .toPromise()
-            .then(response => that.setTests(response.json()))
-            .catch(that.handleError);
+        this.customHttp.get('/teacher/tests')
+            .subscribe(response => that.setTests(response));
+             //.catch( that.handleError.bind(that));
     }
 
     setTests(response) {
         this.assignedTests = response;
+        for (let i = 0; i < this.assignedTests.length; i++) {
+            this.assignedTests[i].color = this.generateRandomColor();
+            console.log('this.assignedTests[i] ' + typeof(this.assignedTests[i].color) + " " + this.assignedTests[i].color.length);
+        }
     }
 
     checkTest(test) {
@@ -48,11 +52,18 @@ export class TeacherComponent implements OnInit {
 
 
     handleError(error:any) {
-        console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
 
     ngOnInit() {
+        this.customHttp.checkRole();
         this.getTests();
+        console.log(this.assignedTests);
     }
 }
+
+/*
+ for (let i = 0; i < this.assignedTests.length; i++) {
+ this.assignedTests[i].color = this.generateRandomColor();
+ }
+ */
