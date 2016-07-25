@@ -41,7 +41,7 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
     }
 
     exit(){
-        var link = (this.role === "user") ? "/user" : "/logo";//потом сделать для quest logOut
+        var link = (this.role === "user") ? "/home" : "/logo";//потом сделать для quest logOut
         this.router.navigate([link]);
     }
 }
