@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
     askTest() {
         alert('test is asked');
         var that = this;
-        this.http.get('/user/askTest')
+        this.http.get('/user/ask_test')
             .toPromise()
             .then(response => that.testInfo.status = 'requestedTest')
             .catch(this.handleError);
