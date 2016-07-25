@@ -140,11 +140,13 @@ export class TestComponent implements OnChanges {
 
     saveQuestionFromResponse(response) {
         this.question = response;
-        if(this.question.type === 'ReadingQuestion'){
-            Materialize.toast('You can read this text only once', 5000);
-        }
         if(this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
+            if(this.question.type === 'ReadingQuestion'){
+                Materialize.toast('You can read this text only once', 5000);
+            }else if(this.question.type === 'AudioQuestion'){
+                Materialize.toast('You can listen this story twice', 5000);
+            }
         }
         this.saveQuestionInfo();
         //if(this.questionInfo.hasSubQuestions()){
@@ -192,7 +194,7 @@ export class TestComponent implements OnChanges {
 
     playAydio() {
         if (!this.isPlayed) {
-            Materialize.toast('You can listen this story twice', 5000);
+
             this.myAudio.src = "http://vignette4.wikia.nocookie.net/starwars/images/f/f5/A_little_short.ogg/revision/latest?cb=20090519125603";
             this.myAudio.load();
             this.isPlayed = true;

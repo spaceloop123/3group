@@ -12,6 +12,7 @@ import {Constants} from "../../common/constants/constants.data";
 export class FinishTestPageComponent implements OnInit, OnDestroy {
     sub;
     role;
+    timeout_id: any;
 
 
     constructor(private route:ActivatedRoute,
@@ -30,12 +31,13 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
     }
     ngOnDestroy(){
         this.sub.unsubscribe();
+        clearTimeout(this.timeout_id);
 
     }
 
     autoExit(){
         var that = this;
-        setTimeout(() => that.exit(), 5000);
+        this.timeout_id = setTimeout(() => that.exit(), 5000);
     }
 
     exit(){

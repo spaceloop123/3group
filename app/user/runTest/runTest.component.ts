@@ -22,7 +22,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
-        this.timerSec = 10;
+        this.timerSec = 100;
         this.progress = 80;
     }
 
