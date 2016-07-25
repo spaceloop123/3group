@@ -5,24 +5,25 @@ import {Http} from "@angular/http";
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES, UserComponent],
+    directives: [ROUTER_DIRECTIVES, UserComponent]
 })
 
 export class UserComponent implements OnInit {
     testInfo;
 
-    constructor(private route:ActivatedRoute,
+    constructor(
                 private router:Router,
                 private http:Http) {
         this.testInfo = {
             status: '',
-            time: '20 min',
+            time: '500 min',
             numQuestions: '50'
         };
 
     }
 
     ngOnInit() {
+        //TODO add customHttp.checkRole()
         this.getTestInfo();
         if (this.testInfo.status === 'requested') {
             this.testWaiter();
@@ -35,7 +36,7 @@ export class UserComponent implements OnInit {
             .toPromise()
             .then(response => that.testInfo.status = response.json().status)
             .catch(that.handleError);
-        console.log("testInfo.status-" + this.testInfo);
+        console.log("403_TEST" + this.testInfo);
     }
     
     testWaiter() {

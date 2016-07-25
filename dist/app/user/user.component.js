@@ -25,17 +25,17 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
             }],
         execute: function() {
             UserComponent = (function () {
-                function UserComponent(route, router, http) {
-                    this.route = route;
+                function UserComponent(router, http) {
                     this.router = router;
                     this.http = http;
                     this.testInfo = {
                         status: '',
-                        time: '20 min',
+                        time: '500 min',
                         numQuestions: '50'
                     };
                 }
                 UserComponent.prototype.ngOnInit = function () {
+                    //TODO add customHttp.checkRole()
                     this.getTestInfo();
                     if (this.testInfo.status === 'requested') {
                         this.testWaiter();
@@ -47,7 +47,7 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
                         .toPromise()
                         .then(function (response) { return that.testInfo.status = response.json().status; })
                         .catch(that.handleError);
-                    console.log("testInfo.status-" + this.testInfo);
+                    console.log("403_TEST" + this.testInfo);
                 };
                 UserComponent.prototype.testWaiter = function () {
                     while (this.testInfo.status !== 'availTest') {
@@ -76,9 +76,9 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
                     core_1.Component({
                         selector: 'user-component',
                         templateUrl: 'app/user/user-home.html',
-                        directives: [router_1.ROUTER_DIRECTIVES, UserComponent],
+                        directives: [router_1.ROUTER_DIRECTIVES, UserComponent]
                     }), 
-                    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, http_1.Http])
+                    __metadata('design:paramtypes', [router_1.Router, http_1.Http])
                 ], UserComponent);
                 return UserComponent;
             }());
