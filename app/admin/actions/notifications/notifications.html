@@ -1,17 +1,22 @@
-<div class="collection-header"><h5>Notifications</h5></div>
-<ul class="collection with-header grey lighten-5" id="notifications-list">
-    <li id="empty-notifications" class="grey-text" *ngIf="notifyList.length === 0">
-        <div align="center">
-            <h6>Nothing...</h6>
-            <a class="waves-effect waves-teal btn-flat grey-text" (click)="refreshNotifications()">Refresh</a>
-        </div>
-    </li>
-    <li class="collection-item avatar" *ngFor="let item of notifyList">
-        <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
-        <span class="title">{{item.title}}</span>
-        <p>{{item.firstLine}}<br>
-            {{item.secondLine}}
-        </p>
-    </li>
-    <li class="divider" *ngIf="notifyList.length !== 0"></li>
-</ul>
+<div class="card white">
+    <div class="card-content black-text">
+        <div class="card-title flow-text" align="center">Notifications</div>
+
+        <ul class="notifications-list list-overflow-y collection with-header grey lighten-5">
+            <li class="empty-list" *ngIf="notifyList.length === 0">
+                <div align="center">
+                    <h6 class="grey-text">Nothing...</h6>
+                    <a class="waves-effect btn-flat grey-text" (click)="refreshNotifications()">Refresh</a>
+                </div>
+            </li>
+            <li class="collection-item avatar" *ngFor="let item of notifyList">
+                <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
+                <span class="title">{{item.title}}</span>
+                <div class="grey-text text-darken-1">{{item.firstLine}}<br>
+                    <p class="grey-text text-darken-1">{{item.secondLine}}</p>
+                </div>
+            </li>
+            <li class="divider" *ngIf="notifyList.length !== 0"></li>
+        </ul>
+    </div>
+</div>

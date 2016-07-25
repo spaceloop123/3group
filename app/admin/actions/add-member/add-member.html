@@ -1,8 +1,8 @@
-<div class="card grey lighten-5">
+<div class="card white">
     <div class="card-content black-text">
-        <span class="card-title">Add member</span>
+        <div class="card-title flow-text" align="center">Add member</div>
         <div class="row">
-            <form class="col s12" action="#">
+            <form class="col s12 offset-m2 m8 offset-l2 l8" action="#">
                 <p>
                     <input [checked]="member.role === 'guest'" (click)="changeMemberType()"
                            name="member-type" type="radio" id="admin-member-1"
@@ -16,7 +16,7 @@
                     <label for="admin-member-2" class="black-text">Teacher</label>
                 </p>
             </form>
-            <form action="#" class="col s12">
+            <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>

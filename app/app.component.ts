@@ -24,19 +24,26 @@ import {RouterManager} from "./common/services/RouterManager";
 
 export class AppComponent implements OnInit, OnDestroy {
 
+    private sub;
+    private href;
+    private valignWrapper;
 
     constructor(private routerManager: RouterManager) {}
 
     
 
     ngOnInit () {
-        this.routerManager.ValignWrapperCheck();
+        this.checkPath();
         this.routerManager.RoutesErrorHandler();
-        
+        this.sub = this.router.events.subscribe(event => {
+            if(event instanceof NavigationEnd) {
+                this.checkPath();
+            }
+        });
     }
 
     ngOnDestroy():any {
-        this.routerManager.destroySub();
+        this.sub.unsubscribe();
     }
 
 }

@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {CardsColorsData} from "./cards-colors.data";
-import {Http} from "@angular/http";
-import 'rxjs/add/operator/toPromise';
+import "rxjs/add/operator/toPromise";
 import {CustomHttp} from "../common/services/CustomHttp";
 
 
@@ -59,6 +58,7 @@ export class TeacherComponent implements OnInit {
     ngOnInit() {
         this.customHttp.checkRole();
         this.getTests();
+        console.log(this.assignedTests);
     }
 }
 

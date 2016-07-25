@@ -1,35 +1,48 @@
-<div class="carousel" materialize="carousel" align="center">
-    <a class="carousel-item" href="">
-        <div class="card-panel teal">
-            <h5 class="white-text">Card 1</h5>
-        </div>
-    </a>
-    <a class="carousel-item" href="">
-        <div class="card-panel yellow">
-            <h5 class="white-text">Card 2</h5>
-        </div>
-    </a>
-    <a class="carousel-item" href="">
-        <div class="card-panel blue">
-            <h5 class="white-text">Card 3</h5>
-        </div>
-    </a>
-    <a class="carousel-item" href="">
-        <div class="card-panel orange">
-            <h5 class="white-text">Card 4</h5>
-        </div>
-    </a>
-    <a class="carousel-item" href="">
-        <div class="card-panel green">
-            <h5 class="white-text">Card 5</h5>
-        </div>
-    </a>
-</div>
-<div class="card grey lighten-5">
+<div class="card">
     <div class="card-content black-text">
-        <span class="card-title">Add questions</span>
+        <div class="card-title flow-text" align="center">Add questions</div>
+
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <ul class="questions-list list-overflow-y collection with-header grey lighten-5">
+                    <li class="collection-item" *ngFor="let item of questionsList">
+                        <p>There will be recently added questions/p>
+                    </li>
+
+                    <!--<li class="collection-item">
+                        <test-question-component></test-question-component>
+                    </li>-->
+
+                    <li>
+                        <div align="center" style="margin-top: 22px; margin-bottom: 22px">
+                            <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
+                               class="btn-floating btn-large waves-effect waves-light red modal-trigger"
+                               href="#chooseQuestion">
+                                <i class="material-icons">add</i>
+                            </a>
+
+                        </div>
+
+                        <div id="chooseQuestion" class="modal modal-fixed-footer">
+                            <div class="modal-content">
+                                <h4>Question Catalog</h4>
+                                <h5>Please, select question type (poka tol'ko odin dostypen, zapolni
+                                    ego, najmi na knopky i smotri console :) )</h5>
+
+                                <test-question-component></test-question-component>
+
+                            </div>
+                            <div class="modal-footer">
+                                <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
     </div>
     <div class="card-action" align="center">
-        <a class="waves-effect waves-light btn">add</a>
+        <a class="waves-effect waves-light btn disabled">add</a>
     </div>
 </div>
