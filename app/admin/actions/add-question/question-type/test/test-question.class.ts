@@ -7,8 +7,9 @@ export class TestQuestion {
     private _correctAnswerIdx:number;
 
     constructor() {
+        this._answers = [{content: ''}, {content: ''}, {content: ''}];
+        this._correctAnswerIdx = 0;
     }
-
 
     get header():string {
         return this._header;
