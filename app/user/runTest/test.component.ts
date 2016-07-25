@@ -20,7 +20,7 @@ export class TestComponent implements OnChanges {
     top:any;
     subQuestion:any;
     questionInfo:QuestionInfo;
-    subQuestionInfo: SubQuestionsInfo;
+    subQuestionInfo:SubQuestionsInfo;
     myAudio:any;
     isPlayed:boolean;
     playCount:number;
@@ -28,8 +28,8 @@ export class TestComponent implements OnChanges {
 
 
     options:any[];
-    answer: string;
-    
+    answer:string;
+
 
     constructor(private http:Http) {
         this.options = new Array();
@@ -39,30 +39,29 @@ export class TestComponent implements OnChanges {
     }
 
 
-
     /*ngOnInit() {
-        if(this.testInfo !== null) {
-            this.questionInfo = this.restoreQuestionInfo();
-            this.subQuestionInfo = this.restoreSubQuestionInfo();
-            if(this.questionInfo === null){
-                this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null);
-            }
-            if(this.subQuestionInfo === null){
-                this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
-            }
-            this.requestCurrentQuestion();
-        }
-    }*/
+     if(this.testInfo !== null) {
+     this.questionInfo = this.restoreQuestionInfo();
+     this.subQuestionInfo = this.restoreSubQuestionInfo();
+     if(this.questionInfo === null){
+     this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null);
+     }
+     if(this.subQuestionInfo === null){
+     this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
+     }
+     this.requestCurrentQuestion();
+     }
+     }*/
 
     ngOnChanges(changes:SimpleChanges):any {
         this.testInfo = changes['testInfo'].currentValue;
-        if(this.testInfo !== null) {
+        if (this.testInfo !== null) {
             this.questionInfo = this.restoreQuestionInfo();
             this.subQuestionInfo = this.restoreSubQuestionInfo();
-            if(this.questionInfo === null){
+            if (this.questionInfo === null) {
                 this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null);
             }
-            if(this.subQuestionInfo === null){
+            if (this.subQuestionInfo === null) {
                 this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
             }
             this.requestCurrentQuestion();
@@ -71,8 +70,8 @@ export class TestComponent implements OnChanges {
         return undefined;
     }
 
-    requestCurrentQuestion(){
-        if(this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()){
+    requestCurrentQuestion() {
+        if (this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()) {
             this.getSubQuestionFromServer(this.subQuestionInfo);
         }
         else {
@@ -80,7 +79,7 @@ export class TestComponent implements OnChanges {
         }
     }
 
-    saveQuestionInfo(){
+    saveQuestionInfo() {
         localStorage.setItem('questionInfo', JSON.stringify(this.questionInfo));
     }
 
@@ -88,15 +87,15 @@ export class TestComponent implements OnChanges {
         return QuestionInfo.fromJson(localStorage.getItem('questionInfo'));
     }
 
-    saveSubQuestionInfo(){
+    saveSubQuestionInfo() {
         localStorage.setItem('subQuestionInfo', JSON.stringify(this.subQuestionInfo));
     }
 
     restoreSubQuestionInfo() {
         return SubQuestionsInfo.fromJson(localStorage.getItem('subQuestionInfo'));
     }
-    
-    getQuestionFromServer(qInfo :QuestionInfo) {
+
+    getQuestionFromServer(qInfo:QuestionInfo) {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -109,8 +108,8 @@ export class TestComponent implements OnChanges {
             .then(response => that.saveQuestionFromResponse(response.json()))
             .catch(that.handleError);
     }
-    
-    getSubQuestionFromServer(subQInfo :SubQuestionsInfo){
+
+    getSubQuestionFromServer(subQInfo:SubQuestionsInfo) {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -121,16 +120,16 @@ export class TestComponent implements OnChanges {
             .then(response => that.saveSubQuestionFromResponse(response.json()))
             .catch(that.handleError);
     }
-    
-    grabAnswer() : string[]{
+
+    grabAnswer():string[] {
         let result = new Array();
-        if(this.top.type === 'TestQuestion') {
-            for(let index = 0; index < this.options.length; ++index){
-                if(this.options[index].checked){
+        if (this.top.type === 'TestQuestion') {
+            for (let index = 0; index < this.options.length; ++index) {
+                if (this.options[index].checked) {
                     result.push(this.options[index].name);
                 }
             }
-        } else{
+        } else {
             result = new Array(this.answer);
             this.answer = '';
         }
@@ -140,11 +139,11 @@ export class TestComponent implements OnChanges {
 
     saveQuestionFromResponse(response) {
         this.question = response;
-        if(this.question.subQuestions) {
+        if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
-            if(this.question.type === 'ReadingQuestion'){
+            if (this.question.type === 'ReadingQuestion') {
                 toast('You can read this text only once', 5000);
-            }else if(this.question.type === 'AudioQuestion'){
+            } else if (this.question.type === 'AudioQuestion') {
                 toast('You can listen this story twice', 5000);
             }
         }
@@ -162,11 +161,11 @@ export class TestComponent implements OnChanges {
         this.processQuestion(this.subQuestion);
     }
 
-    processQuestion(question){
+    processQuestion(question) {
         this.top = question;
-        if(question.type === 'TestQuestion'){
+        if (question.type === 'TestQuestion') {
             this.makeOptions();
-        }else if(question.type === 'AudioQuestion'){
+        } else if (question.type === 'AudioQuestion') {
             this.myAudio = new Audio();
         }
 
@@ -176,16 +175,14 @@ export class TestComponent implements OnChanges {
         console.log(idx);
         console.log(this.options[idx].checked);
         this.answer = this.options[idx].name;
-
         console.log(this.answer);
-
-       for(let i = 0; i < this.options.length; ++i){
+        for (let i = 0; i < this.options.length; ++i) {
             this.options[i].checked = false;
         }
         this.options[idx].checked = true;
     }
 
-    makeOptions(){
+    makeOptions() {
         this.options = [];
         for (let index = 0; index < this.top.answers.length; ++index) {
             console.log('answer' + this.top.answers[index]);
@@ -220,11 +217,11 @@ export class TestComponent implements OnChanges {
         }
     }
 
-    public sendAnswer(callBack){
+    public sendAnswer(callBack) {
         this.sendAnswerToServer(this.answer, callBack);
     }
 
-    sendAnswerToServer(answer : string, callBack){
+    sendAnswerToServer(answer:string, callBack) {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -232,32 +229,35 @@ export class TestComponent implements OnChanges {
             .post('/user/answer',
                 JSON.stringify({test: that.testInfo.id, question: that.top.id, answer: answer}), {headers: header})
             .toPromise()
-            .then(response => {console.log(response); callBack();})
+            .then(response => {
+                console.log(response);
+                callBack();
+                that.answer ='';
+            })
             .catch(that.handleError);
-
 
 
     }
 
-    goToNextQuestion() :boolean{
+    goToNextQuestion():boolean {
         this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
         this.questionInfo.questionIndex += 1;
         this.questionInfo.subQuestions = null;
         return (this.questionInfo.questionIndex <= this.testInfo.numQuestions);
     }
 
-    goToNextSubQuestion() :boolean{
-        if(this.subQuestionInfo.onParent()){
+    goToNextSubQuestion():boolean {
+        if (this.subQuestionInfo.onParent()) {
             this.subQuestionInfo.subQuestionIndex = 1;
             this.subQuestionInfo.subQuestionId = this.questionInfo.subQuestions[0];
             return true;
         }
-        else{
+        else {
             this.subQuestionInfo.subQuestionIndex += 1;
-            if(this.subQuestionInfo.subQuestionIndex > this.questionInfo.subQuestions.length){
+            if (this.subQuestionInfo.subQuestionIndex > this.questionInfo.subQuestions.length) {
                 return false;
             }
-            else{
+            else {
                 this.subQuestionInfo.subQuestionId =
                     this.questionInfo.subQuestions[this.subQuestionInfo.subQuestionIndex - 1];
                 return true;
@@ -265,31 +265,31 @@ export class TestComponent implements OnChanges {
         }
     }
 
-    goForward() :boolean{
+    goForward():boolean {
         let canGo = true;
-        if(this.questionInfo.hasSubQuestions()){
-            if(!this.goToNextSubQuestion()){
+        if (this.questionInfo.hasSubQuestions()) {
+            if (!this.goToNextSubQuestion()) {
                 canGo = this.goToNextQuestion();
             }
         }
-        else{
+        else {
             canGo = this.goToNextQuestion();
         }
         this.saveQuestionInfo();
         this.saveSubQuestionInfo();
-        if(canGo){
+        if (canGo) {
             this.requestCurrentQuestion();
         }
         this.reportProgress();
         return canGo;
     }
-    
-    reportProgress(){
+
+    reportProgress() {
         console.log("Progress report");
         this.progress.emit((this.questionInfo.questionIndex - 1) * 100 / this.testInfo.numQuestions);
     }
 
-    getClassForAnswer(answer : string){
+    getClassForAnswer(answer:string) {
         return answer === "" ? "invalid-answer" : "valid-answer";
     }
 }
