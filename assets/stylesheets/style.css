@@ -72,4 +72,15 @@ main {
 
 .logo{
     width: 160px;
+    padding-top: 12px !important;
+}
+
+.carousel-custom {
+
+}
+
+
+/*don't delete this is for teacher carousel*/
+.carousel-content-custom {
+    margin-top: -40px !important;
 }
