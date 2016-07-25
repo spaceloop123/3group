@@ -176,12 +176,13 @@ export class TestComponent implements OnChanges {
         console.log(idx);
         console.log(this.options[idx].checked);
         this.answer = this.options[idx].name;
+
         console.log(this.answer);
-       /* for(let i = 0; i < this.options.length; ++i){
-            if(i != idx) {
-                this.options[i].checked = false;
-            }
-        }*/
+
+       for(let i = 0; i < this.options.length; ++i){
+            this.options[i].checked = false;
+        }
+        this.options[idx].checked = true;
     }
 
     makeOptions(){

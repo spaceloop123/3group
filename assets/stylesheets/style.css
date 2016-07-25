@@ -39,10 +39,6 @@ main {
     transform: translate(-50%, -50%);
 }
 
-.teacher-card-content {
-    word-wrap: break-word !important;
-}
-
 .valid-answer{
     border-color: #27b327 !important;
 }
