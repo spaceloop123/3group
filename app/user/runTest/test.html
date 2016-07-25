@@ -5,13 +5,14 @@
     </div>
     <div class="card-content flow-text" align=left>
         <form action="#">
-            <div *ngFor="let option of options; let i = index">
+            <p *ngFor="let option of options; let i = index">
                 <input [attr.id]="'test-question-options-' + i"
                        type="radio"
                        [checked]="option['checked']"
-                       (change)="changeCheckState(i)">
+                       (change)="changeCheckState(i)"
+                       name="test-question-options-{{i}}" />
                 <label [attr.for]="'test-question-options-' + i" class='black-text'>{{option.name}}</label>
-            </div>
+            </p>
         </form>
     </div>
 </div>
