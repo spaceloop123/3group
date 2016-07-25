@@ -6,9 +6,7 @@ import {Injectable} from "@angular/core";
 export class RouterManager {
 
     private sub;
-    private href;
-    private valignWrapper;
-
+    
     constructor (private router: Router) {}
 
     RoutesErrorHandler() {
@@ -18,29 +16,6 @@ export class RouterManager {
                 this.router.navigate(['/login']);
             }
         });
-    }
-
-    ValignWrapperCheck() {
-        this.sub = this.router.events.subscribe(event => {
-            if(event instanceof NavigationEnd) {
-                this.checkPath();
-            }
-        });
-    }
-
-    checkPath () {
-        this.href = window.location.href;
-        if (this.href == 'http://localhost:3000/#/login') {
-            this.valignWrapper = 'valign-wrapper';
-        }
-        else {
-            this.valignWrapper = '';
-        }
-        return this.valignWrapper;
-    }
-
-    destroySub() {
-        this.sub.unsubscribe();
     }
 
 }

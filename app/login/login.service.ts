@@ -31,13 +31,14 @@ export class LoginService {
             .get("/logout")
             .subscribe(
                 res => {
+                    console.log(res);
                     if (res.json().status === "deleted") {
                         location.reload()
                     } else {
                         console.log(":(");
                     }
                 },
-                err => this.handleError(err)
+                err => this.handleError(err.status)
             );
     }
 

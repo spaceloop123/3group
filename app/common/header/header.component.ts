@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES, Router} from "@angular/router";
+import {Component, OnInit, OnDestroy} from "@angular/core";
+import {ROUTER_DIRECTIVES, Router, NavigationEnd} from "@angular/router";
 import {LoginService} from "../../login/login.service";
 
 @Component({
@@ -9,11 +9,35 @@ import {LoginService} from "../../login/login.service";
     providers: [LoginService]
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
+
+    private sub;
+    private pathname;
+    private isLogin;
+
     constructor(private loginService: LoginService,
                 private router: Router){}
 
-    public goAway() {
+    checkLogin () {
+        this.pathname = window.location.href;
+        return (this.pathname.indexOf("/login") !== -1);
+    }
+
+    goAway() {
         this.loginService.logOut(this.router);
     }
+
+    ngOnInit () {
+        this.checkLogin();
+        this.sub = this.router.events.subscribe(event => {
+            if(event instanceof NavigationEnd) {
+                this.checkLogin();
+            }
+        });
+    }
+
+    ngOnDestroy():any {
+        this.sub.unsubscribe();
+    }
+
 }
