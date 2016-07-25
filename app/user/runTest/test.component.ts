@@ -232,7 +232,7 @@ export class TestComponent implements OnChanges {
             .then(response => {
                 console.log(response);
                 callBack();
-                that.answer ='';
+               
             })
             .catch(that.handleError);
 

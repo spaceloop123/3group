@@ -24,16 +24,16 @@ export class LoginComponent implements OnInit{
                 private constants:Constants) {
 
     }
-    errorData = {
-        errorMessage :'',
-        errorFlag : false
-    };
 
-   
+    errorMessage :string = ''
+
+
+
+
 
     model = new LoginData('', false, '', false);
-        
-    errorMessage(): string{
+
+    getErrorMessage(): string{
         var nameIsEmpty = false;
         var message = 'Please enter '
         if(this.model.username == ''){
@@ -54,9 +54,12 @@ export class LoginComponent implements OnInit{
     }
 
     loginRequest() {
+        this.model.submitAttempt = true;
+        this.errorMessage = (this.model.username !== '' && this.model.password !== '') ? '' : this.getErrorMessage();
         console.log('loginRequest');
-        this.loginService.logIn(this.model);
+        if(this.errorMessage === '') {
+            this.loginService.logIn(this.model);
+        }
     }
 
 }
-

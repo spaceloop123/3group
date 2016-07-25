@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
-import {Http} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 
 @Component({
     templateUrl: 'app/teacher/teacher-checking.html',
@@ -21,10 +21,15 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             that.currentTest = params['id'];
             console.log('that.currentTest ' + that.currentTest);
         });
-        this.http.get('/teacher/get_test')
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        this.http.post('/teacher/check_test',
+            JSON.stringify({testId: that.currentTest}), {headers: header})
             .toPromise()
             .then(response => console.log("kxjfhgjkxhjfgxk"))
             .catch();
+
+
 
 
     }
