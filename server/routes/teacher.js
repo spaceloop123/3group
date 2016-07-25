@@ -20,7 +20,7 @@ router.get('/tests', function (req, res, next) {
 });
 
 router.post('/check_test', function (req, res, next) {
-    Test.findOne({_id: req.body.id})
+    Test.findOne({_id: req.body.testId})
         .populate({path: 'answers', model: 'Answer'})
         .exec(function (err, test) {
             var response;
