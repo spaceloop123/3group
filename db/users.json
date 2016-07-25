@@ -1,29 +1,25 @@
 { 
-    "_id" : ObjectId("577ce9c849c5b94828f56089"), 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("577cea553c6a185036a94720"), 
-    "username" : "max", 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("577e109c568e65dc378f11e3"), 
-    "hash" : "40bae0b46ca884ff1b44bbfd76a09f63c7a9594666fc6d14b9823a11bfbecf3a8820c82e8836c383d6f0fb1bd0d45805bd0a506b970351eae4870e864ce437f7", 
-    "salt" : "3bed64f2bb3fafc44330abc2adc5e189", 
-    "username" : "username", 
-    "email" : "username@gmail.com", 
-    "__v" : NumberInt(0), 
-    "role" : "user"
-}
-{ 
     "_id" : ObjectId("577fde1a94f813304e821167"), 
     "hash" : "1f37eb317789e00d3f907d69e0491efb12d924dc4e15fc62d346bf3cf429ab305298d9bf94bfe92c25aa1e72ce88459463b6d412173e5411bd2881e071b55407", 
     "salt" : "e80c341815359dce184c521804a91ac4", 
     "username" : "admin", 
     "email" : "admin@gmail.com", 
     "role" : "admin", 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "firstName" : "Jesus", 
+    "lastName" : "Christ"
+}
+{ 
+    "_id" : ObjectId("577fde5f37b8df3041b2afc9"), 
+    "hash" : "29c06de5a16aefad34140f6c69113aab0514fe372bd66d4cac82a0be4f92b11854831ae3b511f541bfe094b3a4a902495c05eaca2f47fef8e9a9fd66862ea52c", 
+    "salt" : "f521922b6192481dfa6f41a5552693fe", 
+    "username" : "username", 
+    "email" : "username@gmail.com", 
+    "role" : "user", 
+    "__v" : NumberInt(0), 
+    "level" : NumberInt(15), 
+    "firstName" : "User", 
+    "lastName" : "User"
 }
 { 
     "_id" : ObjectId("5782a87a8ef025441931cb5b"), 
@@ -33,7 +29,9 @@
     "salt" : "0064d245017f3e57b9f571ec4aed8196", 
     "username" : "user", 
     "__v" : NumberInt(0), 
-    "level" : NumberInt(5)
+    "level" : NumberInt(56), 
+    "firstName" : "SA", 
+    "lastName" : "A"
 }
 { 
     "_id" : ObjectId("5782a8ae8ef025441931cb5d"), 
@@ -42,7 +40,9 @@
     "hash" : "11b37961e2f3c1c5dd09610e1752b6ef5248ab04f1756aec5d2f03a003535390c0aebcee588e41608f338e4969e9330531a995e4e3405868ec03966562898908", 
     "salt" : "f9611c2d5299275476d0acf23aa3f18f", 
     "username" : "teacher", 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "firstName" : "Teacher", 
+    "lastName" : "Teacher"
 }
 { 
     "_id" : ObjectId("5782a8c18ef025441931cb5e"), 
@@ -52,7 +52,9 @@
     "salt" : "7ce4d17ee17c75bcc7aa3524c1af7472", 
     "username" : "guest", 
     "__v" : NumberInt(0), 
-    "level" : NumberInt(0)
+    "level" : NumberInt(0), 
+    "firstName" : "Guest", 
+    "lastName" : "Guest"
 }
 { 
     "_id" : ObjectId("578644d5f39590f421fe8f5a"), 
@@ -62,7 +64,9 @@
     "email" : "test@gmail.com", 
     "role" : "user", 
     "level" : NumberInt(5), 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "firstName" : "User", 
+    "lastName" : "User"
 }
 { 
     "_id" : ObjectId("57865acb6330735c2ed68dee"), 
@@ -72,7 +76,9 @@
     "email" : "iamguest@gmail.com", 
     "role" : "guest", 
     "level" : NumberInt(0), 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "firstName" : "Guest", 
+    "lastName" : "Guest"
 }
 { 
     "_id" : ObjectId("5788ec2a9e241fc82e74afb9"), 
@@ -80,6 +86,99 @@
     "salt" : "1a08a223fb68fa998883d2ca2b123437", 
     "username" : "teacher1", 
     "email" : "teacher1@gmail.com", 
+    "role" : "teacher", 
+    "__v" : NumberInt(0), 
+    "firstName" : "Teacher", 
+    "lastName" : "Teacher"
+}
+{ 
+    "_id" : ObjectId("578e1b2e34cac4b0550f0eaa"), 
+    "hash" : "2713293fdfccbf83e87939f2590ac9d24c7066be26e731e18bca11606d35f0ce02dad20a2b67094fea1560a2dabd7755e19243f420c54e070181fc8f60f34c67", 
+    "salt" : "2c643c0d17365a24253f4f8bef825a52", 
+    "username" : "Guest8", 
+    "email" : "test.guest@gmail.com", 
+    "role" : "guest", 
+    "level" : NumberInt(0), 
+    "__v" : NumberInt(0), 
+    "firstName" : "Guest", 
+    "lastName" : "Guest"
+}
+{ 
+    "_id" : ObjectId("578e1b6234cac4b0550f0eab"), 
+    "hash" : "1da88f0b8a81d9855ebbf69cc9059b6312662005b82b9c06c0cbeeb6c7b4793b50c3f317894e8a81155d16ba987102b9759d728f9a05b8a84f0ae7ff4ad80960", 
+    "salt" : "1d181b0b5fc621cc5decfaf030bcc171", 
+    "username" : "ticher", 
+    "email" : "test.teacher@gmail.com", 
+    "role" : "teacher", 
+    "__v" : NumberInt(0), 
+    "firstName" : "Teacher", 
+    "lastName" : "Teacher"
+}
+{ 
+    "_id" : ObjectId("578e264599ad87d825d92095"), 
+    "hash" : "f20181d1ea6dc07ed07458c2667cadcc6caa37e2a63b92ae4aee1f74aa13f4f792e7cb9c6264dd6ce31e7977401f94b9e744382ffad380603dcc16f968ebb394", 
+    "salt" : "f210d3dd222163e668a8c8fb5c71ac5c", 
+    "username" : "111", 
+    "email" : "111ye", 
+    "role" : "teacher", 
+    "__v" : NumberInt(0), 
+    "firstName" : "Teacher", 
+    "lastName" : "Teacher"
+}
+{ 
+    "_id" : ObjectId("578e28d399ad87d825d9209e"), 
+    "hash" : "2755f9b9e8bae836991da4474ca22a8b085fade0536781f30d0e5b5f3972227da171265feac864f00617161da6f00855a84a8c72115d6d3c1c8035162ce1240b", 
+    "salt" : "cb5b50e9faecc3755e412440f379ac1a", 
+    "username" : "teache13", 
+    "email" : "teache13@gmail.com", 
+    "role" : "teacher", 
+    "__v" : NumberInt(0), 
+    "firstName" : "Teacher", 
+    "lastName" : "Teacher"
+}
+{ 
+    "_id" : ObjectId("578f6f7eb721d08c2aa28c12"), 
+    "hash" : "5715e19621169981af6726141791e14e02543397133d28bac28ef65dab9dcadd653eed640c3d47e1ca297032920aa2df7808463a17d18bf3ddbd9251906bd0c6", 
+    "salt" : "ef1636551ad9c27004850126646519ce", 
+    "username" : "Guest12", 
+    "email" : "MaybeGuest@gmail.com", 
+    "firstName" : "Guest", 
+    "lastName" : "neGuest", 
+    "role" : "guest", 
+    "level" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578f6fd1b721d08c2aa28c13"), 
+    "hash" : "4e34dacd10b514d72fa40fa72bcc07fe21732705f81286153b3e9575e9f62483385ad901eed568d5bb843e719423fce9b3581d69ed4c66bb36527458ff45246a", 
+    "salt" : "95bf142bba69cbb2ad80dc9306850724", 
+    "username" : "Teacher13", 
+    "email" : "MaybeTeacher@gmail.com", 
+    "firstName" : "Teacher", 
+    "lastName" : "neTeacher", 
+    "role" : "teacher", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578f8ae58d965dd02b715183"), 
+    "hash" : "ed64effc5ff4a4206633321824ce183eee8b77d874ab144d86f7e640f35a95fec5ef34ea5a0507ec2f32ec748581b28850e0e2902f496e9962e9154e21b1f010", 
+    "salt" : "baaabe3d86e6eb5e72013b9585b2a46d", 
+    "email" : "mr.anikeev.97@mail.ru", 
+    "firstName" : "Maxim", 
+    "lastName" : "Anikeev", 
+    "username" : "Guest14", 
+    "role" : "guest", 
+    "level" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("578f8d39175882bc16210ab4"), 
+    "hash" : "a88331949277048f09c7a33df397061fa898d1c183bd16563c2fe2ce10131495f727774184e4c2f853d95cb4c638acb4cef8f82b34442fd23da4f9370906a40a", 
+    "salt" : "b4ab8d21b20b232652b1e0dfca7e2c38", 
+    "email" : "mr.anikeev.97@gmail.com", 
+    "firstName" : "Maxim", 
+    "lastName" : "Anikeev", 
+    "username" : "Teacher15", 
     "role" : "teacher", 
     "__v" : NumberInt(0)
 }
@@ -90,5 +189,7 @@
     "username" : "zdfhglzhdfc", 
     "email" : "lkzdgzhdfkgz", 
     "role" : "teacher", 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "firstName" : "Teacher", 
+    "lastName" : "Teacher"
 }

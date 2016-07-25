@@ -1,99 +1,4 @@
 { 
-    "_id" : ObjectId("5788d4f84326812428e6c0ba"), 
-    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
-    "header" : "Choose the correct variant", 
-    "difficulty" : NumberInt(5), 
-    "maxCost" : NumberInt(10), 
-    "question" : "Be careful, you’ve made _____.", 
-    "correctAnswer" : "a", 
-    "type" : "TestQuestion", 
-    "answers" : [
-        "a. the mistake", 
-        "b. mistake", 
-        "c. a mistake"
-    ], 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("5788d4f84326812428e6c0bb"), 
-    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
-    "header" : "Choose the correct variant", 
-    "difficulty" : NumberInt(5), 
-    "maxCost" : NumberInt(10), 
-    "question" : "Can you explain this word _____me?", 
-    "correctAnswer" : "a", 
-    "type" : "TestQuestion", 
-    "answers" : [
-        "a. for", 
-        "b. to", 
-        "c. by"
-    ], 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("5788d4f84326812428e6c0bc"), 
-    "header" : "Choose the correct variant", 
-    "difficulty" : NumberInt(5), 
-    "maxCost" : NumberInt(10), 
-    "question" : "There is _____waiting for you in the lobby.", 
-    "correctAnswer" : "b", 
-    "type" : "TestQuestion", 
-    "answers" : [
-        "a. anybody", 
-        "b. somebody", 
-        "c. nobody"
-    ], 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("5788d4f84326812428e6c0bd"), 
-    "header" : "Choose the correct variant", 
-    "difficulty" : NumberInt(5), 
-    "maxCost" : NumberInt(10), 
-    "question" : "I didn’t hear the alarm clock and slept until eight _____.", 
-    "correctAnswer" : "b", 
-    "type" : "TestQuestion", 
-    "answers" : [
-        "a. hour", 
-        "b. o’clock", 
-        "c. hours"
-    ], 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("5788d4f84326812428e6c0be"), 
-    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
-    "header" : "Write the correct variant", 
-    "difficulty" : NumberInt(5), 
-    "maxCost" : NumberInt(10), 
-    "question" : "I didn’t hear the alarm clock and slept until eight _____.", 
-    "type" : "OpenQuestion", 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("5788d4f84326812428e6c0bf"), 
-    "header" : "Write the correct variant", 
-    "difficulty" : NumberInt(5), 
-    "maxCost" : NumberInt(10), 
-    "question" : "I didn’t clock and slept until eight _____.", 
-    "type" : "OpenQuestion", 
-    "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("5788d4f84326812428e6c0c0"), 
-    "header" : "Listen the story", 
-    "difficulty" : NumberInt(5), 
-    "maxCost" : NumberInt(10), 
-    "path" : "здесь будет путь к файлу", 
-    "type" : "AudioQuestion", 
-    "subQuestions" : [
-        ObjectId("5788d4f84326812428e6c0ba"), 
-        ObjectId("5788d4f84326812428e6c0bb"), 
-        ObjectId("5788d4f84326812428e6c0be")
-    ], 
-    "__v" : NumberInt(0)
-}
-{ 
     "_id" : ObjectId("578be43e2c3bf5583fb3ca8a"), 
     "header" : "Choose the correct variant", 
     "difficulty" : NumberInt(5), 
@@ -109,7 +14,8 @@
         "My mother ", 
         " to stay with us next weekend."
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
 }
 { 
     "_id" : ObjectId("578be43e2c3bf5583fb3ca8b"), 
@@ -127,7 +33,8 @@
         "Be careful, you’ve made ", 
         " ."
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578be43e2c3bf5583fb3ca8c"), 
@@ -145,7 +52,8 @@
         "Can you explain this word ", 
         " me?"
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578be43e2c3bf5583fb3ca8d"), 
@@ -163,7 +71,8 @@
         "There is ", 
         " waiting for you in the lobby."
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578be465336e2c042d4bc7a7"), 
@@ -181,7 +90,8 @@
         "I didn’t hear the alarm clock and slept until eight ", 
         " ."
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578be9187b2344c02ce59a8e"), 
@@ -196,7 +106,8 @@
         ObjectId("578be9187b2344c02ce59a92"), 
         ObjectId("578be9187b2344c02ce59a93")
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
 }
 { 
     "_id" : ObjectId("578be9187b2344c02ce59a8f"), 
@@ -210,7 +121,8 @@
         "TRUE", 
         "FALSE"
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578be9187b2344c02ce59a90"), 
@@ -224,7 +136,8 @@
         "TRUE", 
         "FALSE"
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578be9187b2344c02ce59a91"), 
@@ -238,7 +151,8 @@
         "TRUE", 
         "FALSE"
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578be9187b2344c02ce59a92"), 
@@ -253,7 +167,8 @@
         "Я не представлял, сколько хлопот может доставить подрастающая собака.", 
         "Я не думал, что вырастить собаку доставит мне много хлопот."
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578be9187b2344c02ce59a93"), 
@@ -268,7 +183,8 @@
         "На уборку и починку у меня теперь уходило вдвое больше времени.", 
         "Уборки и починки стало в два раза больше."
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578bebc54c7d4b3c3fcbb9b2"), 
@@ -281,7 +197,8 @@
         ObjectId("578bebc54c7d4b3c3fcbb9b4"), 
         ObjectId("578bebc54c7d4b3c3fcbb9b5")
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
 }
 { 
     "_id" : ObjectId("578bebc54c7d4b3c3fcbb9b3"), 
@@ -296,7 +213,8 @@
         "climbing a tree", 
         "hiding in a tree"
     ], 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
 }
 { 
     "_id" : ObjectId("578bebc54c7d4b3c3fcbb9b4"), 
@@ -305,7 +223,8 @@
     "question" : "What did Jane decide to bake on Monday morning?", 
     "parent" : ObjectId("578bebc54c7d4b3c3fcbb9b2"), 
     "type" : "OpenQuestion", 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
 }
 { 
     "_id" : ObjectId("578bebc54c7d4b3c3fcbb9b5"), 
@@ -314,7 +233,8 @@
     "question" : "Why wasn’t Jane worried when she saw David climbing the tree?", 
     "parent" : ObjectId("578bebc54c7d4b3c3fcbb9b2"), 
     "type" : "OpenQuestion", 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
 }
 { 
     "_id" : ObjectId("578bee619e4e15343e7d13a1"), 
@@ -323,7 +243,8 @@
     "maxCost" : NumberInt(10), 
     "question" : "When did you feel annoyed last time?", 
     "type" : "SpeechQuestion", 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
 }
 { 
     "_id" : ObjectId("578bee619e4e15343e7d13a2"), 
@@ -332,5 +253,93 @@
     "maxCost" : NumberInt(10), 
     "question" : "What other country of the world would you like to live in? Why?", 
     "type" : "SpeechQuestion", 
-    "__v" : NumberInt(0)
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
+}
+{ 
+    "_id" : ObjectId("5788d4f84326812428e6c0ba"), 
+    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "question" : "Be careful, you’ve made _____.", 
+    "correctAnswer" : "the mistake", 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "the mistake", 
+        "mistake", 
+        "a mistake"
+    ], 
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
+}
+{ 
+    "_id" : ObjectId("5788d4f84326812428e6c0bb"), 
+    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "question" : "Can you explain this word _____me?", 
+    "correctAnswer" : "for", 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "for", 
+        "to", 
+        "by"
+    ], 
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
+}
+{ 
+    "_id" : ObjectId("5788d4f84326812428e6c0bc"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "question" : "There is _____waiting for you in the lobby.", 
+    "correctAnswer" : "somebody", 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "anybody", 
+        "somebody", 
+        "nobody"
+    ], 
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
+}
+{ 
+    "_id" : ObjectId("5788d4f84326812428e6c0bd"), 
+    "header" : "Choose the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "question" : "I didn’t hear the alarm clock and slept until eight _____.", 
+    "correctAnswer" : "o’clock", 
+    "type" : "TestQuestion", 
+    "answers" : [
+        "hour", 
+        "o’clock", 
+        "hours"
+    ], 
+    "__v" : NumberInt(0), 
+    "autoCheck" : true
+}
+{ 
+    "_id" : ObjectId("5788d4f84326812428e6c0be"), 
+    "parent" : ObjectId("5788d4f84326812428e6c0c0"), 
+    "header" : "Write the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "question" : "I didn’t hear the alarm clock and slept until eight _____.", 
+    "type" : "OpenQuestion", 
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
+}
+{ 
+    "_id" : ObjectId("5788d4f84326812428e6c0bf"), 
+    "header" : "Write the correct variant", 
+    "difficulty" : NumberInt(5), 
+    "maxCost" : NumberInt(10), 
+    "question" : "I didn’t clock and slept until eight _____.", 
+    "type" : "OpenQuestion", 
+    "__v" : NumberInt(0), 
+    "autoCheck" : false
 }
