@@ -9,7 +9,7 @@ module.exports.getTestStatus = function (userId, done) {
     Test.findOne({user: userId, $or: [{status: 'available'}, {status: 'requested'}]},
         function (err, test) {
             err ? done(err) :
-                test ? done(null, test.status) : done(null, 'notAvailable');
+                test ? done(null, {status: test.status}) : done(null, {status: 'notAvailable'});
         });
 };
 
@@ -39,14 +39,16 @@ module.exports.initTest = function (userId, done) {
     );
 
     validator.validate(function (res) {
+        var curDate = new Date();
         res.test.status = 'run';
+        res.test.finishTime = curDate;
         res.test.save();
 
         done(null, {
             testId: res.test.id,
             time: res.template.time,
             count: res.template.questions.length,
-            deadline: new Date()
+            deadline: curDate
         });
     }, done);
 };

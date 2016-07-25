@@ -14,21 +14,15 @@ var mdlwares = require('../libs/mdlwares');
 router.use(mdlwares.isUser);
 
 router.get('/test_info', function (req, res) {
-    testService.getTestStatus(req.user.id, function (err, status) {
-        restHelper.dataResponse(res, err, status);
-    });
+    testService.getTestStatus(req.user.id, restHelper.dataResponse(res));
 });
 
 router.post('/test_request', function (req, res) {
-    testService.requestTest(req.user.id, function (err) {
-        err ? res.status(500).end() : res.end();
-    });
+    testService.requestTest(req.user.id, restHelper.successResponse(res));
 });
 
 router.get('/init_test', function (req, res) {
-    testService.initTest(req.user.id, function (err, result) {
-        restHelper.dataResponse(res, err, result);
-    });
+    testService.initTest(req.user.id, restHelper.dataResponse(res));
 });
 
 router.post('/next_question', function (req, res, next) {
@@ -38,7 +32,7 @@ router.post('/next_question', function (req, res, next) {
 });
 
 router.post('/next_question_by_id', function (req, res) {
-    Question.findOne({_id : req.body.id}, function (err, question) {
+    Question.findOne({_id: req.body.id}, function (err, question) {
         res.json(question.getQuestion());
     });
 })
