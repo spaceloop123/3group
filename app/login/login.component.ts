@@ -24,18 +24,32 @@ export class LoginComponent implements OnInit{
                 private constants:Constants) {
 
     }
+    errorData = {
+        errorMessage :'',
+        errorFlag : false
+    };
 
-    model = new LoginData('', '');
+   
 
-    submitted = false;
-
-    showFormControls(form:NgForm) {
-
-        return form && form.controls['login'] &&
-            form.controls['lognin'].value; // Dr. IQ
+    model = new LoginData('', false, '', false);
+        
+    errorMessage(): string{
+        var nameIsEmpty = false;
+        var message = 'Please enter '
+        if(this.model.username == ''){
+            message += 'your login';
+            nameIsEmpty = true;
+        }
+        if(this.model.password == ''){
+            if(nameIsEmpty){
+                message += ' and ';
+            }
+            message += 'your password';
+        }
+        return message;
     }
 
-    onSubmit() { this.submitted = true; }
+    onSubmit() {   }
 
     loginRequest() {
         this.loginService.logIn(this.model);

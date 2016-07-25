@@ -30,7 +30,7 @@ System.register(['@angular/core', "@angular/router", "@angular/http"], function(
                     this.http = http;
                     this.testInfo = {
                         status: '',
-                        time: '20 min',
+                        time: '500 min',
                         numQuestions: '50'
                     };
                 }

@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
                 private http:Http) {
         this.testInfo = {
             status: '',
-            time: '20 min',
+            time: '500 min',
             numQuestions: '50'
         };
 

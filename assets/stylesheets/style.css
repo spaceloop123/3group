@@ -42,3 +42,34 @@ main {
 .teacher-card-content {
     word-wrap: break-word !important;
 }
+
+.valid-answer{
+    border-color: #27b327 !important;
+}
+
+.invalid-answer{
+    border-color: #ff7479;
+
+}
+
+.has-enough-time{
+    color: #27b327;
+    transition: color 20000ms linear;
+}
+
+.has-middle-amount-of-time{
+    color: #ff8d38 !important;
+    transition: color 20000ms linear;
+}
+
+.has-few-time{
+    color: #d8363a !important;
+}
+
+.timer-style{
+    width: 160px;
+}
+
+.progress-bar-style{
+
+}
