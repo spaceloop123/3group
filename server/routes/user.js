@@ -5,8 +5,9 @@ var TestTemplate = mongoose.model('TestTemplate');
 var Test = mongoose.model('Test');
 var Question = mongoose.model('Question');
 var Answer = mongoose.model('Answer');
-var testService = require('../services/test');
-var questionService = require('../services/question');
+var testService = require('../services/testService');
+var questionService = require('../services/questionService');
+var restHelper = require('../libs/restHelper');
 
 var mdlwares = require('../libs/mdlwares');
 
@@ -14,7 +15,7 @@ router.use(mdlwares.isUser);
 
 router.get('/test_info', function (req, res) {
     testService.getTestStatus(req.user.id, function (err, status) {
-        err ? res.status(500).end() : res.json({status: status});
+        restHelper.dataResponse(res, err, status);
     });
 });
 
@@ -26,8 +27,7 @@ router.post('/test_request', function (req, res) {
 
 router.get('/init_test', function (req, res) {
     testService.initTest(req.user.id, function (err, result) {
-        err ? res.status(500).end() :
-            result ? res.json(result) : res.status(400).end();
+        restHelper.dataResponse(res, err, result);
     });
 });
 

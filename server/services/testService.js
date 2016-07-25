@@ -45,7 +45,8 @@ module.exports.initTest = function (userId, done) {
         done(null, {
             testId: res.test.id,
             time: res.template.time,
-            count: res.template.questions.length
+            count: res.template.questions.length,
+            deadline: new Date()
         });
     }, done);
 };

@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Question = mongoose.model('Question');
-
 var Test = mongoose.model('Test');
 var TestTemplate = mongoose.model('TestTemplate');
 

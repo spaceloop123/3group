@@ -15,16 +15,16 @@ Validator.prototype.checkItem = function (taskName, getItem, checkItem) {
     };
 };
 
-Validator.prototype.validate = function (handle, done) {
+Validator.prototype.validate = function (handle, reject) {
     async.parallel(this._tasks, function (err, res) {
         if (err) {
-            done(err);
+            reject(err);
             return;
         }
 
         for (key in res) {
             if (!res[key]) {
-                done();
+                reject();
                 return;
             }
         }
