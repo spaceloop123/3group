@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
-import {MaterializeDirective} from 'angular2-materialize'
+import {MaterializeDirective, toast} from 'angular2-materialize'
 import {TestInfo} from "./test.info";
 import {QuestionInfo} from "./question.info";
 import {SubQuestionsInfo} from "./subQuestions.info";
@@ -143,9 +143,9 @@ export class TestComponent implements OnChanges {
         if(this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
             if(this.question.type === 'ReadingQuestion'){
-                Materialize.toast('You can read this text only once', 5000);
+                toast('You can read this text only once', 5000);
             }else if(this.question.type === 'AudioQuestion'){
-                Materialize.toast('You can listen this story twice', 5000);
+                toast('You can listen this story twice', 5000);
             }
         }
         this.saveQuestionInfo();
@@ -175,7 +175,13 @@ export class TestComponent implements OnChanges {
     changeCheckState(idx) {
         console.log(idx);
         console.log(this.options[idx].checked);
-        this.options[idx].checked = !this.options[idx].checked;
+        this.answer = this.options[idx].name;
+        console.log(this.answer);
+       /* for(let i = 0; i < this.options.length; ++i){
+            if(i != idx) {
+                this.options[i].checked = false;
+            }
+        }*/
     }
 
     makeOptions(){
@@ -209,15 +215,15 @@ export class TestComponent implements OnChanges {
 
         if (this.playCount >= 2) {
             console.log('Your have spent all of the attempts!');
-            Materialize.toast('Sorry. Your have spent all of the attempts!', 2000, 'rounded')
+            toast('Sorry. Your have spent all of the attempts!', 2000, 'rounded')
         }
     }
 
     public sendAnswer(callBack){
-        this.sendAnswerToServer(this.grabAnswer(), callBack);
+        this.sendAnswerToServer(this.answer, callBack);
     }
 
-    sendAnswerToServer(answer : string[], callBack){
+    sendAnswerToServer(answer : string, callBack){
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');

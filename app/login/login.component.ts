@@ -49,9 +49,12 @@ export class LoginComponent implements OnInit{
         return message;
     }
 
-    onSubmit() {   }
+    onSubmit() {
+        console.log('onSubmit');
+    }
 
     loginRequest() {
+        console.log('loginRequest');
         this.loginService.logIn(this.model);
     }
 
