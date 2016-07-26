@@ -13,6 +13,9 @@ import {CustomHttp} from "../common/services/CustomHttp";
     providers: [CustomHttp]
 })
 
+//public selectOptions:Array<any> = ['option1', 'option2', 'option3'];
+
+
 export class AdminComponent implements OnInit {
     constructor(private customHttp:CustomHttp) {
 

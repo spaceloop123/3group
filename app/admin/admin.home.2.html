@@ -67,54 +67,57 @@
                     <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
                        class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
                 </div>
-                <!--  For Zhenya -->
+
+
+
             </div>
+        </div>
 
 
 
-
-
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal">
-                <div class="modal-content">
-                    <h4>Choose estimated date</h4>
-                    <div id="datepicker1" class="datepicker">
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Choose estimated date</h4>
+                <div id="datepicker1" class="datepicker">
                     <input type="date" class="datepicker">
                 </div>
-                </div>
-
-                <div class="modal-content">
-                    <h4>Choose time of start</h4>
-                    <div id="timepickerStart" class="timepicker">
-                        <input type="time" class="timepicker">
-                    </div>
-                </div>
-
-                <div class="modal-content">
-                <h4>Choose time of finish</h4>
-                <div id="timepickerFinish" class="timepicker">
-                    <input type="time" class="timepicker">
-                </div>
-            </div>
-
-                <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-                </div>
             </div>
 
 
+            <div class="modal-content">
+            <div class="input-field col s12">
+
+                <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="1">01</option>
+                    <option value="2">02</option>
+                    <option value="3">03</option>
+                    <option value="3">04</option>
+                    <option value="3">05</option>
+                    <option value="3">06</option>
+                    <option value="3">07</option>
+                    <option value="3">08</option>
+                    <option value="3">09</option>
+                    <option value="3">10</option>
+                    <option value="3">11</option>
+                    <option value="3">12</option>
+                </select>
 
 
+                <label>Materialize Select</label>
+            </div>
+            </div>
 
+
+            <div class="modal-footer">
+                <a href="#!" class= "modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
         </div>
+
+
     </div>
 </div>
-
-
-
-
-
-
 
 
 <!--  For Zhenya

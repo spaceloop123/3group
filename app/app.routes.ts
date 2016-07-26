@@ -6,7 +6,7 @@ import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
 import {UserRoutes} from "./user/user.routes";
 import {ChartsComponent} from "./user/charts/charts.component";
-import {HomepageRoutes} from "./homepage/homepage.routes";
+//import {HomepageRoutes} from "./homepage/homepage.routes";
 
 
 const routes:RouterConfig = [

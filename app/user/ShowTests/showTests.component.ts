@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+//import {Component} from "@angular/core";
 import {LineChartDemoComponent} from "../charts.component";
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
