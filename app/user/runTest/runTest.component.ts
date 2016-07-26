@@ -78,7 +78,16 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     finishTest() {
         localStorage.clear();
-        this.router.navigate(['/finishTest', this.role]);
+        let that = this;
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        this.http
+            .post('/end_test',
+                JSON.stringify({testId: that.testInfo.id}), {headers: header})
+            .toPromise()
+            .then(response => that.router.navigate(['/finishTest', that.role]))
+            .catch();
+
     }
 
     afterSent(tc : TestComponent){

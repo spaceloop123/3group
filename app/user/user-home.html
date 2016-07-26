@@ -1,7 +1,8 @@
 <div class="valign-wrapper ">
     <div class="container valign">
         <div class="row" align=center>
-            <div *ngIf="testInfo.status==='available' || testInfo.status==='run'" class="col s12 m7 l7 card-width" align=center>
+
+            <div *ngIf="testInfo.status==='available'" class="col s12 m7 l7 card-width" align=center>
                 <div class="card white valign">
                     <div class="card-content" align=center style="min-height:250px">
                         <span class="card-title">Current Test</span>
@@ -19,7 +20,7 @@
                 </div>
             </div>
 
-            <div *ngIf="testInfo.status==='notAvailable'" class="col s12 m7 l7 card-width" align=center>
+            <div *ngIf="testInfo.status==='notAvailable1'" class="col s12 m7 l7 card-width" align=center>
                 <div class="card white valign">
                     <div class="card-content" align=center style="min-height:250px">
                         <span class="card-title">Current Test</span>
@@ -33,7 +34,7 @@
             </div>
 
 
-            <div *ngIf="testInfo.status==='requested'" class="col s12 m7 l7 card-width" align=center>
+            <div *ngIf="testInfo.status==='notAvailable'" class="col s12 m7 l7 card-width" align=center>
                 <div class="card white valign">
                     <div class="card-content" align=center style="min-height:250px">
                         <span class="card-title">Current Test</span>
@@ -50,7 +51,7 @@
             <div *ngIf="testInfo.status==='requested'" class="col s12 m7 l7 card-width " align=center>
                 <div class="card white valign ">
                     <div class="card-content" align=center style="min-height:250px">
-                        <span class="card-title">Current Test</span>
+                        <span class="card-title">Test was requested</span>
                         <p class="red-text">Nobody appointed you any test</p>
                         <p class="card-content">You've already ask for test</p>
                     </div>
@@ -59,7 +60,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="col s12 offset-m1 m4 offset-l1 l4 card-width" align=center>
                 <div class="card white valign">
