@@ -20,11 +20,13 @@ router.get('/tests', function (req, res, next) {
 });
 
 router.post('/check_test', function (req, res, next) {
-    Test.findOne({id: req.body.id}, function (err, test) {
-        var response;
-        if (test != null)
-            response = test.getAnswers();
-        res.send(response);
+    Test.findOne({_id: req.body.testId})
+        .populate({path: 'answers', model: 'Answer'})
+        .exec(function (err, test) {
+            var response;
+            if (test != null)
+                response = test.getNotAutomaticallyCheckAnswers();
+            res.send({answers: response});
     });
 });
 

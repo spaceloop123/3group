@@ -1,0 +1,160 @@
+{ 
+    "_id" : ObjectId("579667c8b76a3e903e0896e7"), 
+    "question" : ObjectId("578be43e2c3bf5583fb3ca8d"), 
+    "answer" : "somebody", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667c9b76a3e903e0896e8"), 
+    "question" : ObjectId("578be43e2c3bf5583fb3ca8d"), 
+    "answer" : "somebody", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667cbb76a3e903e0896e9"), 
+    "question" : ObjectId("578be43e2c3bf5583fb3ca8b"), 
+    "answer" : "the mistake", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667cdb76a3e903e0896ea"), 
+    "question" : ObjectId("578be43e2c3bf5583fb3ca8d"), 
+    "answer" : "somebody", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667cfb76a3e903e0896eb"), 
+    "question" : ObjectId("578be43e2c3bf5583fb3ca8a"), 
+    "answer" : "comes", 
+    "autoCheck" : false, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667d1b76a3e903e0896ec"), 
+    "question" : ObjectId("578be9187b2344c02ce59a8e"), 
+    "answer" : "comes", 
+    "autoCheck" : false, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667d4b76a3e903e0896ed"), 
+    "question" : ObjectId("578be9187b2344c02ce59a8f"), 
+    "answer" : "FALSE", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667d5b76a3e903e0896ee"), 
+    "question" : ObjectId("578be9187b2344c02ce59a90"), 
+    "answer" : "TRUE", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667d7b76a3e903e0896ef"), 
+    "question" : ObjectId("578be9187b2344c02ce59a91"), 
+    "answer" : "TRUE", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667d9b76a3e903e0896f0"), 
+    "question" : ObjectId("578be9187b2344c02ce59a92"), 
+    "answer" : "Я не представлял, сколько хлопот может доставить подрастающая собака.", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667dbb76a3e903e0896f1"), 
+    "question" : ObjectId("578be9187b2344c02ce59a93"), 
+    "answer" : "Мои счета за уборку и починку выросли вдвое.", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667dcb76a3e903e0896f2"), 
+    "question" : ObjectId("578bebc54c7d4b3c3fcbb9b2"), 
+    "answer" : "Мои счета за уборку и починку выросли вдвое.", 
+    "autoCheck" : false, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667deb76a3e903e0896f3"), 
+    "question" : ObjectId("578bebc54c7d4b3c3fcbb9b3"), 
+    "answer" : "climbing a tree", 
+    "autoCheck" : true, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667e4b76a3e903e0896f4"), 
+    "question" : ObjectId("578bebc54c7d4b3c3fcbb9b4"), 
+    "answer" : "yeah)\n", 
+    "autoCheck" : false, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667eab76a3e903e0896f5"), 
+    "question" : ObjectId("578bebc54c7d4b3c3fcbb9b5"), 
+    "answer" : "hi man\n", 
+    "autoCheck" : false, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("579667ebb76a3e903e0896f6"), 
+    "question" : ObjectId("578bee619e4e15343e7d13a1"), 
+    "answer" : "hi man\n", 
+    "autoCheck" : false, 
+    "subAnswers" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
