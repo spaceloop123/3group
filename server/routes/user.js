@@ -18,12 +18,16 @@ router.get('/test_info', function (req, res) {
     testService.getTestStatus(req.user.id, response.dataResponse(res));
 });
 
-router.post('/test_request', function (req, res) {
-    testService.requestTest(req.user.id, response.emptyResponse(res));
-});
-
 router.get('/init_test', function (req, res) {
     testService.initTest(req.user.id, response.dataResponse(res));
+});
+
+router.post('/next_question_new', function (req, res) {
+    questionService.getQuestionByNumber(req.user.id, req.body.testId, req.body.n, response.dataResponse(res));
+});
+
+router.post('/next_question_by_id_new', function (req, res) {
+    questionService.getQuestionById(req.user.id, req.body.testId, req.body.questionId, response.emptyResponse(res));
 });
 
 router.post('/next_question', function (req, res, next) {
@@ -38,20 +42,6 @@ router.post('/next_question_by_id', function (req, res) {
     });
 });
 
-router.post('/next_question_new', function (req, res) {
-    questionService.getQuestionByNumber(req.user.id, req.body.testId, req.body.n,
-        function (err, question) {
-            err ? res.status(500).end() :
-                question ? res.json(question) : res.status(400).end();
-        });
-});
-
-router.post('/next_question_by_id_new', function (req, res) {
-    Question.findOne({_id: req.body.id}, function (err, question) {
-        res.json(question.getQuestion());
-    });
-});
-
 router.post('/ask_test', function (req, res) {
     testService.requestTest(req.user.id, function (err) {
         err ? res.status(400).end() : res.status(200).end();
@@ -60,7 +50,7 @@ router.post('/ask_test', function (req, res) {
 
 router.post('/end_test', function (req, res) {
     testService.endTest(req.body.testId, function (err) {
-       err ? res.status(400).end() : res.status(200).end();
+        err ? res.status(400).end() : res.status(200).end();
     });
 });
 
@@ -80,14 +70,6 @@ router.post('/next_question_by_id', function (req, res) {
         res.json(question.getQuestion());
     });
 })
-
-router.post('/next_question_new', function (req, res) {
-    questionService.getQuestionByNumber(req.user.id, req.body.testId, req.body.n, response.dataResponse(res));
-});
-
-router.post('/next_question_by_id_new', function (req, res) {
-    questionService.getQuestionById(req.user.id, req.body.testId, req.body.questionId, response.dataResponse(res));
-});
 
 router.post('/answer', function (req, res) {
     Test.findOne({_id: req.body.testId, user: req.user.id}, function (err, test) {
@@ -115,11 +97,11 @@ router.post('/answer', function (req, res) {
 });
 
 function checkAnswer(test, question, answer, userId) {
-    if(question.autoCheck) {
+    if (question.autoCheck) {
         test.maxResult += question.maxCost;
-        if(question.correctAnswer === answer) {
+        if (question.correctAnswer === answer) {
             test.result += question.maxCost;
-            User.findOne({_id: userId}, function(err, user) {
+            User.findOne({_id: userId}, function (err, user) {
                 user.level++;
                 user.save();
             });
