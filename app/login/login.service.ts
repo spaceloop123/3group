@@ -2,12 +2,14 @@ import {Injectable} from "@angular/core";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {LoginData}  from "./login.data";
 import {toast} from 'angular2-materialize'
+import {Constants} from '../common/constants/constants.data'
 
 @Injectable()
 export class LoginService {
     private loginUrl = '/login';
 
-    constructor(private customHttp:CustomHttp) {
+    constructor(private customHttp:CustomHttp,
+                private constants: Constants) {
 
     }
 
@@ -22,7 +24,10 @@ export class LoginService {
         this.customHttp
             .post(this.loginUrl, loginData)
             .subscribe(
-                res => location.reload(),
+                res => {
+                    sessionStorage.setItem('role', res.json().role);
+                    location.reload();
+                },
                 err => that.handleError(err, loginData)
             );
     }
