@@ -26,14 +26,14 @@ Validator.prototype.checkItems = function (items) {
     }
 };
 
-Validator.prototype.exec = function (resolve, reject) {
+Validator.prototype.exec = function (success, empty, error) {
     try {
         async.waterfall(this._tasks, function (err, res) {
-            err ? reject(err) :
-                res ? resolve(res) : reject();
+            err ? error(err) :
+                res ? success(res) : empty();
         });
     } catch (err) {
-        reject(err);
+        error(err);
     }
 }
 
