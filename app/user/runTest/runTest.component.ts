@@ -81,12 +81,13 @@ export class RunTestComponent implements OnInit, OnDestroy {
         let that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        this.http
+       /* this.http
             .post('/end_test',
                 JSON.stringify({testId: that.testInfo.id}), {headers: header})
             .toPromise()
             .then(response => that.router.navigate(['/finishTest', that.role]))
-            .catch();
+            .catch();*/
+        that.router.navigate(['/finishTest', that.role]);
 
     }
 

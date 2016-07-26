@@ -3,13 +3,12 @@ import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 import {MaterializeDirective, toast} from "angular2-materialize";
 import {TestInfo} from "./test.info";
-import {QuestionInfo} from "../user/runTest/question.info";
-import {SubQuestionsInfo} from "../user/runTest/subQuestions.info";
-
+import {QuestionInfo} from "./question.info";
+import {SubQuestionsInfo} from "./subQuestions.info";
 
 @Component({
     selector: 'display-test',
-    templateUrl: 'app/test/test.html',
+    templateUrl: 'app/user/runTest/test.html',
     directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective]
 })
 
