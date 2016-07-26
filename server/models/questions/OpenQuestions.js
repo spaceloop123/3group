@@ -11,7 +11,8 @@ OpenQuestionSchema.methods.getQuestion = function () {
         id: this.id,
         type: this.type,
         header: this.header,
-        question: this.question
+        question: this.question,
+        maxCost: this.maxCost
     };
 };
 

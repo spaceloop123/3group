@@ -14,7 +14,8 @@ InsertTestQuestionSchema.methods.getQuestion = function () {
         type: this.type,
         header: this.header,
         questionParts: this.questionParts,
-        answers: this.answers
+        answers: this.answers,
+        maxCost: this.maxCost
     };
 };
 

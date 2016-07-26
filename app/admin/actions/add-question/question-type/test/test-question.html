@@ -48,7 +48,7 @@
             <div class="input-field col s12 m12 l12">
                 <input id="test-question-answersNumber-{{question.id}}"
                        placeholder="min 2, max 5"
-                       type="number" min="2" max="5" class="validate"
+                       type="number" min="2" max="5" pattern="[0-9]" class="validate"
                        [(ngModel)]="oldAnswersLength"
                        (change)="resizeAnswers()"
                        name="test-question-answersNumber-{{question.id}}"/>
