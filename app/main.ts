@@ -10,10 +10,12 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {APP_ROUTER_PROVIDERS} from './app.routes';
 import {provideForms, disableDeprecatedForms} from "@angular/forms";
+import {RouterManager} from "./common/services/RouterManager";
 
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,
     APP_ROUTER_PROVIDERS,
+    RouterManager,
     ROUTER_DIRECTIVES,
     disableDeprecatedForms(),
     provideForms(),

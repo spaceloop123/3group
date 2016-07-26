@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {LoginComponent} from "./login/login.component";
 import {HeaderComponent} from "./common/header/header.component";
-import {ROUTER_DIRECTIVES, NavigationEnd, Router} from "@angular/router";
+import {ROUTER_DIRECTIVES, NavigationEnd, Router, NavigationError} from "@angular/router";
 import {LoginService} from "./login/login.service";
 import {RunTestComponent} from "./user/runTest/runTest.component";
 import {UserComponent} from "./user/user.component";
@@ -11,7 +11,6 @@ import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
 import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
-import {RouterManager} from "./common/services/RouterManager";
 
 @Component({
     selector: 'my-app',
@@ -19,26 +18,33 @@ import {RouterManager} from "./common/services/RouterManager";
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
         RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent],
-    providers: [LoginService, Location, RouterManager]
+    providers: [LoginService, Location]
 })
 
 export class AppComponent implements OnInit, OnDestroy {
 
     private sub;
     private pathname;
-    private valignWrapper;
 
-    constructor(private routerManager: RouterManager,
-                private router: Router) {}
+    constructor(private router: Router) {}
 
     checkPath () {
         this.pathname = window.location.href;
         return (this.pathname.indexOf("/login") !== -1);
     }
 
+    RoutesErrorHandler() {
+        this.sub = this.router.events.subscribe(event => {
+            if(event instanceof NavigationError) {
+                console.log('Handled that!');
+                this.router.navigate(['/login']);
+            }
+        });
+    }
+
     ngOnInit () {
         this.checkPath();
-        this.routerManager.RoutesErrorHandler();
+        this.RoutesErrorHandler();
         this.sub = this.router.events.subscribe(event => {
             if(event instanceof NavigationEnd) {
                 this.checkPath();
