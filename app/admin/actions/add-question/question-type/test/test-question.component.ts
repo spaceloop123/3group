@@ -11,44 +11,43 @@ import {TestQuestion} from "./test-question.class";
 
 export class TestQuestionComponent implements OnInit {
 
-    private testQuestion:TestQuestion;
+    private question:TestQuestion;
     private oldAnswersLength:number;
 
     ngOnInit():any {
-        this.oldAnswersLength = this.testQuestion.answers.length;
+        this.oldAnswersLength = this.question.answers.length;
     }
 
     constructor() {
-        this.testQuestion = new TestQuestion();
-        this.oldAnswersLength = this.testQuestion.answers.length;
+        this.question = new TestQuestion();
+        this.oldAnswersLength = this.question.answers.length;
     }
 
     resizeAnswers() {
         if (this.oldAnswersLength < 2 || this.oldAnswersLength > 5) {
             return;
         }
-        let diff = this.oldAnswersLength - this.testQuestion.answers.length;
-        if (this.oldAnswersLength > this.testQuestion.answers.length) {
+        let diff = this.oldAnswersLength - this.question.answers.length;
+        if (this.oldAnswersLength > this.question.answers.length) {
             for (let i = 0; i < diff; ++i) {
-                this.testQuestion.answers.push({content: ''});
+                this.question.answers.push({content: ''});
             }
-        } else if (this.oldAnswersLength < this.testQuestion.answers.length) {
+        } else if (this.oldAnswersLength < this.question.answers.length) {
             for (let i = 0; i < -diff; ++i) {
-                this.testQuestion.answers.splice(this.testQuestion.answers.length - 1, 1);
+                this.question.answers.splice(this.question.answers.length - 1, 1);
             }
         }
-        this.oldAnswersLength = this.testQuestion.answers.length;
+        this.oldAnswersLength = this.question.answers.length;
     }
 
     changeCorrectAnswerIdx() {
-        if (this.testQuestion.correctAnswerIdx < 1 || this.testQuestion.correctAnswerIdx > this.oldAnswersLength) {
+        if (this.question.correctAnswerIdx < 1 || this.question.correctAnswerIdx > this.oldAnswersLength) {
             return;
         }
-        this.testQuestion.correctAnswerIdx--;
-        console.log(this.testQuestion.correctAnswerIdx);
+        this.question.correctAnswerIdx--;
     }
 
     onCreateFinish() {
-        console.log(this.testQuestion);
+        console.log(this.question);
     }
 }

@@ -1,7 +1,7 @@
-import {Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter} from "@angular/core";
+import {Component, Input, SimpleChanges, OnChanges, Output, EventEmitter} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
-import {MaterializeDirective, toast} from 'angular2-materialize'
+import {MaterializeDirective, toast} from "angular2-materialize";
 import {TestInfo} from "./test.info";
 import {QuestionInfo} from "./question.info";
 import {SubQuestionsInfo} from "./subQuestions.info";
@@ -232,7 +232,7 @@ export class TestComponent implements OnChanges {
             .then(response => {
                 console.log(response);
                 callBack();
-               
+
             })
             .catch(that.handleError);
 

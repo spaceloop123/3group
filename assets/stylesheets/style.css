@@ -39,38 +39,38 @@ main {
     transform: translate(-50%, -50%);
 }
 
-.valid-answer{
+.valid-answer {
     border-color: #27b327 !important;
 }
 
-.invalid-answer{
+.invalid-answer {
     border-color: #ff7479;
 
 }
 
-.has-enough-time{
+.has-enough-time {
     color: #27b327;
     transition: color 20000ms linear;
 }
 
-.has-middle-amount-of-time{
+.has-middle-amount-of-time {
     color: #ff8d38 !important;
     transition: color 20000ms linear;
 }
 
-.has-few-time{
+.has-few-time {
     color: #d8363a !important;
 }
 
-.timer-style{
+.timer-style {
     width: 160px;
 }
 
-.progress-bar-style{
+.progress-bar-style {
 
 }
 
-.logo{
+.logo {
     width: 160px;
     padding-top: 12px !important;
 }
@@ -79,8 +79,12 @@ main {
 
 }
 
-
 /*don't delete this is for teacher carousel*/
 .carousel-content-custom {
     margin-top: -40px !important;
+}
+
+.add-question-btn {
+    margin-top: 22px;
+    margin-bottom: 22px;
 }
