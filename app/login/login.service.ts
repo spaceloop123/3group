@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {LoginData}  from "./login.data";
+import {toast} from 'angular2-materialize'
 
 @Injectable()
 export class LoginService {
@@ -22,7 +23,7 @@ export class LoginService {
             .post(this.loginUrl, loginData)
             .subscribe(
                 res => location.reload(),
-                err => that.handleError(err)
+                err => that.handleError(err, loginData)
             );
     }
 
@@ -38,7 +39,7 @@ export class LoginService {
                         console.log(":(");
                     }
                 },
-                err => this.handleError(err.status)
+                err => this.handleError(err.status, null)
             );
     }
 
@@ -53,12 +54,16 @@ export class LoginService {
                         console.log(":(");
                     }
                 },
-                err => this.handleError(err)
+                err => this.handleError(err, null)
             );
     }
 
-    handleError(error) {
-        console.error('An error occurred', error);
+    handleError(error, loginData) {
+        //console.error('An error occurred', error);
+        toast('Please, enter correct login and password', 3000, 'red darken-2');
+        if(loginData !== 'null'){
+            loginData.clearForm();
+        }
         //return Promise.reject(error.message || error);
     }
 }

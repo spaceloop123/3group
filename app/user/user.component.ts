@@ -36,11 +36,10 @@ export class UserComponent implements OnInit {
             .toPromise()
             .then(response => that.testInfo.status = response.json().status)
             .catch(that.handleError);
-        console.log("403_TEST" + this.testInfo);
     }
     
     testWaiter() {
-        while (this.testInfo.status !== 'availTest') {
+        while (this.testInfo.status !== 'availtest') {
             setTimeout(function () {
                 this.getTestInfo();
             }, 3000);

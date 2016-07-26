@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     ngOnInit () {
         this.checkLogin();
+        
         this.sub = this.router.events.subscribe(event => {
             if(event instanceof NavigationEnd) {
                 this.checkLogin();

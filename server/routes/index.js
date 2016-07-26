@@ -10,9 +10,9 @@ var AudioQuestion = mongoose.model('AudioQuestion');
 var OpenQuestion = mongoose.model('OpenQuestion');
 var SpeechQuestion = mongoose.model('SpeechQuestion');
 var Test = mongoose.model('Test');
+var Answer = mongoose.model('Answer');
 var path = require('path');
 
-/* GET home page. */
 router.get('/', function (req, res) {
     res.render('index');
 });

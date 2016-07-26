@@ -4,4 +4,8 @@ export class LoginData {
                 public password:string,
                 public submitAttempt: boolean) {
     }
+
+    public clearForm() {
+        this.password = '';
+    }
 }
