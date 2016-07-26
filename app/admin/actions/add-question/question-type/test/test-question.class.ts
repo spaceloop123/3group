@@ -1,61 +1,29 @@
-export class TestQuestion {
-    private _header:string;
-    private _difficulty:number;
-    private _maxCost:number;
-    private _question:string;
-    private _answers:any;
-    private _correctAnswerIdx:number;
+import {QuestionBase} from "../question-base";
+
+export class TestQuestion extends QuestionBase {
+    private _type:string;
+    private _correctAnswerIdx;
 
     constructor() {
+        super();
         this._answers = [{content: ''}, {content: ''}, {content: ''}];
         this._correctAnswerIdx = 0;
+        this._type = 'test';
     }
 
-    get header():string {
-        return this._header;
+    get type():string {
+        return this._type;
     }
 
-    set header(value:string) {
-        this._header = value;
+    set type(value:string) {
+        this._type = value;
     }
 
-    get difficulty():number {
-        return this._difficulty;
-    }
-
-    set difficulty(value:number) {
-        this._difficulty = value;
-    }
-
-    get maxCost():number {
-        return this._maxCost;
-    }
-
-    set maxCost(value:number) {
-        this._maxCost = value;
-    }
-
-    get question():string {
-        return this._question;
-    }
-
-    set question(value:string) {
-        this._question = value;
-    }
-
-    get answers():any {
-        return this._answers;
-    }
-
-    set answers(value:any) {
-        this._answers = value;
-    }
-
-    get correctAnswerIdx():number {
+    get correctAnswerIdx() {
         return this._correctAnswerIdx;
     }
 
-    set correctAnswerIdx(value:number) {
+    set correctAnswerIdx(value) {
         this._correctAnswerIdx = value;
     }
 }

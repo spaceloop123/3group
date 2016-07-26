@@ -11,7 +11,8 @@ InsertOpenQuestionSchema.methods.getQuestion = function () {
         id: this.id,
         type: this.type,
         header: this.header,
-        questionParts: this.questionParts
+        questionParts: this.questionParts,
+        maxCost: this.maxCost
     };
 };
 

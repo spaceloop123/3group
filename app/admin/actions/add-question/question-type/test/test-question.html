@@ -6,71 +6,84 @@
         <div class="row flow-text">
             <!-- header -->
             <div class="input-field col s12 m12 l12">
-                <textarea id="test-question-header" class="materialize-textarea"
+                <textarea class="materialize-textarea" id="test-question-header-{{question.id}}"
                           placeholder="e.g. Fill the blank with the correct word"
-                          [(ngModel)]="testQuestion.header" name="test-question-header"></textarea>
-                <label for="test-question-header">Task description</label>
+                          [(ngModel)]="question.header"
+                          name="test-question-header-{{question.id}}"></textarea>
+                <label [attr.for]="'test-question-header-' + question.id" class="active">Task description</label>
             </div>
 
             <!-- difficulty -->
             <div class="input-field col s12 m6 l6">
-                <input placeholder="Complexity (between 1 and 100)" id="test-question-difficulty"
+                <input id="test-question-difficulty-{{question.id}}"
+                       placeholder="Complexity (between 1 and 100)"
                        type="number" min="1" max="100" class="validate"
-                       [(ngModel)]="testQuestion.difficulty" name="test-question-difficulty"/>
-                <label for="test-question-difficulty" data-error="wrong">Task complexity</label>
+                       [(ngModel)]="question.difficulty"
+                       name="test-question-difficulty-{{question.id}}"/>
+                <label [attr.for]="'test-question-difficulty-' + question.id" class="active" data-error="wrong">Task
+                    complexity</label>
             </div>
 
             <!-- maxCost -->
             <div class="input-field col s12 m6 l6">
-                <input placeholder="Weight (between 1 and 10)" id="test-question-maxCost"
+                <input id="test-question-maxCost-{{question.id}}"
+                       placeholder="Weight (between 1 and 10)"
                        type="number" min="1" max="10" class="validate"
-                       [(ngModel)]="testQuestion.maxCost" name="test-question-maxCost"/>
-                <label for="test-question-maxCost" data-error="wrong">Task weight</label>
+                       [(ngModel)]="question.maxCost"
+                       name="test-question-maxCost-{{question.id}}"/>
+                <label [attr.for]="'test-question-maxCost-' + question.id" data-error="wrong" class="active">Task
+                    weight</label>
             </div>
 
             <!-- question -->
             <div class="input-field col s12 m12 l12">
-                <textarea id="test-question-question" class="materialize-textarea"
+                <textarea class="materialize-textarea" id="test-question-question-{{question.id}}"
                           placeholder="e.g. What _ pity!"
-                          [(ngModel)]="testQuestion.question" name="test-question-question"></textarea>
-                <label for="test-question-question">Question</label>
+                          [(ngModel)]="question.question"
+                          name="test-question-question-{{question.id}}"></textarea>
+                <label [attr.for]="'test-question-question-' + question.id" class="active">Question</label>
             </div>
 
             <!-- number of answers -->
             <div class="input-field col s12 m12 l12">
-                <input placeholder="min 2, max 5" id="test-question-answersNumber"
-                       type="number" min="2" max="5" class="validate"
+                <input id="test-question-answersNumber-{{question.id}}"
+                       placeholder="min 2, max 5"
+                       type="number" min="2" max="5" pattern="[0-9]" class="validate"
                        [(ngModel)]="oldAnswersLength"
                        (change)="resizeAnswers()"
-                       name="test-question-answersNumber"/>
-                <label for="test-question-answersNumber" data-error="wrong">Number of options</label>
+                       name="test-question-answersNumber-{{question.id}}"/>
+                <label [attr.for]="'test-question-answersNumber-' + question.id" data-error="wrong" class="active">Number
+                    of
+                    options</label>
             </div>
 
             <!-- answers -->
-            <div class="input-field col s12 m12 l12" *ngFor="let item of testQuestion.answers; let i = index">
-                <input [attr.id]="'test-question-answer-' + i"
-                       name="test-question-{{i}}"
+            <div class="input-field col s12 m12 l12" *ngFor="let item of question.answers; let i = index">
+                <input [attr.id]="'test-question-answer-' + question.id + '-' + i"
                        type="text"
                        [(ngModel)]="item.content"
-                />
-                <label [attr.for]="'test-question-answer-' + i">Option {{i + 1}}</label>
+                       name="test-question-answer-{{question.id}}-{{i}}"/>
+                <label [attr.for]="'test-question-answer-' + question.id + '-' + i" class="active">Option {{i +
+                    1}}</label>
             </div>
 
             <!-- correct answer number -->
             <div class="input-field col s12 m12 l12">
-                <input placeholder="Correct option" id="test-question-answersCorrect"
+                <input id="test-question-answersCorrect-{{question.id}}"
+                       placeholder="Correct option"
                        type="number" min="1" max="{{oldAnswersLength}}" class="validate"
-                       [(ngModel)]="testQuestion.correctAnswerIdx"
+                       [(ngModel)]="question.correctAnswerIdx"
                        (change)="changeCorrectAnswerIdx()"
-                       name="test-question-answersCorrect"/>
-                <label for="test-question-answersCorrect" data-error="wrong">Correct option</label>
+                       name="test-question-answersCorrect-{{question.id}}"/>
+                <label [attr.for]="'test-question-answersCorrect-' + question.id" data-error="wrong" class="active">Correct
+                    option</label>
             </div>
 
         </div>
     </form>
-    <div class="col s12 m12 l12">
+    <!--<div class="col s12 m12 l12">
         <div align="center">
             <a class="waves-effect waves-light btn" (click)="onCreateFinish()">suda najmi chotobi add</a>
         </div>
-    </div>
+    </div>-->
 </div>
