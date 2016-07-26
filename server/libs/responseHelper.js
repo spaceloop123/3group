@@ -5,7 +5,7 @@ module.exports.dataResponse = function (res) {
     }
 }
 
-module.exports.successResponse = function (res) {
+module.exports.emptyResponse = function (res) {
     return function (err) {
         err ? res.status(500).end() : res.end();
     }

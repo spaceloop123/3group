@@ -1,0 +1,78 @@
+Open-Insert Component
+<!--
+<div class="row">
+    &lt;!&ndash;<h5 class="col s12 flow-text">
+        Fill in all the fields, please
+    </h5>&ndash;&gt;
+    <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
+        <div class="row flow-text">
+            &lt;!&ndash; header &ndash;&gt;
+            <div class="input-field col s12 m12 l12">
+                <textarea id="test-question-header" class="materialize-textarea"
+                          placeholder="e.g. Fill the blank with the correct word"
+                          [(ngModel)]="question.header" name="test-question-header"></textarea>
+                <label for="test-question-header">Task description</label>
+            </div>
+
+            &lt;!&ndash; difficulty &ndash;&gt;
+            <div class="input-field col s12 m6 l6">
+                <input placeholder="Complexity (between 1 and 100)" id="test-question-difficulty"
+                       type="number" min="1" max="100" class="validate"
+                       [(ngModel)]="question.difficulty" name="test-question-difficulty"/>
+                <label for="test-question-difficulty" data-error="wrong">Task complexity</label>
+            </div>
+
+            &lt;!&ndash; maxCost &ndash;&gt;
+            <div class="input-field col s12 m6 l6">
+                <input placeholder="Weight (between 1 and 10)" id="test-question-maxCost"
+                       type="number" min="1" max="10" class="validate"
+                       [(ngModel)]="question.maxCost" name="test-question-maxCost"/>
+                <label for="test-question-maxCost" data-error="wrong">Task weight</label>
+            </div>
+
+            &lt;!&ndash; question &ndash;&gt;
+            <div class="input-field col s12 m12 l12">
+                <textarea id="test-question-question" class="materialize-textarea"
+                          placeholder="e.g. What _ pity!"
+                          [(ngModel)]="question.question" name="test-question-question"></textarea>
+                <label for="test-question-question">Question</label>
+            </div>
+
+            &lt;!&ndash; number of answers &ndash;&gt;
+            <div class="input-field col s12 m12 l12">
+                <input placeholder="min 2, max 5" id="test-question-answersNumber"
+                       type="number" min="2" max="5" class="validate"
+                       [(ngModel)]="oldAnswersLength"
+                       (change)="resizeAnswers()"
+                       name="test-question-answersNumber"/>
+                <label for="test-question-answersNumber" data-error="wrong">Number of options</label>
+            </div>
+
+            &lt;!&ndash; answers &ndash;&gt;
+            <div class="input-field col s12 m12 l12" *ngFor="let item of testQuestion.answers; let i = index">
+                <input [attr.id]="'test-question-answer-' + i"
+                       name="test-question-{{i}}"
+                       type="text"
+                       [(ngModel)]="item.content"
+                />
+                <label [attr.for]="'test-question-answer-' + i">Option {{i + 1}}</label>
+            </div>
+
+            &lt;!&ndash; correct answer number &ndash;&gt;
+            <div class="input-field col s12 m12 l12">
+                <input placeholder="Correct option" id="test-question-answersCorrect"
+                       type="number" min="1" max="{{oldAnswersLength}}" class="validate"
+                       [(ngModel)]="testQuestion.correctAnswerIdx"
+                       (change)="changeCorrectAnswerIdx()"
+                       name="test-question-answersCorrect"/>
+                <label for="test-question-answersCorrect" data-error="wrong">Correct option</label>
+            </div>
+
+        </div>
+    </form>
+    <div class="col s12 m12 l12">
+        <div align="center">
+            <a class="waves-effect waves-light btn" (click)="onCreateFinish()">suda najmi chotobi add</a>
+        </div>
+    </div>
+</div>-->

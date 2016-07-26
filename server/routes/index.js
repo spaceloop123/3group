@@ -10,6 +10,7 @@ var AudioQuestion = mongoose.model('AudioQuestion');
 var OpenQuestion = mongoose.model('OpenQuestion');
 var SpeechQuestion = mongoose.model('SpeechQuestion');
 var Test = mongoose.model('Test');
+var Answer = mongoose.model('Answer');
 var path = require('path');
 
 router.get('/', function (req, res) {

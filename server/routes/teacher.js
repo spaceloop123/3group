@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Test = mongoose.model('Test');
+var Answer = mongoose.model('Answer');
+var testService = require('../services/testService');
+var answerService = require('../services/answerService');
 var mdlwares = require('../libs/mdlwares');
 
 router.use(mdlwares.isTeacher);
@@ -20,13 +23,18 @@ router.get('/tests', function (req, res, next) {
 });
 
 router.post('/check_test', function (req, res, next) {
-    Test.findOne({_id: req.body.testId})
-        .populate({path: 'answers', model: 'Answer'})
-        .exec(function (err, test) {
-            var response;
-            if (test != null)
-                response = test.getNotAutomaticallyCheckAnswers();
-            res.send({answers: response});
+    testService.getAnswers(req.body.testId, function (err, answers) {
+        if(err) {
+            res.status(400).end();
+        } else {
+            res.send({answers: answers});
+        }
+    });
+});
+
+router.post('/check_answer', function (req, res, next) {
+    Answer.findOne({_id: req.body.answerId}).populate('question').exec(function (err, answer) {
+        res.send(answer.getAnswer());
     });
 });
 
