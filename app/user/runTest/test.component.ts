@@ -230,6 +230,7 @@ export class TestComponent implements OnChanges {
                 JSON.stringify({testId: that.testInfo.id, questionId: that.top.id, answer: answer}), {headers: header})
             .toPromise()
             .then(response => {
+                that.answer = '';
                 console.log(response);
                 callBack();
 
