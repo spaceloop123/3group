@@ -2,35 +2,39 @@ var mongoose = require('mongoose');
 var async = require('async');
 
 function Validator() {
-    this._tasks = {};
-}
-
-Validator.prototype.checkItem = function (taskName, getItem, checkItem) {
-    this._tasks[taskName] = function (callback) {
-        getItem(function (err, item) {
-                err ? callback(err) :
-                    item ? checkItem(item, callback) : callback();
-            }
-        );
-    };
+    this._tasks = [function (callback) {
+        callback(null, {});
+    }];
 };
 
-Validator.prototype.validate = function (handle, reject) {
-    async.parallel(this._tasks, function (err, res) {
-        if (err) {
-            reject(err);
-            return;
-        }
+Validator.prototype.checkItem = function (itemName, item) {
+    this._tasks.push(function (prev, callback) {
+        if (!prev) return callback();
 
-        for (key in res) {
-            if (!res[key]) {
-                reject();
-                return;
-            }
-        }
+        item(function (err, res) {
+            if (err) return callback(err);
 
-        handle(res);
+            res ? prev[itemName] = res : prev = null;
+            callback(null, prev);
+        }, prev);
     });
+};
+
+Validator.prototype.checkItems = function (items) {
+    for (key in items) {
+        this.checkItem(key, items[key]);
+    }
+};
+
+Validator.prototype.exec = function (resolve, reject) {
+    try {
+        async.waterfall(this._tasks, function (err, res) {
+            err ? reject(err) :
+                res ? resolve(res) : reject();
+        });
+    } catch (err) {
+        reject(err);
+    }
 }
 
 module.exports = Validator;
