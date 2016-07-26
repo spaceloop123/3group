@@ -3,8 +3,7 @@ import {LoginData} from "./login.data";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {LoginService} from "./login.service";
 import {Constants} from "../common/constants/constants.data";
-import {NgForm} from "@angular/forms";
-import {Headers, Http} from "@angular/http";
+import {toast} from "angular2-materialize";
 
 @Component({
     templateUrl: 'app/login/login.html',
@@ -56,6 +55,9 @@ export class LoginComponent implements OnInit{
     loginRequest() {
         this.model.submitAttempt = true;
         this.errorMessage = (this.model.username !== '' && this.model.password !== '') ? '' : this.getErrorMessage();
+        if(this.errorMessage.length !== 0) {
+            toast(this.errorMessage, 3000, 'amber darken-3');
+        }
         console.log('loginRequest');
         if(this.errorMessage === '') {
             this.loginService.logIn(this.model);
