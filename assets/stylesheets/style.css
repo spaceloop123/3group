@@ -12,8 +12,19 @@
     background-color: #fafafa;
 }
 
+header {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+
 main {
     flex: 1 1 auto;
+    margin-top: 84px;
+}
+
+.route {
+    width: 100%;
 }
 
 .list-overflow-y {
@@ -22,14 +33,12 @@ main {
 }
 
 .notifications-list {
-    height: 425px; /* 338px for 4 rows; 255px for 3 rows */
-    /*min-height: 64px;*/
-    /*max-height: 425px;*/
+    min-height: 246px;
+    max-height: 255px;
 }
 
 .questions-list {
     min-height: 100px;
-    max-height: 525px;
 }
 
 .empty-list {
@@ -87,4 +96,9 @@ main {
 .add-question-btn {
     margin-top: 22px;
     margin-bottom: 22px;
+}
+
+li .edit {
+    border-bottom-color: #6200ea;
+    border-top-color: #6200ea;
 }
