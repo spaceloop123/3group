@@ -23,7 +23,10 @@ TestSchema.methods.getNotAutomaticallyCheckAnswers = function () {
     var answers = [];
     this.answers.forEach(function(answer, arr) {
         if(!answer.autoCheck) {
-            answers.push(answer.getAnswerId());
+            var item = answer.getAnswerId();
+            if(item !== null) {
+                answers.push(item);
+            }
         }
     });
     return answers;

@@ -1,9 +1,11 @@
 <div class="row">
     <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
         <div class="row flow-text">
+
             <!-- header -->
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="test-question-header-{{question.id}}"
+                          [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
                           name="test-question-header-{{question.id}}"></textarea>
                 <label [attr.for]="'test-question-header-' + question.id">Task description</label>
@@ -13,6 +15,7 @@
 
             <div class="input-field col s12 m6 l6">
                 <input id="test-question-difficulty-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
                        placeholder="Complexity (between 1 and 100)"
                        type="number" min="1" max="100" class="validate"
                        [(ngModel)]="question.difficulty"
@@ -24,6 +27,7 @@
             <!-- maxCost -->
             <div class="input-field col s12 m6 l6">
                 <input id="test-question-maxCost-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
                        placeholder="Weight (between 1 and 10)"
                        type="number" min="1" max="10" class="validate"
                        [(ngModel)]="question.maxCost"
@@ -35,6 +39,7 @@
             <!-- question -->
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="test-question-question-{{question.id}}"
+                          [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.question"
                           name="test-question-question-{{question.id}}"></textarea>
                 <label [attr.for]="'test-question-question-' + question.id">Question</label>
@@ -43,6 +48,7 @@
             <!-- number of answers -->
             <div class="input-field col s12 m12 l12">
                 <input id="test-question-answersNumber-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
                        placeholder="min 2, max 5"
                        type="number" min="2" max="5" pattern="[0-9]" class="validate"
                        [(ngModel)]="oldAnswersLength"
@@ -56,6 +62,7 @@
             <!-- answers -->
             <div class="input-field col s12 m12 l12" *ngFor="let item of question.answers; let i = index">
                 <input [attr.id]="'test-question-answer-' + question.id + '-' + i"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
                        type="text"
                        [(ngModel)]="item.content"
                        name="test-question-answer-{{question.id}}-{{i}}"/>
@@ -66,6 +73,7 @@
             <!-- correct answer number -->
             <div class="input-field col s12 m12 l12">
                 <input id="test-question-answersCorrect-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
                        placeholder="Correct option"
                        type="number" min="1" max="{{oldAnswersLength}}" class="validate"
                        [(ngModel)]="question.correctAnswerIdx"
@@ -77,12 +85,22 @@
 
         </div>
     </form>
-    <div class="col s12 m12 l12">
-        <div align="center">
+    <div class="col s12 m12 l12" [ngSwitch]="question.state">
+        <div *ngSwitchCase="'edit'" align="center">
             <a class="waves-effect btn-flat" id="test-question-finish-btn-{{question.id}}"
                (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
-            <a class="waves-effect btn-flat" id="test-question-abort-btn-{{question.id}}"
-               (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
+            <div>
+                <a class="waves-effect btn-flat" id="test-question-abort-btn-1-{{question.id}}"
+                   (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
+            </div>
+        </div>
+        <div *ngSwitchCase="'done'" align="center">
+            <a class="waves-effect btn-flat" id="test-question-edit-btn-{{question.id}}"
+               (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
+            <div>
+                <a class="waves-effect btn-flat" id="test-question-abort-btn-2-{{question.id}}"
+                   (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
+            </div>
         </div>
     </div>
 </div>
