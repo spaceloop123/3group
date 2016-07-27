@@ -2,11 +2,12 @@ import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {TestQuestion} from "./test-question.class";
+import {NgSwitch, NgSwitchDefault} from "@angular/common";
 
 @Component({
     selector: 'test-question-component',
     templateUrl: 'app/admin/actions/add-question/question-type/test/test-question.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, NgSwitch, NgSwitchDefault]
 })
 
 export class TestQuestionComponent implements OnInit {
@@ -50,7 +51,12 @@ export class TestQuestionComponent implements OnInit {
     }
 
     onCreateFinish() {
+        this.question.state = 'done';
         this.notify.emit(this.question);
+    }
+
+    onEditStart() {
+        this.question.state = 'edit';
     }
 
     onCreateAbort() {
