@@ -24,7 +24,7 @@ module.exports.getQuestionByNumber = function (userId, testId, n, done) {
 
     validator.exec(function (res) {
         var question = res.questions[Math.floor(Math.random() * res.questions.length)];
-        done(null, question.getQuestion());
+        done(null, {question: question.getQuestion()});
     }, done, done);
 };
 
