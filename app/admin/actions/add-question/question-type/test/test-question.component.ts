@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {TestQuestion} from "./test-question.class";
@@ -11,7 +11,8 @@ import {TestQuestion} from "./test-question.class";
 
 export class TestQuestionComponent implements OnInit {
 
-    private question:TestQuestion;
+    @Input() question:TestQuestion;
+    // private question:TestQuestion;
     private oldAnswersLength:number;
 
     @Output() notify:EventEmitter<any> = new EventEmitter<any>();

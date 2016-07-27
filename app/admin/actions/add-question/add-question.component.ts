@@ -44,7 +44,7 @@ export class AddQuestionComponent implements OnInit {
 
     addNewQuestion() {
         switch (this.selectedQuestion) {
-            case 'test':
+            case 'TestQuestion':
             {
                 this.questionsList.push(new TestQuestion());
                 break;

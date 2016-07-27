@@ -7,7 +7,7 @@ export class TestQuestion extends QuestionBase {
         super();
         this._answers = [{content: ''}, {content: ''}, {content: ''}];
         this._correctAnswerIdx = 1;
-        this._type = 'test';
+        this._type = 'TestQuestion';
     }
 
     get correctAnswerIdx() {
