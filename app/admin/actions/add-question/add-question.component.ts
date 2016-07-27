@@ -71,7 +71,7 @@ export class AddQuestionComponent implements OnInit {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         this.http
-            .post("/add_questions", JSON.stringify(this.questionsList), {headers: headers})
+            .post("/admin/add_questions", JSON.stringify(this.questionsList), {headers: headers})
             .toPromise()
             .then(response => console.log(response.json()));
     }

@@ -12,7 +12,6 @@ import {TestQuestion} from "./test-question.class";
 export class TestQuestionComponent implements OnInit {
 
     @Input() question:TestQuestion;
-    // private question:TestQuestion;
     private oldAnswersLength:number;
 
     @Output() notify:EventEmitter<any> = new EventEmitter<any>();
