@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxjs/add/operator/toPromise", "../common/services/CustomHttp", "angular2-materialize/dist/index"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxjs/add/operator/toPromise", "../common/services/CustomHttp", "angular2-materialize/dist/index", 'moment/moment'], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, cards_colors_data_1, CustomHttp_1, index_1;
+    var core_1, router_1, cards_colors_data_1, CustomHttp_1, index_1, moment;
     var TeacherComponent;
     return {
         setters:[
@@ -29,6 +29,9 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
             },
             function (index_1_1) {
                 index_1 = index_1_1;
+            },
+            function (moment_1) {
+                moment = moment_1;
             }],
         execute: function() {
             TeacherComponent = (function () {
@@ -36,6 +39,7 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                     this.cardsColorsData = cardsColorsData;
                     this.customHttp = customHttp;
                     this.router = router;
+                    this.momentConstructor = moment.default || moment;
                     this.generateRandomColor = function () {
                         //generates whole color name randomly
                         this.randomColor = this.cardsColorsData.CARDS_COLORS_ACCENT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_ACCENT.length)];
@@ -45,15 +49,19 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                 TeacherComponent.prototype.getTests = function () {
                     var that = this;
                     this.customHttp.get('/teacher/tests')
-                        .subscribe(function (response) { that.setTests(response.json()); });
+                        .subscribe(function (response) {
+                            that.setTests(response.json());
+                        });
                     //.catch( that.handleError.bind(that));
                 };
                 TeacherComponent.prototype.setTests = function (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        response[i].color = this.generateRandomColor();
+                        response[i].number = i + 1;
+                        response[i].date = this.momentConstructor().format('DD MMM YYYY');
+                    }
                     this.assignedTests = response;
                     console.log(this.assignedTests);
-                    for (var i = 0; i < this.assignedTests.length; i++) {
-                        this.assignedTests[i].color = this.generateRandomColor();
-                    }
                 };
                 TeacherComponent.prototype.checkTest = function (test) {
                     //this happens when teacher clicks CHECK button
@@ -65,7 +73,6 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                 TeacherComponent.prototype.ngOnInit = function () {
                     this.customHttp.checkRole();
                     this.getTests();
-                    console.log(this.assignedTests);
                 };
                 TeacherComponent = __decorate([
                     core_1.Component({

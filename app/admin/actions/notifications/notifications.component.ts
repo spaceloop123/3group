@@ -27,13 +27,7 @@ export class NotificationsComponent implements OnInit {
     constructor(private http:Http) {
         //this.notifyList = [];
         this.notifyList = [
-            {
-                color: 'yellow',
-                icon: 'new_releases',
-                title: 'New test',
-                firstLine: 'Username passed test',
-                secondLine: 'Assign teacher'
-            },
+
             {
                 color: 'red',
                 icon: 'error_outline',

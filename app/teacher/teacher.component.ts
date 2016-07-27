@@ -4,7 +4,7 @@ import {CardsColorsData} from "./cards-colors.data";
 import "rxjs/add/operator/toPromise";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {MaterializeDirective} from "angular2-materialize/dist/index";
-
+import * as moment from 'moment/moment';
 
 @Component({
     selector: 'teacher-component',
@@ -18,10 +18,11 @@ export class TeacherComponent implements OnInit {
     //assignedTests - array of tests' descriptions, selectedTest - one test's description of the test being clicked
 
     private assignedTests:any;
+    private momentConstructor: (value?: any) => moment.Moment = (<any>moment).default || moment;
 
     constructor(private cardsColorsData:CardsColorsData,
                 private customHttp: CustomHttp,
-                private router:Router) {
+                private router: Router) {
     }
 
     private generateRandomColor = function () {
@@ -34,16 +35,20 @@ export class TeacherComponent implements OnInit {
 
         var that = this;
         this.customHttp.get('/teacher/tests')
-            .subscribe(response => {that.setTests(response.json())});
+            .subscribe(response => {
+                that.setTests(response.json());
+            });
              //.catch( that.handleError.bind(that));
     }
 
     setTests(response) {
+        for (let i = 0; i < response.length; i++) {
+            response[i].color = this.generateRandomColor();
+            response[i].number = i + 1;
+            response[i].date = this.momentConstructor().format('DD MMM YYYY');
+        }
         this.assignedTests = response;
         console.log(this.assignedTests);
-        for (let i = 0; i < this.assignedTests.length; i++) {
-            this.assignedTests[i].color = this.generateRandomColor();
-        }
     }
 
     checkTest(test) {
@@ -59,7 +64,6 @@ export class TeacherComponent implements OnInit {
     ngOnInit() {
         this.customHttp.checkRole();
         this.getTests();
-        console.log(this.assignedTests);
     }
 }
 

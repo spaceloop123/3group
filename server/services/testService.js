@@ -56,7 +56,7 @@ function setTimer(testId, delay) {
     setTimeout(function () {
         require('mongoose').model('Test').findOne({_id: testId, status: 'run'}, function (err, test) {
             if (!err && test) {
-                test.status = 'checked';
+                test.status = 'checking';
                 test.save();
             }
         });
@@ -68,7 +68,7 @@ module.exports.endTest = function (testId, done) {
         if (err) {
             done(err);
         } else {
-            test.status = 'checked';
+            test.status = 'checking';
             test.finishTime = Date.now();
             test.save(function (err) {
                 done(err);
@@ -78,16 +78,34 @@ module.exports.endTest = function (testId, done) {
 };
 
 module.exports.getAnswers = function (testId, done) {
-    Test.findOne({_id: testId})
-        .populate({path: 'answers', model: 'Answer'})
-        .exec(function (err, test) {
-            if (err) {
-                done(err, null);
-            } else {
-                var response;
-                if (test != null)
-                    response = test.getNotAutomaticallyCheckAnswers();
-                done(null, response);
-            }
+    var validator = new Validator();
+    
+    validator.checkItem('test', function (callback) {
+        Test.findOne({_id: testId})
+            .populate({path: 'answers', model: 'Answer'})
+            .exec(callback);
+    });
+    
+    validator.exec(function (res) {
+       var response = res.test.getNotAutomaticallyCheckAnswers();
+        done(null, {answers: response});
+    }, done, done);
+};
+
+module.exports.getTeachersTests = function (teacher, done) {
+    var validator = new Validator();
+    var response = [];
+    
+    validator.checkItem('tests', function (callback) {
+        Test.find({teacher: teacher, status: 'checking'}, callback);
+    });
+
+    validator.exec(function (res) {
+        res.tests.forEach(function (test, tests) {
+            response.push(test.getTestInfo());
         });
+        done(null, response);
+    }, function () {
+        done(null, response);
+    }, done);
 };

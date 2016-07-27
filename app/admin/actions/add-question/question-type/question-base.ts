@@ -2,6 +2,8 @@ import {GUID} from "../../../../common/guid/GUID";
 
 export class QuestionBase {
     protected _id:string;
+    protected _type:string;
+    protected _state:string; //edit | done
 
     protected _header:string;
     protected _difficulty:number;
@@ -11,10 +13,27 @@ export class QuestionBase {
 
     constructor() {
         this._id = GUID.generate().toString();
+        this._state = 'edit';
     }
 
     get id():string {
         return this._id;
+    }
+
+    get state():string {
+        return this._state;
+    }
+
+    set state(value:string) {
+        this._state = value;
+    }
+
+    get type():string {
+        return this._type;
+    }
+
+    set type(value:string) {
+        this._type = value;
     }
 
     get header():string {
