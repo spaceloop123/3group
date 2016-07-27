@@ -82,7 +82,14 @@ module.exports.getAnswers = function (testId, done) {
     
     validator.checkItem('test', function (callback) {
         Test.findOne({_id: testId})
-            .populate({path: 'answers', model: 'Answer'})
+            .populate({
+                path: 'answers',
+                model: 'Answer',
+                populate: {
+                    path: 'subAnswers',
+                    model: 'Answer'
+                }
+            })
             .exec(callback);
     });
     

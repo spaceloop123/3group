@@ -20,13 +20,15 @@ TestQuestionsSchema.methods.getQuestion = function () {
 };
 
 TestQuestionsSchema.methods.setQuestion = function (question) {
-    this.header = question.header;
-    this.difficulty = question.difficulty;
-    this.maxCost = question.maxCost;
+    this.header = question._header;
+    this.difficulty = question._difficulty;
+    this.maxCost = question._maxCost;
     this.autoCheck = true;
-    this.question = question.question;
-    this.answers = question.answers;
-    this.correctAnswer = question.answers[question.correctAnswer];
+    this.question = question._question;
+    this.answers = question._answers.map(function(item) {
+        return item.content;
+    });
+    this.correctAnswer = this.answers[question._correctAnswerIdx - 1];
 };
 
 mongoose.model('Question').discriminator('TestQuestion', TestQuestionsSchema);

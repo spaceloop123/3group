@@ -138,7 +138,7 @@ export class TestComponent implements OnChanges {
     }
 
     saveQuestionFromResponse(response) {
-        this.question = response;
+        this.question = response.question;
         if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
             if (this.question.type === 'ReadingQuestion') {
