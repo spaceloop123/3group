@@ -73,8 +73,9 @@ export class AddQuestionComponent implements OnInit {
         console.log(JSON.stringify(this.questionsList));
         console.log("---------");
 
+
         this.customHttp
-            .post("/admin/add_questions", JSON.stringify(this.questionsList))
+            .post("/admin/add_questions", this.questionsList)
             .subscribe(
                 res => {
                     toast('All questions were successfully added', 3000, 'green');
