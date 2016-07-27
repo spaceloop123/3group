@@ -13,8 +13,8 @@
     'materialize':                'node_modules/materialize-css',
     'angular2-materialize':       'node_modules/angular2-materialize',
     'rxjs':                       'node_modules/rxjs',
-    'ng2-charts': 'node_modules/ng2-charts',
-    'angular2-localstorage': 'node_modules/angular2-localstorage'
+    'ng2-charts':                 'node_modules/ng2-charts',
+    'angular2-localstorage':      'node_modules/angular2-localstorage'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
