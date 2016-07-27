@@ -6,14 +6,11 @@ var async = require('async');
 var Validator = require('../libs/requestValidator');
 
 module.exports.getTestStatus = function (userId, done) {
-    var validator = new Validator();
-
-    validator.checkItem('test', function (callback) {
-        Test.findOne({user: userId, status: {$in: ['available', 'requested', 'run']}}, callback);
-    });
-
-    validator.exec(function (res) {
-        done(null, {status: res.test.status});
+    module.exports.getTestValidator({
+        user: userId,
+        status: {$in: ['available', 'requested', 'run']}
+    }).exec(function (res) {
+        done(null, {status: res.test.status, time: res.template.time, count: res.template.questions.length});
     }, function () {
         done(null, {status: 'notAvailable'});
     }, done);
@@ -27,7 +24,7 @@ module.exports.requestTest = function (userId, done) {
 };
 
 module.exports.initTest = function (userId, done) {
-    validateTest(userId).exec(function (res) {
+    module.exports.getTestValidator({user: userId, status: 'available'}).exec(function (res) {
         var finishTime = new Date();
         finishTime.setMinutes(finishTime.getMinutes() + res.template.time);
         res.test.status = 'run';
@@ -38,25 +35,22 @@ module.exports.initTest = function (userId, done) {
 
         done(null, {
             testId: res.test.id,
-            time: res.template.time,
             count: res.template.questions.length,
             deadline: finishTime
         });
     }, done, done);
 };
 
-function validateTest(userId) {
-    var validator = new Validator();
-    validator.checkItems({
+module.exports.getTestValidator = function validateTest(testOptions) {
+    return new Validator().checkItems({
         test: function (callback) {
-            Test.findOne({user: userId, status: 'available'}, callback);
+            Test.findOne(testOptions, callback);
         },
         template: function (callback) {
             TestTemplate.findOne(callback);
         }
     });
-    return validator;
-}
+};
 
 function setTimer(testId, delay) {
     setTimeout(function () {

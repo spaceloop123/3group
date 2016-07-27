@@ -9,21 +9,25 @@ function Validator() {
 
 Validator.prototype.checkItem = function (itemName, item) {
     this._tasks.push(function (prev, callback) {
-        if (!prev) return callback();
-
+        
+        if (!prev) return callback(null, null);
+        
         item(function (err, res) {
             if (err) return callback(err);
 
             res ? prev[itemName] = res : prev = null;
             callback(null, prev);
         }, prev);
+        
     });
+    return this;
 };
 
 Validator.prototype.checkItems = function (items) {
     for (key in items) {
         this.checkItem(key, items[key]);
     }
+    return this;
 };
 
 Validator.prototype.exec = function (success, empty, error) {
