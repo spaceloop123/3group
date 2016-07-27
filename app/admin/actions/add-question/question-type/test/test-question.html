@@ -1,19 +1,16 @@
 <div class="row">
-    <!--<h5 class="col s12 flow-text">
-        Fill in all the fields, please
-    </h5>-->
     <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
         <div class="row flow-text">
             <!-- header -->
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="test-question-header-{{question.id}}"
-                          placeholder="e.g. Fill the blank with the correct word"
                           [(ngModel)]="question.header"
                           name="test-question-header-{{question.id}}"></textarea>
-                <label [attr.for]="'test-question-header-' + question.id" class="active">Task description</label>
+                <label [attr.for]="'test-question-header-' + question.id">Task description</label>
             </div>
 
             <!-- difficulty -->
+
             <div class="input-field col s12 m6 l6">
                 <input id="test-question-difficulty-{{question.id}}"
                        placeholder="Complexity (between 1 and 100)"
@@ -38,10 +35,9 @@
             <!-- question -->
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="test-question-question-{{question.id}}"
-                          placeholder="e.g. What _ pity!"
                           [(ngModel)]="question.question"
                           name="test-question-question-{{question.id}}"></textarea>
-                <label [attr.for]="'test-question-question-' + question.id" class="active">Question</label>
+                <label [attr.for]="'test-question-question-' + question.id">Question</label>
             </div>
 
             <!-- number of answers -->
@@ -63,7 +59,7 @@
                        type="text"
                        [(ngModel)]="item.content"
                        name="test-question-answer-{{question.id}}-{{i}}"/>
-                <label [attr.for]="'test-question-answer-' + question.id + '-' + i" class="active">Option {{i +
+                <label [attr.for]="'test-question-answer-' + question.id + '-' + i">Option {{i +
                     1}}</label>
             </div>
 
@@ -81,9 +77,12 @@
 
         </div>
     </form>
-    <!--<div class="col s12 m12 l12">
+    <div class="col s12 m12 l12">
         <div align="center">
-            <a class="waves-effect waves-light btn" (click)="onCreateFinish()">suda najmi chotobi add</a>
+            <a class="waves-effect btn-flat" id="test-question-finish-btn-{{question.id}}"
+               (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
+            <a class="waves-effect btn-flat" id="test-question-abort-btn-{{question.id}}"
+               (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
         </div>
-    </div>-->
+    </div>
 </div>

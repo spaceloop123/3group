@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {TestQuestion} from "./test-question.class";
@@ -11,8 +11,10 @@ import {TestQuestion} from "./test-question.class";
 
 export class TestQuestionComponent implements OnInit {
 
-    private question:TestQuestion;
+    @Input() question:TestQuestion;
     private oldAnswersLength:number;
+
+    @Output() notify:EventEmitter<any> = new EventEmitter<any>();
 
     ngOnInit():any {
         this.oldAnswersLength = this.question.answers.length;
@@ -48,6 +50,10 @@ export class TestQuestionComponent implements OnInit {
     }
 
     onCreateFinish() {
-        console.log(this.question);
+        this.notify.emit(this.question);
+    }
+
+    onCreateAbort() {
+        this.notify.emit(-1);
     }
 }
