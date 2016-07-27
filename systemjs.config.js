@@ -13,7 +13,10 @@
     'materialize':                'node_modules/materialize-css',
     'angular2-materialize':       'node_modules/angular2-materialize',
     'rxjs':                       'node_modules/rxjs',
-    'angular2-localstorage': 'node_modules/angular2-localstorage'
+    'angular2-localstorage':      'node_modules/angular2-localstorage',
+    'moment':                     'node_modules/moment'
+
+
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -24,7 +27,8 @@
     'materialize':                { main: 'dist/js/materialize.min.js', defaultExtension: 'js', format: 'global'},
     'angular2-materialize':       { main: 'dist/index.js', defaultExtension: 'js' },
     '@angular/forms':             { main: 'index.js', defaultExtension: 'js' },
-    'angular2-localstorage':      { defaultExtension: "js" }
+    'angular2-localstorage':      { defaultExtension: "js" },
+    'moment':                     { defaultExtension: 'js' }
   };
   var ngPackageNames = [
     'common',
