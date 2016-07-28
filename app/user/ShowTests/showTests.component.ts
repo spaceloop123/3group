@@ -1,4 +1,3 @@
-
 import {LineChartDemoComponent} from "../charts.component";
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";

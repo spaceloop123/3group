@@ -17,7 +17,7 @@ export class LineChartDemoComponent {
     constructor(private http:Http) {
         this.lineChartData =[ {
            // label: 15, //[],
-            data: ['80%', '90%', '85%'],//[],
+            data: [50, 60, 50],//[],
             label: 'Result'
         }];
 

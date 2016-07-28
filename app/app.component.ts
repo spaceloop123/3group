@@ -9,7 +9,7 @@ import {AdminComponent} from "./admin/admin.component";
 import {TeacherComponent} from "./teacher/teacher.component";
 import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
 import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
-import {ChartsComponent} from "./user/charts/charts.component";
+import {LineChartDemoComponent} from "./user/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {AssignTestComponent} from "./admin/assignTest.component";
 import {DatepickerComponent} from "./admin/datepicker.component";
@@ -19,8 +19,7 @@ import {DatepickerComponent} from "./admin/datepicker.component";
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,
-        ChartsComponent, ShowTestsComponent,AssignTestComponent, DatepickerComponent],
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, LineChartDemoComponent, ShowTestsComponent,AssignTestComponent, DatepickerComponent],
     providers: [LoginService, Location]
 })
 

@@ -1,16 +1,17 @@
 import {DatepickerComponent} from "./datepicker.component";
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
-import {LineChartDemoComponent} from "../user/charts.component";
+import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
 import {MaterializeDirective} from 'angular2-materialize';
 import {Http, Headers} from "@angular/http";
-//import {CustomHttp} from "../common/services/CustomHttp";
+import {LineChartDemoComponent} from "../user/charts.component";
+
 
 @Component({
 
     templateUrl: 'app/admin/assignTest.html',
-    directives: [DatepickerComponent, LineChartDemoComponent, ROUTER_DIRECTIVES, MaterializeDirective],
-    //providers: [CustomHttp]
+    directives: [DatepickerComponent, LineChartDemoComponent, CHART_DIRECTIVES, ROUTER_DIRECTIVES, MaterializeDirective],
+
 })
 
 export class AssignTestComponent implements OnInit {
@@ -19,8 +20,7 @@ export class AssignTestComponent implements OnInit {
         private route:ActivatedRoute,
         private router:Router,
         private http:Http
-        //private customHttp:CustomHttp
-    ) { }
+           ) { }
 
     ngOnInit() {
         //TODO add customHttp.checkRole()

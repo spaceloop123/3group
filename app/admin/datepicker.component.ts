@@ -19,8 +19,7 @@ export class DatepickerComponent {
     constructor(private http:Http,
                 private router:Router) {
 
-        console.log('constructor: datePicker');
-    }
+            }
 }
 
 

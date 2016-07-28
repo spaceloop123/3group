@@ -2,41 +2,17 @@
     <div class="container valign">
         <div class="row">
             <h5 align="center">Test statistics</h5>
-    <div class="col s12 offset-m3 m6 offset-l3 l6" align="center">
-        <base-chart class="chart"
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [colors]="lineChartColours"
-                    [legend]="lineChartLegend"
-                    [chartType]="lineChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></base-chart>
-        <!--<tr class="col s12 m6 l6">
-
-            <table class="highlight bordered  centered">
-
-                <tr >
-                    <th>Date</th>
-                    <th *ngFor="let label of lineChartLabels">{{label}}</th>
-                </tr>
-
-                <tr *ngFor="let d of lineChartData">
-                    <th>Result</th>
-                    <td *ngFor="let data of lineChartLabels; let j=index">{{d.data[j]}}</td>
-                </tr>
-            </table>-->
+            <div class="col s12 m12 l12" align="center">
+                <base-chart class="chart"
+                            [datasets]="lineChartData"
+                            [labels]="lineChartLabels"
+                            [options]="lineChartOptions"
+                            [colors]="lineChartColours"
+                            [legend]="lineChartLegend"
+                            [chartType]="lineChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></base-chart>
+            </div>
+        </div>
     </div>
-<!--
-        <tr >
-            <th>Header</th>
-            <th>Result</th>
-            <th>Date</th>
-        </tr>
-            <tr>
-            <td *ngFor="let label of lineChartLabels">{{label}}</td>
-</tr>-->
-</div>
-    </div>
-
 </div>
