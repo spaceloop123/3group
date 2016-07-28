@@ -98,6 +98,19 @@ main {
     margin-bottom: 22px;
 }
 
+/*------------------------------------------------*/
+/*.carousel {*/
+    /*height: 100vh;*/
+    /*-webkit-perspective: 20vw;*/
+    /*perspective: 20vw;*/
+/*}*/
+
+/*.carousel .carousel-item {*/
+    /*width: 30vw;*/
+    /*height: 100vh;*/
+/*}*/
+
+
 a .disabled {
     pointer-events: none;
     cursor: default;
