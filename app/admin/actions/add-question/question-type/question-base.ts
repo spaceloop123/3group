@@ -1,23 +1,27 @@
 import {GUID} from "../../../../common/guid/GUID";
 
 export class QuestionBase {
-    protected _id:string;
+    private _id:string;
     protected _type:string;
     protected _state:string; //edit | done
 
     protected _header:string;
     protected _difficulty:number;
     protected _maxCost:number;
-    protected _question:string;
+    protected _question:any;
     protected _answers:any;
 
     constructor() {
-        this._id = GUID.generate().toString();
-        this._state = 'edit';
+        this.id = GUID.generate().toString();
+        this.state = 'edit';
     }
 
     get id():string {
         return this._id;
+    }
+
+    set id(value:string) {
+        this._id = value;
     }
 
     get state():string {
@@ -60,11 +64,11 @@ export class QuestionBase {
         this._maxCost = value;
     }
 
-    get question():string {
+    get question():any {
         return this._question;
     }
 
-    set question(value:string) {
+    set question(value:any) {
         this._question = value;
     }
 

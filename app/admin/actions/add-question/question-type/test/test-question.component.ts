@@ -12,9 +12,9 @@ import {NgSwitch, NgSwitchDefault} from "@angular/common";
 
 export class TestQuestionComponent implements OnInit {
 
-    @Input() question:TestQuestion;
     private oldAnswersLength:number;
 
+    @Input() question:TestQuestion;
     @Output() notify:EventEmitter<any> = new EventEmitter<any>();
 
     ngOnInit():any {
@@ -52,6 +52,7 @@ export class TestQuestionComponent implements OnInit {
 
     onCreateFinish() {
         this.question.state = 'done';
+        // console.log(this.question);
         this.notify.emit(this.question);
     }
 
