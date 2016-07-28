@@ -7,7 +7,7 @@ var Validator = require('../libs/requestValidator');
 var testService = require('../services/testService');
 var questionMap = require('../libs/questionMap');
 
-module.exports.getQuestionByNumber = function (userId, testId, n, done) {
+module.exports.getQuestion = function (userId, testId, n, done) {
     validateQuestionRequest({_id: testId, user: userId, status: 'run'}, n).exec(function (res) {
         var question = res.questions[Math.floor(Math.random() * res.questions.length)];
         var answer = new Answer({question: question.id, autoCheck: question.autoCheck});
@@ -43,22 +43,27 @@ function validateQuestionRequest(testOptions, n) {
         });
 }
 
-module.exports.getQuestionById = function (userId, testId, questionId, done) {
-    testService.getTestValidator({
-        _id: testId,
-        user: userId, status: 'run'
-    })
+module.exports.getSubquestion = function (userId, testId, questionId, done) {
+    testService.getTestValidator({_id: testId, user: userId, status: 'run'})
         .checkItems({
-            questionId: function (callback, prev) {
-                var answers = prev.test.answers;
-                answers[answers.length - 1].question === questionId ? callback(null, questionId) : callback();
-            },
             question: function (callback, prev) {
-                Question.findOne({_id: prev.questionId}).populate().exec(callback);
+                var answers = prev.test.answers;
+                Question.findOne({_id: answers[answers.length - 1].question}, callback);
+            },
+            subquestions: function (callback, prev) {
+                prev.question.subQuestions ? callback(null, prev.question.subQuestions) : callback();
+            },
+            rightId: function (callback, prev) {
+                prev.subquestions.some(function (id) {
+                    return id.toString() === questionId;
+                }) ? callback(null, {}) : callback();
+            },
+            subquestion: function (callback) {
+                Question.findOne({_id: questionId}, callback);
             }
         })
         .exec(function (res) {
-            done(null, {question: res.question.getQuestion()});
+            done(null, res.subquestion.getQuestion());
         }, done, done);
 };
 
