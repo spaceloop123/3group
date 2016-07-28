@@ -24,15 +24,19 @@ router.get('/init_test', function (req, res) {
 });
 
 router.post('/next_question', function (req, res) {
-    questionService.getQuestionByNumber(req.user.id, req.body.testId, req.body.n, response.dataResponse(res));
+    questionService.getQuestion(req.user.id, req.body.testId, req.body.n, response.dataResponse(res));
 });
 
-router.post('/next_question_by_id', function (req, res) {
-    questionService.getQuestionById(req.user.id, req.body.testId, req.body.questionId, response.dataResponse(res));
+router.post('/next_subquestion', function (req, res) {
+    questionService.getSubquestion(req.user.id, req.body.testId, req.body.id, response.dataResponse(res));
 });
 
 router.post('/answer', function (req, res) {
     answerService.putAnswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
+});
+
+router.post('/subanswer', function (req, res) {
+    answerService.putSubanswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
 });
 
 router.post('/ask_test', function (req, res) {
