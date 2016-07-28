@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxjs/add/operator/toPromise", "../common/services/CustomHttp", "angular2-materialize/dist/index", 'moment/moment'], function (exports_1, context_1) {
+System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxjs/add/operator/toPromise", "../common/services/CustomHttp", "angular2-materialize/dist/index", 'moment/moment'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -50,8 +50,8 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                     var that = this;
                     this.customHttp.get('/teacher/tests')
                         .subscribe(function (response) {
-                            that.setTests(response.json());
-                        });
+                        that.setTests(response.json());
+                    });
                     //.catch( that.handleError.bind(that));
                 };
                 TeacherComponent.prototype.setTests = function (response) {
