@@ -1,5 +1,5 @@
 export class TestInfo {
-    constructor(public time: number,
+    constructor(public deadline: any,
                 public numQuestions:number,
                 public id: string) {
     }
