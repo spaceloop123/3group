@@ -1,7 +1,7 @@
 <div class="container">
 
                 <div class="row">
-                    <div class="col m5">
+                    <div class="col s12 m6 l6">
                         <h6 style="margin: 0">Select estimated date (from)</h6>
                         <div id="datepicker1" class="datepicker" style="margin-top: 2.5%;">
                             <input type="date" class="datepicker">
@@ -29,7 +29,7 @@
 
                         <div class="col m2">
                             <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
-                                <option value="" disabled selected style="line-height: 5px">00</option>
+                                <option value="" disabled selected>00</option>
                                 <option value="1">10</option>
                                 <option value="2">20</option>
                                 <option value="3">30</option>
@@ -46,8 +46,8 @@
                 </div>
 
 
-                <div class="row" style="margin-top: 40%;">
-                    <div class="col m5">
+                <div class="row" style="margin-top: 55%;">
+                    <div class="col s12 m6 l6">
                         <h6 style="margin: 0">Select estimated date (to)</h6>
                         <div id="datepicker2" class="datepicker" style="margin-top: 2.5%;">
                             <input type="date" class="datepicker">
@@ -57,7 +57,7 @@
                     <h6>Select estimated time (to)</h6>
                     <div class="col m2">
 
-                        <select materialize="material_select" [materializeSelectOptions]="selectOptions" style="width: 30%">
+                        <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
                             <option value="" disabled selected>00</option>
                             <option value="1">01</option>
                             <option value="2">02</option>
@@ -75,8 +75,8 @@
                     </div>
 
                     <div class="col m2">
-                        <select materialize="material_select" [materializeSelectOptions]="selectOptions" style="width: 30%">
-                            <option value="" disabled selected style="line-height: 5px">00</option>
+                        <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+                            <option value="" disabled selected>00</option>
                             <option value="1">10</option>
                             <option value="2">20</option>
                             <option value="3">30</option>
@@ -86,7 +86,7 @@
                         </select>
                     </div>
                     <div class="col m2">
-                        <select materialize="material_select" [materializeSelectOptions]="selectOptions" style="width: 30%">
+                        <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
                             <option value="1" disabled selected>pm</option>
                             <option value="2">am</option>
                         </select>
@@ -94,7 +94,10 @@
 
 
                 </div>
+    <div class="col s12" align=right style="margin-bottom:0">
+        <a class="waves-effect default btn" >Assign Test</a>
 
+    </div>
 
 </div>
 

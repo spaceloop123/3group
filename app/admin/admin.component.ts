@@ -5,11 +5,13 @@ import {AddMemberComponent} from "./actions/add-member/add-member.component";
 import {NotificationsComponent} from "./actions/notifications/notifications.component";
 import {AddQuestionComponent} from "./actions/add-question/add-question.component";
 import {CustomHttp} from "../common/services/CustomHttp";
+import {AssignTestComponent} from "./assignTest.component";
+
 
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.2.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent, AdminComponent],
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent, AdminComponent, AssignTestComponent],
     providers: [CustomHttp]
 })
 

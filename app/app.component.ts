@@ -11,15 +11,19 @@ import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
 import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
+import {AssignTestComponent} from "./admin/assignTest.component";
+import {DatepickerComponent} from "./admin/datepicker.component";
 
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent],
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,
+        ChartsComponent, ShowTestsComponent,AssignTestComponent, DatepickerComponent],
     providers: [LoginService, Location]
 })
+
 
 export class AppComponent implements OnInit, OnDestroy {
 

@@ -6,8 +6,7 @@ import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
 import {UserRoutes} from "./user/user.routes";
 import {ChartsComponent} from "./user/charts/charts.component";
-//import {HomepageRoutes} from "./homepage/homepage.routes";
-import {AdminRoutes} from "./admin/admin.routes";
+import {AssignTestComponent} from "./admin/assignTest.component";
 
 const routes:RouterConfig = [
     {
@@ -44,12 +43,18 @@ const routes:RouterConfig = [
         path: 'user/charts',
         component: ChartsComponent
     },
+    {
+        path: 'admin/assignTest',
+        component: AssignTestComponent
+    },
 
+    ...UserRoutes
 
-    ...UserRoutes,
-    ...AdminRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [
     provideRouter(routes)
 ];
+
+
+

@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/router", "angular2-materialize", "./actions/add-member/add-member.component", "./actions/notifications/notifications.component", "./actions/add-question/add-question.component", "../common/services/CustomHttp"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/router", "angular2-materialize", "./actions/add-member/add-member.component", "./actions/notifications/notifications.component", "./actions/add-question/add-question.component", "../common/services/CustomHttp", "./assignTest.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "./
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, angular2_materialize_1, add_member_component_1, notifications_component_1, add_question_component_1, CustomHttp_1;
+    var core_1, router_1, angular2_materialize_1, add_member_component_1, notifications_component_1, add_question_component_1, CustomHttp_1, assignTest_component_1;
     var AdminComponent;
     return {
         setters:[
@@ -34,6 +34,9 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "./
             },
             function (CustomHttp_1_1) {
                 CustomHttp_1 = CustomHttp_1_1;
+            },
+            function (assignTest_component_1_1) {
+                assignTest_component_1 = assignTest_component_1_1;
             }],
         execute: function() {
             AdminComponent = (function () {
@@ -49,7 +52,7 @@ System.register(["@angular/core", "@angular/router", "angular2-materialize", "./
                     core_1.Component({
                         selector: 'admin-component',
                         templateUrl: 'app/admin/admin.home.2.html',
-                        directives: [router_1.ROUTER_DIRECTIVES, angular2_materialize_1.MaterializeDirective, add_member_component_1.AddMemberComponent, notifications_component_1.NotificationsComponent, add_question_component_1.AddQuestionComponent, AdminComponent],
+                        directives: [router_1.ROUTER_DIRECTIVES, angular2_materialize_1.MaterializeDirective, add_member_component_1.AddMemberComponent, notifications_component_1.NotificationsComponent, add_question_component_1.AddQuestionComponent, AdminComponent, assignTest_component_1.AssignTestComponent],
                         providers: [CustomHttp_1.CustomHttp]
                     }), 
                     __metadata('design:paramtypes', [CustomHttp_1.CustomHttp])
