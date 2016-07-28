@@ -5,6 +5,7 @@ var TestTemplate = mongoose.model('TestTemplate');
 var Answer = mongoose.model('Answer');
 var Validator = require('../libs/requestValidator');
 var testService = require('../services/testService');
+var questionMap = require('../libs/questionMap');
 
 module.exports.getQuestion = function (userId, testId, n, done) {
     validateQuestionRequest({_id: testId, user: userId, status: 'run'}, n).exec(function (res) {
@@ -64,4 +65,12 @@ module.exports.getSubquestion = function (userId, testId, questionId, done) {
         .exec(function (res) {
             done(null, res.subquestion.getQuestion());
         }, done, done);
+};
+
+module.exports.addQuestions = function (questions) {
+    questions.forEach(function (question, questions) {
+        var newQuestion = new questionMap[question._type]();
+        newQuestion.setQuestion(question);
+        newQuestion.save();
+    });
 };

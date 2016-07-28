@@ -57,9 +57,9 @@ export class TeacherComponent implements OnInit {
     }
 
 
-    handleError(error:any) {
-        return Promise.reject(error.message || error);
-    }
+    // handleError(error:any) {
+    //     return Promise.reject(error.message || error);
+    // }
 
     ngOnInit() {
         this.customHttp.checkRole();

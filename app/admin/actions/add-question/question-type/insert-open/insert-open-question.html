@@ -1,0 +1,60 @@
+<div class="row">
+    <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
+        <div class="row flow-text">
+
+            <!-- header -->
+            <div class="input-field col s12 m12 l12">
+                <textarea class="materialize-textarea" id="insert-open-question-header-{{question.id}}"
+                          [attr.disabled]="question.state !== 'edit' ? true : null"
+                          [(ngModel)]="question.header"
+                          name="insert-open-question-header-{{question.id}}"></textarea>
+                <label [attr.for]="'insert-open-question-header-' + question.id">Task description</label>
+            </div>
+
+            <!-- difficulty -->
+            <div class="input-field col s12 m6 l6">
+                <input id="insert-open-question-difficulty-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       placeholder="Complexity (between 1 and 100)"
+                       type="number" min="1" max="100" class="validate"
+                       [(ngModel)]="question.difficulty"
+                       name="insert-open-question-difficulty-{{question.id}}"/>
+                <label [attr.for]="'insert-open-question-difficulty-' + question.id" class="active" data-error="wrong">Task
+                    complexity</label>
+            </div>
+
+            <!-- maxCost -->
+            <div class="input-field col s12 m6 l6">
+                <input id="insert-open-question-maxCost-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       placeholder="Weight (between 1 and 10)"
+                       type="number" min="1" max="10" class="validate"
+                       [(ngModel)]="question.maxCost"
+                       name="insert-open-question-maxCost-{{question.id}}"/>
+                <label [attr.for]="'insert-open-question-maxCost-' + question.id" data-error="wrong" class="active">Task
+                    weight</label>
+            </div>
+
+            <!-- questions -->
+            <div class="input-field col s12 m6 l6" *ngFor="let item of question.question; let i = index">
+                <textarea class="materialize-textarea"
+                          [attr.id]="'insert-open-question-question-' + question.id + '-' + i"
+                          [attr.disabled]="question.state !== 'edit' ? true : null"
+                          type="text"
+                          [(ngModel)]="item.content"
+                          name="insert-open-question-question-{{question.id}}-{{i}}"></textarea>
+                <label [attr.for]="'insert-open-question-answer-' + question.id + '-' + i">Question</label>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
+        <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="insert-open-question-finish-btn-{{question.id}}"
+           (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
+        <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="insert-open-question-edit-btn-{{question.id}}"
+           (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
+        <a class="waves-effect btn-flat" id="insert-open-question-abort-btn-{{question.id}}"
+           (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
+    </div>
+</div>

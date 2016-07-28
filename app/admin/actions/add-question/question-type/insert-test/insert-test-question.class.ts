@@ -1,13 +1,14 @@
 import {QuestionBase} from "../question-base";
 
-export class TestQuestion extends QuestionBase {
+export class InsertTestQuestion extends QuestionBase {
     private _correctAnswerIdx;
 
     constructor() {
         super();
+        this.question = [{content: ''}, {content: ''}];
         this.answers = [{content: ''}, {content: ''}, {content: ''}];
         this.correctAnswerIdx = 1;
-        this.type = 'TestQuestion';
+        this.type = 'InsertTestQuestion';
     }
 
     get correctAnswerIdx() {

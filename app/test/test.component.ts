@@ -5,16 +5,19 @@ import {MaterializeDirective, toast} from "angular2-materialize";
 import {TestInfo} from "./test.info";
 import {QuestionInfo} from "./question.info";
 import {SubQuestionsInfo} from "./subQuestions.info";
+import {NavigationItem} from "../teacher/navigation.item";
 
 @Component({
     selector: 'display-test',
-    templateUrl: 'app/user/runTest/test.html',
+    templateUrl: 'app/test/test.html',
     directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective]
 })
 
 export class TestComponent implements OnChanges {
 
     @Input() testInfo:TestInfo;
+    @Input() answersId:any;
+    @Input('mode') mode: string;
     @Output() progress = new EventEmitter<number>();
     question:any;
     top:any;
@@ -24,7 +27,7 @@ export class TestComponent implements OnChanges {
     myAudio:any;
     isPlayed:boolean;
     playCount:number;
-    openAnswer:string;
+
 
 
     options:any[];
@@ -36,46 +39,59 @@ export class TestComponent implements OnChanges {
         this.isPlayed = false;
         this.top = {type: "nothing"};
         this.answer = '';
+
     }
 
-
-    /*ngOnInit() {
-     if(this.testInfo !== null) {
-     this.questionInfo = this.restoreQuestionInfo();
-     this.subQuestionInfo = this.restoreSubQuestionInfo();
-     if(this.questionInfo === null){
-     this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null);
-     }
-     if(this.subQuestionInfo === null){
-     this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
-     }
-     this.requestCurrentQuestion();
-     }
-     }*/
-
     ngOnChanges(changes:SimpleChanges):any {
-        this.testInfo = changes['testInfo'].currentValue;
-        if (this.testInfo !== null) {
-            this.questionInfo = this.restoreQuestionInfo();
-            this.subQuestionInfo = this.restoreSubQuestionInfo();
-            if (this.questionInfo === null) {
-                this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null);
+        if(changes['testInfo'].currentValue) {
+            this.testInfo = changes['testInfo'].currentValue;
+            console.log('this.testInfo ' + this.testInfo);
+        }
+        if(changes['answersId']) {
+            this.answersId = changes['answersId'].currentValue;
+            console.log('this.answersId ' + this.answersId);
+        }
+        if(changes['mode']) {
+            this.mode = changes['mode'].currentValue;
+            console.log('this.mode ' + this.mode);
+        }
+
+        if(this.mode === 'user') {
+            if (this.testInfo !== undefined && this.testInfo !== null) {
+
+                this.questionInfo = this.restoreQuestionInfo();
+                this.subQuestionInfo = this.restoreSubQuestionInfo();
+                if (this.questionInfo === null) {
+                    this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null, this.answersId);
+                }
+                if (this.subQuestionInfo === null) {
+                    this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
+                }
+                this.requestCurrentQuestion();
+                this.reportProgress();
+
             }
-            if (this.subQuestionInfo === null) {
-                this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
+        }else if(this.mode === 'teacher'){
+            if (this.testInfo !== undefined && this.answersId !== undefined){
+                let item = new NavigationItem(1, -1, 0);
+                this.questionInfo = new QuestionInfo('', null, null, this.answersId);
+                this.subQuestionInfo = new SubQuestionsInfo(null, null, null);
+                this.goByItem(item);
             }
-            this.requestCurrentQuestion();
-            this.reportProgress();
         }
         return undefined;
     }
 
     requestCurrentQuestion() {
-        if (this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()) {
-            this.getSubQuestionFromServer(this.subQuestionInfo);
-        }
-        else {
-            this.getQuestionFromServer(this.questionInfo);
+        if(this.mode === 'user') {
+            if (this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()) {
+                this.getSubQuestionFromServer(this.subQuestionInfo);
+            } else {
+                this.getQuestionFromServer(this.questionInfo);
+
+            }
+        } else if(this.mode === 'teacher'){
+            this.getQuestionFromServerByAnswerId();
         }
     }
 
@@ -94,6 +110,30 @@ export class TestComponent implements OnChanges {
     restoreSubQuestionInfo() {
         return SubQuestionsInfo.fromJson(localStorage.getItem('subQuestionInfo'));
     }
+
+    getQuestionFromServerByAnswerId() {
+        var that = this;
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        let id;
+        if(this.subQuestionInfo.subQuestionIndex === (-1) ){
+            console.log(this.questionInfo.questionIndex - 1);
+            console.log(this.questionInfo.answersId);
+            console.log('bla');
+            id = this.questionInfo.answersId[this.questionInfo.questionIndex - 1].id ;
+        }else{
+            id =
+                this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswerId[this.subQuestionInfo.subQuestionIndex].id;
+        }
+        console.log('that.testInfo.id ' + that.testInfo.id);
+        this.http
+            .post('/teacher/check_answer',
+                JSON.stringify({answerId: id, testId: that.testInfo.id}), {headers: header})
+            .toPromise()
+            .then(response => that.saveQuestionFromResponse(response.json()))
+            .catch(that.handleError);
+    }
+
 
     getQuestionFromServer(qInfo:QuestionInfo) {
         var that = this;
@@ -114,7 +154,7 @@ export class TestComponent implements OnChanges {
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http
-            .post('/user/next_question_by_id',
+            .post('/user/next_subquestion',
                 JSON.stringify({id: subQInfo.subQuestionId, testId: subQInfo.testId}), {headers: header})
             .toPromise()
             .then(response => that.saveSubQuestionFromResponse(response.json()))
@@ -137,8 +177,11 @@ export class TestComponent implements OnChanges {
         return result;
     }
 
+    
+
     saveQuestionFromResponse(response) {
-        this.question = response;
+        console.log('saveQuestionFromResponse');
+        this.question = response.question;
         if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
             if (this.question.type === 'ReadingQuestion') {
@@ -148,12 +191,14 @@ export class TestComponent implements OnChanges {
             }
         }
         this.saveQuestionInfo();
-        //if(this.questionInfo.hasSubQuestions()){
-        //    
-        //}
         this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
         this.saveSubQuestionInfo();
+       
         this.processQuestion(this.question);
+        if(this.mode === 'teacher'){
+            this.answer = response.answer;
+        }
+
     }
 
     saveSubQuestionFromResponse(response) {
@@ -217,16 +262,22 @@ export class TestComponent implements OnChanges {
         }
     }
 
-    public sendAnswer(callBack) {
+    public  sendAnswer(callBack) {
         this.sendAnswerToServer(this.answer, callBack);
     }
 
     sendAnswerToServer(answer:string, callBack) {
         var that = this;
         var header = new Headers();
+        let url;
+        if(this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()){
+            url = 'subanswer';
+        } else {
+            url = 'answer';
+        }
         header.append('Content-Type', 'application/json');
         this.http
-            .post('/user/answer',
+            .post('/user/' + url,
                 JSON.stringify({testId: that.testInfo.id, questionId: that.top.id, answer: answer}), {headers: header})
             .toPromise()
             .then(response => {
@@ -265,6 +316,32 @@ export class TestComponent implements OnChanges {
             }
         }
     }
+    
+    
+    public goByItem(item: NavigationItem){
+        console.log('goByItem ' + item.questionIndex + ' ' + item.subQuestionIndex);
+        console.log('questionInfo ' + this.questionInfo);
+        console.log('cha-cha-cha');
+        this.questionInfo.questionIndex = item.questionIndex;
+        console.log(this.questionInfo.questionIndex);
+        this.subQuestionInfo.subQuestionIndex =
+            item.subQuestionIndex === null ? -1 : item.subQuestionIndex;
+        this.requestCurrentQuestion();
+    }
+
+    goToNextItem(item: NavigationItem){
+        console.log('goToNextItem');
+        if(this.subQuestionInfo.subQuestionIndex === -1){
+            ++this.questionInfo.questionIndex;
+        } else if(this.subQuestionInfo.subQuestionIndex === this.questionInfo.answersId.length - 1){
+            ++this.questionInfo.questionIndex;
+        } else{
+            //???
+        }
+        this.requestCurrentQuestion();
+
+    }   
+    
 
     goForward():boolean {
         let canGo = true;

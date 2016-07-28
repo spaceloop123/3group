@@ -1,4 +1,4 @@
-///<reference path="../typings/moment/moment.d.ts" />
+
 import 'jquery'
 import 'angular2-materialize';
 

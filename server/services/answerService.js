@@ -89,3 +89,17 @@ module.exports.getAnswerById = function (answerId, done) {
             done(null, res.answer.getAnswer());
         }, done, done);
 };
+
+module.exports.setMark = function (answerId, mark, done) {
+    var validator = new Validator();
+
+    validator.checkItem('answer', function (callback) {
+        Answer.findOne({_id: answerId}).populate('question').exec(callback);
+    });
+
+    validator.exec(function (res) {
+        res.answer.mark = Math.floor(res.answer.question.maxCost * mark / 100);
+        res.answer.save();
+        done();
+    }, done, done);
+};

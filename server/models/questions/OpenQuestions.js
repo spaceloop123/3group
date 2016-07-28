@@ -11,9 +11,16 @@ OpenQuestionSchema.methods.getQuestion = function () {
         id: this.id,
         type: this.type,
         header: this.header,
-        question: this.question,
-        maxCost: this.maxCost
+        question: this.question
     };
+};
+
+OpenQuestionSchema.methods.setQuestion = function (question) {
+    this.header = question._header;
+    this.difficulty = question._difficulty;
+    this.maxCost = question._maxCost;
+    this.autoCheck = false;
+    this.question = question._question;
 };
 
 mongoose.model('Question').discriminator('OpenQuestion', OpenQuestionSchema); 

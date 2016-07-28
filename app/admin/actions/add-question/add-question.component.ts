@@ -1,18 +1,24 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
-import {MaterializeDirective} from "angular2-materialize";
+import {MaterializeDirective, toast} from "angular2-materialize";
 import {NgSwitchDefault, NgSwitch} from "@angular/common";
+import {CustomHttp} from "../../../common/services/CustomHttp";
 import {TestQuestionComponent} from "./question-type/test/test-question.component";
-import {OpenInsertQuestionComponent} from "./question-type/open-insert/open-insert-question.component";
 import {TestQuestion} from "./question-type/test/test-question.class";
-import {OpenInsertQuestion} from "./question-type/open-insert/open-insert-question.class";
-import {Headers, Http} from "@angular/http";
+import {InsertOpenQuestion} from "./question-type/insert-open/insert-open-question.class";
+import {InsertOpenQuestionComponent} from "./question-type/insert-open/insert-open-question.component";
+import {InsertTestQuestion} from "./question-type/insert-test/insert-test-question.class";
+import {InsertTestQuestionComponent} from "./question-type/insert-test/insert-test-question.component";
+import {OpenQuestion} from "./question-type/open/open-question.class";
+import {OpenQuestionComponent} from "./question-type/open/open-question.component";
+import {SpeechQuestion} from "./question-type/speech/speech-question.class";
+import {SpeechQuestionComponent} from "./question-type/speech/speech-question.component";
 
 @Component({
     selector: 'add-question-component',
     templateUrl: 'app/admin/actions/add-question/add-question.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, OpenInsertQuestionComponent,
-        NgSwitch, NgSwitchDefault]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertOpenQuestionComponent,
+        InsertTestQuestionComponent, OpenQuestionComponent, SpeechQuestionComponent, NgSwitch, NgSwitchDefault]
 })
 
 export class AddQuestionComponent implements OnInit {
@@ -23,14 +29,20 @@ export class AddQuestionComponent implements OnInit {
     ngOnInit():any {
         this.questionsList = [];
         this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
-            {type: new OpenInsertQuestion().type, checked: false}];
+            {type: new InsertOpenQuestion().type, checked: false},
+            {type: new InsertTestQuestion().type, checked: false},
+            {type: new OpenQuestion().type, checked: false},
+            {type: new SpeechQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
-    constructor(private http:Http) {
+    constructor(private customHttp:CustomHttp) {
         this.questionsList = [];
         this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
-            {type: new OpenInsertQuestion().type, checked: false}];
+            {type: new InsertOpenQuestion().type, checked: false},
+            {type: new InsertTestQuestion().type, checked: false},
+            {type: new OpenQuestion().type, checked: false},
+            {type: new SpeechQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -49,9 +61,24 @@ export class AddQuestionComponent implements OnInit {
                 this.questionsList.push(new TestQuestion());
                 break;
             }
-            case 'open-insert':
+            case 'InsertOpenQuestion':
             {
-                this.questionsList.push(new OpenInsertQuestion());
+                this.questionsList.push(new InsertOpenQuestion());
+                break;
+            }
+            case 'InsertTestQuestion':
+            {
+                this.questionsList.push(new InsertTestQuestion());
+                break;
+            }
+            case 'OpenQuestion':
+            {
+                this.questionsList.push(new OpenQuestion());
+                break;
+            }
+            case 'SpeechQuestion':
+            {
+                this.questionsList.push(new SpeechQuestion());
                 break;
             }
             default:
@@ -64,23 +91,70 @@ export class AddQuestionComponent implements OnInit {
 
     sendAllQuestions() {
         if (this.questionsList.length === 0) {
-            return;
+            return toast('Nothing to add', 3000, 'yellow darken-2');
         }
+        if (this.isEditModeOn()) {
+            return toast('First, complete editing questions', 3000, 'amber darken-1');
+        }
+
         console.log(JSON.stringify(this.questionsList));
 
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        this.http
-            .post("/admin/add_questions", JSON.stringify(this.questionsList), {headers: headers})
-            .toPromise()
-            .then(response => console.log(response.json()));
+        this.customHttp
+            .post("/admin/add_questions", this.questionsList)
+            .subscribe(
+                res => {
+                    toast('All questions were successfully added', 3000, 'green');
+                    this.questionsList = [];
+                },
+                err => this.handleError(err)
+            );
+    }
+
+    handleError(error) {
+        toast('Failed to add questions', 3000, 'red darken-2');
     }
 
     onQuestionCreate(responce, idx):void {
         if (responce instanceof TestQuestion) {
             this.questionsList[idx] = responce;
-        } else {
+            this.questionsList[idx].state = 'done';
+        }
+        else if (responce instanceof InsertOpenQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
+        else if (responce instanceof InsertTestQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
+        else if (responce instanceof OpenQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
+        else if (responce instanceof SpeechQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
+        else {
             this.questionsList.splice(idx, 1);
         }
     }
+
+    isEditModeOn() {
+        let f:boolean = false;
+        for (let i = 0; i < this.questionsList.length; ++i) {
+            if (this.questionsList[i].state === 'edit') {
+                f = true;
+                break;
+            }
+        }
+        return f;
+    }
+
+    /*onBtnClick() {
+        for (let i = 0; i < this.questionsList.length; ++i) {
+            console.log(this.questionsList[i].state)
+        }
+     console.log(this.isEditModeOn());
+     }*/
 }

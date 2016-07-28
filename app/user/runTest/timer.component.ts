@@ -48,7 +48,7 @@ export class TimerComponent implements OnInit, OnDestroy {
         if(timeLeft > 200) {
             return "has-middle-amount-of-time";
         }
-        return 'has-few-time';        
+        return 'has-few-time';
     }
 
     exit(){

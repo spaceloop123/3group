@@ -1,0 +1,58 @@
+<div class="row">
+    <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
+        <div class="row flow-text">
+
+            <!-- header -->
+            <div class="input-field col s12 m12 l12">
+                <textarea class="materialize-textarea" id="speech-question-header-{{question.id}}"
+                          [attr.disabled]="question.state !== 'edit' ? true : null"
+                          [(ngModel)]="question.header"
+                          name="speech-question-header-{{question.id}}"></textarea>
+                <label [attr.for]="'speech-question-header-' + question.id">Task description</label>
+            </div>
+
+            <!-- difficulty -->
+            <div class="input-field col s12 m6 l6">
+                <input id="speech-question-difficulty-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       placeholder="Complexity (between 1 and 100)"
+                       type="number" min="1" max="100" class="validate"
+                       [(ngModel)]="question.difficulty"
+                       name="speech-question-difficulty-{{question.id}}"/>
+                <label [attr.for]="'speech-question-difficulty-' + question.id" class="active" data-error="wrong">Task
+                    complexity</label>
+            </div>
+
+            <!-- maxCost -->
+            <div class="input-field col s12 m6 l6">
+                <input id="speech-question-maxCost-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       placeholder="Weight (between 1 and 10)"
+                       type="number" min="1" max="10" class="validate"
+                       [(ngModel)]="question.maxCost"
+                       name="speech-question-maxCost-{{question.id}}"/>
+                <label [attr.for]="'speech-question-maxCost-' + question.id" data-error="wrong" class="active">Task
+                    weight</label>
+            </div>
+
+            <!-- question -->
+            <div class="input-field col s12 m12 l12">
+                <textarea class="materialize-textarea" id="speech-question-question-{{question.id}}"
+                          [attr.disabled]="question.state !== 'edit' ? true : null"
+                          [(ngModel)]="question.question"
+                          name="speech-question-question-{{question.id}}"></textarea>
+                <label [attr.for]="'speech-question-question-' + question.id">Question</label>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
+        <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="speech-question-finish-btn-{{question.id}}"
+           (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
+        <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="speech-question-edit-btn-{{question.id}}"
+           (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
+        <a class="waves-effect btn-flat" id="speech-question-abort-btn-{{question.id}}"
+           (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
+    </div>
+</div>

@@ -7,16 +7,37 @@
                 <ul class="questions-list collection with-header grey lighten-5">
                     <!--[ngClass]="{'edit' : item}"-->
                     <li class="collection-item" *ngFor=" let item of questionsList; let i=index"
-                        [ngClass]="{'edit' : item['state']}">
+                        [ngClass]="item['state']">
                         <div [ngSwitch]="item['type']">
                             <div *ngSwitchCase="'TestQuestion'">
                                 <h6 class="flow-text">{{i + 1}}. Test Question</h6>
                                 <test-question-component [question]="item"
-                                                         (notify)="onQuestionCreate($event, i)"></test-question-component>
+                                                         (notify)="onQuestionCreate($event, i)">
+                                </test-question-component>
                             </div>
-                            <div *ngSwitchCase="'open-insert'">
+                            <div *ngSwitchCase="'InsertOpenQuestion'">
                                 <h6 class="flow-text">{{i + 1}}. Open-Insert Question</h6>
-                                <open-insert-question-component></open-insert-question-component>
+                                <insert-open-question-component [question]="item"
+                                                                (notify)="onQuestionCreate($event, i)">
+                                </insert-open-question-component>
+                            </div>
+                            <div *ngSwitchCase="'InsertTestQuestion'">
+                                <h6 class="flow-text">{{i + 1}}. Insert Test Question</h6>
+                                <insert-test-question-component [question]="item"
+                                                                (notify)="onQuestionCreate($event, i)">
+                                </insert-test-question-component>
+                            </div>
+                            <div *ngSwitchCase="'OpenQuestion'">
+                                <h6 class="flow-text">{{i + 1}}. Open Question</h6>
+                                <open-question-component [question]="item"
+                                                         (notify)="onQuestionCreate($event, i)">
+                                </open-question-component>
+                            </div>
+                            <div *ngSwitchCase="'SpeechQuestion'">
+                                <h6 class="flow-text">{{i + 1}}. Speech Question</h6>
+                                <speech-question-component [question]="item"
+                                                           (notify)="onQuestionCreate($event, i)">
+                                </speech-question-component>
                             </div>
                             <template ngSwitchDefault></template>
                         </div>
@@ -26,7 +47,7 @@
                         <div class="add-question-btn" align="center">
                             <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
                                class="btn-floating btn-large waves-effect waves-light red modal-trigger"
-                               href="#chooseQuestion">
+                               [attr.href]="'#chooseQuestion'">
                                 <i class="material-icons">add</i>
                             </a>
                         </div>
@@ -61,7 +82,8 @@
 
     </div>
     <div class="card-action" align="center">
-        <a class="waves-effect waves-light btn" [ngClass]="{'disabled' : questionsList.length === 0}"
-           (click)="sendAllQuestions()">add</a>
+        <a class="waves-effect waves-light btn"
+           [ngClass]="isEditModeOn() || questionsList.length === 0 ? 'disabled' : ''"
+           (click)="sendAllQuestions()">Add all created questions</a>
     </div>
 </div>

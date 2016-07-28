@@ -10,22 +10,27 @@ var AnswerSchema = new mongoose.Schema({
     mark: {type: Number, default: 0}
 });
 
-AnswerSchema.methods.getAnswerId = function() {
-  return {
-      id: this.id,
-      subAnswersId: this.subAnswersId
-  };  
+AnswerSchema.methods.getAnswerId = function () {
+    var subAnswersId = [];
+    this.subAnswers.forEach(function (answer, answers) {
+        if (!answer.autoCheck) {
+            subAnswersId.push(answer.id);
+        }
+    });
+    if (subAnswersId.length === 0 && this.subAnswers.length !== 0) {
+        return null;
+    } else {
+        return {
+            id: this.id,
+            subAnswersId: subAnswersId
+        };
+    }
 };
 
 AnswerSchema.methods.getAnswer = function () {
-    var subAnswers = [];
-    subAnswers.forEach(function (answer, answers) {
-       subAnswers.push(answer.getAnswer()); 
-    });
     return {
         question: this.question.getQuestion(),
-        answer: this.answer,
-        subAnswers: subAnswers
+        answer: this.answer
     }
 };
 
