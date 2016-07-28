@@ -1,31 +1,30 @@
 <div class="container valign">
     <div class="row">
-        <div class="col m5 offset-m1 s12">
-            <div class="text text-title">{{constants.PROJECT_NAME}}</div>
-            <div class="text text-subhead">{{constants.PROJECT_DESCRIPTION}}</div>
+        <div class="col s12 m6">
+            <div class="text flow-text text-title"><h4>{{constants.PROJECT_NAME}}</h4></div>
+            <div class="text flow-text text-subhead">{{constants.PROJECT_DESCRIPTION}}</div>
         </div>
-        <div class="col m5 offset-m1 s12">
+        <div class="col s12 offset-m1 m5 offset-l2 l4">
             <div class="card-panel">
-                <form action="#">
+                <form (keyup.Enter)="loginRequest()">
                     <div class="row">
-                        <div class="input-field col s10 offset-s1">
-
-                            <input id="login-field" type="text" class="validate" required="" aria-required="true"
+                        <div class="input-field col s10 offset-s1 offset-l2 l8">
+                            <input id="login-field" type="text" class="validate" ngControl="username"
                                    [(ngModel)]="model.username" name="login">
                             <label for="login-field">Login</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s10 offset-s1">
-                            <input id="password-field" type="password" class="validate" required
+                        <div class="input-field col s10 offset-s1 offset-l2 l8">
+                            <input id="password-field" type="password" class="validate"
                                    [(ngModel)]="model.password" name="password">
                             <label for="password-field">Password</label>
                         </div>
-
                     </div>
                     <div class="center-align">
-                        <a class="waves-effect waves-light btn" id="login-btn"
-                           style="width: 80%;" (click)="loginRequest()">login</a>
+                        <button class="waves-effect waves-light btn" id="login-btn"
+                                style="width: 70%;" (click)="loginRequest()" type="submit">login
+                        </button>
                     </div>
                 </form>
                 <br>
