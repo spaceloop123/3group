@@ -1,9 +1,45 @@
-<div class="container">
-    <div class="section">
-        <div class="row">
-            <div class="col s12 m12 center">
-                <h5>You clicked test with id {{currentTest}}</h5>
+<div class="row">
+    <div class="center">
+        <ul class="pagination" show-prev-next="true">
+            <li class="waves-effect"><a (click)="goToPreviousItem()">
+                <i class="material-icons">chevron_left</i></a></li>
+            <li *ngFor="let item of navigationItems;" class="waves-effect"><a
+                    (click)="goByItem(item)">{{item.show()}}</a></li>
+            <li class="waves-effect"><a (click)="goToNextItem()"><i
+                    class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m10 l10 card-width offset-l1  offset-m1" align=center>
+        <div class="card white valign">
+            <display-test #test [testInfo]="testInfo" [mode]="opMode" [answersId]="answersId"></display-test>
+            <div class="card-action center">
+                <!--div align='center'>
+                    <div style='width: 100px'>
+                        <label [attr.for]="mark" class="active" data-error="wrong"></label>
+                        <input id="mark"
+                               placeholder="mark"
+                               type="number" min="1" max="10" class="validate center"
+                               name="mark"/>
+                    </div>
+                </div-->
+
+                    <p class="range-field active">
+                        <input type="range" name="blabla" id="test5" min="0" max="100" [(ngModel)]="rangeValue"/>
+                    </p>
+                    <div>{{rangeValue}}</div>
+
+                <div align='center'>
+                    <button class="btn waves-effect waves-light center" type="submit" name="action">Next
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
