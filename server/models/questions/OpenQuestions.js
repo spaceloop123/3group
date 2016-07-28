@@ -19,7 +19,7 @@ OpenQuestionSchema.methods.setQuestion = function (question) {
     this.header = question._header;
     this.difficulty = question._difficulty;
     this.maxCost = question._maxCost;
-    this.autoCheck = true;
+    this.autoCheck = false;
     this.question = question._question;
 };
 

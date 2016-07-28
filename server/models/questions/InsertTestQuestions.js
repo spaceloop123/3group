@@ -23,7 +23,9 @@ InsertTestQuestionSchema.methods.setQuestion = function (question) {
     this.difficulty = question._difficulty;
     this.maxCost = question._maxCost;
     this.autoCheck = true;
-    this.questionParts = question._questionParts;
+    this.questionParts = question._question.map(function (item) {
+        return item.content;
+    });
     this.answers = question._answers.map(function(item) {
         return item.content;
     });

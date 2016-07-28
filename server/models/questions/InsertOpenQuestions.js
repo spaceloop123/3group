@@ -20,7 +20,9 @@ InsertOpenQuestionSchema.methods.setQuestion = function (question) {
     this.difficulty = question._difficulty;
     this.maxCost = question._maxCost;
     this.autoCheck = false;
-    this.questionParts = question._questionParts;
+    this.questionParts = question._question.map(function (item) {
+        return item.content;
+    });
 };
 
 mongoose.model('Question').discriminator('InsertOpenQuestion', InsertOpenQuestionSchema); 

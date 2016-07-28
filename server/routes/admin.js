@@ -62,6 +62,14 @@ router.post('/add_questions', function (req, res, next) {
     res.status(200).end();
 });
 
+router.get('/user_list', function (req, res, next) {
+   User.find({}, function (err, users) {
+     res.json(users.map(function (item) {
+         return item.getInfo();
+     }));
+   });
+});
+
 function addUser(username, password, role, req) {
     var user = new User({
         email: req.body.email,
