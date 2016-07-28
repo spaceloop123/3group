@@ -11,12 +11,14 @@ import {InsertTestQuestion} from "./question-type/insert-test/insert-test-questi
 import {InsertTestQuestionComponent} from "./question-type/insert-test/insert-test-question.component";
 import {OpenQuestion} from "./question-type/open/open-question.class";
 import {OpenQuestionComponent} from "./question-type/open/open-question.component";
+import {SpeechQuestion} from "./question-type/speech/speech-question.class";
+import {SpeechQuestionComponent} from "./question-type/speech/speech-question.component";
 
 @Component({
     selector: 'add-question-component',
     templateUrl: 'app/admin/actions/add-question/add-question.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertOpenQuestionComponent,
-        InsertTestQuestionComponent, OpenQuestionComponent, NgSwitch, NgSwitchDefault]
+        InsertTestQuestionComponent, OpenQuestionComponent, SpeechQuestionComponent, NgSwitch, NgSwitchDefault]
 })
 
 export class AddQuestionComponent implements OnInit {
@@ -29,7 +31,8 @@ export class AddQuestionComponent implements OnInit {
         this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
             {type: new InsertOpenQuestion().type, checked: false},
             {type: new InsertTestQuestion().type, checked: false},
-            {type: new OpenQuestion().type, checked: false}];
+            {type: new OpenQuestion().type, checked: false},
+            {type: new SpeechQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -38,7 +41,8 @@ export class AddQuestionComponent implements OnInit {
         this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
             {type: new InsertOpenQuestion().type, checked: false},
             {type: new InsertTestQuestion().type, checked: false},
-            {type: new OpenQuestion().type, checked: false}];
+            {type: new OpenQuestion().type, checked: false},
+            {type: new SpeechQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -70,6 +74,11 @@ export class AddQuestionComponent implements OnInit {
             case 'OpenQuestion':
             {
                 this.questionsList.push(new OpenQuestion());
+                break;
+            }
+            case 'SpeechQuestion':
+            {
+                this.questionsList.push(new SpeechQuestion());
                 break;
             }
             default:
@@ -119,6 +128,10 @@ export class AddQuestionComponent implements OnInit {
             this.questionsList[idx].state = 'done';
         }
         else if (responce instanceof OpenQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
+        else if (responce instanceof SpeechQuestion) {
             this.questionsList[idx] = responce;
             this.questionsList[idx].state = 'done';
         }

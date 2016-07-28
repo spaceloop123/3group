@@ -33,6 +33,12 @@
                                                          (notify)="onQuestionCreate($event, i)">
                                 </open-question-component>
                             </div>
+                            <div *ngSwitchCase="'SpeechQuestion'">
+                                <h6 class="flow-text">{{i + 1}}. Speech Question</h6>
+                                <speech-question-component [question]="item"
+                                                           (notify)="onQuestionCreate($event, i)">
+                                </speech-question-component>
+                            </div>
                             <template ngSwitchDefault></template>
                         </div>
                     </li>
