@@ -110,6 +110,9 @@ main {
     /*height: 100vh;*/
 /*}*/
 
+.collection {
+    margin: 0 0 0 0;
+}
 
 a .disabled {
     pointer-events: none;

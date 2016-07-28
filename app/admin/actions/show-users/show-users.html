@@ -1,48 +1,21 @@
 <div class="card white">
     <div class="card-content black-text">
         <div class="card-title flow-text" align="center">Users</div>
-        <div class="collection with-header grey lighten-5"
+        <div class="collection grey lighten-5"
+             *ngFor="let user of userList"
              infinite-scroll
-             [infiniteScrollDistance]="2"
+             [infiniteScrollDistance]="1"
+             [infiniteScrollThrottle]="400"
              (scrolled)="onScrollDown()">
-
             <a class="collection-item" href="javascript:;">
                 <div class="valign-wrapper">
-                    <span class="col s6 m6 title left-align">Firstname Lastname
-                        <p class="grey-text text-darken-1">Username</p>
+                    <span class="col s6 m6 title left-align">{{user.firstName}} {{user.lastName}}
+                        <p class="grey-text text-darken-1">{{user.username}}</p>
                     </span>
-                    <span class="col s4 m4 grey-text text-darken-1 center-align">Role</span>
+                    <span class="col s4 m4 grey-text text-darken-1 center-align">{{user.role}}</span>
                     <i class="material-icons grey-text">trending_flat</i>
                 </div>
             </a>
-            <a class="collection-item" href="javascript:;">
-                <div class="valign-wrapper">
-                    <span class="col s6 m6 title left-align">Firstname Lastname
-                        <p class="grey-text text-darken-1">Username</p>
-                    </span>
-                    <span class="col s4 m4 grey-text text-darken-1 center-align">Role</span>
-                    <i class="material-icons grey-text">trending_flat</i>
-                </div>
-            </a>
-            <a class="collection-item" href="javascript:;">
-                <div class="valign-wrapper">
-                    <span class="col s6 m6 title left-align">Firstname Lastname<br>
-                        <p class="grey-text text-darken-1">Username</p>
-                    </span>
-                    <span class="col s4 m4 grey-text text-darken-1 center-align">Role</span>
-                    <i class="material-icons grey-text">trending_flat</i>
-                </div>
-            </a>
-            <a class="collection-item" href="javascript:;">
-                <div class="valign-wrapper">
-                    <span class="col s6 m6 title left-align">Firstname Lastname<br>
-                        <p class="grey-text text-darken-1">Username</p>
-                    </span>
-                    <span class="col s4 m4 grey-text text-darken-1 center-align">Role</span>
-                    <i class="material-icons grey-text">trending_flat</i>
-                </div>
-            </a>
-
         </div>
     </div>
 </div>
