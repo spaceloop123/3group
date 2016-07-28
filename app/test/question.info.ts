@@ -1,7 +1,8 @@
 export class QuestionInfo {
     constructor(public testId: string,
                 public questionIndex: number,
-                public subQuestions: string[]) {
+                public subQuestions: string[],
+                public answersId: any[]) {
     }
 
     hasSubQuestions() :boolean{
@@ -13,6 +14,7 @@ export class QuestionInfo {
 
     static fromJson(json : string){
         let parsed = JSON.parse(json);
-        return parsed === null ? null : new QuestionInfo(parsed.testId, parsed.questionIndex, parsed.subQuestions);
+        return parsed === null ? 
+            null : new QuestionInfo(parsed.testId, parsed.questionIndex, parsed.subQuestions, parsed.answersId);
     }
 }
