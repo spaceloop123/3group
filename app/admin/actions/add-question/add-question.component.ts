@@ -69,10 +69,6 @@ export class AddQuestionComponent implements OnInit {
         if (this.isEditModeOn()) {
             return toast('First, complete to edit some questions', 3000, 'amber darken-1');
         }
-        console.log("questionList to JSON : ");
-        console.log(JSON.stringify(this.questionsList));
-        console.log("---------");
-
 
         this.customHttp
             .post("/admin/add_questions", this.questionsList)
@@ -107,5 +103,12 @@ export class AddQuestionComponent implements OnInit {
             }
         }
         return f;
+    }
+
+    onBtnClick() {
+        for (let i = 0; i < this.questionsList.length; ++i) {
+            console.log(this.questionsList[i].state)
+        }
+        console.log(this.isEditModeOn());
     }
 }

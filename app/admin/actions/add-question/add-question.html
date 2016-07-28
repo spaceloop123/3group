@@ -26,12 +26,11 @@
                         <div class="add-question-btn" align="center">
                             <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
                                class="btn-floating btn-large waves-effect waves-light red modal-trigger"
-                               [ngClass]="isEditModeOn() ? 'disabled' : ''"
-                               href="#chooseQuestion">
+                               [attr.href]="'#chooseQuestion'"
+                               (click)="onBtnClick()">
                                 <i class="material-icons">add</i>
                             </a>
                         </div>
-
 
                         <div id="chooseQuestion" class="modal modal-fixed-footer">
                             <div class="modal-content">

@@ -4,12 +4,13 @@ import {MaterializeDirective} from "angular2-materialize";
 import {AddMemberComponent} from "./actions/add-member/add-member.component";
 import {NotificationsComponent} from "./actions/notifications/notifications.component";
 import {AddQuestionComponent} from "./actions/add-question/add-question.component";
+import {ShowUsersComponent} from "./actions/show-users/show-users.component";
 import {CustomHttp} from "../common/services/CustomHttp";
 
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent, ShowUsersComponent],
     providers: [CustomHttp]
 })
 
