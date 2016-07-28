@@ -31,7 +31,7 @@ export class ShowUsersComponent {
     }
 
     setUserList(response) {
-        this.userList.concat(response);
+        this.userList = this.userList.concat(response);
         console.log(this.userList);
     }
 
