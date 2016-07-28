@@ -13,6 +13,7 @@ import {CustomHttp} from '../../../common/services/CustomHttp';
 
 export class ShowUsersComponent {
 
+    private scrollCount;
     userList = [];
     shownUsers = 0;
 
@@ -37,8 +38,18 @@ export class ShowUsersComponent {
 
     onScrollDown () {
         console.log('scrolled down!!');
-        this.shownUsers += 5;
+        this.shownUsers += 10;
         this.getUsers();
+    }
+
+    scrollOrNot() {
+        if(this.scrollCount <= 4) {
+            console.log(this.scrollCount);
+            this.scrollCount++;
+        } else {
+            this.onScrollDown();
+            this.scrollCount = 0;
+        }
     }
 
     ngOnInit () {
