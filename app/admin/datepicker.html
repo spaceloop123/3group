@@ -2,15 +2,15 @@
 
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h6 style="margin: 0">Select estimated date (from)</h6>
+                        <h6 style="margin: 0">Date (from)</h6>
                         <div id="datepicker1" class="datepicker" style="margin-top: 2.5%;">
                             <input type="date" class="datepicker">
                         </div>
                     </div>
-                        <h6>Select estimated time (from)</h6>
+                        <h6>Time (from)</h6>
                         <div class="col m2">
 
-                            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+                            <select  materialize="material_select" [materializeSelectOptions]="selectOptions">
                                 <option value="" disabled selected>00</option>
                                 <option value="1">01</option>
                                 <option value="2">02</option>
@@ -48,13 +48,13 @@
 
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h6 style="margin: 0">Select estimated date (to)</h6>
+                        <h6 style="margin: 0">Date (to)</h6>
                         <div id="datepicker2" class="datepicker" style="margin-top: 2.5%;">
                             <input type="date" class="datepicker">
                         </div>
                     </div>
 
-                    <h6>Select estimated time (to)</h6>
+                    <h6>Time (to)</h6>
                     <div class="col m2">
 
                         <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
