@@ -6,7 +6,7 @@
              infinite-scroll
              [infiniteScrollDistance]="1"
              [infiniteScrollThrottle]="400"
-             (scrolled)="onScrollDown()">
+             (scrolled)="scrollOrNot()">
             <a class="collection-item" href="javascript:;">
                 <div class="valign-wrapper">
                     <span class="col s6 m6 title left-align">{{user.firstName}} {{user.lastName}}
