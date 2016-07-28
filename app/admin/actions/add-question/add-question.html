@@ -21,6 +21,12 @@
                                                                 (notify)="onQuestionCreate($event, i)">
                                 </insert-open-question-component>
                             </div>
+                            <div *ngSwitchCase="'InsertTestQuestion'">
+                                <h6 class="flow-text">{{i + 1}}. Insert Test Question</h6>
+                                <insert-test-question-component [question]="item"
+                                                                (notify)="onQuestionCreate($event, i)">
+                                </insert-test-question-component>
+                            </div>
                             <template ngSwitchDefault></template>
                         </div>
                     </li>

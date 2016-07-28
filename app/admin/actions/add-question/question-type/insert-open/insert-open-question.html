@@ -36,15 +36,14 @@
             </div>
 
             <!-- questions -->
-            <div class="input-field col s12 m12 l6" *ngFor="let item of question.question; let i = index">
+            <div class="input-field col s12 m6 l6" *ngFor="let item of question.question; let i = index">
                 <textarea class="materialize-textarea"
                           [attr.id]="'insert-open-question-question-' + question.id + '-' + i"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           type="text"
                           [(ngModel)]="item.content"
                           name="insert-open-question-question-{{question.id}}-{{i}}"></textarea>
-                <label [attr.for]="'insert-open-question-answer-' + question.id + '-' + i">{{i + 1}} part of
-                    question</label>
+                <label [attr.for]="'insert-open-question-answer-' + question.id + '-' + i">Question</label>
             </div>
 
         </div>

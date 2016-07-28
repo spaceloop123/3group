@@ -7,12 +7,14 @@ import {TestQuestionComponent} from "./question-type/test/test-question.componen
 import {TestQuestion} from "./question-type/test/test-question.class";
 import {InsertOpenQuestion} from "./question-type/insert-open/insert-open-question.class";
 import {InsertOpenQuestionComponent} from "./question-type/insert-open/insert-open-question.component";
+import {InsertTestQuestion} from "./question-type/insert-test/insert-test-question.class";
+import {InsertTestQuestionComponent} from "./question-type/insert-test/insert-test-question.component";
 
 @Component({
     selector: 'add-question-component',
     templateUrl: 'app/admin/actions/add-question/add-question.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertOpenQuestionComponent,
-        NgSwitch, NgSwitchDefault]
+        InsertTestQuestionComponent, NgSwitch, NgSwitchDefault]
 })
 
 export class AddQuestionComponent implements OnInit {
@@ -23,14 +25,16 @@ export class AddQuestionComponent implements OnInit {
     ngOnInit():any {
         this.questionsList = [];
         this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
-            {type: new InsertOpenQuestion().type, checked: false}];
+            {type: new InsertOpenQuestion().type, checked: false},
+            {type: new InsertTestQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
     constructor(private customHttp:CustomHttp) {
         this.questionsList = [];
         this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
-            {type: new InsertOpenQuestion().type, checked: false}];
+            {type: new InsertOpenQuestion().type, checked: false},
+            {type: new InsertTestQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -52,6 +56,11 @@ export class AddQuestionComponent implements OnInit {
             case 'InsertOpenQuestion':
             {
                 this.questionsList.push(new InsertOpenQuestion());
+                break;
+            }
+            case 'InsertTestQuestion':
+            {
+                this.questionsList.push(new InsertTestQuestion());
                 break;
             }
             default:
@@ -93,6 +102,10 @@ export class AddQuestionComponent implements OnInit {
             this.questionsList[idx].state = 'done';
         }
         else if (responce instanceof InsertOpenQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
+        else if (responce instanceof InsertTestQuestion) {
             this.questionsList[idx] = responce;
             this.questionsList[idx].state = 'done';
         }
