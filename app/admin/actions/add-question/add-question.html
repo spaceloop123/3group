@@ -27,6 +27,12 @@
                                                                 (notify)="onQuestionCreate($event, i)">
                                 </insert-test-question-component>
                             </div>
+                            <div *ngSwitchCase="'OpenQuestion'">
+                                <h6 class="flow-text">{{i + 1}}. Open Question</h6>
+                                <open-question-component [question]="item"
+                                                         (notify)="onQuestionCreate($event, i)">
+                                </open-question-component>
+                            </div>
                             <template ngSwitchDefault></template>
                         </div>
                     </li>
@@ -35,8 +41,7 @@
                         <div class="add-question-btn" align="center">
                             <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
                                class="btn-floating btn-large waves-effect waves-light red modal-trigger"
-                               [attr.href]="'#chooseQuestion'"
-                               (click)="onBtnClick()">
+                               [attr.href]="'#chooseQuestion'">
                                 <i class="material-icons">add</i>
                             </a>
                         </div>
