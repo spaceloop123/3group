@@ -4,8 +4,8 @@
         <div class="collection grey lighten-5"
              *ngFor="let user of userList"
              infinite-scroll
-             [infiniteScrollDistance]="2"
-             (scrolledUp)="onScrollUp()"
+             [infiniteScrollDistance]="1"
+             [infiniteScrollThrottle]="400"
              (scrolled)="onScrollDown()">
             <a class="collection-item" href="javascript:;">
                 <div class="valign-wrapper">

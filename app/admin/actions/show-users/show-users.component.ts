@@ -13,56 +13,37 @@ import {CustomHttp} from '../../../common/services/CustomHttp';
 
 export class ShowUsersComponent {
 
-    private userList: any;
-    items = 30;
+    userList = [];
+    shownUsers = 0;
 
     // array = [];
     // sum = 30;
 
-    constructor(private customHttp: CustomHttp) {
-         for (let i = 0; i < this.items; ++i) {
-             this.userList.push(i);
-         }
-    }
+    constructor(private customHttp: CustomHttp) { }
 
     getUsers() {
 
         var that = this;
-        this.customHttp.get('/admin/user_list')
+        this.customHttp.post('/admin/user_list', this.shownUsers)
             .subscribe(response => {
                 that.setUserList(response.json());
             });
     }
 
     setUserList(response) {
-        this.userList = response;
+        this.userList.concat(response);
         console.log(this.userList);
     }
 
     onScrollDown () {
         console.log('scrolled down!!');
-
-        // add another 30 items
-        const start = this.sum;
-        this.sum += 20;
-        for (let i = start; i < this.sum; ++i) {
-            this.array.push(i);
-        }
-    }
-
-    onScrollUp () {
-        console.log('scrolled up!!');
-
-        // remove last 30 items
-        const start = this.sum;
-        this.sum += 20;
-        for (let i = start; i < this.sum; ++i) {
-            this.array.push(i);
-        }
+        this.shownUsers += 5;
+        this.getUsers();
     }
 
     ngOnInit () {
         this.getUsers();
+        //this.shownUsers = this.userList.slice(0, 5);
     }
 
 }
