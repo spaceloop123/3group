@@ -1,54 +1,55 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
-import {Http, Headers} from "@angular/http";
+import {InfiniteScroll} from 'angular2-infinite-scroll';
+import {CustomHttp} from '../../../common/services/CustomHttp';
 
 @Component({
     selector: 'show-users-component',
     templateUrl: 'app/admin/actions/show-users/show-users.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, InfiniteScroll],
+    providers: [CustomHttp]
 })
 
-export class ShowUsersComponent implements OnInit {
+export class ShowUsersComponent {
 
-    private member;
-    private newMemberUrl;
+    private userList: any;
+    // array = [];
+    // sum = 30;
 
-    constructor(private http:Http) {
-        this.member = {};
-        this.newMemberUrl = '';
+    constructor(private customHttp: CustomHttp) {
+        // for (let i = 0; i < this.sum; ++i) {
+        //     this.array.push(i);
+        // }
     }
 
-    ngOnInit():any {
-        this.member = {
-            role: 'guest',
-            firstName: '',
-            lastName: '',
-            email: ''
-        };
-        this.newMemberUrl = '/admin/new_';
+    getUsers() {
+
+        var that = this;
+        this.customHttp.get('/admin/user_list')
+            .subscribe(response => {
+                that.setUserList(response.json());
+            });
     }
 
-    //*** Add a member ***
-
-    changeMemberType() {
-        if (this.member.role === 'guest') {
-            this.member.role = 'teacher';
-        } else {
-            this.member.role = 'guest';
-        }
+    setUserList(response) {
+        this.userList = response;
+        console.log(this.userList);
     }
 
-    isMemberFieldsEmpty() {
-        return (this.member.email != '' && this.member.firstName != '' && this.member.lastName != '');
+    onScrollDown () {
+        console.log('scrolled!!');
+
+        // add another 20 items
+        // const start = this.sum;
+        // this.sum += 20;
+        // for (let i = start; i < this.sum; ++i) {
+        //     this.array.push(i);
+        // }
     }
 
-    addUser() {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        this.http
-            .post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), {headers: headers})
-            .toPromise()
-            .then(response => console.log(response.json()));
+    ngOnInit () {
+        this.getUsers();
     }
+
 }
