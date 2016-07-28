@@ -7,7 +7,7 @@ import {AdminComponent} from "./admin/admin.component";
 import {UserRoutes} from "./user/user.routes";
 import {ChartsComponent} from "./user/charts/charts.component";
 //import {HomepageRoutes} from "./homepage/homepage.routes";
-
+import {AdminRoutes} from "./admin/admin.routes";
 
 const routes:RouterConfig = [
     {
@@ -44,8 +44,10 @@ const routes:RouterConfig = [
         path: 'user/charts',
         component: ChartsComponent
     },
-    ...UserRoutes
 
+
+    ...UserRoutes,
+    ...AdminRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [

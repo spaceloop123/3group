@@ -62,10 +62,10 @@
                     <notifications-component></notifications-component>
                 </div>
 
-                <!--  For Zhenya -->
+                <!--   Zhenya -->
                 <div class="col s12">
-                    <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
-                       class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+                    <a class="waves-effect default btn" [routerLink]="['/assignTest']">Assign Test</a>
+
                 </div>
 
 
@@ -73,123 +73,6 @@
         </div>
 
 
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-
-
-            <div class="modal-content" style="max-height: 100%; overflow-y: hidden; height: 600px">
-                <div class="row">
-                    <div class="col m5">
-                        <h6 style="margin: 0">Select estimated date (from)</h6>
-                        <div id="datepicker1" class="datepicker" style="margin-top: 2.5%;">
-                            <input type="date" class="datepicker">
-                        </div>
-                    </div>
-                        <h6>Select estimated time (from)</h6>
-                        <div class="col m2">
-
-                            <select materialize="material_select" [materializeSelectOptions]="selectOptions"
-                                    style="height: 5px; width: 30%">
-                                <option value="" disabled selected style="line-height: 5px">00</option>
-                                <option value="1" style="line-height: 5px; padding:1px">01</option>
-                                <option value="2" style="line-height: 5px">02</option>
-                                <option value="3" style="line-height: 5px">03</option>
-                                <option value="4" style="line-height: 5px">04</option>
-                                <option value="5" style="line-height: 5px">05</option>
-                                <option value="6" style="line-height: 5px">06</option>
-                                <option value="7" style="line-height: 5px">07</option>
-                                <option value="8" style="line-height: 5px">08</option>
-                                <option value="9" style="line-height: 5px">09</option>
-                                <option value="10" style="line-height: 5px">10</option>
-                                <option value="11" style="line-height: 5px">11</option>
-                                <option value="12" style="line-height: 5px">12</option>
-                            </select>
-                        </div>
-
-                        <div class="col m2">
-                            <select materialize="material_select" [materializeSelectOptions]="selectOptions"
-                                    style="line-height: 5px; width: 30%">
-                                <option value="" disabled selected style="line-height: 5px">00</option>
-                                <option value="1">10</option>
-                                <option value="2">20</option>
-                                <option value="3">30</option>
-                                <option value="3">40</option>
-                                <option value="3">50</option>
-                                                            </select>
-                        </div>
-                        <div class="col m2">
-                            <select materialize="material_select" [materializeSelectOptions]="selectOptions"
-                                    style="width: 30%; height: 1rem">
-                                <option value="1" disabled selected
-                                        style="height: 1rem; line-height: 1rem; font-size:1rem">pm
-                                </option>
-                                <option value="2" style="height: 1rem; line-height: 1rem; font-size:1rem">am</option>
-                            </select>
-                        </div>
-                </div>
-
-
-                <div class="row" style="margin-top: 35%;">
-                    <div class="col m5">
-                        <h6 style="margin: 0">Select estimated date (to)</h6>
-                        <div id="datepicker2" class="datepicker" style="margin-top: 2.5%;">
-                            <input type="date" class="datepicker">
-                        </div>
-                    </div>
-
-                    <h6>Select estimated time (to)</h6>
-                    <div class="col m2">
-
-                        <select materialize="material_select" [materializeSelectOptions]="selectOptions"
-                                style="height: 5px; width: 30%">
-                            <option value="" disabled selected style="line-height: 5px">00</option>
-                            <option value="1" style="line-height: 5px; padding:1px">01</option>
-                            <option value="2" style="line-height: 5px">02</option>
-                            <option value="3" style="line-height: 5px">03</option>
-                            <option value="4" style="line-height: 5px">04</option>
-                            <option value="5" style="line-height: 5px">05</option>
-                            <option value="6" style="line-height: 5px">06</option>
-                            <option value="7" style="line-height: 5px">07</option>
-                            <option value="8" style="line-height: 5px">08</option>
-                            <option value="9" style="line-height: 5px">09</option>
-                            <option value="10" style="line-height: 5px">10</option>
-                            <option value="11" style="line-height: 5px">11</option>
-                            <option value="12" style="line-height: 5px">12</option>
-                        </select>
-                    </div>
-
-                    <div class="col m2">
-                        <select materialize="material_select" [materializeSelectOptions]="selectOptions"
-                                style="line-height: 5px; width: 30%">
-                            <option value="" disabled selected style="line-height: 5px">00</option>
-                            <option value="1">10</option>
-                            <option value="2">20</option>
-                            <option value="3">30</option>
-                            <option value="3">40</option>
-                            <option value="3">50</option>
-
-                        </select>
-                    </div>
-                    <div class="col m2">
-                        <select materialize="material_select" [materializeSelectOptions]="selectOptions"
-                                style="width: 30%; height: 1rem">
-                            <option value="1" disabled selected
-                                    style="height: 1rem; line-height: 1rem; font-size:1rem">pm
-                            </option>
-                            <option value="2" style="height: 1rem; line-height: 1rem; font-size:1rem">am</option>
-                        </select>
-                    </div>
-
-
-                </div>
-
-                <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-                </div>
-            </div>
-
-
-        </div>
     </div>
 </div>
 

@@ -1,0 +1,100 @@
+<div class="container">
+
+                <div class="row">
+                    <div class="col m5">
+                        <h6 style="margin: 0">Select estimated date (from)</h6>
+                        <div id="datepicker1" class="datepicker" style="margin-top: 2.5%;">
+                            <input type="date" class="datepicker">
+                        </div>
+                    </div>
+                        <h6>Select estimated time (from)</h6>
+                        <div class="col m2">
+
+                            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+                                <option value="" disabled selected>00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+
+                        <div class="col m2">
+                            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+                                <option value="" disabled selected style="line-height: 5px">00</option>
+                                <option value="1">10</option>
+                                <option value="2">20</option>
+                                <option value="3">30</option>
+                                <option value="3">40</option>
+                                <option value="3">50</option>
+                                                            </select>
+                        </div>
+                        <div class="col m2">
+                            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+                                <option value="1" disabled selected>pm</option>
+                                <option value="2">am</option>
+                            </select>
+                        </div>
+                </div>
+
+
+                <div class="row" style="margin-top: 40%;">
+                    <div class="col m5">
+                        <h6 style="margin: 0">Select estimated date (to)</h6>
+                        <div id="datepicker2" class="datepicker" style="margin-top: 2.5%;">
+                            <input type="date" class="datepicker">
+                        </div>
+                    </div>
+
+                    <h6>Select estimated time (to)</h6>
+                    <div class="col m2">
+
+                        <select materialize="material_select" [materializeSelectOptions]="selectOptions" style="width: 30%">
+                            <option value="" disabled selected>00</option>
+                            <option value="1">01</option>
+                            <option value="2">02</option>
+                            <option value="3">03</option>
+                            <option value="4">04</option>
+                            <option value="5">05</option>
+                            <option value="6">06</option>
+                            <option value="7">07</option>
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+
+                    <div class="col m2">
+                        <select materialize="material_select" [materializeSelectOptions]="selectOptions" style="width: 30%">
+                            <option value="" disabled selected style="line-height: 5px">00</option>
+                            <option value="1">10</option>
+                            <option value="2">20</option>
+                            <option value="3">30</option>
+                            <option value="3">40</option>
+                            <option value="3">50</option>
+
+                        </select>
+                    </div>
+                    <div class="col m2">
+                        <select materialize="material_select" [materializeSelectOptions]="selectOptions" style="width: 30%">
+                            <option value="1" disabled selected>pm</option>
+                            <option value="2">am</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+
+</div>
+

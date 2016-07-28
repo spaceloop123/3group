@@ -9,7 +9,7 @@ import {CustomHttp} from "../common/services/CustomHttp";
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.2.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent, AdminComponent],
     providers: [CustomHttp]
 })
 
@@ -18,6 +18,9 @@ import {CustomHttp} from "../common/services/CustomHttp";
 
 export class AdminComponent implements OnInit {
     constructor(private customHttp:CustomHttp) {
+
+    }
+    navigateB(){
 
     }
 
