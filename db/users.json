@@ -29,7 +29,7 @@
     "salt" : "0064d245017f3e57b9f571ec4aed8196", 
     "username" : "user", 
     "__v" : NumberInt(0), 
-    "level" : NumberInt(56), 
+    "level" : NumberInt(90), 
     "firstName" : "SA", 
     "lastName" : "A"
 }
@@ -181,15 +181,4 @@
     "username" : "Teacher15", 
     "role" : "teacher", 
     "__v" : NumberInt(0)
-}
-{ 
-    "_id" : ObjectId("578f9a936a9fc75c4368229f"), 
-    "hash" : "6fecacea01d3077ac5a03ffc5cd5622736d8c193f114ed6b98f959471ac8a105146f32fc252952649351d1e09206d215ff6ac0f70ba8af3618533cb38e357ef4", 
-    "salt" : "4dafda884deb97b8fe9e2a5ce862f20e", 
-    "username" : "zdfhglzhdfc", 
-    "email" : "lkzdgzhdfkgz", 
-    "role" : "teacher", 
-    "__v" : NumberInt(0), 
-    "firstName" : "Teacher", 
-    "lastName" : "Teacher"
 }

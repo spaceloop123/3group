@@ -14,8 +14,7 @@ TestQuestionsSchema.methods.getQuestion = function () {
         type: this.type,
         header: this.header,
         question: this.question,
-        answers: this.answers,
-        maxCost: this.maxCost
+        answers: this.answers
     };
 };
 

@@ -11,9 +11,16 @@ InsertOpenQuestionSchema.methods.getQuestion = function () {
         id: this.id,
         type: this.type,
         header: this.header,
-        questionParts: this.questionParts,
-        maxCost: this.maxCost
+        questionParts: this.questionParts
     };
+};
+
+InsertOpenQuestionSchema.methods.setQuestion = function (question) {
+    this.header = question._header;
+    this.difficulty = question._difficulty;
+    this.maxCost = question._maxCost;
+    this.autoCheck = false;
+    this.questionParts = question._questionParts;
 };
 
 mongoose.model('Question').discriminator('InsertOpenQuestion', InsertOpenQuestionSchema); 
