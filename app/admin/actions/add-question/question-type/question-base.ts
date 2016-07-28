@@ -1,7 +1,7 @@
 import {GUID} from "../../../../common/guid/GUID";
 
 export class QuestionBase {
-    private _id:string;
+    protected _id:string;
     protected _type:string;
     protected _state:string; //edit | done
 

@@ -13,12 +13,15 @@ import {OpenQuestion} from "./question-type/open/open-question.class";
 import {OpenQuestionComponent} from "./question-type/open/open-question.component";
 import {SpeechQuestion} from "./question-type/speech/speech-question.class";
 import {SpeechQuestionComponent} from "./question-type/speech/speech-question.component";
+import {ReadingQuestionComponent} from "./question-type/with-subquestions/reading/reading-question.component";
+import {ReadingQuestion} from "./question-type/with-subquestions/reading/reading-question.class";
 
 @Component({
     selector: 'add-question-component',
     templateUrl: 'app/admin/actions/add-question/add-question.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertOpenQuestionComponent,
-        InsertTestQuestionComponent, OpenQuestionComponent, SpeechQuestionComponent, NgSwitch, NgSwitchDefault]
+        InsertTestQuestionComponent, OpenQuestionComponent, SpeechQuestionComponent, ReadingQuestionComponent,
+        NgSwitch, NgSwitchDefault]
 })
 
 export class AddQuestionComponent implements OnInit {
@@ -32,7 +35,8 @@ export class AddQuestionComponent implements OnInit {
             {type: new InsertOpenQuestion().type, checked: false},
             {type: new InsertTestQuestion().type, checked: false},
             {type: new OpenQuestion().type, checked: false},
-            {type: new SpeechQuestion().type, checked: false}];
+            {type: new SpeechQuestion().type, checked: false},
+            {type: new ReadingQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -42,7 +46,8 @@ export class AddQuestionComponent implements OnInit {
             {type: new InsertOpenQuestion().type, checked: false},
             {type: new InsertTestQuestion().type, checked: false},
             {type: new OpenQuestion().type, checked: false},
-            {type: new SpeechQuestion().type, checked: false}];
+            {type: new SpeechQuestion().type, checked: false},
+            {type: new ReadingQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -79,6 +84,11 @@ export class AddQuestionComponent implements OnInit {
             case 'SpeechQuestion':
             {
                 this.questionsList.push(new SpeechQuestion());
+                break;
+            }
+            case 'ReadingQuestion':
+            {
+                this.questionsList.push(new ReadingQuestion());
                 break;
             }
             default:
@@ -135,6 +145,10 @@ export class AddQuestionComponent implements OnInit {
             this.questionsList[idx] = responce;
             this.questionsList[idx].state = 'done';
         }
+        else if (responce instanceof ReadingQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
         else {
             this.questionsList.splice(idx, 1);
         }
@@ -152,9 +166,9 @@ export class AddQuestionComponent implements OnInit {
     }
 
     /*onBtnClick() {
-        for (let i = 0; i < this.questionsList.length; ++i) {
-            console.log(this.questionsList[i].state)
-        }
+     for (let i = 0; i < this.questionsList.length; ++i) {
+     console.log(this.questionsList[i].state)
+     }
      console.log(this.isEditModeOn());
      }*/
 }

@@ -110,9 +110,6 @@ main {
     /*height: 100vh;*/
 /*}*/
 
-.collection {
-    margin: 0 0 0 0;
-}
 
 a .disabled {
     pointer-events: none;
@@ -125,13 +122,16 @@ a .disabled {
     -webkit-box-shadow: inset 0 0 10px #009688;
 }
 
-.questions-list > li {
+.questions-list > li,
+.sub-questions-list > li {
     -webkit-transition: 250ms linear 0s;
     -moz-transition: 250ms linear 0s;
     -o-transition: 250ms linear 0s;
     transition: 250ms linear 0s;
 }
 
-.modal-remove {
-    display: none;
+.edit .sub-question {
+    box-shadow: inset 0 0 5px #ffc107;
+    -moz-box-shadow: inset 0 0 5px #ffc107;
+    -webkit-box-shadow: inset 0 0 5px #ffc107;
 }
