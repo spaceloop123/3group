@@ -12,11 +12,14 @@
                             <div *ngSwitchCase="'TestQuestion'">
                                 <h6 class="flow-text">{{i + 1}}. Test Question</h6>
                                 <test-question-component [question]="item"
-                                                         (notify)="onQuestionCreate($event, i)"></test-question-component>
+                                                         (notify)="onQuestionCreate($event, i)">
+                                </test-question-component>
                             </div>
-                            <div *ngSwitchCase="'open-insert'">
+                            <div *ngSwitchCase="'InsertOpenQuestion'">
                                 <h6 class="flow-text">{{i + 1}}. Open-Insert Question</h6>
-                                <open-insert-question-component></open-insert-question-component>
+                                <insert-open-question-component [question]="item"
+                                                                (notify)="onQuestionCreate($event, i)">
+                                </insert-open-question-component>
                             </div>
                             <template ngSwitchDefault></template>
                         </div>

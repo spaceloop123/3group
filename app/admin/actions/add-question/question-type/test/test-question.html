@@ -12,7 +12,6 @@
             </div>
 
             <!-- difficulty -->
-
             <div class="input-field col s12 m6 l6">
                 <input id="test-question-difficulty-{{question.id}}"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
@@ -85,6 +84,7 @@
 
         </div>
     </form>
+
     <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
         <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="test-question-finish-btn-{{question.id}}"
            (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>

@@ -2,16 +2,16 @@ import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective, toast} from "angular2-materialize";
 import {NgSwitchDefault, NgSwitch} from "@angular/common";
-import {TestQuestionComponent} from "./question-type/test/test-question.component";
-import {OpenInsertQuestionComponent} from "./question-type/open-insert/open-insert-question.component";
-import {TestQuestion} from "./question-type/test/test-question.class";
-import {OpenInsertQuestion} from "./question-type/open-insert/open-insert-question.class";
 import {CustomHttp} from "../../../common/services/CustomHttp";
+import {TestQuestionComponent} from "./question-type/test/test-question.component";
+import {TestQuestion} from "./question-type/test/test-question.class";
+import {InsertOpenQuestion} from "./question-type/insert-open/insert-open-question.class";
+import {InsertOpenQuestionComponent} from "./question-type/insert-open/insert-open-question.component";
 
 @Component({
     selector: 'add-question-component',
     templateUrl: 'app/admin/actions/add-question/add-question.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, OpenInsertQuestionComponent,
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertOpenQuestionComponent,
         NgSwitch, NgSwitchDefault]
 })
 
@@ -23,14 +23,14 @@ export class AddQuestionComponent implements OnInit {
     ngOnInit():any {
         this.questionsList = [];
         this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
-            {type: new OpenInsertQuestion().type, checked: false}];
+            {type: new InsertOpenQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
     constructor(private customHttp:CustomHttp) {
         this.questionsList = [];
         this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
-            {type: new OpenInsertQuestion().type, checked: false}];
+            {type: new InsertOpenQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -49,9 +49,9 @@ export class AddQuestionComponent implements OnInit {
                 this.questionsList.push(new TestQuestion());
                 break;
             }
-            case 'open-insert':
+            case 'InsertOpenQuestion':
             {
-                this.questionsList.push(new OpenInsertQuestion());
+                this.questionsList.push(new InsertOpenQuestion());
                 break;
             }
             default:
@@ -67,8 +67,10 @@ export class AddQuestionComponent implements OnInit {
             return toast('Nothing to add', 3000, 'yellow darken-2');
         }
         if (this.isEditModeOn()) {
-            return toast('First, complete to edit some questions', 3000, 'amber darken-1');
+            return toast('First, complete editing questions', 3000, 'amber darken-1');
         }
+
+        console.log(JSON.stringify(this.questionsList));
 
         this.customHttp
             .post("/admin/add_questions", this.questionsList)
@@ -89,7 +91,12 @@ export class AddQuestionComponent implements OnInit {
         if (responce instanceof TestQuestion) {
             this.questionsList[idx] = responce;
             this.questionsList[idx].state = 'done';
-        } else {
+        }
+        else if (responce instanceof InsertOpenQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
+        else {
             this.questionsList.splice(idx, 1);
         }
     }
