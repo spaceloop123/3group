@@ -64,7 +64,7 @@ router.post('/add_questions', function (req, res, next) {
 
 router.post('/user_list', function (req, res, next) {
    User.find({}, function (err, users) {
-     res.json(users.slice(req.body.n, req.body.n + 5).map(function (item) {
+     res.json(users.slice(req.body.n, (req.body.n + 10 > users.length ? users.length - 1 : req.body.n + 10)).map(function (item) {
          return item.getInfo();
      }));
    });
