@@ -24,7 +24,7 @@ export class ShowUsersComponent {
     getUsers() {
 
         var that = this;
-        this.customHttp.post('/admin/user_list', this.shownUsers)
+        this.customHttp.post('/admin/user_list', {n: this.shownUsers})
             .subscribe(response => {
                 that.setUserList(response.json());
             });
