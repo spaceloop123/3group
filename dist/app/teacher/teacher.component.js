@@ -67,9 +67,9 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                     //this happens when teacher clicks CHECK button
                     this.router.navigate(['/teacher/check_test', test.id]);
                 };
-                TeacherComponent.prototype.handleError = function (error) {
-                    return Promise.reject(error.message || error);
-                };
+                // handleError(error:any) {
+                //     return Promise.reject(error.message || error);
+                // }
                 TeacherComponent.prototype.ngOnInit = function () {
                     this.customHttp.checkRole();
                     this.getTests();

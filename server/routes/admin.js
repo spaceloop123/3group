@@ -7,7 +7,7 @@ var generatePassword = require('password-generator');
 var mailer = require('../libs/mailer');
 var mdlwares = require('../libs/mdlwares');
 var questionMap = require('../libs/questionMap');
-var questionService = require('../services/questionService')
+var questionService = require('../services/questionService');
 
 router.use(mdlwares.isAdmin);
 
@@ -62,9 +62,9 @@ router.post('/add_questions', function (req, res, next) {
     res.status(200).end();
 });
 
-router.get('/user_list', function (req, res, next) {
+router.post('/user_list', function (req, res, next) {
    User.find({}, function (err, users) {
-     res.json(users.map(function (item) {
+     res.json(users.slice(req.body.n, req.body.n + 5).map(function (item) {
          return item.getInfo();
      }));
    });

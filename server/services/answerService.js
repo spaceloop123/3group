@@ -90,16 +90,23 @@ module.exports.getAnswerById = function (answerId, done) {
         }, done, done);
 };
 
-module.exports.setMark = function (answerId, mark, done) {
-    var validator = new Validator();
-
-    validator.checkItem('answer', function (callback) {
-        Answer.findOne({_id: answerId}).populate('question').exec(callback);
-    });
-
-    validator.exec(function (res) {
-        res.answer.mark = Math.floor(res.answer.question.maxCost * mark / 100);
-        res.answer.save();
-        done();
-    }, done, done);
+module.exports.setMark = function (answerId, testId, proportion, done) {
+    new Validator()
+        .checkItems({
+            answer: function (callback, prev) {
+                Answer.findOne({_id: answerId}).populate('question').exec(callback);
+            },
+            test: function (callback, prev) {
+                Test.findOne({_id: testId}).exec(callback);
+            }
+        })
+        .exec(function (res) {
+            var mark = Math.floor(res.answer.question.maxCost * proportion / 100);
+            res.answer.mark = mark;
+            res.test.result += mark;
+            res.test.maxResult += res.answer.question.maxCost;
+            res.answer.save();
+            res.test.save();
+            done();
+        }, done, done);
 };

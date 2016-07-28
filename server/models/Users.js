@@ -26,6 +26,7 @@ UserSchema.methods.validPassword = function(password) {
 
 UserSchema.methods.getInfo = function () {
   return {
+      id: this.id,
       firstName: this.firstName,
       lastName: this.lastName,
       username: this.username,

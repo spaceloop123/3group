@@ -23,7 +23,7 @@ router.post('/check_answer', function (req, res, next) {
 });
 
 router.post('/send_mark', function (req, res, next) {
-    answerService.setMark(req.body.answerId, req.body.mark, response.emptyResponse(res));
+    answerService.setMark(req.body.answerId, req.body.testId, req.body.mark, response.emptyResponse(res));
 });
 
 module.exports = router;
