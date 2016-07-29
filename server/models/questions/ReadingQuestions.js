@@ -17,4 +17,11 @@ ReadingQuestionsSchema.methods.getQuestion = function () {
     }
 };
 
+ReadingQuestionsSchema.methods.setQuestion = function (question) {
+    this.header = question._header;
+    this.difficulty = question._difficulty;
+    this.autoCheck = false;
+    this.text = question._text;
+};
+
 mongoose.model('Question').discriminator('ReadingQuestion', ReadingQuestionsSchema);
