@@ -1,7 +1,6 @@
 export class NavigationItem{
     constructor(public questionIndex: number,
-                public subQuestionIndex: number,
-                public index: number){
+                public subQuestionIndex: number){
         
     }
     

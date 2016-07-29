@@ -17,7 +17,7 @@ export class TestComponent implements OnChanges {
 
     @Input() testInfo:TestInfo;
     @Input() answersId:any;
-    @Input('mode') mode: string;
+    @Input() mode: string;
     @Output() progress = new EventEmitter<number>();
     question:any;
     top:any;
@@ -27,6 +27,8 @@ export class TestComponent implements OnChanges {
     myAudio:any;
     isPlayed:boolean;
     playCount:number;
+    currentItem: NavigationItem;
+    currentId: any;
 
 
 
@@ -41,19 +43,15 @@ export class TestComponent implements OnChanges {
         this.answer = '';
 
     }
-
     ngOnChanges(changes:SimpleChanges):any {
         if(changes['testInfo'].currentValue) {
             this.testInfo = changes['testInfo'].currentValue;
-            console.log('this.testInfo ' + this.testInfo);
         }
         if(changes['answersId']) {
             this.answersId = changes['answersId'].currentValue;
-            console.log('this.answersId ' + this.answersId);
         }
         if(changes['mode']) {
             this.mode = changes['mode'].currentValue;
-            console.log('this.mode ' + this.mode);
         }
 
         if(this.mode === 'user') {
@@ -73,9 +71,26 @@ export class TestComponent implements OnChanges {
             }
         }else if(this.mode === 'teacher'){
             if (this.testInfo !== undefined && this.answersId !== undefined){
-                let item = new NavigationItem(1, -1, 0);
-                this.questionInfo = new QuestionInfo('', null, null, this.answersId);
-                this.subQuestionInfo = new SubQuestionsInfo(null, null, null);
+                let item = new NavigationItem(1, -1);
+                this.questionInfo = this.restoreQuestionInfo();
+                this.subQuestionInfo = this.restoreSubQuestionInfo();
+                
+                if (this.questionInfo === null) {
+                    this.questionInfo = new QuestionInfo('', null, null, this.answersId);
+                    item = new NavigationItem(1, -1);
+                }else{
+                    item.questionIndex =  this.questionInfo.questionIndex;
+                }
+                if (this.subQuestionInfo === null) {
+                    this.subQuestionInfo = new SubQuestionsInfo(null, null, null);
+                    
+                }else{
+                    if(this.subQuestionInfo.subQuestionIndex != null)
+                    item.subQuestionIndex = this.subQuestionInfo.subQuestionIndex;
+                }
+                
+                
+                
                 this.goByItem(item);
             }
         }
@@ -115,20 +130,16 @@ export class TestComponent implements OnChanges {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        let id;
+        this.currentId;
         if(this.subQuestionInfo.subQuestionIndex === (-1) ){
-            console.log(this.questionInfo.questionIndex - 1);
-            console.log(this.questionInfo.answersId);
-            console.log('bla');
-            id = this.questionInfo.answersId[this.questionInfo.questionIndex - 1].id ;
+            this.currentId = this.questionInfo.answersId[this.questionInfo.questionIndex - 1].id ;
         }else{
-            id =
+            this.currentId =
                 this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswerId[this.subQuestionInfo.subQuestionIndex].id;
         }
-        console.log('that.testInfo.id ' + that.testInfo.id);
         this.http
             .post('/teacher/check_answer',
-                JSON.stringify({answerId: id, testId: that.testInfo.id}), {headers: header})
+                JSON.stringify({answerId: this.currentId, testId: that.testInfo.id}), {headers: header})
             .toPromise()
             .then(response => that.saveQuestionFromResponse(response.json()))
             .catch(that.handleError);
@@ -139,8 +150,6 @@ export class TestComponent implements OnChanges {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        console.log('qInfo.questionIndex ' + qInfo.questionIndex);
-        console.log('qInfo.testId ' + qInfo.testId);
         this.http
             .post('/user/next_question',
                 JSON.stringify({n: qInfo.questionIndex, testId: qInfo.testId}), {headers: header})
@@ -180,7 +189,6 @@ export class TestComponent implements OnChanges {
     
 
     saveQuestionFromResponse(response) {
-        console.log('saveQuestionFromResponse');
         this.question = response.question;
         if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
@@ -217,10 +225,9 @@ export class TestComponent implements OnChanges {
     }
 
     changeCheckState(idx) {
-        console.log(idx);
-        console.log(this.options[idx].checked);
+
         this.answer = this.options[idx].name;
-        console.log(this.answer);
+
         for (let i = 0; i < this.options.length; ++i) {
             this.options[i].checked = false;
         }
@@ -230,7 +237,6 @@ export class TestComponent implements OnChanges {
     makeOptions() {
         this.options = [];
         for (let index = 0; index < this.top.answers.length; ++index) {
-            console.log('answer' + this.top.answers[index]);
             this.options.push({name: this.top.answers[index], checked: false});
         }
 
@@ -263,7 +269,9 @@ export class TestComponent implements OnChanges {
     }
 
     public  sendAnswer(callBack) {
-        this.sendAnswerToServer(this.answer, callBack);
+        if(!(this.question.type === 'ReadingQuestion' || this.question.type === "AudioQuestion")) {
+            this.sendAnswerToServer(this.answer, callBack);
+        }
     }
 
     sendAnswerToServer(answer:string, callBack) {
@@ -282,7 +290,6 @@ export class TestComponent implements OnChanges {
             .toPromise()
             .then(response => {
                 that.answer = '';
-                console.log(response);
                 callBack();
 
             })
@@ -290,6 +297,21 @@ export class TestComponent implements OnChanges {
 
 
     }
+
+    sendMarkToServer(mark:any, callBack) {
+        var that = this;
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        this.http
+            .post('/teacher/send_mark',
+                JSON.stringify({testId: that.testInfo.id, answerId: that.currentId, mark: mark}), {headers: header})
+            .toPromise()
+            .then(response => {
+
+            })
+            .catch(that.handleError);
+    }
+
 
     goToNextQuestion():boolean {
         this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
@@ -319,18 +341,20 @@ export class TestComponent implements OnChanges {
     
     
     public goByItem(item: NavigationItem){
-        console.log('goByItem ' + item.questionIndex + ' ' + item.subQuestionIndex);
-        console.log('questionInfo ' + this.questionInfo);
-        console.log('cha-cha-cha');
+        this.currentItem = item;
         this.questionInfo.questionIndex = item.questionIndex;
-        console.log(this.questionInfo.questionIndex);
         this.subQuestionInfo.subQuestionIndex =
             item.subQuestionIndex === null ? -1 : item.subQuestionIndex;
+        this.mode = 'teacher';
         this.requestCurrentQuestion();
     }
 
+    getCurrentItem(){
+        return this.currentItem;
+    }
+
     goToNextItem(item: NavigationItem){
-        console.log('goToNextItem');
+       
         if(this.subQuestionInfo.subQuestionIndex === -1){
             ++this.questionInfo.questionIndex;
         } else if(this.subQuestionInfo.subQuestionIndex === this.questionInfo.answersId.length - 1){
@@ -339,9 +363,7 @@ export class TestComponent implements OnChanges {
             //???
         }
         this.requestCurrentQuestion();
-
-    }   
-    
+    }       
 
     goForward():boolean {
         let canGo = true;
@@ -363,7 +385,7 @@ export class TestComponent implements OnChanges {
     }
 
     reportProgress() {
-        console.log("Progress report");
+     
         this.progress.emit((this.questionInfo.questionIndex - 1) * 100 / this.testInfo.numQuestions);
     }
 

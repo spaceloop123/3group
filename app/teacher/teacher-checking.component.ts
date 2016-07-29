@@ -3,14 +3,15 @@ import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {Http, Headers} from "@angular/http";
 import {NavigationItem} from "./navigation.item";
 import {TestComponent} from "../test/test.component";
-import {TestInfo} from "../test/test.info"
+import {TestInfo} from "../test/test.info";
+import {MaterializeDirective} from "angular2-materialize";
 
 
 
 
 @Component({
     templateUrl: 'app/teacher/teacher-checking.html',
-    directives: [ROUTER_DIRECTIVES, TestComponent],
+    directives: [ROUTER_DIRECTIVES, TestComponent, MaterializeDirective],
     providers: [TestComponent]
 })
 export class TeacherCheckingComponent implements OnInit, OnDestroy {
@@ -22,36 +23,64 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     testInfo: TestInfo;
     opMode: string;
     rangeValue: number;
-    currentItem: NavigationItem;
+    currentIndex: number;
+    leftIconStatus: string = '';
+    rightIconStatus: string = '';
 
-    goByItem(item: NavigationItem){
-        this.currentItem = item;
-        this.test.goByItem(item);
+    saveCurrentIndex() {
+        localStorage.setItem('currentIndex', JSON.stringify(this.currentIndex));
     }
 
-    goToPreviousItem(): boolean{
-        console.log('goToPreviousItem' + this.currentItem.index);
-        if(this.currentItem.index <= 0){
+    restoreCurrentIndex() {
+        return JSON.parse(localStorage.getItem('currentIndex'));
+    }
+
+    goToPreviousItem(tc: TestComponent): boolean{
+        // this.currentIndex = this.restoreCurrentIndex();
+        if(this.currentIndex <= 0){
             return false;
+        } else {
+            this.currentIndex = this.currentIndex - 1;
+            this.saveCurrentIndex();
+            tc.goByItem(this.navigationItems[this.currentIndex ]);
+            return true;
         }
-        //this.test.goByItem(this.navigationItems[item.index - 1]);
-        return true;
+    }
+
+    
+
+    getRightIconState(){
+
+    }
+
+    goByItem(item: NavigationItem, index: number, tc: TestComponent){
+        this.currentIndex = index;
+        this.saveCurrentIndex();
+        //console.log('index ' + index);
+        tc.goByItem(item);
     }
     
-    goToNextItem(): boolean{
-        console.log('goToNextItem');
-        if(this.currentItem.index >= this.navigationItems.length - 1){
-            return false;
-        }
-        //this.test.goByItem(this.navigationItems[item.index + 1]);
-        return true;
+    goToNextItem(tc: TestComponent): boolean{
+       // this.currentIndex = this.restoreCurrentIndex();
+        if(!this.navigationItems){
+        return false;
+    } else if(this.currentIndex >= this.navigationItems.length - 1) {
+        return false;
+    }else{
+            this.currentIndex  = this.currentIndex + 1;
+            this.saveCurrentIndex();
+        tc.goByItem(this.navigationItems[this.currentIndex]);
+            return true;
     }
+
+}
     constructor(private route:ActivatedRoute,
                 private http:Http,
                 private test: TestComponent) {
         this.navigationItems = new Array();
         this.answersId = [];
         this.opMode = "teacher";
+
     }
 
     ngOnInit() {
@@ -60,6 +89,10 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             that.currentTest = params['id'];
             console.log('that.currentTest ' + that.currentTest);
         });
+        this.currentIndex = this.restoreCurrentIndex();
+        if(this.currentIndex === null){
+            this.currentIndex = 0;
+        }
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http.post('/teacher/check_test',
@@ -75,18 +108,31 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         console.log(this.answersId);
         this.testInfo = new TestInfo(0, this.answersId.length, this.currentTest);
     }
+    
+    getState(index: number):any{
+        return {
+            active: index === this.currentIndex,
+            'waves-effect': index !== this.currentIndex
+        };
+        //if(index === this.currentIndex){
+        //    return 'active';
+        //} else {
+        //    return "waves-effect";
+        //}
+        
+    }
 
     makeNavigation(answersId: any[]){
         let counter = 1;
         let result = [];
         let index = 0;
         for(let item of answersId){
-            result.push(new NavigationItem(counter, null, index));
+            result.push(new NavigationItem(counter, null));
             ++index;
-            let subCounter = 0; // ASCII code of 'a' letter
+            let subCounter = 0;
             if(item.subIds){
                 for(let index of item.subIds){
-                    result.push(new NavigationItem(counter, subCounter, index));
+                    result.push(new NavigationItem(counter, subCounter));
                     subCounter += 1;
                     ++index;
                 }
@@ -95,10 +141,6 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         }
         console.log(this.navigationItems);
         this.navigationItems = result;
-    }
-
-    goTo(item: NavigationItem){
-        
     }
     
     ngOnDestroy():any {
