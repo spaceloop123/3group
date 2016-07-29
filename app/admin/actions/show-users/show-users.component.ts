@@ -56,7 +56,7 @@ export class ShowUsersComponent implements OnChanges, OnInit{
     applySearch () {
         var that = this;
         console.log(this.searchFilter);
-        this.customHttp.post('/admin/user_list/' + this.searchFilter, {n: this.shownUsers, searchFilter: this.searchFilter})
+        this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('search posted');
                 that.shownUsers = 0;
