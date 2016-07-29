@@ -24,7 +24,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
-        this.timerSec = 605;
+        this.timerSec = 456;
         this.progress = 80;
         this.opMode = 'user';
         this.answersId = {};
@@ -93,9 +93,8 @@ export class RunTestComponent implements OnInit, OnDestroy {
             .post('/user/end_test',
                 JSON.stringify({testId: that.testInfo.id}), {headers: header})
             .toPromise()
-            .then(response => that.router.navigate(['/user/finishPage', that.role]))
+            .then(response => that.router.navigate(['/finishPage', that.role]))
             .catch();
-        //that.router.navigate(['/finishTest', that.role]);
 
     }
 
