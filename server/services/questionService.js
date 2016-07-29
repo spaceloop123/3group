@@ -44,9 +44,16 @@ function validateQuestionRequest(testOptions, n) {
 }
 
 module.exports.getSubquestion = function (userId, testId, questionId, done) {
-    testService.getTestValidator({_id: testId, user: userId, status: 'run'})
+    new Validator()
         .checkItems({
+            test: function (callback) {
+                Test.findOne({_id: testId, user: userId, status: 'run'}).populate('answers').exec(callback);
+            },
+            template: function (callback) {
+                TestTemplate.findOne(callback);
+            },
             question: function (callback, prev) {
+                console.log('!');
                 var answers = prev.test.answers;
                 Question.findOne({_id: answers[answers.length - 1].question}, callback);
             },

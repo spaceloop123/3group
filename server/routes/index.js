@@ -18,6 +18,10 @@ router.get('/', function (req, res) {
     res.render('index');
 });
 
+router.get('/test', function (req, res) {
+    res.end();
+});
+
 router.get('/is_authenticated', function (req, res) {
     res.json(req.isAuthenticated());
 });
