@@ -1,7 +1,8 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {InfiniteScroll} from 'angular2-infinite-scroll';
+import {AdminComponent} from '../../admin.component';
 import {CustomHttp} from '../../../common/services/CustomHttp';
 
 @Component({
@@ -16,6 +17,9 @@ export class ShowUsersComponent {
     private scrollCount;
     userList = [];
     shownUsers = 0;
+    private scrollConfig;
+
+    @Input tab: number;
 
     // array = [];
     // sum = 30;
@@ -27,6 +31,7 @@ export class ShowUsersComponent {
         var that = this;
         this.customHttp.post('/admin/user_list', {n: this.shownUsers})
             .subscribe(response => {
+                console.log('posted');
                 that.setUserList(response.json());
             });
     }
@@ -43,7 +48,8 @@ export class ShowUsersComponent {
     }
 
     scrollOrNot() {
-        if(this.scrollCount <= 4) {
+        console.log(this.tab);
+        if(this.scrollCount <= 10) {
             console.log(this.scrollCount);
             this.scrollCount++;
         } else {
@@ -53,8 +59,7 @@ export class ShowUsersComponent {
     }
 
     ngOnInit () {
+        console.log('initialized');
         this.getUsers();
-        //this.shownUsers = this.userList.slice(0, 5);
     }
-
 }
