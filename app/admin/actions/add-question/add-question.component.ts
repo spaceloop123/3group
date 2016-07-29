@@ -109,7 +109,7 @@ export class AddQuestionComponent implements OnInit {
         let readingQuestionState = this.isEmptyReadingQuestionExists();
         if (readingQuestionState !== 'none') {
             if (readingQuestionState === 'empty') {
-                return toast('Reading Question cannot be empty', 3000, 'amber darken-1');
+                return toast('Reading Question cannot be without sub-questions', 3000, 'amber darken-1');
             } else if (readingQuestionState === 'sub') {
                 return toast('Complete editing sub-question(s)', 3000, 'amber darken-1');
             }
