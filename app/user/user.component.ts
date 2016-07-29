@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http} from "@angular/http";
+import {CustomHttp} from "../common/services/CustomHttp";
 
 @Component({
     selector: 'user-component',
