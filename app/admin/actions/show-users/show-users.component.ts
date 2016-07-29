@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit, OnChanges} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {InfiniteScroll} from 'angular2-infinite-scroll';
@@ -11,8 +11,9 @@ import {CustomHttp} from '../../../common/services/CustomHttp';
     providers: [CustomHttp]
 })
 
-export class ShowUsersComponent {
+export class ShowUsersComponent implements OnChanges, OnInit{
 
+    private searchFilter: string;
     private scrollCount;
     userList = [];
     shownUsers = 0;
@@ -23,10 +24,10 @@ export class ShowUsersComponent {
     constructor(private customHttp: CustomHttp) { }
 
     getUsers() {
-
         var that = this;
         this.customHttp.post('/admin/user_list', {n: this.shownUsers})
             .subscribe(response => {
+                console.log('posted');
                 that.setUserList(response.json());
             });
     }
@@ -43,7 +44,7 @@ export class ShowUsersComponent {
     }
 
     scrollOrNot() {
-        if(this.scrollCount <= 4) {
+        if(this.scrollCount <= 10) {
             console.log(this.scrollCount);
             this.scrollCount++;
         } else {
@@ -52,9 +53,31 @@ export class ShowUsersComponent {
         }
     }
 
-    ngOnInit () {
-        this.getUsers();
-        //this.shownUsers = this.userList.slice(0, 5);
+    applySearch () {
+        var that = this;
+        console.log(this.searchFilter);
+        this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
+            .subscribe(response => {
+                console.log('search posted');
+                that.shownUsers = 0;
+            });
     }
 
+    ngOnInit () {
+        console.log('initialized');
+        this.getUsers();
+    }
+
+    ngOnChanges () {
+
+    }
 }
+
+// $scope.search = {};
+// $scope.userInput = {};
+//
+// $scope.applySearch = function() {
+//     for(name in $scope.userInput) {
+//         $scope.search[name] = $scope.userInput[name];
+//     }
+// };

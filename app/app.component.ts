@@ -12,13 +12,14 @@ import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {Constants} from "./common/constants/constants.data";
+import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
 
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent],
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,ChartsComponent, ShowTestsComponent],
     providers: [LoginService, Location]
 })
 

@@ -104,10 +104,21 @@ export class AddQuestionComponent implements OnInit {
             return toast('Nothing to add', 3000, 'yellow darken-2');
         }
         if (this.isEditModeOn()) {
-            return toast('First, complete editing questions', 3000, 'amber darken-1');
+            return toast('Complete editing questions', 3000, 'amber darken-1');
+        }
+        let readingQuestionState = this.isEmptyReadingQuestionExists();
+        if (readingQuestionState !== 'none') {
+            if (readingQuestionState === 'empty') {
+                return toast('Reading Question cannot be without sub-questions', 3000, 'amber darken-1');
+            } else if (readingQuestionState === 'sub') {
+                return toast('Complete editing sub-question(s)', 3000, 'amber darken-1');
+            }
         }
 
+        console.log('-------------');
+        console.log('Try to send Questions List = ');
         console.log(JSON.stringify(this.questionsList));
+        console.log('-------------');
 
         this.customHttp
             .post("/admin/add_questions", this.questionsList)
@@ -165,10 +176,19 @@ export class AddQuestionComponent implements OnInit {
         return f;
     }
 
-    /*onBtnClick() {
-     for (let i = 0; i < this.questionsList.length; ++i) {
-     console.log(this.questionsList[i].state)
-     }
-     console.log(this.isEditModeOn());
-     }*/
+    isEmptyReadingQuestionExists():string {
+        for (let i = 0; i < this.questionsList.length; ++i) {
+            if ((this.questionsList[i].type === 'ReadingQuestion')
+                && (this.questionsList[i].subQuestions.length === 0)) {
+                return 'empty';
+            } else {
+                for (let j = 0; j < this.questionsList[i].subQuestions.length; ++j) {
+                    if (this.questionsList[i].subQuestions[j].state === 'edit') {
+                        return 'sub';
+                    }
+                }
+            }
+        }
+        return 'none';
+    }
 }

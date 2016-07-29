@@ -29,7 +29,6 @@ UserSchema.methods.getInfo = function () {
       id: this.id,
       firstName: this.firstName,
       lastName: this.lastName,
-      username: this.username,
       role: this.role
   }  
 };

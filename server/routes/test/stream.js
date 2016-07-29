@@ -8,6 +8,6 @@ var fs = require('fs');
 io.of('/a').on('connection', function (socket) {
     ss(socket).on('audio', function (stream, data) {
         var filename = path.basename(data.name);
-        stream.pipe(fs.createWriteStream(filename));
+        stream.pipe(fs.createReadStream(filename));
     });
 });

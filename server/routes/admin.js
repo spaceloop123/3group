@@ -8,6 +8,8 @@ var mailer = require('../libs/mailer');
 var mdlwares = require('../libs/mdlwares');
 var questionMap = require('../libs/questionMap');
 var questionService = require('../services/questionService');
+var userService = require('../services/userService');
+var response = require('../libs/responseHelper');
 
 router.use(mdlwares.isAdmin);
 
@@ -64,11 +66,7 @@ router.post('/add_questions', function (req, res, next) {
 });
 
 router.post('/user_list', function (req, res, next) {
-   User.find({}, function (err, users) {
-     res.json(users.slice(req.body.n, (req.body.n + 10 >= users.length ? users.length - 1 : req.body.n + 10)).map(function (item) {
-         return item.getInfo();
-     }));
-   });
+   userService.getUserList(req.body.n, req.body.searchFilter, response.dataResponse(res));
 });
 
 function addUser(username, password, role, req) {
