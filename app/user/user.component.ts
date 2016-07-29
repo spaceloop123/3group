@@ -11,24 +11,24 @@ import {CustomHttp} from "../common/services/CustomHttp";
 })
 
 export class UserComponent implements OnInit {
-    testInfo;
+    status:string;
+    time:string;
+    numQuestions:string;
 
-    constructor(
-                private router:Router,
+    constructor(private router:Router,
                 private http:Http,
                 private customHttp: CustomHttp) {
-        this.testInfo = {
-            status: '',
-            time: '500 min',
-            numQuestions: '50'
-        };
+        this.status = '';
+        this.time = '';
+        this.numQuestions = '';
+
 
     }
 
     ngOnInit() {
         this.customHttp.checkRole();
         this.getTestInfo();
-        if (this.testInfo.status === 'requested') {
+        if (this.status === 'requested') {
             this.testWaiter();
         }
     }
@@ -37,12 +37,21 @@ export class UserComponent implements OnInit {
         var that = this;
         this.http.get('/user/test_info')
             .toPromise()
-            .then(response => that.testInfo.status = response.json().status)
+            .then(response => that.parseTestInfo(response.json()))
             .catch(that.handleError);
     }
-    
+
+    parseTestInfo(response) {
+        this.status = response.status
+        if (this.status === 'available') {
+            this.time = response.time;
+            this.numQuestions = response.count;
+        }
+
+    }
+
     testWaiter() {
-        while (this.testInfo.status !== 'availtest') {
+        while (this.status !== 'available') {
             setTimeout(function () {
                 this.getTestInfo();
             }, 3000);
@@ -54,11 +63,11 @@ export class UserComponent implements OnInit {
         var that = this;
         this.http.get('/user/ask_test')
             .toPromise()
-            .then(response => that.testInfo.status = 'requestedTest')
+            .then(response => that.status = 'requestedTest')
             .catch(this.handleError);
     }
 
-    runTest(){
+    runTest() {
         console.log('runtest');
         this.router.navigate(['/runTest', 'user']);
 

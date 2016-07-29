@@ -1,4 +1,4 @@
-<div class='right-align instraction-madal'>
+<div class='right-align instraction-modal'>
     <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
        class="waves-effect waves-light btn modal-trigger" href="#instruction"><i
             class="material-icons">call_received</i></a>
@@ -35,9 +35,9 @@
             <div class="card-action center">
                 <div align='center'>
                     <div style='width: 100px'>
-                        <label [attr.for]="mark" class="active" data-error="wrong"></label>
+                        <label [attr.for]="mark" class="active focus" data-error="wrong"></label>
                         <input id="mark"
-                               placeholder="mark"
+                               placeholder="Mark"
                                type="number" min="0" max="100" class="validate center"
                                name="mark" [(ngModel)]="rangeValue"/>
                     </div>
@@ -46,8 +46,6 @@
                 <p class="range-field active">
                     <input type="range" name="blabla" id="test5" min="0" max="100" autofocus [(ngModel)]="rangeValue"/>
                 </p>
-
-
                 <div align='center'>
                     <button class="btn waves-effect waves-light center" type="submit" name="action"
                             (click)='test.sendMarkToServer(rangeValue, goToNextItem(test))'>Next

@@ -55,7 +55,7 @@ module.exports.getSubquestion = function (userId, testId, questionId, done) {
             question: function (callback, prev) {
                 console.log('!');
                 var answers = prev.test.answers;
-                Question.findOne({_id: answers[answers.length - 1].question}, callback);
+                Question.findOne({_id: answers[answers.length - 1].question.toString()}, callback);
             },
             subquestions: function (callback, prev) {
                 prev.question.subQuestions ? callback(null, prev.question.subQuestions) : callback();

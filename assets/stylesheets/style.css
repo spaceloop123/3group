@@ -72,7 +72,11 @@ main {
 }
 
 .timer-style {
-    width: 160px;
+    width: 180px;
+    box-shadow: 7px 7px 5px rgba(45, 43, 184, 0.6);
+    padding: 8px;
+    border-radius: 10px;
+    font-size: xx-large;
 }
 
 .logo {
@@ -146,4 +150,8 @@ a .disabled {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+.instraction-modal {
+    padding-right: 7%;
 }

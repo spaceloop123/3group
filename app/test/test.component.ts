@@ -134,12 +134,16 @@ export class TestComponent implements OnChanges {
         if(this.subQuestionInfo.subQuestionIndex === (-1) ){
             this.currentId = this.questionInfo.answersId[this.questionInfo.questionIndex - 1].id ;
         }else{
+            console.log('this.questionInfo.questionIndex - 1 ' + (this.questionInfo.questionIndex - 1).toString());
+            console.log('aaa ' + this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswersId);
             this.currentId =
-                this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswerId[this.subQuestionInfo.subQuestionIndex].id;
+                this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswersId[this.subQuestionInfo.subQuestionIndex];
         }
+        console.log('this.currentId ' + this.currentId);
+        console.log('do something');
         this.http
             .post('/teacher/check_answer',
-                JSON.stringify({answerId: this.currentId, testId: that.testInfo.id}), {headers: header})
+                JSON.stringify({answerId: this.currentId, testId: that.subQuestionInfo.testId}), {headers: header})
             .toPromise()
             .then(response => that.saveQuestionFromResponse(response.json()))
             .catch(that.handleError);
@@ -192,10 +196,12 @@ export class TestComponent implements OnChanges {
         this.question = response.question;
         if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
-            if (this.question.type === 'ReadingQuestion') {
-                toast('You can read this text only once', 5000);
-            } else if (this.question.type === 'AudioQuestion') {
-                toast('You can listen this story twice', 5000);
+            if (this.mode === 'user') {
+                if (this.question.type === 'ReadingQuestion') {
+                    toast('You can read this text only once', 5000);
+                } else if (this.question.type === 'AudioQuestion') {
+                    toast('You can listen this story twice', 5000);
+                }
             }
         }
         this.saveQuestionInfo();
@@ -225,9 +231,7 @@ export class TestComponent implements OnChanges {
     }
 
     changeCheckState(idx) {
-
         this.answer = this.options[idx].name;
-
         for (let i = 0; i < this.options.length; ++i) {
             this.options[i].checked = false;
         }
@@ -269,9 +273,9 @@ export class TestComponent implements OnChanges {
     }
 
     public  sendAnswer(callBack) {
-        if(!(this.question.type === 'ReadingQuestion' || this.question.type === "AudioQuestion")) {
+
             this.sendAnswerToServer(this.answer, callBack);
-        }
+
     }
 
     sendAnswerToServer(answer:string, callBack) {
@@ -346,6 +350,7 @@ export class TestComponent implements OnChanges {
         this.subQuestionInfo.subQuestionIndex =
             item.subQuestionIndex === null ? -1 : item.subQuestionIndex;
         this.mode = 'teacher';
+        console.log('this.subQuestionInfo.subQuestionIndex ' + this.subQuestionInfo.subQuestionIndex);
         this.requestCurrentQuestion();
     }
 
