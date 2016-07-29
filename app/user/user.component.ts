@@ -5,7 +5,8 @@ import {Http} from "@angular/http";
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES, UserComponent]
+    directives: [ROUTER_DIRECTIVES, UserComponent],
+    providers: [CustomHttp]
 })
 
 export class UserComponent implements OnInit {
@@ -14,7 +15,8 @@ export class UserComponent implements OnInit {
     numQuestions:string;
 
     constructor(private router:Router,
-                private http:Http) {
+                private http:Http,
+                private customHttp: CustomHttp) {
         this.status = '';
         this.time = '';
         this.numQuestions = '';
@@ -23,7 +25,7 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-        //TODO add customHttp.checkRole()
+        this.customHttp.checkRole();
         this.getTestInfo();
         if (this.status === 'requested') {
             this.testWaiter();
@@ -69,6 +71,7 @@ export class UserComponent implements OnInit {
         this.router.navigate(['/runTest', 'user']);
 
     }
+
 
     handleError(error:any) {
         console.error('An error occurred', error);
