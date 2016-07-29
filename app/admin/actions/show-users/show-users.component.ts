@@ -1,8 +1,7 @@
-import {Component, Input} from "@angular/core";
+import {Component} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {InfiniteScroll} from 'angular2-infinite-scroll';
-import {AdminComponent} from '../../admin.component';
 import {CustomHttp} from '../../../common/services/CustomHttp';
 
 @Component({
@@ -18,8 +17,6 @@ export class ShowUsersComponent {
     userList = [];
     shownUsers = 0;
     private scrollConfig;
-
-    @Input tab: number;
 
     // array = [];
     // sum = 30;
@@ -48,7 +45,6 @@ export class ShowUsersComponent {
     }
 
     scrollOrNot() {
-        console.log(this.tab);
         if(this.scrollCount <= 10) {
             console.log(this.scrollCount);
             this.scrollCount++;
