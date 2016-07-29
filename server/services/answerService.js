@@ -57,6 +57,7 @@ module.exports.putSubanswer = function (userId, testId, questionId, answer, done
             res.test.maxResult += res.question.maxCost;
             res.user.save();
             res.subanswer.save();
+            res.test.save();
             done();
         }, done, done);
 };

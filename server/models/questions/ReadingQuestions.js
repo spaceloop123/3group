@@ -13,7 +13,9 @@ ReadingQuestionsSchema.methods.getQuestion = function () {
         type: this.type,
         header: this.header,
         text: this.text,
-        subQuestions: this.subQuestions
+        subQuestions: this.subQuestions.map(function (item) {
+           return item.id; 
+        })
     }
 
 };
