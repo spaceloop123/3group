@@ -1,11 +1,13 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http} from "@angular/http";
+import {CustomHttp} from "../common/services/CustomHttp";
 
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES, UserComponent]
+    directives: [ROUTER_DIRECTIVES, UserComponent],
+    providers: [CustomHttp]
 })
 
 export class UserComponent implements OnInit {
@@ -13,7 +15,8 @@ export class UserComponent implements OnInit {
 
     constructor(
                 private router:Router,
-                private http:Http) {
+                private http:Http,
+                private customHttp: CustomHttp) {
         this.testInfo = {
             status: '',
             time: '500 min',
@@ -23,7 +26,7 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-        //TODO add customHttp.checkRole()
+        this.customHttp.checkRole();
         this.getTestInfo();
         if (this.testInfo.status === 'requested') {
             this.testWaiter();
