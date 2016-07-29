@@ -1,5 +1,5 @@
 import {OnInit, Component, Input, EventEmitter, Output} from "@angular/core";
-import {MaterializeDirective} from "angular2-materialize/dist/index";
+import {MaterializeDirective, toast} from "angular2-materialize/dist/index";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {NgSwitch, NgSwitchDefault} from "@angular/common";
 import {ReadingQuestion} from "./reading-question.class";
@@ -114,9 +114,22 @@ export class ReadingQuestionComponent implements OnInit {
     }
 
     onCreateFinish() {
+        if (this.isSubQuestionStillEdit()) {
+            return toast('First, complete editing Reading Question', 3000, 'amber darken-1');
+        }
         this.question.state = 'done';
-        // console.log('Reading Question ' + JSON.stringify(this.question));
         this.notify.emit(this.question);
+    }
+
+    isSubQuestionStillEdit() {
+        let f:boolean = false;
+        for (let i = 0; i < this.question.subQuestions.length; ++i) {
+            if (this.question.subQuestions[i].state === 'edit') {
+                f = true;
+                break;
+            }
+        }
+        return f;
     }
 
     onEditStart() {
