@@ -52,12 +52,12 @@
                     <p class="flow-text">Please, select question type to add</p>
                     <form action="#">
                         <div class="col s12" *ngFor="let question of questionsCatalog; let i = index">
-                            <input [attr.id]="'question-catalog-options-' + i"
+                            <input [attr.id]="'subquestion-catalog-options-' + i"
                                    type="checkbox" class="filled-in"
                                    [checked]="question['checked']"
                                    (change)="changeState(i)"
-                                   name="question-catalog-options-{{i}}"/>
-                            <label [attr.for]="'question-catalog-options-' + i">
+                                   name="subquestion-catalog-options-{{i}}"/>
+                            <label [attr.for]="'subquestion-catalog-options-' + i">
                                 {{question['type']}}
                             </label>
                         </div>

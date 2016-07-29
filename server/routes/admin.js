@@ -60,6 +60,7 @@ router.post('/new_test', function (req, res, next) {
 router.post('/add_questions', function (req, res, next) {
     questionService.addQuestions(req.body);
     res.status(200).end();
+
 });
 
 router.post('/user_list', function (req, res, next) {

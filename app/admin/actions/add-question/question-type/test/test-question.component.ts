@@ -47,7 +47,7 @@ export class TestQuestionComponent implements OnInit {
         if (this.question.correctAnswerIdx < 1 || this.question.correctAnswerIdx > this.oldAnswersLength) {
             return;
         }
-        // this.question.correctAnswerIdx--;
+        this.question.correctAnswerIdx--;
     }
 
     onCreateFinish() {

@@ -115,8 +115,7 @@ export class ReadingQuestionComponent implements OnInit {
 
     onCreateFinish() {
         this.question.state = 'done';
-        console.log('Reading Question');
-        console.log(this.question);
+        // console.log('Reading Question ' + JSON.stringify(this.question));
         this.notify.emit(this.question);
     }
 

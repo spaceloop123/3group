@@ -15,6 +15,7 @@ ReadingQuestionsSchema.methods.getQuestion = function () {
         text: this.text,
         subQuestions: this.subQuestions
     }
+
 };
 
 ReadingQuestionsSchema.methods.setQuestion = function (question) {

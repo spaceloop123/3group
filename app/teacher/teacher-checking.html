@@ -1,4 +1,4 @@
-<div class='right-align'>
+<div class='right-align instraction-madal'>
     <a materialize="leanModal" [materializeParams]="[{dismissible: false}]"
        class="waves-effect waves-light btn modal-trigger" href="#instruction"><i
             class="material-icons">call_received</i></a>
@@ -12,16 +12,17 @@
         </div>
     </div>
 </div>
-
 <div class="row">
-    <div class="center">
+    <div class="center noselect">
         <ul class="pagination" show-prev-next="true">
-            <li [ngClass]="leftIconStatus"><a (click)="goToPreviousItem(test)">
-                <i class="material-icons">chevron_left</i></a></li>
-            <li *ngFor="let item of navigationItems; let i = index" [ngClass]="getState(i)"><a
-                    (click)="goByItem(item, i, test)">{{item.show()}}</a></li>
-            <li [ngClass] = 'rightIconStatus'><a (click)="goToNextItem(test)">
-                <i class="material-icons" >chevron_right</i></a></li>
+            <li [ngClass]="leftIconStatus" (click)="goToPreviousItem(test)">
+                <i class="material-icons">chevron_left</i></li>
+            <li *ngFor="let item of navigationItems; let i = index" [ngClass]="getState(i)"
+                (click)="goByItem(item, i, test)">
+                {{item.show()}}
+            </li>
+            <li [ngClass]='rightIconStatus' (click)="goToNextItem(test)">
+                <i class="material-icons">chevron_right</i></li>
         </ul>
     </div>
 </div>
