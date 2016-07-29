@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {AddMemberComponent} from "./actions/add-member/add-member.component";
