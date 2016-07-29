@@ -17,6 +17,12 @@ module.exports.getTestStatus = function (userId, done) {
 };
 
 module.exports.requestTest = function (userId, done) {
+    new Validator()
+        .checkItems({
+            test: function (callback) {
+                Test.findOne({user: userId, status: {$in: ['checking', 'complete']}}, callback);
+            }
+        });
     var test = new Test({user: userId, status: 'requested'});
     test.save(function (err) {
         done(err);
@@ -69,7 +75,6 @@ module.exports.endTest = function (testId, done) {
             done(err);
         } else {
             test.status = 'checking';
-            test.finishTime = Date.now();
             test.save(function (err) {
                 done(err);
             });

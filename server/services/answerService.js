@@ -7,7 +7,19 @@ var Validator = require('../libs/requestValidator');
 
 module.exports.putAnswer = function (userId, testId, questionId, answer, done) {
     validateAnswerAdding(userId, testId, questionId)
-        .exec(checkAnswer(done), done, done);
+        .exec(function (res) {
+            res.answer.answer = answer;
+            if (res.question.autoCheck && res.question.correctAnswer === answer) {
+                res.test.result += res.question.maxCost;
+                res.user.level++;
+            } else {
+                res.user.level--;
+            }
+            res.test.maxResult += res.question.maxCost;
+            res.user.save();
+            res.answer.save();
+            done();
+        }, done, done);
 };
 
 function validateAnswerAdding(userId, testId, questionId) {
@@ -33,8 +45,20 @@ function validateAnswerAdding(userId, testId, questionId) {
 }
 
 module.exports.putSubanswer = function (userId, testId, questionId, answer, done) {
-    validatesubanswerAdding(userId, testId, questionId)
-        .exec(checkAnswer(done), done, done);
+    validateSubanswerAdding(userId, testId, questionId)
+        .exec(function (res) {
+            res.subanswer.answer = answer;
+            if (res.question.autoCheck && res.question.correctAnswer === answer) {
+                res.test.result += res.question.maxCost;
+                res.user.level++;
+            } else {
+                res.user.level--;
+            }
+            res.test.maxResult += res.question.maxCost;
+            res.user.save();
+            res.subanswer.save();
+            done();
+        }, done, done);
 };
 
 function validateSubanswerAdding(userId, testId, questionId) {
@@ -48,37 +72,23 @@ function validateSubanswerAdding(userId, testId, questionId) {
                 Answer.findOne({_id: answers[answers.length - 1]}).populate('subAnswers').exec(callback);
             },
             subanswers: function (callback, prev) {
-                prev.answer.subAnswers ? callback (null, prev.answer.subAnswer) : callback();
+                prev.answer.subAnswers ? callback(null, prev.answer.subAnswers) : callback();
             },
-            questionId: function (callback, prev) {
+            subanswer: function (callback, prev) {
+                var rightSubanswer;
                 prev.subanswers.some(function (subanswer) {
-                    return subanswer.question.toString() === questionId;
-                }) ? callback(null, {}) : callback();
+                    rightSubanswer = subanswer;
+                    return rightSubanswer.question.toString() === questionId
+                }) ? callback(null, rightSubanswer) : callback();
             },
             question: function (callback, prev) {
-                Question.findOne({_id: prev.questionId}, callback);
+                Question.findOne({_id: prev.subanswer.question}, callback);
             },
             user: function (callback) {
                 User.findOne({_id: userId}, callback);
             }
         });
 };
-
-function checkAnswer(done) {
-    return function (res) {
-        res.answer.answer = answer;
-        if (res.question.autoCheck && res.question.correctAnswer === answer) {
-            res.test.result += res.question.maxCost;
-            res.user.level++;
-        } else {
-            res.user.level--;
-        }
-        res.test.maxResult += res.question.maxCost;
-        res.user.save();
-        res.answer.save();
-        done();
-    }
-}
 
 module.exports.getAnswerById = function (answerId, done) {
     new Validator()

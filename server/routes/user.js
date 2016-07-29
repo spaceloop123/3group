@@ -40,15 +40,11 @@ router.post('/subanswer', function (req, res) {
 });
 
 router.post('/ask_test', function (req, res) {
-    testService.requestTest(req.user.id, function (err) {
-        err ? res.status(400).end() : res.status(200).end();
-    });
+    testService.requestTest(req.user.id, response.emptyResponse(res));
 });
 
 router.post('/end_test', function (req, res) {
-    testService.endTest(req.body.testId, function (err) {
-        err ? res.status(400).end() : res.status(200).end();
-    });
+    testService.endTest(req.body.testId, response.emptyResponse(res));
 });
 
 module.exports = router;
