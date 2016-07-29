@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http} from "@angular/http";
 import {MaterializeDirective} from 'angular2-materialize';
+
 
 
 
@@ -13,6 +14,12 @@ import {MaterializeDirective} from 'angular2-materialize';
 })
 export class DatepickerComponent {
     private assignTestUrl = 'app/admin/assignTest';  // URL to web api
+
+    @Output() notify: EventEmitter<string> = new EventEmitter<string>();
+
+    onClick() {
+        this.notify.emit('Click from nested component');
+    }
 
     //lineChartData;
 

@@ -16,11 +16,23 @@ import {LineChartDemoComponent} from "../user/charts.component";
 
 export class AssignTestComponent implements OnInit {
 
+    onNotify(message:string):void {
+        alert('message');
+    }
+
+    checkInput(event) {
+        console.log("checkInput")
+
+    }
+
+
     constructor(
         private route:ActivatedRoute,
         private router:Router,
         private http:Http
            ) { }
+
+
 
     ngOnInit() {
         //TODO add customHttp.checkRole()

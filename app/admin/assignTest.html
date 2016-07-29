@@ -23,11 +23,11 @@
                         <p class="card-title" align="center">Assign Test</p>
 
                         <p align="center">Select estimated date and time</p>
-                        <datepicker></datepicker>
+                        <datepicker (notify)='onNotify($event)'></datepicker>
                     </div>
 
                     <div class="card-action" align="center">
-                        <a class="waves-effect default btn">Assign Test</a>
+                        <a class="waves-effect default btn" (click)="checkInput()">Assign Test</a>
                     </div>
                 </div>
             </div>
