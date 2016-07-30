@@ -1,7 +1,7 @@
 import 'rxjs/Rx';
 
 import {Http, Request, RequestOptionsArgs, Response, RequestOptions, ConnectionBackend, Headers} from '@angular/http';
-import {Router, NavigationError} from '@angular/router';
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from "@angular/core";
 
@@ -12,30 +12,30 @@ export class CustomHttp {
 		private http: Http,
 		private router: Router) {}
 
-	request(url: string | Request, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.request(url, options));
+	request(url:string | Request, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
+		return this.wrap(this.http.request(url, options), unpack);
 	}
 
-	get(url: string, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.get(url,options));
+	get(url:string, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
+		return this.wrap(this.http.get(url, options), unpack);
 	}
 
-	post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.post(url, JSON.stringify(body), this.prepareOptionsObject(options)));
+	post(url:string, body:any, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
+		return this.wrap(this.http.post(url, JSON.stringify(body), this.prepareOptionsObject(options)), unpack);
 	}
 
-	put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.put(url, JSON.stringify(body), this.prepareOptionsObject(options)));
+	put(url:string, body:any, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
+		return this.wrap(this.http.put(url, JSON.stringify(body), this.prepareOptionsObject(options)), unpack);
 	}
 
-	delete(url: string, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.delete(url, options));
+	delete(url:string, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
+		return this.wrap(this.http.delete(url, options), unpack);
 	}
 
-	wrap(observable: Observable<Response>): Observable<any> {
+	wrap(observable: Observable<Response>, unpack: boolean = true): Observable<any> {
 		return observable
 			.catch(this.errorHandler.bind(this))
-			.map( (response) => response );
+			.map( (response: Response) => (unpack ? response.json() : response) );
 	}
 
 	prepareOptionsObject(options?: RequestOptionsArgs) : RequestOptionsArgs {
@@ -45,10 +45,6 @@ export class CustomHttp {
 			options.headers.append('Content-Type', 'application/json');
 		}
 		return options;
-	}
-
-	checkRole() {
-			return this.wrap(this.get('/role'));
 	}
 
 	errorHandler(err): Observable<any> {

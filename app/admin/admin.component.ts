@@ -1,24 +1,17 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {AddMemberComponent} from "./actions/add-member/add-member.component";
 import {NotificationsComponent} from "./actions/notifications/notifications.component";
 import {AddQuestionComponent} from "./actions/add-question/add-question.component";
-import {CustomHttp} from "../common/services/CustomHttp";
 
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
-    providers: [CustomHttp]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent]
 })
 
-export class AdminComponent implements OnInit {
-    constructor(private customHttp:CustomHttp) {
-
-    }
-
-    ngOnInit():any {
-        this.customHttp.checkRole();
+export class AdminComponent {
+    constructor() {
     }
 }

@@ -1,3 +1,4 @@
+import 'rxjs/Rx';
 import 'jquery'
 import 'angular2-materialize';
 
@@ -7,13 +8,15 @@ import {Constants} from './common/constants/constants.data';
 import {AppComponent} from './app.component';
 import {HTTP_PROVIDERS, Http} from '@angular/http';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
-import {APP_ROUTER_PROVIDERS} from './app.routes';
+import {ROUTER_DIRECTIVES, Router, provideRouter} from '@angular/router';
 import {provideForms, disableDeprecatedForms} from "@angular/forms";
+import {ROUTES} from "./routing/app.routes";
+import {AuthService} from "./common/auth/auth.service";
+import {AuthGuard} from "./common/auth/auth.guard";
 
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,
-    APP_ROUTER_PROVIDERS,
+    provideRouter(ROUTES),
     ROUTER_DIRECTIVES,
     disableDeprecatedForms(),
     provideForms(),
@@ -26,6 +29,16 @@ bootstrap(AppComponent, [
         provide: CustomHttp,
         useClass: CustomHttp,
         deps: [Http, Router]
+    },
+    {
+        provide: AuthService,
+        useClass: AuthService,
+        deps: [CustomHttp, Router]
+    },
+    {
+        provide: AuthGuard,
+        useClass: AuthGuard,
+        deps: [AuthService]
     }
 ]);
 

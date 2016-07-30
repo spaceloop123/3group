@@ -1,8 +1,7 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {LoginComponent} from "./login/login.component";
 import {HeaderComponent} from "./common/header/header.component";
-import {ROUTER_DIRECTIVES, NavigationEnd, Router, NavigationError} from "@angular/router";
-import {LoginService} from "./login/login.service";
+import {ROUTER_DIRECTIVES, Router, NavigationError} from "@angular/router";
 import {RunTestComponent} from "./user/runTest/runTest.component";
 import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
@@ -12,54 +11,52 @@ import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {Constants} from "./common/constants/constants.data";
+import {AuthService} from "./common/auth/auth.service";
+import {Subscription} from "rxjs/Rx";
 
 @Component({
-    selector: 'my-app',
-    templateUrl: 'app/app.component.html',
-    directives: [ROUTER_DIRECTIVES, HeaderComponent],
-    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent],
-    providers: [LoginService, Location]
+	selector: 'my-app',
+	templateUrl: 'app/app.component.html',
+	directives: [ROUTER_DIRECTIVES, HeaderComponent],
+	precompile: [
+		LoginComponent,
+		UserComponent,
+		AdminComponent,
+		TeacherComponent,
+		RunTestComponent,
+		FinishTestPageComponent,
+		TeacherCheckingComponent,
+		ChartsComponent,
+		ShowTestsComponent
+	],
+	providers: [Location]
 })
 
 export class AppComponent implements OnInit, OnDestroy {
+	private routieChangeSubscription:Subscription;
 
-    private sub;
-    private pathname;
-    private role;
+	constructor(private authService:AuthService,
+	            private router:Router,
+	            private constants:Constants) {
+	}
 
-    constructor(private router: Router,
-                private constants:Constants) {}
+	checkPath():boolean {
+		let pathname = window.location.href;
+		return (pathname.indexOf("/login") !== -1) ||
+			((this.authService.role === 'user') && (pathname.indexOf("/home") !== -1)) ||
+			((this.authService.role === 'teacher') && (pathname.indexOf("/home") !== -1));
+	}
 
-    checkPath () {
-        this.pathname = window.location.href;
-        return ((this.pathname.indexOf("/login") !== -1) ||
-        ((this.role === 'user') && (this.pathname.indexOf("/home") !== -1)) ||
-        ((this.role === 'teacher') && (this.pathname.indexOf("/home") !== -1)));
-    }
+	ngOnInit():any {
+		this.routieChangeSubscription = this.router.events.subscribe(event => {
+			if (event instanceof NavigationError) {
+				console.log('Handled that!');
+				this.router.navigate(['/login']);
+			}
+		});
+	}
 
-    RoutesErrorHandler() {
-        this.sub = this.router.events.subscribe(event => {
-            if(event instanceof NavigationError) {
-                console.log('Handled that!');
-                this.router.navigate(['/login']);
-            }
-        });
-    }
-
-    ngOnInit () {
-        this.role = sessionStorage.getItem('role');
-        this.checkPath();
-        this.RoutesErrorHandler();
-        this.sub = this.router.events.subscribe(event => {
-            if(event instanceof NavigationEnd) {
-                this.checkPath();
-            }
-        });
-    }
-
-    ngOnDestroy():any {
-        this.sub.unsubscribe();
-    }
-
+	ngOnDestroy():any {
+		this.routieChangeSubscription.unsubscribe();
+	}
 }

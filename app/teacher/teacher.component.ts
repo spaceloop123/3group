@@ -36,7 +36,7 @@ export class TeacherComponent implements OnInit {
         var that = this;
         this.customHttp.get('/teacher/tests')
             .subscribe(response => {
-                that.setTests(response.json());
+                that.setTests(response);
             });
              //.catch( that.handleError.bind(that));
     }
@@ -62,7 +62,6 @@ export class TeacherComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.customHttp.checkRole();
         this.getTests();
     }
 }

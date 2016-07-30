@@ -26,8 +26,8 @@ router.get('/app_routes', function (req, res) {
     res.sendFile(__dirname + '\\index.js');
 });
 
-router.get('/dist/app/app.routes.js', function (req, res) {
-    res.sendFile(path.join(__dirname, '../config/app.routes.' + (req.user ? req.user.role + '.' : '') + 'js'));
+router.get('/role', function (req, res) {
+    res.json(req.user ? req.user.role : null);
 });
 
 module.exports = router;

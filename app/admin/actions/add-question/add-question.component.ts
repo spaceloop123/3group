@@ -11,8 +11,7 @@ import {CustomHttp} from "../../../common/services/CustomHttp";
 @Component({
     selector: 'add-question-component',
     templateUrl: 'app/admin/actions/add-question/add-question.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, OpenInsertQuestionComponent,
-        NgSwitch, NgSwitchDefault]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, OpenInsertQuestionComponent, NgSwitch, NgSwitchDefault]
 })
 
 export class AddQuestionComponent implements OnInit {
