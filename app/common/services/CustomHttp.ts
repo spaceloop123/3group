@@ -5,6 +5,10 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from "@angular/core";
 
+export interface CustomRequestOptions extends RequestOptionsArgs {
+	parseAs?: 'json' | 'text' | 'response'
+}
+
 @Injectable()
 export class CustomHttp {
 
@@ -12,30 +16,43 @@ export class CustomHttp {
 		private http: Http,
 		private router: Router) {}
 
-	request(url:string | Request, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
-		return this.wrap(this.http.request(url, options), unpack);
+	request(url:string | Request, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.request(url, options), options && options.parseAs);
 	}
 
-	get(url:string, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
-		return this.wrap(this.http.get(url, options), unpack);
+	get(url:string, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.get(url, options), options && options.parseAs);
 	}
 
-	post(url:string, body:any, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
-		return this.wrap(this.http.post(url, JSON.stringify(body), this.prepareOptionsObject(options)), unpack);
+	post(url:string, body:any, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.post(url, JSON.stringify(body), this.prepareOptionsObject(options)), options && options.parseAs);
 	}
 
-	put(url:string, body:any, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
-		return this.wrap(this.http.put(url, JSON.stringify(body), this.prepareOptionsObject(options)), unpack);
+	put(url:string, body:any, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.put(url, JSON.stringify(body), this.prepareOptionsObject(options)), options && options.parseAs);
 	}
 
-	delete(url:string, options?:RequestOptionsArgs, unpack?:boolean):Observable<any> {
-		return this.wrap(this.http.delete(url, options), unpack);
+	delete(url:string, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.delete(url, options), options && options.parseAs);
 	}
 
-	wrap(observable: Observable<Response>, unpack: boolean = true): Observable<any> {
+	wrap(observable: Observable<Response>, mode: ('json' | 'text' | 'response') = 'json'): Observable<any> {
 		return observable
 			.catch(this.errorHandler.bind(this))
-			.map( (response: Response) => (unpack ? response.json() : response) );
+			.map( (response: Response) => {
+				switch (mode) {
+					case 'json':
+						if(response.text().length) {
+							return response.json();
+						} else {
+							return {};
+						}
+					case 'text':
+						return response.text();
+					default:
+						return response;
+				}
+			});
 	}
 
 	prepareOptionsObject(options?: RequestOptionsArgs) : RequestOptionsArgs {

@@ -39,7 +39,7 @@ export class AuthService {
 
 	public logOut() {
 		let that = this;
-		this.customHttp.get("/logout", null, false)
+		this.customHttp.get("/logout")
 			.subscribe(
 				() => {
 					that.role = null;
