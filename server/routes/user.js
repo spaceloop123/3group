@@ -19,6 +19,10 @@ router.get('/test_info', function (req, res) {
     testService.getTestStatus(req.user.id, response.dataResponse(res));
 });
 
+router.get('/ask_test', function (req, res) {
+    testService.requestTest(req.user.id, response.emptyResponse(res));
+});
+
 router.get('/init_test', function (req, res) {
     testService.initTest(req.user.id, response.dataResponse(res));
 });
@@ -39,12 +43,8 @@ router.post('/subanswer', function (req, res) {
     answerService.putSubanswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
 });
 
-router.post('/ask_test', function (req, res) {
-    testService.requestTest(req.user.id, response.emptyResponse(res));
-});
-
 router.post('/end_test', function (req, res) {
-    testService.endTest(req.body.testId, response.emptyResponse(res));
+    testService.endTest(req.user.id, req.body.testId, response.emptyResponse(res));
 });
 
 module.exports = router;

@@ -5,6 +5,18 @@ var Question = mongoose.model('Question');
 var async = require('async');
 var Validator = require('../libs/requestValidator');
 
+module.exports.getTestValidator = function validateTest(findOptions, populateOptions) {
+    return new Validator().checkItems({
+        test: function (callback) {
+            populateOptions = populateOptions || '';
+            Test.findOne(findOptions).populate(populateOptions).exec(callback);
+        },
+        template: function (callback) {
+            TestTemplate.findOne(callback);
+        }
+    });
+};
+
 module.exports.getTestStatus = function (userId, done) {
     module.exports.getTestValidator({
         user: userId,
@@ -18,15 +30,16 @@ module.exports.getTestStatus = function (userId, done) {
 
 module.exports.requestTest = function (userId, done) {
     new Validator()
-        .checkItems({
-            test: function (callback) {
-                Test.findOne({user: userId, status: {$in: ['checking', 'complete']}}, callback);
-            }
-        });
-    var test = new Test({user: userId, status: 'requested'});
-    test.save(function (err) {
-        done(err);
-    });
+        .checkItem('test', function (callback) {
+            Test.findOne({user: userId, status: {$in: ['available', 'requested', 'run']}}, callback);
+        })
+        .exec(function () {
+            done();
+        }, function () {
+            var test = new Test({user: userId, status: 'requested'});
+            test.save();
+            done();
+        }, done);
 };
 
 module.exports.initTest = function (userId, done) {
@@ -47,17 +60,6 @@ module.exports.initTest = function (userId, done) {
     }, done, done);
 };
 
-module.exports.getTestValidator = function validateTest(testOptions) {
-    return new Validator().checkItems({
-        test: function (callback) {
-            Test.findOne(testOptions, callback);
-        },
-        template: function (callback) {
-            TestTemplate.findOne(callback);
-        }
-    });
-};
-
 function setTimer(testId, delay) {
     setTimeout(function () {
         require('mongoose').model('Test').findOne({_id: testId, status: 'run'}, function (err, test) {
@@ -69,55 +71,48 @@ function setTimer(testId, delay) {
     }, delay);
 }
 
-module.exports.endTest = function (testId, done) {
-    Test.findOne({_id: testId}, function (err, test) {
-        if (err) {
-            done(err);
-        } else {
-            test.status = 'checking';
-            test.save(function (err) {
-                done(err);
-            });
-        }
-    });
+module.exports.endTest = function (userId, testId, done) {
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.findOne({_id: testId, user: userId, status: 'run'}, callback);
+        })
+        .exec(function (res) {
+            res.test.status = 'checking';
+            res.test.save();
+        }, done, done);
 };
 
 module.exports.getAnswers = function (testId, done) {
-    var validator = new Validator();
-    
-    validator.checkItem('test', function (callback) {
-        Test.findOne({_id: testId})
-            .populate({
-                path: 'answers',
-                model: 'Answer',
-                populate: {
-                    path: 'subAnswers',
-                    model: 'Answer'
-                }
-            })
-            .exec(callback);
-    });
-    
-    validator.exec(function (res) {
-       var response = res.test.getNotAutomaticallyCheckAnswers();
-        done(null, {answers: response});
-    }, done, done);
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.findOne({_id: testId})
+                .populate({
+                    path: 'answers',
+                    populate: {
+                        path: 'subAnswers',
+                    }
+                })
+                .exec(callback);
+        })
+        .exec(function (res) {
+            var response = res.test.getNotAutomaticallyCheckAnswers();
+            done(null, {answers: response});
+        }, done, done);
 };
 
 module.exports.getTeachersTests = function (teacher, done) {
-    var validator = new Validator();
     var response = [];
-    
-    validator.checkItem('tests', function (callback) {
-        Test.find({teacher: teacher, status: 'checking'}, callback);
-    });
 
-    validator.exec(function (res) {
-        res.tests.forEach(function (test, tests) {
-            response.push(test.getTestInfo());
-        });
-        done(null, response);
-    }, function () {
-        done(null, response);
-    }, done);
+    new Validator()
+        .checkItem('tests', function (callback) {
+            Test.find({teacher: teacher, status: 'checking'}, callback);
+        })
+        .exec(function (res) {
+            res.tests.forEach(function (test, tests) {
+                response.push(test.getTestInfo());
+            });
+            done(null, response);
+        }, function () {
+            done(null, response);
+        }, done);
 };

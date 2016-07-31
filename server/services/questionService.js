@@ -38,7 +38,8 @@ function validateQuestionRequest(testOptions, n) {
                 (n <= maxCount && n === curCount + 1) ? callback(null, {}) : callback();
             },
             questions: function (callback, prev) {
-                Question.find({parent: undefined, type: prev.template.questions[n - 1]}, callback);
+                Question.find({parent: undefined, type: prev.template.questions[n - 1]})
+                    .populate('subQuestions').exec(callback);
             }
         });
 }
