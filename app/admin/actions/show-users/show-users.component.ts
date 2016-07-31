@@ -77,4 +77,3 @@ export class ShowUsersComponent implements OnChanges, OnInit{
     }
 }
 
-//TODO fix userList search (empty body), try to fix logout on user (ask test), ask Sasha for next tasks. (and prepare to interview :) )
