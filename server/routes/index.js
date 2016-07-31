@@ -12,12 +12,12 @@ var SpeechQuestion = mongoose.model('SpeechQuestion');
 var Test = mongoose.model('Test');
 var Answer = mongoose.model('Answer');
 var path = require('path');
-var Validator = require('../libs/requestValidator');
 
 router.get('/', function (req, res) {
     res.render('index');
 });
 
+// TODO: (pay attention) May not necessary now
 router.get('/is_authenticated', function (req, res) {
     res.json(req.isAuthenticated());
 });

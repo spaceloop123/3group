@@ -6,13 +6,15 @@
             <div class="row">
                 <div class="col s12 m12 offset-l2 l7">
                     <ul class="tabs grey lighten-5" materialize="tabs">
-                        <li class="tab col s4 m4 l4"><a href="#tab1"><i
-                                class="material-icons">contacts</i></a></li>
-                        <li class="tab col s4 m4 l4"><a class="active" href="#tab2">
-                            <i class="material-icons">question_answer</i></a>
+                        <li class="tab col s4 m4 l4">
+                            <a href="#tab1"><i class="material-icons">contacts</i></a>
                         </li>
-                        <li class="tab col s4 m4 l4"><a href="#tab3"><i
-                                class="material-icons">supervisor_account</i></a></li>
+                        <li class="tab col s4 m4 l4">
+                            <a class="active" href="#tab2"><i class="material-icons">question_answer</i></a>
+                        </li>
+                        <li class="tab col s4 m4 l4">
+                            <a href="#tab3"><i class="material-icons">supervisor_account</i></a>
+                        </li>
                     </ul>
                 </div>
 
@@ -54,6 +56,7 @@
 
         <div class="col s12 m4 l4">
             <notifications-component class="hide-on-med-and-up"></notifications-component>
+            <!-- TODO: (pay attention) inline style not loocking good try to get rid of it-->
             <notifications-component class="show-on-medium-and-up hide-on-small-and-down"
                                      style="position: fixed; top: 298px; transform: translateY(-50%);">
             </notifications-component>

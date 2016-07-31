@@ -33,7 +33,8 @@ import {Subscription} from "rxjs/Rx";
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-	private routieChangeSubscription:Subscription;
+	// TODO: (pay attention) 'sub' says nothing use clear names for variable
+	private routeChangeSubscription:Subscription;
 
 	constructor(private authService:AuthService,
 	            private router:Router,
@@ -48,15 +49,20 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit():any {
-		this.routieChangeSubscription = this.router.events.subscribe(event => {
+		this.routeChangeSubscription = this.router.events.subscribe(event => {
 			if (event instanceof NavigationError) {
 				console.log('Handled that!');
 				this.router.navigate(['/login']);
+				// TODO: (pay attention) : Just note for code that was here:
+				// another subscriber with this.checkPath(); in content
+				// - It's useless subscriber if its calls checkPath because of
+				// changes of its value watch angular itself, no need to do useless call
+				// state will not save.
 			}
 		});
 	}
 
 	ngOnDestroy():any {
-		this.routieChangeSubscription.unsubscribe();
+		this.routeChangeSubscription.unsubscribe();
 	}
 }

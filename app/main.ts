@@ -25,6 +25,9 @@ bootstrap(AppComponent, [
         provide: LocationStrategy,
         useClass: HashLocationStrategy
     },
+    // TODO: (pay attention) Here is declared global services and thay must declares only here, don't add it to
+    // TODO: provide option of @Component because in such way another instance of this services appearing, so it may
+    // TODO: caused so much troubles with DependencyInjector
     {
         provide: CustomHttp,
         useClass: CustomHttp,

@@ -97,6 +97,7 @@ export class TestComponent implements OnChanges {
 
     getQuestionFromServer(qInfo:QuestionInfo) {
         var that = this;
+        // TODO (pay attention) CustomHttp + Observables and get rid of massive logs wor working features
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         console.log('qInfo.questionIndex ' + qInfo.questionIndex);
@@ -111,6 +112,7 @@ export class TestComponent implements OnChanges {
 
     getSubQuestionFromServer(subQInfo:SubQuestionsInfo) {
         var that = this;
+        // TODO: (pay attention) Same here
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http
@@ -223,6 +225,7 @@ export class TestComponent implements OnChanges {
 
     sendAnswerToServer(answer:string, callBack) {
         var that = this;
+        // TODO: (pay attention) And here
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http
@@ -235,8 +238,7 @@ export class TestComponent implements OnChanges {
                 callBack();
 
             })
-            .catch(that.handleError);
-
+            .catch(that.handleError); // TODO: (pay attention) You haven't specific handle so leave errors for CustomHttp
 
     }
 

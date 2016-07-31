@@ -21,6 +21,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             that.currentTest = params['id'];
             console.log('that.currentTest ' + that.currentTest);
         });
+        // TODO: (pay attention) CustomHttp + Observables
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http.post('/teacher/check_test',

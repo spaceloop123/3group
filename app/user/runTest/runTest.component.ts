@@ -46,6 +46,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     getTestInfoFromServer(){
         var that = this;
+        //TODO (pay attention) CustomHttp + Observables
         this.http.get('/' + this.role + '/init_test')
             .toPromise()
             .then(response => that.onResponse(response))
