@@ -13,7 +13,7 @@ import {CustomHttp} from '../../../common/services/CustomHttp';
 
 export class ShowUsersComponent implements OnChanges, OnInit{
 
-    private searchFilter: string;
+    private searchFilter = '';
     private scrollCount;
     userList = [];
     shownUsers = 0;
@@ -77,11 +77,4 @@ export class ShowUsersComponent implements OnChanges, OnInit{
     }
 }
 
-// $scope.search = {};
-// $scope.userInput = {};
-//
-// $scope.applySearch = function() {
-//     for(name in $scope.userInput) {
-//         $scope.search[name] = $scope.userInput[name];
-//     }
-// };
+//TODO fix userList search (empty body), try to fix logout on user (ask test), ask Sasha for next tasks. (and prepare to interview :) )
