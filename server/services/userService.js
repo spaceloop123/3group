@@ -4,7 +4,7 @@ var Validator = require('../libs/requestValidator');
 
 module.exports.getUserList = function (n, filter, done) {
     var CHUNK_COUNT = 10;
-    var regExp = new RegExp('^'+filter+'$', "i");
+    var regExp = new RegExp('^.*'+filter+'.*$', "i");
 
     new Validator()
         .checkItem('users', function (callback) {
@@ -15,7 +15,7 @@ module.exports.getUserList = function (n, filter, done) {
             ]}, callback);
         })
         .exec(function (res) {
-            done(null, res.users.slice(n, (n + CHUNK_COUNT >= res.users.length ? res.users.length - 1 : n + CHUNK_COUNT)).map(function (item) {
+            done(null, res.users.slice(n, (n + CHUNK_COUNT >= res.users.length ? res.users.length : n + CHUNK_COUNT)).map(function (item) {
                 return item.getInfo();
             }));
         }, done, done);

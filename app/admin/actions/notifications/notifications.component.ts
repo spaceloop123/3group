@@ -14,7 +14,7 @@ export class NotificationsComponent implements OnInit {
      * list of notifications
      * format:
      */
-    private notifyList;
+    private notifyList: any;
     /* {
      *   color: 'red/yellow/green',
      *   icon: 'error_outline/new_releases/done',
@@ -25,28 +25,28 @@ export class NotificationsComponent implements OnInit {
      * */
 
     constructor(private http:Http) {
-        //this.notifyList = [];
-        this.notifyList = [
-
-            {
-                color: 'red',
-                icon: 'error_outline',
-                title: 'Request',
-                firstLine: 'Username requested test',
-                secondLine: 'Accept or decline'
-            },
-            {
-                color: 'green',
-                icon: 'done',
-                title: 'Done',
-                firstLine: 'Username passed test',
-                secondLine: 'Teachername checked test'
-            }
-        ];
+        this.notifyList = [];
+        // this.notifyList = [
+        //
+        //     {
+        //         color: 'red',
+        //         icon: 'error_outline',
+        //         title: 'Request',
+        //         firstLine: 'Username requested test',
+        //         secondLine: 'Accept or decline'
+        //     },
+        //     {
+        //         color: 'green',
+        //         icon: 'done',
+        //         title: 'Done',
+        //         firstLine: 'Username passed test',
+        //         secondLine: 'Teachername checked test'
+        //     }
+        // ];
     }
 
-    ngOnInit():any {
-
+    ngOnInit() {
+        console.log('init');
     }
 
     refreshNotifications() {

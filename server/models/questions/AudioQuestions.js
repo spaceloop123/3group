@@ -14,7 +14,7 @@ AudioQuestionsSchema.methods.getQuestion = function () {
         header: this.header,
         file: this.path,
         subQuestions: this.subQuestions.map(function (item) {
-           return item.id; 
+            return item.id;
         })
     };
 };

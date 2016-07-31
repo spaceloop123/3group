@@ -13,7 +13,7 @@ import {CustomHttp} from '../../../common/services/CustomHttp';
 
 export class ShowUsersComponent implements OnChanges, OnInit{
 
-    private searchFilter: string;
+    private searchFilter = '';
     private scrollCount;
     userList = [];
     shownUsers = 0;
@@ -21,11 +21,13 @@ export class ShowUsersComponent implements OnChanges, OnInit{
     // array = [];
     // sum = 30;
 
-    constructor(private customHttp: CustomHttp) { }
+    constructor(private customHttp: CustomHttp) {
+        this.searchFilter = '';
+    }
 
     getUsers() {
         var that = this;
-        this.customHttp.post('/admin/user_list', {n: this.shownUsers})
+        this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('posted');
                 that.setUserList(response.json());
@@ -60,6 +62,8 @@ export class ShowUsersComponent implements OnChanges, OnInit{
             .subscribe(response => {
                 console.log('search posted');
                 that.shownUsers = 0;
+                console.log(response);
+                that.userList = response.json();
             });
     }
 
@@ -73,11 +77,3 @@ export class ShowUsersComponent implements OnChanges, OnInit{
     }
 }
 
-// $scope.search = {};
-// $scope.userInput = {};
-//
-// $scope.applySearch = function() {
-//     for(name in $scope.userInput) {
-//         $scope.search[name] = $scope.userInput[name];
-//     }
-// };

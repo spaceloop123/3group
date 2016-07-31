@@ -14,7 +14,7 @@ ReadingQuestionsSchema.methods.getQuestion = function () {
         header: this.header,
         text: this.text,
         subQuestions: this.subQuestions.map(function (item) {
-            return item.id;
+           return item.id; 
         })
     }
 

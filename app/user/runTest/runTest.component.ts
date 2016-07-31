@@ -6,10 +6,12 @@ import {MaterializeDirective} from 'angular2-materialize'
 import {TestInfo} from "../../test/test.info";
 import {TimerComponent} from "./timer.component";
 import {TestComponent} from "../../test/test.component";
+import {CustomHttp} from "../../common/services/CustomHttp";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
-    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, ROUTER_DIRECTIVES, TimerComponent, TestComponent]
+    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, ROUTER_DIRECTIVES, TimerComponent, TestComponent],
+    providers: [CustomHttp]
 })
 
 export class RunTestComponent implements OnInit, OnDestroy {
@@ -23,7 +25,8 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     constructor(private route:ActivatedRoute,
                 private router:Router,
-                private http:Http) {
+                private http:Http,
+                private customHttp: CustomHttp) {
         this.timerSec = 456;
         this.progress = 80;
         this.opMode = 'user';
@@ -35,7 +38,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        //TODO add customHttp.checkRole()
+        this.customHttp.checkRole();
         var that = this;
         this.sub = this.route.params.subscribe(params => {
             that.role = params['role'];
