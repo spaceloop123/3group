@@ -1,8 +1,10 @@
+//angular
 import {Component, OnInit, OnDestroy} from "@angular/core";
+import {ROUTER_DIRECTIVES, NavigationEnd, Router, NavigationError} from "@angular/router";
+
+//components
 import {LoginComponent} from "./login/login.component";
 import {HeaderComponent} from "./common/header/header.component";
-import {ROUTER_DIRECTIVES, NavigationEnd, Router, NavigationError} from "@angular/router";
-import {LoginService} from "./login/login.service";
 import {RunTestComponent} from "./user/runTest/runTest.component";
 import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
@@ -13,8 +15,12 @@ import {LineChartDemoComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
 import {DatepickerComponent} from "./admin/actions/show-users/user-info/datepicker.component";
-import {Constants} from "./common/constants/constants.data";
 import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
+
+//others
+import {LoginService} from "./login/login.service";
+import {Constants} from "./common/constants/constants.data";
+
 
 @Component({
     selector: 'my-app',
