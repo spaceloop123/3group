@@ -13,15 +13,17 @@ import {OpenQuestion} from "./question-type/open/open-question.class";
 import {OpenQuestionComponent} from "./question-type/open/open-question.component";
 import {SpeechQuestion} from "./question-type/speech/speech-question.class";
 import {SpeechQuestionComponent} from "./question-type/speech/speech-question.component";
-import {ReadingQuestionComponent} from "./question-type/with-subquestions/reading/reading-question.component";
 import {ReadingQuestion} from "./question-type/with-subquestions/reading/reading-question.class";
+import {ReadingQuestionComponent} from "./question-type/with-subquestions/reading/reading-question.component";
+import {AudioQuestion} from "./question-type/with-subquestions/audio/audio-question.class";
+import {AudioQuestionComponent} from "./question-type/with-subquestions/audio/audio-question.component";
 
 @Component({
     selector: 'add-question-component',
     templateUrl: 'app/admin/actions/add-question/add-question.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertOpenQuestionComponent,
         InsertTestQuestionComponent, OpenQuestionComponent, SpeechQuestionComponent, ReadingQuestionComponent,
-        NgSwitch, NgSwitchDefault]
+        AudioQuestionComponent, NgSwitch, NgSwitchDefault]
 })
 
 export class AddQuestionComponent implements OnInit {
@@ -36,7 +38,8 @@ export class AddQuestionComponent implements OnInit {
             {type: new InsertTestQuestion().type, checked: false},
             {type: new OpenQuestion().type, checked: false},
             {type: new SpeechQuestion().type, checked: false},
-            {type: new ReadingQuestion().type, checked: false}];
+            {type: new ReadingQuestion().type, checked: false},
+            {type: new AudioQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -47,7 +50,8 @@ export class AddQuestionComponent implements OnInit {
             {type: new InsertTestQuestion().type, checked: false},
             {type: new OpenQuestion().type, checked: false},
             {type: new SpeechQuestion().type, checked: false},
-            {type: new ReadingQuestion().type, checked: false}];
+            {type: new ReadingQuestion().type, checked: false},
+            {type: new AudioQuestion().type, checked: false}];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -91,6 +95,11 @@ export class AddQuestionComponent implements OnInit {
                 this.questionsList.push(new ReadingQuestion());
                 break;
             }
+            case 'AudioQuestion':
+            {
+                this.questionsList.push(new AudioQuestion());
+                break;
+            }
             default:
             {
                 console.log('Failed to add new question');
@@ -106,11 +115,11 @@ export class AddQuestionComponent implements OnInit {
         if (this.isEditModeOn()) {
             return toast('Complete editing questions', 3000, 'amber darken-1');
         }
-        let readingQuestionState = this.isEmptyReadingQuestionExists();
-        if (readingQuestionState !== 'none') {
-            if (readingQuestionState === 'empty') {
-                return toast('Reading Question cannot be without sub-questions', 3000, 'amber darken-1');
-            } else if (readingQuestionState === 'sub') {
+        let questionState = this.isEmptyQuestionWithSubQuestionsExists();
+        if (questionState !== 'none') {
+            if (questionState === 'empty') {
+                return toast('First, add some sub-questions', 3000, 'amber darken-1');
+            } else if (questionState === 'sub') {
                 return toast('Complete editing sub-question(s)', 3000, 'amber darken-1');
             }
         }
@@ -160,6 +169,10 @@ export class AddQuestionComponent implements OnInit {
             this.questionsList[idx] = responce;
             this.questionsList[idx].state = 'done';
         }
+        else if (responce instanceof AudioQuestion) {
+            this.questionsList[idx] = responce;
+            this.questionsList[idx].state = 'done';
+        }
         else {
             this.questionsList.splice(idx, 1);
         }
@@ -176,12 +189,12 @@ export class AddQuestionComponent implements OnInit {
         return f;
     }
 
-    isEmptyReadingQuestionExists():string {
+    isEmptyQuestionWithSubQuestionsExists():string {
         for (let i = 0; i < this.questionsList.length; ++i) {
-            if ((this.questionsList[i].type === 'ReadingQuestion')
-                && (this.questionsList[i].subQuestions.length === 0)) {
-                return 'empty';
-            } else {
+            if ((this.questionsList[i].type === 'ReadingQuestion') || (this.questionsList[i].type === 'AudioQuestion')) {
+                if (!this.questionsList[i].subQuestions.length) {
+                    return 'empty';
+                }
                 for (let j = 0; j < this.questionsList[i].subQuestions.length; ++j) {
                     if (this.questionsList[i].subQuestions[j].state === 'edit') {
                         return 'sub';
