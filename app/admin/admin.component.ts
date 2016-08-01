@@ -7,23 +7,33 @@ import {AddQuestionComponent} from "./actions/add-question/add-question.componen
 import {CustomHttp} from "../common/services/CustomHttp";
 import {AssignTestComponent} from "./assignTest.component";
 
+import {ShowUsersComponent} from "./actions/show-users/show-users.component";
 
 @Component({
     selector: 'admin-component',
     templateUrl: 'app/admin/admin.home.2.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AddMemberComponent, NotificationsComponent, AddQuestionComponent, AdminComponent, AssignTestComponent],
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, ShowUsersComponent, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
     providers: [CustomHttp]
 })
 
-//public selectOptions:Array<any> = ['option1', 'option2', 'option3'];
-
-
 export class AdminComponent implements OnInit {
-    constructor(private customHttp:CustomHttp) {
-
+    get currentTab():number {
+        return this._currentTab;
     }
-    navigateB(){
 
+    set currentTab(value:number) {
+        this._currentTab = value;
+    }
+
+    private _currentTab: number;
+
+    constructor(private customHttp:CustomHttp) {
+        this.currentTab = 2;
+    }
+
+    changeTab(currentTab) {
+        this.currentTab = currentTab;
+        console.log(this.currentTab);
     }
 
     ngOnInit():any {

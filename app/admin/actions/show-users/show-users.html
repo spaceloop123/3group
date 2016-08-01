@@ -1,0 +1,20 @@
+<div class="card white">
+    <div class="card-content black-text">
+        <div class="card-title flow-text" align="center">Users</div>
+        <input id="searchinput" class="form-control" type="search" placeholder="Search..." (keyup)="applySearch()" [(ngModel)]="searchFilter"/>
+        <div class="collection grey lighten-5"
+             *ngFor="let user of userList"
+             infinite-scroll
+             [infiniteScrollDistance]="1"
+             [infiniteScrollThrottle]="400"
+             (scrolled)="scrollOrNot()">
+            <a class="collection-item" href="javascript:;">
+                <div class="valign-wrapper">
+                    <span class="col s6 m6 title left-align">{{user.firstName}} {{user.lastName}}</span>
+                    <span class="col s4 m4 grey-text text-darken-1 center-align">{{user.role}}</span>
+                    <i class="material-icons grey-text">trending_flat</i>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

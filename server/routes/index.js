@@ -10,9 +10,10 @@ var AudioQuestion = mongoose.model('AudioQuestion');
 var OpenQuestion = mongoose.model('OpenQuestion');
 var SpeechQuestion = mongoose.model('SpeechQuestion');
 var Test = mongoose.model('Test');
+var Answer = mongoose.model('Answer');
 var path = require('path');
+var Validator = require('../libs/requestValidator');
 
-/* GET home page. */
 router.get('/', function (req, res) {
     res.render('index');
 });
@@ -22,7 +23,7 @@ router.get('/is_authenticated', function (req, res) {
 });
 
 router.get('/app_routes', function (req, res) {
-   res.sendFile(__dirname + '\\index.js');
+    res.sendFile(__dirname + '\\index.js');
 });
 
 router.get('/dist/app/app.routes.js', function (req, res) {

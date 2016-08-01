@@ -3,8 +3,7 @@ import {LoginData} from "./login.data";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {LoginService} from "./login.service";
 import {Constants} from "../common/constants/constants.data";
-import {NgForm} from "@angular/forms";
-import {Headers, Http} from "@angular/http";
+import {toast} from "angular2-materialize";
 
 @Component({
     templateUrl: 'app/login/login.html',
@@ -25,21 +24,44 @@ export class LoginComponent implements OnInit{
 
     }
 
-    model = new LoginData('', '');
+    errorMessage :string = ''
 
-    submitted = false;
 
-    showFormControls(form:NgForm) {
 
-        return form && form.controls['login'] &&
-            form.controls['lognin'].value; // Dr. IQ
+
+
+    model = new LoginData('', false, '', false);
+
+    getErrorMessage(): string{
+        var nameIsEmpty = false;
+        var message = 'Please enter '
+        if(this.model.username == ''){
+            message += 'your login';
+            nameIsEmpty = true;
+        }
+        if(this.model.password == ''){
+            if(nameIsEmpty){
+                message += ' and ';
+            }
+            message += 'your password';
+        }
+        return message;
     }
 
-    onSubmit() { this.submitted = true; }
+    onSubmit() {
+        console.log('onSubmit');
+    }
 
     loginRequest() {
-        this.loginService.logIn(this.model);
+        this.model.submitAttempt = true;
+        this.errorMessage = (this.model.username !== '' && this.model.password !== '') ? '' : this.getErrorMessage();
+        if(this.errorMessage.length !== 0) {
+            toast(this.errorMessage, 3000, 'amber darken-2');
+        }
+        console.log('loginRequest');
+        if(this.errorMessage === '') {
+            this.loginService.logIn(this.model);
+        }
     }
 
 }
-

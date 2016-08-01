@@ -13,27 +13,32 @@ import {LineChartDemoComponent} from "./user/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {AssignTestComponent} from "./admin/assignTest.component";
 import {DatepickerComponent} from "./admin/datepicker.component";
+import {Constants} from "./common/constants/constants.data";
+import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
 
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, LineChartDemoComponent, ShowTestsComponent,AssignTestComponent, DatepickerComponent],
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,ChartsComponent, ShowTestsComponent],
     providers: [LoginService, Location]
 })
-
 
 export class AppComponent implements OnInit, OnDestroy {
 
     private sub;
     private pathname;
+    private role;
 
-    constructor(private router: Router) {}
+    constructor(private router: Router,
+                private constants:Constants) {}
 
     checkPath () {
         this.pathname = window.location.href;
-        return (this.pathname.indexOf("/login") !== -1);
+        return ((this.pathname.indexOf("/login") !== -1) ||
+        ((this.role === 'user') && (this.pathname.indexOf("/home") !== -1)) ||
+        ((this.role === 'teacher') && (this.pathname.indexOf("/home") !== -1)));
     }
 
     RoutesErrorHandler() {
@@ -46,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit () {
+        this.role = sessionStorage.getItem('role');
         this.checkPath();
         this.RoutesErrorHandler();
         this.sub = this.router.events.subscribe(event => {

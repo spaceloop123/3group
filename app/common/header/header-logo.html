@@ -1,1 +1,11 @@
-<a id="logo-container" href="#" class="brand-logo" [routerLink]="['/logo']">Logo</a>
+<a id="logo-container" href="" class="brand-logo valign-wrapper" [routerLink]="['/logo']">
+        <img class='logo' src="../../../assets/src/exadel-logo.png"/>
+</a>
+<div *ngIf="!checkLogin()">
+    <div class="right hide-on-small-and-down">
+        <a class="waves-effect waves-light btn" (click)="goAway()">Logout</a>
+    </div>
+    <div class="right hide-on-med-and-up">
+        <i class="material-icons teal-text" (click)="goAway()">input</i>
+    </div>
+</div>

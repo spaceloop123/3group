@@ -2,52 +2,28 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Test = mongoose.model('Test');
+var Answer = mongoose.model('Answer');
+var testService = require('../services/testService');
+var answerService = require('../services/answerService');
 var mdlwares = require('../libs/mdlwares');
+var response = require('../libs/responseHelper');
 
 router.use(mdlwares.isTeacher);
 
 router.get('/tests', function (req, res, next) {
-    Test.find({teacher: req.user.id, status: 'checked'}, function (err, tests) {
-        var response = [];
-
-        if (tests != undefined) {
-            tests.forEach(function (test, tests) {
-                response.push(test.getTestInfo());
-            });
-        }
-        res.send(JSON.stringify(response));
-    });
+    testService.getTeachersTests(req.user.id, response.dataResponse(res));
 });
 
 router.post('/check_test', function (req, res, next) {
-    Test.findOne({id: req.body.id}, function (err, test) {
-        var response;
-        if (test != null)
-            response = test.getAnswers();
-        res.send(response);
-    });
+    testService.getAnswers(req.body.testId, response.dataResponse(res));
 });
 
-router.get('/get_test', function(req,res){
-    Test.findOne({id: req.body.testId}).populate({
-        path: 'answers',
-        model: 'Answer',
-        populate: {
-            path: 'question',
-            model: 'Question'
-        }
-    }).exec(function (err, test) {
-        var result = [];
-        test.answers.forEach(function (answer) {
-            result.push({
-                questionId : answer.question.id,
-                header: answer.question.header,
-                answerId: answer.id,
-                answer: answer.answer
-            });
-        });
-        res.json(result);
-    });
+router.post('/check_answer', function (req, res, next) {
+    answerService.getAnswerById(req.body.answerId, response.dataResponse(res));
+});
+
+router.post('/send_mark', function (req, res, next) {
+    answerService.setMark(req.body.answerId, req.body.testId, req.body.mark, response.emptyResponse(res));
 });
 
 module.exports = router;

@@ -6,6 +6,10 @@ var Test = mongoose.model('Test');
 var generatePassword = require('password-generator');
 var mailer = require('../libs/mailer');
 var mdlwares = require('../libs/mdlwares');
+var questionMap = require('../libs/questionMap');
+var questionService = require('../services/questionService');
+var userService = require('../services/userService');
+var response = require('../libs/responseHelper');
 
 router.use(mdlwares.isAdmin);
 
@@ -55,10 +59,20 @@ router.post('/new_test', function (req, res, next) {
     test.save();
 });
 
+router.post('/add_questions', function (req, res, next) {
+    questionService.addQuestions(req.body);
+    res.status(200).end();
+
+});
+
+router.post('/user_list', function (req, res, next) {
+   userService.getUserList(req.body.n, req.body.searchFilter, response.dataResponse(res));
+});
+
 function addUser(username, password, role, req) {
     var user = new User({
         email: req.body.email,
-        firstName: req.body.firsName,
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
         username: username,
         role: role,

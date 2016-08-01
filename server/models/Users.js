@@ -24,4 +24,13 @@ UserSchema.methods.validPassword = function(password) {
     return this.hash === hash;
 };
 
+UserSchema.methods.getInfo = function () {
+  return {
+      id: this.id,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      role: this.role
+  }  
+};
+
 mongoose.model('User', UserSchema);
