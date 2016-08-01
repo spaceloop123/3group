@@ -17,8 +17,17 @@ import {LineChartDemoComponent} from "../user/charts.component";
 export class AssignTestComponent implements OnInit {
 
     onNotify(message:string):void {
-        alert('message');
+       /* var field = <HTMLElement><any>document.getElementById("datepicker");
+        if ((field.textContent === 'dd') || (field.textContent === 'mm') || (field.textContent === 'yyyy')) {
+            console.log("Select Date");
+        }
+        else {
+            console.log("OK");
+        }*/
+        alert($('.date').val());
     }
+
+
 
     checkInput(event) {
         console.log("checkInput")
