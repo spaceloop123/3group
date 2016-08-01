@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
-import {Http} from "@angular/http";
+import {CustomHttp} from "../../../common/services/CustomHttp";
 
 @Component({
     selector: 'notifications-component',
@@ -24,24 +24,36 @@ export class NotificationsComponent implements OnInit {
      *  }
      * */
 
-    constructor(private http:Http) {
+    constructor(private customHttp:CustomHttp) {
         this.notifyList = [];
-        /*        this.notifyList = [
-         {
-         color: 'red',
-         icon: 'error_outline',
-         title: 'Request',
-         firstLine: 'Username requested test',
-         secondLine: 'Accept or decline'
-         },
-         {
-         color: 'green',
-         icon: 'done',
-         title: 'Done',
-         firstLine: 'Username passed test',
-         secondLine: 'Teachername checked test'
-         }
-         ];*/
+        // this.notifyList = [
+        //
+        //     {
+        //         color: 'red',
+        //         icon: 'error_outline',
+        //         title: 'Request',
+        //         firstLine: 'Username requested test',
+        //         secondLine: 'Accept or decline'
+        //     },
+        //     {
+        //         color: 'green',
+        //         icon: 'done',
+        //         title: 'Done',
+        //         firstLine: 'Username passed test',
+        //         secondLine: 'Teachername checked test'
+        //     }
+        // ];
+
+    }
+
+    pollFunction() {
+        this.customHttp.get('/admin/notifications')
+            .subscribe(response => {
+                // setTimeout(function(response) {
+                //     console.log(response);
+                // }, 1000);
+                console.log('h ' + response);
+            });
     }
 
     ngOnInit() {

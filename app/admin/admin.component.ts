@@ -17,6 +17,15 @@ import {ShowUsersComponent} from "./actions/show-users/show-users.component";
 })
 
 export class AdminComponent implements OnInit {
+
+    // private curWidth = window.innerWidth
+    // || document.documentElement.clientWidth
+    // || document.body.clientWidth;
+    //
+    // private curHeight = window.innerHeight
+    // || document.documentElement.clientHeight
+    // || document.body.clientHeight;
+
     get currentTab():number {
         return this._currentTab;
     }
@@ -38,5 +47,6 @@ export class AdminComponent implements OnInit {
 
     ngOnInit():any {
         this.customHttp.checkRole();
+        // console.log(this.curHeight + ', ' + this.curWidth);
     }
 }

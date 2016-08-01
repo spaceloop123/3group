@@ -23,12 +23,7 @@ export class TeacherComponent implements OnInit {
     constructor(private cardsColorsData:CardsColorsData,
                 private customHttp: CustomHttp,
                 private router: Router) {
-    }
 
-    private generateRandomColor = function () {
-        //generates whole color name randomly
-        this.randomColor = this.cardsColorsData.CARDS_COLORS_ACCENT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_ACCENT.length)];
-        return (this.randomColor);
     }
 
     getTests() {
@@ -38,17 +33,22 @@ export class TeacherComponent implements OnInit {
             .subscribe(response => {
                 that.setTests(response.json());
             });
-             //.catch( that.handleError.bind(that));
     }
 
     setTests(response) {
-        for (let i = 0; i < response.length; i++) {
-            response[i].color = this.generateRandomColor();
+        let i = 0;
+        let j = 0;
+        for (; i < response.length; i++, j++) {
+
+            //setting cards color
+            if (j >= this.cardsColorsData.CARDS_COLORS_ACCENT.length) {
+                j = 0;
+            }
+            response[i].color = this.cardsColorsData.CARDS_COLORS_ACCENT[j];
+
+            //---------------
+
             response[i].number = i + 1;
-            //var d = new Date(response.date, );
-            //response.date = d.getUTCDay() + '.' + d.getUTCMonth() + '.' + d.getUTCFullYear());
-            //console.log(response.date);
-            response[i].date = moment(response.date, moment.ISO_8601);
         }
         this.assignedTests = response;
         console.log(this.assignedTests);
@@ -59,19 +59,8 @@ export class TeacherComponent implements OnInit {
         this.router.navigate(['/teacher/check_test', test.id]);
     }
 
-
-    // handleError(error:any) {
-    //     return Promise.reject(error.message || error);
-    // }
-
     ngOnInit() {
         this.customHttp.checkRole();
         this.getTests();
     }
 }
-
-/*
- for (let i = 0; i < this.assignedTests.length; i++) {
- this.assignedTests[i].color = this.generateRandomColor();
- }
- */
