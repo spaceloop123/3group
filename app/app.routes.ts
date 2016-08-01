@@ -8,6 +8,7 @@ import {UserRoutes} from "./user/user.routes";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {AssignTestComponent} from "./admin/assignTest.component";
 
+
 const routes:RouterConfig = [
     {
         path: '',
@@ -44,9 +45,9 @@ const routes:RouterConfig = [
         component: ChartsComponent
     },
     {
-        path: 'admin/assignTest',
-        component: AssignTestComponent
-    },
+           path: 'admin/assignTest',
+           component: AssignTestComponent
+   },
 
     ...UserRoutes
 

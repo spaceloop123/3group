@@ -11,8 +11,9 @@ import {ShowUsersComponent} from "./actions/show-users/show-users.component";
 
 @Component({
     selector: 'admin-component',
-    templateUrl: 'app/admin/admin.home.2.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective, ShowUsersComponent, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
+    templateUrl: 'app/admin/admin.home' +
+    '.html',
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective, AssignTestComponent, ShowUsersComponent, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
     providers: [CustomHttp]
 })
 

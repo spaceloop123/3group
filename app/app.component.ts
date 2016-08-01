@@ -20,7 +20,7 @@ import {ShowUsersComponent} from "./admin/actions/show-users/show-users.componen
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
-    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
+    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent, AssignTestComponent, DatepickerComponent,
         RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,LineChartDemoComponent, ShowTestsComponent],
     providers: [LoginService, Location]
 })

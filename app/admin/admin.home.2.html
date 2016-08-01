@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row">
+
+        <div class="col s12 m8 l8">
+
+            <div class="row">
+                <div class="col s12 offset-m1 m10 offset-l3 l6">
+                    <ul class="tabs" materialize="tabs">
+                        <li class="tab col s12 m4 l4"><a class="active" href="#tab1"><i
+                                class="material-icons">contacts</i></a></li>
+                        <li class="tab col s4 m4 l4"><a href="#tab2"><i class="material-icons">question_answer</i></a>
+                        </li>
+                        <li class="tab col s4 m4 l4"><a href="#tab3"><i
+                                class="material-icons">supervisor_account</i></a></li>
+                    </ul>
+                </div>
+
+                <!-- Add member -->
+
+                <div id="tab1" class="col s12">
+                    <div class="row">
+                        <div class="col offset-l2 l8">
+                            <add-member-component></add-member-component>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add questions -->
+
+                <div id="tab2" class="col s12">
+                    <div class="row">
+                        <div class="col s12">
+                            <h5>NE NAJIMAT' NA CARTOCHKY</h5>
+                        </div>
+                        <div class="col s12">
+                            <add-question-component></add-question-component>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show profiles -->
+
+                <div id="tab3" class="col s12">
+                    <div class="row">
+                        <div class="col offset-l2 l8">
+                            <div class="card-panel yellow">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dicta eos
+                                    expedita fugiat ipsam, laboriosam maiores modi natus neque nobis quos tempore totam
+                                    velit. Ad harum incidunt maiores sequi ut.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col s12 m4 l4">
+            <div class="row">
+                <div class="col s12">
+                    <notifications-component></notifications-component>
+                </div>
+
+                <!--   Zhenya -->
+                <div class="col s12">
+                    <a class="waves-effect default btn" [routerLink]="['/admin/assignTest']">Assign Test</a>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
