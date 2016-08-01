@@ -79,13 +79,15 @@ module.exports.addQuestions = function (questions) {
     questions.forEach(function (question, questions) {
         var newQuestion = new questionMap[question._type]();
         newQuestion.setQuestion(question);
-        question._subQuestions.forEach(function (subQuestion, subQuestions) {
-            var newSubQuestion = new questionMap[subQuestion._type];
-            newSubQuestion.setQuestion(subQuestion);
-            newQuestion.subQuestions.push(newSubQuestion.id);
-            newSubQuestion.parent = newQuestion.id;
-            newSubQuestion.save();
-        });
+        if(question._subQuestions !== undefined) {
+            question._subQuestions.forEach(function (subQuestion, subQuestions) {
+                var newSubQuestion = new questionMap[subQuestion._type];
+                newSubQuestion.setQuestion(subQuestion);
+                newQuestion.subQuestions.push(newSubQuestion.id);
+                newSubQuestion.parent = newQuestion.id;
+                newSubQuestion.save();
+            });
+        }
         newQuestion.save();
     });
 };
