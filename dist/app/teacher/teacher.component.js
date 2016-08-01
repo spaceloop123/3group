@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, cards_colors_data_1, CustomHttp_1, index_1, moment;
+    var core_1, router_1, cards_colors_data_1, CustomHttp_1, index_1, moment_1;
     var TeacherComponent;
     return {
         setters:[
@@ -30,8 +30,8 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
             function (index_1_1) {
                 index_1 = index_1_1;
             },
-            function (moment_1) {
-                moment = moment_1;
+            function (moment_1_1) {
+                moment_1 = moment_1_1;
             }],
         execute: function() {
             TeacherComponent = (function () {
@@ -39,7 +39,7 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                     this.cardsColorsData = cardsColorsData;
                     this.customHttp = customHttp;
                     this.router = router;
-                    this.momentConstructor = moment.default || moment;
+                    this.momentConstructor = moment_1.default.default || moment_1.default;
                     this.generateRandomColor = function () {
                         //generates whole color name randomly
                         this.randomColor = this.cardsColorsData.CARDS_COLORS_ACCENT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_ACCENT.length)];
@@ -58,7 +58,10 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                     for (var i = 0; i < response.length; i++) {
                         response[i].color = this.generateRandomColor();
                         response[i].number = i + 1;
-                        response[i].date = this.momentConstructor().format('DD MMM YYYY');
+                        //var d = new Date(response.date, );
+                        //response.date = d.getUTCDay() + '.' + d.getUTCMonth() + '.' + d.getUTCFullYear());
+                        //console.log(response.date);
+                        response[i].date = moment_1.default(response.date, moment_1.default.ISO_8601);
                     }
                     this.assignedTests = response;
                     console.log(this.assignedTests);

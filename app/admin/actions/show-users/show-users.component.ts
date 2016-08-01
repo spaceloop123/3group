@@ -1,5 +1,5 @@
 import {Component, OnInit, OnChanges} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {InfiniteScroll} from 'angular2-infinite-scroll';
 import {CustomHttp} from '../../../common/services/CustomHttp';
@@ -21,7 +21,8 @@ export class ShowUsersComponent implements OnChanges, OnInit{
     // array = [];
     // sum = 30;
 
-    constructor(private customHttp: CustomHttp) {
+    constructor(private customHttp: CustomHttp,
+                private router: Router) {
         this.searchFilter = '';
     }
 
@@ -61,10 +62,14 @@ export class ShowUsersComponent implements OnChanges, OnInit{
         this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('search posted');
-                that.shownUsers = 0;
                 console.log(response);
                 that.userList = response.json();
             });
+        this.shownUsers = 0;
+    }
+
+    showDetails() {
+        this.router.navigate(['/showTests']);
     }
 
     ngOnInit () {

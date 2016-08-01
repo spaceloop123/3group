@@ -6,7 +6,7 @@ import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
 import {UserRoutes} from "./user/user.routes";
 import {ChartsComponent} from "./user/charts/charts.component";
-import {AuthErrorComponent} from "./common/auth/auth.error.component";
+import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
 
 
 const routes:RouterConfig = [
@@ -45,9 +45,10 @@ const routes:RouterConfig = [
         component: ChartsComponent
     },
     {
-        path: 'error/:code',
-        component: AuthErrorComponent
-    },
+           path: 'admin/assignTest',
+           component: AssignTestComponent
+   },
+
     ...UserRoutes
 
 ];
@@ -55,3 +56,6 @@ const routes:RouterConfig = [
 export const APP_ROUTER_PROVIDERS = [
     provideRouter(routes)
 ];
+
+
+

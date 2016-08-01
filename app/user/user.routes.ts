@@ -11,7 +11,7 @@ export const UserRoutes:RouterConfig = [
     {
         path: 'finishTest/:role',
         component: FinishTestPageComponent
-    },    
+    },
     {
         path: 'showTests',
         component: ShowTestsComponent

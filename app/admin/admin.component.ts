@@ -5,11 +5,13 @@ import {AddMemberComponent} from "./actions/add-member/add-member.component";
 import {NotificationsComponent} from "./actions/notifications/notifications.component";
 import {AddQuestionComponent} from "./actions/add-question/add-question.component";
 import {CustomHttp} from "../common/services/CustomHttp";
+
 import {ShowUsersComponent} from "./actions/show-users/show-users.component";
 
 @Component({
     selector: 'admin-component',
-    templateUrl: 'app/admin/admin.home.html',
+    templateUrl: 'app/admin/admin.home' +
+    '.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, ShowUsersComponent, AddMemberComponent, NotificationsComponent, AddQuestionComponent],
     providers: [CustomHttp]
 })

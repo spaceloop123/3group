@@ -4,7 +4,7 @@ import {CardsColorsData} from "./cards-colors.data";
 import "rxjs/add/operator/toPromise";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {MaterializeDirective} from "angular2-materialize/dist/index";
-import * as moment from 'moment/moment';
+import moment from 'moment/moment';
 
 @Component({
     selector: 'teacher-component',
@@ -45,7 +45,10 @@ export class TeacherComponent implements OnInit {
         for (let i = 0; i < response.length; i++) {
             response[i].color = this.generateRandomColor();
             response[i].number = i + 1;
-            response[i].date = this.momentConstructor().format('DD MMM YYYY');
+            //var d = new Date(response.date, );
+            //response.date = d.getUTCDay() + '.' + d.getUTCMonth() + '.' + d.getUTCFullYear());
+            //console.log(response.date);
+            response[i].date = moment(response.date, moment.ISO_8601);
         }
         this.assignedTests = response;
         console.log(this.assignedTests);

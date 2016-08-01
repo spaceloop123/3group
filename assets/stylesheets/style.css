@@ -35,7 +35,6 @@ main {
 .notifications-list {
     min-height: 246px;
     max-height: 255px;
-    min-width:  328px;
 }
 
 .questions-list {
