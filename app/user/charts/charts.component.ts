@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
+import {Component} from "@angular/core";
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from "@angular/common";
 import {Http} from "@angular/http";
-import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
+import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 
 
 @Component({
@@ -9,7 +9,7 @@ import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
     templateUrl: 'app/user/charts/lineChart.html',
     directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
-export class LineChartDemoComponent {
+export class ChartsComponent {
     private showTestsUrl = 'app/user/showTests';  // URL to web api
 
     lineChartData;

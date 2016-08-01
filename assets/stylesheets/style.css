@@ -84,16 +84,16 @@ main {
     padding-top: 12px !important;
 }
 
-.teacher textarea{
-    pointer-events:none !important;
+.teacher textarea {
+    pointer-events: none !important;
 }
 
-.teacher input{
-    pointer-events:none !important;
+.teacher input {
+    pointer-events: none !important;
 }
 
-.teacher select{
-    pointer-events:none !important;
+.teacher select {
+    pointer-events: none !important;
 }
 
 /*don't delete, this is for teacher carousel*/
@@ -108,16 +108,15 @@ main {
 
 /*------------------------------------------------*/
 /*.carousel {*/
-    /*height: 100vh;*/
-    /*-webkit-perspective: 20vw;*/
-    /*perspective: 20vw;*/
+/*height: 100vh;*/
+/*-webkit-perspective: 20vw;*/
+/*perspective: 20vw;*/
 /*}*/
 
 /*.carousel .carousel-item {*/
-    /*width: 30vw;*/
-    /*height: 100vh;*/
+/*width: 30vw;*/
+/*height: 100vh;*/
 /*}*/
-
 
 a .disabled {
     pointer-events: none;
@@ -154,4 +153,10 @@ a .disabled {
 
 .instraction-modal {
     padding-right: 7%;
+}
+
+.notifications {
+    position: fixed;
+    top: 297px;
+    transform: translateY(-50%);
 }

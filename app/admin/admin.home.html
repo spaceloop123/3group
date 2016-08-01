@@ -3,8 +3,7 @@
 
         <div class="show-on-small hide-on-med-and-up col s12 m4 l4">
             <notifications-component class="hide-on-med-and-up"></notifications-component>
-            <notifications-component class="show-on-medium-and-up hide-on-small-and-down"
-                                     style="position: fixed; top: 298px; transform: translateY(-50%);">
+            <notifications-component class="show-on-medium-and-up hide-on-small-and-down notifications">
             </notifications-component>
         </div>
 
@@ -61,12 +60,14 @@
 
         <div class="hide-on-small-and-down col s12 m4 l4">
             <notifications-component class="hide-on-med-and-up"></notifications-component>
-            <notifications-component class="show-on-medium-and-up hide-on-small-and-down"
-                                     style="position: fixed; top: 298px; transform: translateY(-50%);">
+            <notifications-component class="show-on-medium-and-up hide-on-small-and-down notifications">
             </notifications-component>
         </div>
 
-        <a class="waves-effect default btn" [routerLink]="['/admin/assignTest']">AssignTest</a>
+
+        <!--<input type="file" ng2FileSelect [uploader]="uploader" />
+        <a class="waves-effect waves-light btn">upload</a>
+        -->
 
     </div>
 </div>
