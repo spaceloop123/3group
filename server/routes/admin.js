@@ -80,6 +80,10 @@ function addUser(username, password, role, req) {
     });
     user.setPassword(password);
     user.save();
-}
+};
+
+router.get('/teachers_list', function (req, res, next) {
+    userService.getTeachersList(response.dataResponse(res));
+});
 
 module.exports = router;

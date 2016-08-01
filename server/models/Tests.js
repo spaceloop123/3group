@@ -13,9 +13,12 @@ var TestSchema = new mongoose.Schema({
 });
 
 TestSchema.methods.getTestInfo = function () {
+    var month = (this.finishTime.getMonth() < 10 ? '0' : '') + (this.finishTime.getMonth() + 1);
+    var day = (this.finishTime.getDate() < 10 ? '0' : '') + this.finishTime.getDate();
+    var year = this.finishTime.getFullYear();
     return {
         id: this.id,
-        date: this.finishTime
+        date: day + '/' + month + '/' + year
     };
 };
 
