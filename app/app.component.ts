@@ -43,8 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     checkPath () {
         this.pathname = window.location.href;
         return ((this.pathname.indexOf("/login") !== -1) ||
-        ((this.role === 'user') && (this.pathname.indexOf("/home") !== -1)) ||
-        ((this.role === 'teacher') && (this.pathname.indexOf("/home") !== -1)));
+        ((this.role === 'user') && (this.pathname.indexOf("/home") !== -1)));
     }
 
     RoutesErrorHandler() {
