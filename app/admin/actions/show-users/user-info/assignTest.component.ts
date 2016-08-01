@@ -4,12 +4,12 @@ import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
 import {MaterializeDirective} from 'angular2-materialize';
 import {Http, Headers} from "@angular/http";
-import {LineChartDemoComponent} from "../user/charts.component";
+import {LineChartDemoComponent} from "../../../../user/charts/charts.component";
 
 
 @Component({
 
-    templateUrl: 'app/admin/assignTest.html',
+    templateUrl: 'app/admin/actions/show-users/user-info/assignTest.html',
     directives: [DatepickerComponent, LineChartDemoComponent, CHART_DIRECTIVES, ROUTER_DIRECTIVES, MaterializeDirective],
 
 })

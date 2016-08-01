@@ -1,4 +1,4 @@
-import {LineChartDemoComponent} from "../charts.component";
+import {LineChartDemoComponent} from "../charts/charts.component";
 import {Component, OnInit} from "@angular/core";
 import {CustomHttp} from "../../common/services/CustomHttp";
 

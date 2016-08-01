@@ -9,7 +9,7 @@ import {MaterializeDirective} from 'angular2-materialize';
 
 @Component({
     selector: 'datepicker',
-    templateUrl: 'app/admin/datepicker.html',
+    templateUrl: 'app/admin/actions/show-users/user-info/datepicker.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective]
 })
 export class DatepickerComponent {
