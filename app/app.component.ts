@@ -9,8 +9,10 @@ import {AdminComponent} from "./admin/admin.component";
 import {TeacherComponent} from "./teacher/teacher.component";
 import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
 import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
-import {ChartsComponent} from "./user/charts/charts.component";
+import {LineChartDemoComponent} from "./user/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
+import {AssignTestComponent} from "./admin/assignTest.component";
+import {DatepickerComponent} from "./admin/datepicker.component";
 import {Constants} from "./common/constants/constants.data";
 import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
 
@@ -18,8 +20,8 @@ import {ShowUsersComponent} from "./admin/actions/show-users/show-users.componen
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
-    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,ChartsComponent, ShowTestsComponent],
+    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent, AssignTestComponent, DatepickerComponent,
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,LineChartDemoComponent, ShowTestsComponent],
     providers: [LoginService, Location]
 })
 

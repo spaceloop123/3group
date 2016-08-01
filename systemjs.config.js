@@ -15,7 +15,9 @@
     'rxjs':                       'node_modules/rxjs',
     'angular2-localstorage':      'node_modules/angular2-localstorage',
     'angular2-infinite-scroll':   'node_modules/angular2-infinite-scroll',
-    'moment':                     'node_modules/moment'
+    'moment':                     'node_modules/moment',
+    'datepicker':                 'node_modules/angular2-materialize/app/components/datepicker',
+    'ng2-charts':                 'node_modules/ng2-charts'
 
 
   };
@@ -30,7 +32,10 @@
     '@angular/forms':             { main: 'index.js', defaultExtension: 'js' },
     'angular2-localstorage':      { defaultExtension: "js" },
     'angular2-infinite-scroll':   { main: 'angular2-infinite-scroll.js', defaultExtension: "js" },
-    'moment':                     { defaultExtension: 'js' }
+    'moment':                     { defaultExtension: 'js' },
+    'datepicker':                 { defaultExtension: "ts"},
+    'ng2-charts':                 { defaultExtension: 'js' }
+
   };
   var ngPackageNames = [
     'common',

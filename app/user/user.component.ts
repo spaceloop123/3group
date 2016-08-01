@@ -49,7 +49,7 @@ export class UserComponent implements OnInit {
         }
 
     }
-
+    
     testWaiter() {
         while (this.status !== 'available') {
             setTimeout(function () {
@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
         var that = this;
         this.http.get('/user/ask_test')
             .toPromise()
-            .then(response => that.status = 'requestedTest')
+            .then(response => that.status = 'requested')
             .catch(this.handleError);
     }
 
@@ -79,6 +79,9 @@ export class UserComponent implements OnInit {
         return Promise.reject(error.message || error);
     }
 }
+
+
+
 
 
 
