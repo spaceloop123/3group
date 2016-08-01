@@ -21,7 +21,7 @@ import {ShowUsersComponent} from "./admin/actions/show-users/show-users.componen
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,ChartsComponent, ShowTestsComponent],
+        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent,LineChartDemoComponent, ShowTestsComponent],
     providers: [LoginService, Location]
 })
 
