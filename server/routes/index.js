@@ -12,7 +12,6 @@ var SpeechQuestion = mongoose.model('SpeechQuestion');
 var Test = mongoose.model('Test');
 var Answer = mongoose.model('Answer');
 var path = require('path');
-var Validator = require('../libs/requestValidator');
 
 router.get('/', function (req, res) {
     res.render('index');

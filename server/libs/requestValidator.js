@@ -9,16 +9,15 @@ function Validator() {
 
 Validator.prototype.checkItem = function (itemName, item) {
     this._tasks.push(function (prev, callback) {
-        
         if (!prev) return callback(null, null);
-        
+
         item(function (err, res) {
             if (err) return callback(err);
 
-            res ? prev[itemName] = res : prev = null;
+            res == null ? prev = null : prev[itemName] = res;
             callback(null, prev);
         }, prev);
-        
+
     });
     return this;
 };

@@ -8,8 +8,37 @@ var testService = require('../services/testService');
 var questionMap = require('../libs/questionMap');
 
 module.exports.getQuestion = function (userId, testId, n, done) {
-    validateQuestionRequest({_id: testId, user: userId, status: 'run'}, n).exec(function (res) {
-        var question = res.questions[Math.floor(Math.random() * res.questions.length)];
+    validateQuestionRequest(userId, testId, n).exec(function (res) {
+        done(null, res.question.getQuestion());
+    }, done, done);
+};
+
+function validateQuestionRequest(userId, testId, n) {
+    return testService.getTestValidator({_id: testId, user: userId, status: 'run'}, 'answers')
+        .checkItems({
+            newQuestion: function (callback, prev) {
+                var maxCount = prev.template.questions.length;
+                var curCount = prev.test.answers.length;
+
+                n <= maxCount ?
+                    n === curCount || n === curCount + 1 ?
+                        callback(null, n === curCount ? false : true) :
+                        callback() : callback()
+            },
+            question: function (callback, prev) {
+                prev.newQuestion ?
+                    getNewQuestion(prev.test, prev.template.questions[n - 1], callback) :
+                    Question.findOne({_id: prev.test.answers[n - 1].question}).populate('subQuestions').exec(callback);
+            }
+        });
+}
+
+function getNewQuestion(test, type, callback) {
+    Question.find({parent: undefined, type: type}).populate('subQuestions').exec(function (err, questions) {
+        if (err) return callback(err);
+        if (!questions) return callback();
+
+        var question = questions[Math.floor(Math.random() * questions.length)];
         var answer = new Answer({question: question.id, autoCheck: question.autoCheck});
         if (question.subQuestions) {
             question.subQuestions.forEach(function (subQuestion) {
@@ -22,39 +51,23 @@ module.exports.getQuestion = function (userId, testId, n, done) {
                 subAnswer.save();
             });
         }
-        res.test.answers.push(answer.id);
+        test.answers.push(answer.id);
         answer.save();
-        res.test.save();
-        done(null, {question: question.getQuestion()});
-    }, done, done);
-};
-
-function validateQuestionRequest(testOptions, n) {
-    return testService.getTestValidator(testOptions)
-        .checkItems({
-            rightNumber: function (callback, prev) {
-                var maxCount = prev.template.questions.length;
-                var curCount = prev.test.answers.length;
-                (n <= maxCount && n === curCount + 1) ? callback(null, {}) : callback();
-            },
-            questions: function (callback, prev) {
-                Question.find({parent: undefined, type: prev.template.questions[n - 1]})
-                    .populate('subQuestions').exec(callback);
-            }
-        });
+        test.save();
+        callback(null, question);
+    });
 }
 
 module.exports.getSubquestion = function (userId, testId, questionId, done) {
-    new Validator()
+    validateSubquestionRequest(userId, testId, questionId).exec(function (res) {
+        done(null, res.subquestion.getQuestion());
+    }, done, done);
+};
+
+function validateSubquestionRequest(userId, testId, questionId) {
+    return testService.getTestValidator({_id: testId, user: userId, status: 'run'}, 'answers')
         .checkItems({
-            test: function (callback) {
-                Test.findOne({_id: testId, user: userId, status: 'run'}).populate('answers').exec(callback);
-            },
-            template: function (callback) {
-                TestTemplate.findOne(callback);
-            },
             question: function (callback, prev) {
-                console.log('!');
                 var answers = prev.test.answers;
                 Question.findOne({_id: answers[answers.length - 1].question.toString()}, callback);
             },
@@ -69,17 +82,14 @@ module.exports.getSubquestion = function (userId, testId, questionId, done) {
             subquestion: function (callback) {
                 Question.findOne({_id: questionId}, callback);
             }
-        })
-        .exec(function (res) {
-            done(null, res.subquestion.getQuestion());
-        }, done, done);
-};
+        });
+}
 
 module.exports.addQuestions = function (questions) {
-    questions.forEach(function (question, questions) {
+    questions.forEach(function (question) {
         var newQuestion = new questionMap[question._type]();
         newQuestion.setQuestion(question);
-        question._subQuestions.forEach(function (subQuestion, subQuestions) {
+        question._subQuestions.forEach(function (subQuestion) {
             var newSubQuestion = new questionMap[subQuestion._type];
             newSubQuestion.setQuestion(subQuestion);
             newQuestion.subQuestions.push(newSubQuestion.id);
