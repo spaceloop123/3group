@@ -8,6 +8,8 @@ var MongoStore = require('connect-mongo')(expressSession);
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var debug = require('debug')('flapper-news:server');
+var http = require('http');
 
 require('./server/models/Users');
 require('./server/models/questions/Questions');
@@ -33,6 +35,15 @@ var guest = require('./server/routes/guest');
 var mdlwares = require('./server/libs/mdlwares');
 
 var app = express();
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+var server = http.createServer(app);
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app'));
@@ -66,7 +77,7 @@ app.use('/', routes);
 app.use('/node_modules', express.static(__dirname + '/node_modules/'));
 app.use('/server', function (req, res){
     res.status(403).end();
-})
+});
 app.use('/', express.static(__dirname));
 app.use('/fonts', express.static(__dirname + 'public'));
 
@@ -80,6 +91,66 @@ app.use('/admin', admin);
 app.use('/teacher', teacher);
 app.use('/user', user);
 app.use('/guest', guest);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
