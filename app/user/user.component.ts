@@ -49,7 +49,7 @@ export class UserComponent implements OnInit {
         }
 
     }
-    
+
     testWaiter() {
         while (this.status !== 'available') {
             setTimeout(function () {
@@ -59,8 +59,8 @@ export class UserComponent implements OnInit {
     }
 
     askTest() {
-        alert('test is asked');
         var that = this;
+        this.status = 'requestedTest'
         this.http.get('/user/ask_test')
             .toPromise()
             .then(response => that.status = 'requested')

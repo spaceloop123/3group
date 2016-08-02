@@ -6,12 +6,10 @@ import {MaterializeDirective} from 'angular2-materialize'
 import {TestInfo} from "../../test/test.info";
 import {TimerComponent} from "./timer.component";
 import {TestComponent} from "../../test/test.component";
-import {CustomHttp} from "../../common/services/CustomHttp";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
-    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, ROUTER_DIRECTIVES, TimerComponent, TestComponent],
-    providers: [CustomHttp]
+    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, ROUTER_DIRECTIVES, TimerComponent, TestComponent]
 })
 
 export class RunTestComponent implements OnInit, OnDestroy {
@@ -25,9 +23,8 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     constructor(private route:ActivatedRoute,
                 private router:Router,
-                private http:Http,
-                private customHttp: CustomHttp) {
-        this.timerSec = 456;
+                private http:Http) {
+
         this.progress = 80;
         this.opMode = 'user';
         this.answersId = {};
@@ -38,7 +35,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.customHttp.checkRole();
+        //TODO add customHttp.checkRole()
         var that = this;
         this.sub = this.route.params.subscribe(params => {
             that.role = params['role'];
@@ -49,6 +46,8 @@ export class RunTestComponent implements OnInit, OnDestroy {
         console.log('blabla');
         if(this.testInfo === null) {
             this.getTestInfoFromServer();
+        } else {
+            this.initTimer(this.testInfo.deadline);
         }
         //console.log(this.testInfo);
     }
@@ -75,6 +74,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     initTestInfo(deadline, numQuestion, id) {
         this.testInfo = new TestInfo(deadline, numQuestion, id);
         this.saveTestInfo();
+        this.initTimer(deadline);
     }
 
     handleError(error:any) {
@@ -115,4 +115,14 @@ export class RunTestComponent implements OnInit, OnDestroy {
     setProgress(newValue: number){
         this.progress = newValue;
     }
+
+    initTimer(deadline: string){
+        let deadlineDate = new Date(deadline);
+        let currentDate = new Date();
+        this.timerSec = Math.floor((deadlineDate.getTime() - currentDate.getTime()) / 1000);
+        console.log('this.timerSec ' + this.timerSec);
+
+    }
+
+
 }
