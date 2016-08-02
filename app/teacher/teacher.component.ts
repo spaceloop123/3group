@@ -4,7 +4,6 @@ import {CardsColorsData} from "./cards-colors.data";
 import "rxjs/add/operator/toPromise";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {MaterializeDirective} from "angular2-materialize/dist/index";
-import moment from 'moment/moment';
 
 @Component({
     selector: 'teacher-component',
