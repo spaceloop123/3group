@@ -1,5 +1,5 @@
 import {DatepickerComponent} from "./datepicker.component";
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 import {MaterializeDirective} from "angular2-materialize";
@@ -16,32 +16,42 @@ import {CustomHttp} from "../../../../common/services/CustomHttp";
 
 export class AssignTestComponent implements OnInit {
 
-    public currentUser:any;
-    private sub;
 
-    onNotify(message:string):void {
-        var field = <HTMLElement><any>document.getElementById("datepicker");
-        if ((field.textContent === 'dd') || (field.textContent === 'mm') || (field.textContent === 'yyyy')) {
-            console.log("Select Date");
-        }
-        else {
-            console.log("OK");
-        }
-    }
-
-
-    checkInput(event) {
-        console.log("checkInput")
-
-    }
 
 
     constructor(private route:ActivatedRoute,
                 private customHttp:CustomHttp) {
+
+        this.date = new Date();
+
     }
 
+
+
+    public currentUser:any;
+    private sub;
+
+    onNotify():void {
+        alert('onNotify')
+        console.log('this.date.value');
+        if(a.value!='' && b.value!=''){
+            alert("alreadySelected")
+            document.getElementById("assignTestButton").buttonState='visible'
+        }
+        }
+
+
+
+    checkInput(event) {
+        console.log("checkInput");
+
+
+    }
+
+
+
+
     ngOnInit() {
-        console.log('hui');
         this.customHttp.checkRole();
         var that = this;
         this.sub = this.route.params.subscribe(params => {

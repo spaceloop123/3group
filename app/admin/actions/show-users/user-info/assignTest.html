@@ -27,12 +27,15 @@
                     </div>
 
                     <div class="card-action" align="center">
-                        <a class="waves-effect default btn" (click)="checkInput()">Assign Test</a>
+                        <a id="assignTestButton"class="waves-effect disabled btn" (click)="checkInput()" [ngClass]="buttonState">Assign Test</a>
                     </div>
                 </div>
             </div>
 
         </div>
+        <p>{{date | date:'yMMMMd'}}</p>
+            <p>{{date | date:'shortTime'}}</p>
+
     </div>
 </div>
 

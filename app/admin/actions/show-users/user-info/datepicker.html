@@ -4,7 +4,7 @@
         <div class="col s12 m5 l5">
             <h6>Date (from)</h6>
             <div id="datepicker1" class="datepicker" style="margin-top: 2.5%">
-                <input id="dateFrom" type="date" class="datepicker" (click)='selectDateFrom()' [(ngModel)]="dateFrom" >
+                <input id="dateFrom" type="date" class="datepicker" (click)='selectDateFrom()' [(ngModel)]="dateFrom">
             </div>
         </div>
         <h6>Time (from)</h6>
@@ -45,19 +45,21 @@
         </div>
     </div>
 
+    <p>{{date | date:'yMMMMd'}}</p>
+    <p>{{date | date:'shortTime'}}</p>
 
     <div class="row">
         <div class="col s12 m5 l5">
             <h6 style="margin: 0">Date (to)</h6>
             <div id="datepicker2" class="datepicker" style="margin-top: 2.5%">
-                <input id="dateTo" type="date" class="datepicker" (click)='selectDateTo()' [(ngModel)]="dateTo" >
+                <input id="dateTo" type="date" class="datepicker" (click)='selectDateTo()' [(ngModel)]="dateTo" disabled>
             </div>
         </div>
 
         <h6>Time (to)</h6>
         <div class="col m2" style="padding:0">
 
-            <select  style="margin: 0;" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" >
+            <select  style="margin: 0;" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" disabled>
                 <option value=""  selected >00</option>
                 <option value="1">01</option>
                 <option value="2">02</option>
@@ -75,7 +77,7 @@
         </div>
 
         <div class="col m2" style="padding:0">
-            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" disabled>
                 <option value="" selected>00</option>
                 <option value="1">10</option>
                 <option value="2">20</option>
@@ -86,7 +88,7 @@
             </select>
         </div>
         <div class="col m2" style="padding:0">
-            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" disabled>
                 <option value=""selected>pm</option>
                 <option value="1">am</option>
             </select>
