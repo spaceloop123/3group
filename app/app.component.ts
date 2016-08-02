@@ -14,8 +14,8 @@ import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {DatepickerComponent} from "./admin/actions/show-users/user-info/datepicker.component";
 import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
 import {LoginService} from "./login/login.service";
-import {Constants} from "./common/constants/constants.data";
 import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
+import {TeacherInfoComponent} from "./admin/actions/show-users/teacher-info/teacher-info.component";
 
 //components
 
@@ -26,7 +26,7 @@ import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTe
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
-    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent, AssignTestComponent, DatepickerComponent,
+    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent, AssignTestComponent, TeacherInfoComponent, DatepickerComponent,
         RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent, ShowUsersComponent],
     providers: [LoginService, Location]
 })
@@ -37,8 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private pathname;
     private role;
 
-    constructor(private router:Router,
-                private constants:Constants) {
+    constructor(private router:Router) {
     }
 
     checkPath() {
@@ -46,7 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
         return ((this.pathname.indexOf("/login") !== -1) ||
         ((this.role === 'user') && (this.pathname.indexOf("/home") !== -1)) ||
         ((this.role === 'teacher') && (this.pathname.indexOf("/home") !== -1)) ||
-        ((this.role === 'admin') && (this.pathname.indexOf("/admin/assignTest") !== -1)));
+        ((this.role === 'admin') && (this.pathname.indexOf("/admin/assignTest") !== -1)) ||
+        ((this.role === 'admin') && (this.pathname.indexOf("/admin/teacher_info") !== -1)));
     }
 
     RoutesErrorHandler() {

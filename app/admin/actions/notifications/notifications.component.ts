@@ -25,8 +25,6 @@ export class NotificationsComponent implements OnInit {
      *  }
      * */
 
-    private observable:any;
-
     constructor(private notificationsService:NotificationsService) {
         this.notifyList = [];
         // this.notifyList = [
@@ -47,15 +45,11 @@ export class NotificationsComponent implements OnInit {
         //     }
         // ];
 
-        /*Observable.interval(800)
-            .map((x) => x + 1)
-            .subscribe((x) => {
-                console.log('catched ' + x);
-         });*/
+        notificationsService.getData();
     }
 
     ngOnInit() {
-        console.log('init');
+        console.log('Notification component init');
     }
 
     refreshNotifications() {

@@ -69,7 +69,11 @@ export class ShowUsersComponent implements OnChanges, OnInit{
     }
 
     showDetails(user) {
-        this.router.navigate(['/admin/assignTest', user.id]);
+        if (user.role === 'user') {
+            this.router.navigate(['/admin/assignTest', user.id]);
+        } else if (user.role === 'teacher') {
+            this.router.navigate(['/admin/teacher_info', user.id]);
+        }
     }
 
     ngOnInit () {

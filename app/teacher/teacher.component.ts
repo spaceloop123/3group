@@ -4,7 +4,6 @@ import {CardsColorsData} from "./cards-colors.data";
 import "rxjs/add/operator/toPromise";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {MaterializeDirective} from "angular2-materialize/dist/index";
-import moment from 'moment/moment';
 
 @Component({
     selector: 'teacher-component',
@@ -18,7 +17,6 @@ export class TeacherComponent implements OnInit {
     //assignedTests - array of tests' descriptions, selectedTest - one test's description of the test being clicked
 
     private assignedTests:any;
-    private momentConstructor: (value?: any) => moment.Moment = (<any>moment).default || moment;
 
     constructor(private cardsColorsData:CardsColorsData,
                 private customHttp: CustomHttp,

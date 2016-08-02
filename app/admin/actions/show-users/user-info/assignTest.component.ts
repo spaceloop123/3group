@@ -1,9 +1,8 @@
 import {DatepickerComponent} from "./datepicker.component";
 import {Component, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
+import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 import {MaterializeDirective} from "angular2-materialize";
-import {Http} from "@angular/http";
 import {ChartsComponent} from "../../../../user/charts/charts.component";
 import {CustomHttp} from "../../../../common/services/CustomHttp";
 
