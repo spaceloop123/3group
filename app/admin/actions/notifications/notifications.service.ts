@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {CustomHttp} from "../../../common/services/CustomHttp";
+import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class NotificationsService {
@@ -7,14 +8,10 @@ export class NotificationsService {
 
     }
 
-    getData(url):any {
-        let resp;
-        this.customHttp.get('/admin/notifications')
-            .subscribe(responce => {
-                resp = responce;
-            }, error => {
-                resp = {'test': 123};
+    getData():any {
+        return Observable.interval(2000)
+            .flatMap(() => {
+                return this.customHttp.get('/admin/notifications')
             });
-        return resp;
     }
 }

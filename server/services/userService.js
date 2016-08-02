@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Test = mongoose.model('Test');
 var Validator = require('../libs/requestValidator');
 var testService = require('./testService');
 var async = require('async');
@@ -29,13 +30,13 @@ module.exports.getTeachersList = function (done) {
     new Validator()
         .checkItem('teachers', function (callback) {
             User.find({role: 'teacher'}, callback);
-            
+
         })
         .exec(function (res) {
             var response = [];
             var tasks = [];
             res.teachers.forEach(function (teacher) {
-                tasks.push(function(callback) {
+                tasks.push(function (callback) {
                     testService.getTeachersTests(teacher.id, function (err, tests) {
                         response.push({
                             id: teacher.id,
@@ -49,6 +50,27 @@ module.exports.getTeachersList = function (done) {
             });
             async.parallel(tasks, function (err) {
                 err ? done(err) : done(null, response);
+            });
+        }, done, done);
+};
+
+module.exports.getUserHistory = function (userId, done) {
+    new Validator()
+        .checkItem('tests', function (callback) {
+            Test.find({user: userId, status: 'complete'}, callback);
+        })
+        .exec(function (res) {
+            res.tests.sort(function (firstTest, secondTest) {
+                return firstTest.finishTime - secondTest.finishTime;
+            });
+            done(null, {
+                tests: res.tests.map(function (test) {
+                    return {
+                        testId: test.id,
+                        date: test.finishTime,
+                        mark: test.result / test.maxResult * 100
+                    }
+                })
             });
         }, done, done);
 };

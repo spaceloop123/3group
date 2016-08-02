@@ -117,3 +117,64 @@ module.exports.getTeachersTests = function (teacher, done) {
             done(null, response);
         }, done);
 };
+
+module.exports.getTestHistoryByUser = function (userId, testId, done) {
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.findOne({_id: testId, user: userId, status: 'complete'})
+                .populate({
+                    path: 'answers',
+                    populate: {
+                        path: 'question'
+                    }
+                }).exec(callback);
+        })
+        .exec(function (res) {
+            var questions = res.test.answers.map(function (answer) {
+                var type;
+                switch (answer.question.type) {
+                    case TestQuestion:
+                    case InsertTestQuestion:
+                        type = 'Test';
+                        break;
+                    case InsertOpenQuestion:
+                    case OpenQuestion :
+                        type = 'Open';
+                        break;
+                    case AudioQuestion:
+                        type = 'Audio';
+                        break;
+                    case ReadingQuestion:
+                        type = 'Reading';
+                        break;
+                    case SpeechQuestion:
+                        type = 'Speech';
+                        break;
+                }
+                return {
+                    type: type,
+                    result: answer.mark,
+                    maxResult: answer.question.maxCost
+                }
+            });
+            var results = {};
+            questions.forEach(function (question) {
+                if (!results[question.type]) {
+                    results[question.type] = {
+                        result: 0,
+                        maxResult: 0
+                    }
+                }
+                results[question.type].result += question.result;
+                results[question.type].maxResult += question.maxResult;
+            });
+            var response = [];
+            for (key in results) {
+                response.push({
+                    type: key,
+                    mark: results[key].result / results[key].maxResult * 100
+                })
+            }
+            done(null, {questions: response});
+        }, done, done);
+};

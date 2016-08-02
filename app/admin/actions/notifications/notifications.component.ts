@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {NotificationsService} from "./notifications.service";
@@ -10,7 +10,7 @@ import {NotificationsService} from "./notifications.service";
     providers: [NotificationsService]
 })
 
-export class NotificationsComponent implements OnInit {
+export class NotificationsComponent implements OnInit, OnDestroy {
     /*
      * list of notifications
      * format:
@@ -25,37 +25,24 @@ export class NotificationsComponent implements OnInit {
      *  }
      * */
 
-    private observable:any;
+    private notificationObservable;
+    private notificationSubscription;
 
     constructor(private notificationsService:NotificationsService) {
         this.notifyList = [];
-        // this.notifyList = [
-        //
-        //     {
-        //         color: 'red',
-        //         icon: 'error_outline',
-        //         title: 'Request',
-        //         firstLine: 'Username requested test',
-        //         secondLine: 'Accept or decline'
-        //     },
-        //     {
-        //         color: 'green',
-        //         icon: 'done',
-        //         title: 'Done',
-        //         firstLine: 'Username passed test',
-        //         secondLine: 'Teachername checked test'
-        //     }
-        // ];
-
-        /*Observable.interval(800)
-            .map((x) => x + 1)
-            .subscribe((x) => {
-                console.log('catched ' + x);
-         });*/
+        this.notificationObservable = notificationsService.getData();
     }
 
     ngOnInit() {
-        console.log('init');
+        this.notificationSubscription = this.notificationObservable.subscribe(res => {
+            console.log('Responce = ' + res);
+        }, err => {
+            console.log('Error in Notififcation Service');
+        });
+    }
+
+    ngOnDestroy() {
+        this.notificationSubscription.unsubscribe();
     }
 
     refreshNotifications() {
