@@ -14,15 +14,7 @@ var response = require('../libs/responseHelper');
 
 var mdlwares = require('../libs/mdlwares');
 
-router.use(mdlwares.isUser);
-
-router.get('/test_info', function (req, res) {
-    testService.getTestStatus(req.user.id, response.dataResponse(res));
-});
-
-router.get('/ask_test', function (req, res) {
-    testService.requestTest(req.user.id, response.emptyResponse(res));
-});
+router.use(mdlwares.isTested);
 
 router.get('/init_test', function (req, res) {
     testService.initTest(req.user.id, response.dataResponse(res));
@@ -46,6 +38,16 @@ router.post('/subanswer', function (req, res) {
 
 router.post('/end_test', function (req, res) {
     testService.changeTestStatus('checking', req.body.testId, response.emptyResponse(res));
+});
+
+router.use(mdlwares.isUser);
+
+router.get('/test_info', function (req, res) {
+    testService.getTestStatus(req.user.id, response.dataResponse(res));
+});
+
+router.get('/ask_test', function (req, res) {
+    testService.requestTest(req.user.id, response.emptyResponse(res));
 });
 
 router.get('/history', function (req, res) {

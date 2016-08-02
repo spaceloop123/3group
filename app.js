@@ -23,7 +23,7 @@ require('./server/models/questions/InsertOpenQuestions');
 require('./server/models/TestTemplate');
 require('./server/models/Tests');
 require('./server/models/Answers');
-require('./server/models/Notifications')
+require('./server/models/Notifications');
 
 mongoose.connect("mongodb://localhost/test");
 
@@ -85,13 +85,13 @@ app.use('/fonts', express.static(__dirname + 'public'));
 //routes
 app.post('/login', auth.login);
 app.get('/logout', auth.logout);
+app.use('/guest', guest);
 
 app.use(mdlwares.isAuthenticated);
 
 app.use('/admin', admin);
 app.use('/teacher', teacher);
 app.use('/user', user);
-app.use('/guest', guest);
 
 /**
  * Normalize a port into a number, string, or false.

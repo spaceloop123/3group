@@ -27,3 +27,9 @@ exports.isGuest = function (req, res, next) {
         ? next()
         : res.status(403).end();
 };
+
+exports.isTested = function (req, res, next) {
+    req.user.role === 'user' || req.user.role === 'guest'
+        ? next()
+        : res.status(403).end();
+};
