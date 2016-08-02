@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
-import {Observable} from "rxjs/Rx";
 import {NotificationsService} from "./notifications.service";
 
 @Component({
@@ -48,11 +47,11 @@ export class NotificationsComponent implements OnInit {
         //     }
         // ];
 
-        Observable.interval(800)
+        /*Observable.interval(800)
             .map((x) => x + 1)
             .subscribe((x) => {
                 console.log('catched ' + x);
-            });
+         });*/
     }
 
     ngOnInit() {
