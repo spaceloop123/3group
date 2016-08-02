@@ -9,7 +9,7 @@ var questionMap = require('../libs/questionMap');
 
 module.exports.getQuestion = function (userId, testId, n, done) {
     validateQuestionRequest(userId, testId, n).exec(function (res) {
-        done(null, res.question.getQuestion());
+        done(null, {question: res.question.getQuestion()});
     }, done, done);
 };
 
@@ -60,7 +60,7 @@ function getNewQuestion(test, type, callback) {
 
 module.exports.getSubquestion = function (userId, testId, questionId, done) {
     validateSubquestionRequest(userId, testId, questionId).exec(function (res) {
-        done(null, res.subquestion.getQuestion());
+        done(null, {question: res.subquestion.getQuestion()});
     }, done, done);
 };
 
@@ -89,7 +89,7 @@ module.exports.addQuestions = function (questions) {
     questions.forEach(function (question) {
         var newQuestion = new questionMap[question._type]();
         newQuestion.setQuestion(question);
-        if(question._subQuestions !== undefined) {
+        if (question._subQuestions !== undefined) {
             question._subQuestions.forEach(function (subQuestion) {
                 var newSubQuestion = new questionMap[subQuestion._type];
                 newSubQuestion.setQuestion(subQuestion);
