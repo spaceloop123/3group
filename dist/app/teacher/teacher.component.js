@@ -40,11 +40,6 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                     this.customHttp = customHttp;
                     this.router = router;
                     this.momentConstructor = moment_1.default.default || moment_1.default;
-                    this.generateRandomColor = function () {
-                        //generates whole color name randomly
-                        this.randomColor = this.cardsColorsData.CARDS_COLORS_ACCENT[Math.floor(Math.random() * this.cardsColorsData.CARDS_COLORS_ACCENT.length)];
-                        return (this.randomColor);
-                    };
                 }
                 TeacherComponent.prototype.getTests = function () {
                     var that = this;
@@ -52,16 +47,18 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                         .subscribe(function (response) {
                         that.setTests(response.json());
                     });
-                    //.catch( that.handleError.bind(that));
                 };
                 TeacherComponent.prototype.setTests = function (response) {
-                    for (var i = 0; i < response.length; i++) {
-                        response[i].color = this.generateRandomColor();
+                    var i = 0;
+                    var j = 0;
+                    for (; i < response.length; i++, j++) {
+                        //setting cards color
+                        if (j >= this.cardsColorsData.CARDS_COLORS_ACCENT.length) {
+                            j = 0;
+                        }
+                        response[i].color = this.cardsColorsData.CARDS_COLORS_ACCENT[j];
+                        //---------------
                         response[i].number = i + 1;
-                        //var d = new Date(response.date, );
-                        //response.date = d.getUTCDay() + '.' + d.getUTCMonth() + '.' + d.getUTCFullYear());
-                        //console.log(response.date);
-                        response[i].date = moment_1.default(response.date, moment_1.default.ISO_8601);
                     }
                     this.assignedTests = response;
                     console.log(this.assignedTests);
@@ -70,9 +67,6 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
                     //this happens when teacher clicks CHECK button
                     this.router.navigate(['/teacher/check_test', test.id]);
                 };
-                // handleError(error:any) {
-                //     return Promise.reject(error.message || error);
-                // }
                 TeacherComponent.prototype.ngOnInit = function () {
                     this.customHttp.checkRole();
                     this.getTests();
@@ -92,9 +86,4 @@ System.register(["@angular/core", "@angular/router", "./cards-colors.data", "rxj
         }
     }
 });
-/*
- for (let i = 0; i < this.assignedTests.length; i++) {
- this.assignedTests[i].color = this.generateRandomColor();
- }
- */ 
 //# sourceMappingURL=teacher.component.js.map
