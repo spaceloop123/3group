@@ -44,7 +44,7 @@ router.post('/subanswer', function (req, res) {
 });
 
 router.post('/end_test', function (req, res) {
-    testService.endTest(req.user.id, req.body.testId, response.emptyResponse(res));
+    testService.changeTestStatus('checking', req.body.testId, response.emptyResponse(res));
 });
 
 module.exports = router;
