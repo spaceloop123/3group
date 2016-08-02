@@ -45,7 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.pathname = window.location.href;
         return ((this.pathname.indexOf("/login") !== -1) ||
         ((this.role === 'user') && (this.pathname.indexOf("/home") !== -1)) ||
-        ((this.role === 'teacher') && (this.pathname.indexOf("/home") !== -1)));
+        ((this.role === 'teacher') && (this.pathname.indexOf("/home") !== -1)) ||
+        ((this.role === 'admin') && (this.pathname.indexOf("/admin/assignTest") !== -1)));
     }
 
     RoutesErrorHandler() {
