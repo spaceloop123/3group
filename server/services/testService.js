@@ -4,6 +4,7 @@ var TestTemplate = mongoose.model('TestTemplate');
 var Question = mongoose.model('Question');
 var async = require('async');
 var Validator = require('../libs/requestValidator');
+var notificationService = require('../services/notificationService');
 
 module.exports.getTestValidator = function validateTest(findOptions, populateOptions) {
     return new Validator().checkItems({
@@ -38,7 +39,8 @@ module.exports.requestTest = function (userId, done) {
         }, function () {
             var test = new Test({user: userId, status: 'requested'});
             test.save();
-            done();
+            notificationService.createRequestNotification(userId, test.id);
+            done()
         }, done);
 };
 
@@ -74,11 +76,14 @@ function setTimer(testId, delay) {
 module.exports.changeTestStatus = function (status, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
-            Test.findOne({_id: testId}, callback);
+            Test.findOne({_id: testId}).populate('user teacher').exec(callback);
         })
         .exec(function (res) {
             res.test.status = status;
             res.test.save();
+            if(status === 'complete') {
+                notificationService.createDoneNotification(res.test.user.id, res.test.teacher.id, testId);
+            }
             done(null);
         }, done, done);
 };
