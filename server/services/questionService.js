@@ -22,7 +22,7 @@ function validateQuestionRequest(userId, testId, n) {
 
                 n <= maxCount ?
                     n === curCount || n === curCount + 1 ?
-                        callback(null, n === curCount ? false : true) :
+                        callback(null, !(n === curCount)) :
                         callback() : callback()
             },
             question: function (callback, prev) {

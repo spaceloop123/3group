@@ -36,11 +36,11 @@ router.post('/next_subquestion', function (req, res) {
 });
 
 router.post('/answer', function (req, res) {
-    answerService.putAnswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
+    answerService.addAnswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
 });
 
 router.post('/subanswer', function (req, res) {
-    answerService.putSubanswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
+    answerService.addSubanswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
 });
 
 router.post('/end_test', function (req, res) {
