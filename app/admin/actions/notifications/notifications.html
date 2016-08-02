@@ -13,7 +13,8 @@
     </ul>
 
     <ul class="notifications-list list-overflow-y collection  grey lighten-5" *ngIf="_notificationList.length !== 0">
-        <li class="collection-item avatar" *ngFor="let item of notificationList" (click)="onNotificationClick(item)">
+        <li class="collection-item avatar" *ngFor="let item of notificationList; let i = index"
+            (click)="onNotificationClick(item, i)">
             <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
             <span class="title">{{item.title}}</span>
             <div class="grey-text text-darken-1">{{item.firstLine}}<br>
@@ -22,4 +23,6 @@
         </li>
         <li class="divider" *ngIf="_notificationList.length <= 2"></li>
     </ul>
+
+
 </div>

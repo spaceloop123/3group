@@ -17,9 +17,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     private notificationObservable;
     private notificationSubscription;
 
+    private currentNotificationIdx;
+
     constructor(private notificationsService:NotificationsService) {
         this._notificationList = [];
         this.notificationObservable = notificationsService.getData();
+
+        this.currentNotificationIdx = -1;
     }
 
     ngOnInit() {
@@ -43,10 +47,12 @@ export class NotificationsComponent implements OnInit, OnDestroy {
             let notification = new Notification(list[i]);
             newNotificationsList.push(notification);
         }
-        let diff = newNotificationsList.length - this.notificationList.length;
-        let len = newNotificationsList.length;
-        for (let i = 0; i < diff; ++i) {
-            this.notificationList.push(newNotificationsList[i + len - 2]);
+        let start = this.notificationList.length;
+        let finish = newNotificationsList.length;
+        if (start < finish) {
+            Array.prototype.push.apply(this.notificationList, newNotificationsList.slice(start, finish));
+        } else {
+            this.notificationList = newNotificationsList;
         }
     }
 
@@ -62,12 +68,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         this._notificationList = value;
     }
 
-    onNotificationClick(notification) {
+    onNotificationClick(notification, idx) {
         console.log('Clicked on : ' + JSON.stringify(notification));
-        if (notification.type === 'request') {
-            
-        } else {
-
-        }
+        this.currentNotificationIdx = idx;
     }
 }
