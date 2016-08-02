@@ -1,6 +1,6 @@
 <div class="card-panel white">
 
-    <ul class="notifications-list collection grey lighten-5 valign-wrapper" *ngIf="notifyList.length === 0">
+    <ul class="notifications-list collection grey lighten-5 valign-wrapper" *ngIf="_notificationList.length === 0">
         <li class="col s10 m10 offset-s1 offset-m1">
             <div align="center">
                 <i class="material-icons grey-text">av_timer</i>
@@ -12,14 +12,14 @@
         </li>
     </ul>
 
-    <ul class="notifications-list list-overflow-y collection  grey lighten-5" *ngIf="notifyList.length !== 0">
-        <li class="collection-item avatar" *ngFor="let item of notifyList">
+    <ul class="notifications-list list-overflow-y collection  grey lighten-5" *ngIf="_notificationList.length !== 0">
+        <li class="collection-item avatar" *ngFor="let item of notificationList" (click)="onNotificationClick(item)">
             <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
             <span class="title">{{item.title}}</span>
             <div class="grey-text text-darken-1">{{item.firstLine}}<br>
                 <p class="grey-text text-darken-1">{{item.secondLine}}</p>
             </div>
         </li>
-        <li class="divider" *ngIf="notifyList.length <= 2"></li>
+        <li class="divider" *ngIf="_notificationList.length <= 2"></li>
     </ul>
 </div>

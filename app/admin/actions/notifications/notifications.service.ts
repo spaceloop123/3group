@@ -9,7 +9,7 @@ export class NotificationsService {
     }
 
     getData():any {
-        return Observable.interval(2000)
+        return Observable.interval(5000)
             .flatMap(() => {
                 return this.customHttp.get('/admin/notifications')
             });
