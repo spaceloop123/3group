@@ -9,6 +9,7 @@ var User = mongoose.model('User');
 var testService = require('../services/testService');
 var questionService = require('../services/questionService');
 var answerService = require('../services/answerService');
+var userService = require('../services/userService');
 var response = require('../libs/responseHelper');
 
 var mdlwares = require('../libs/mdlwares');
@@ -45,6 +46,10 @@ router.post('/subanswer', function (req, res) {
 
 router.post('/end_test', function (req, res) {
     testService.changeTestStatus('checking', req.body.testId, response.emptyResponse(res));
+});
+
+router.get('/history', function (req, res) {
+    userService.getUserHistory(req.user.id, response.dataResponse(res));
 });
 
 module.exports = router;
