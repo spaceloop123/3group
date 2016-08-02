@@ -17,7 +17,6 @@ export class TeacherComponent implements OnInit {
     //assignedTests - array of tests' descriptions, selectedTest - one test's description of the test being clicked
 
     private assignedTests:any;
-    private momentConstructor: (value?: any) => moment.Moment = (<any>moment).default || moment;
 
     constructor(private cardsColorsData:CardsColorsData,
                 private customHttp: CustomHttp,
