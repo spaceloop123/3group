@@ -124,18 +124,22 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         this.getSendButtonClass();
         this.saveCurrentIndex();
     }
+
+
     
     finishCheckTest(){
-        localStorage.clear();
+        let  testId = JSON.parse(localStorage.getItem('subQuestionInfo')).testId;
         let that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http
-            .post('/teacher/end_check',
-                JSON.stringify({testId: that.testInfo.id}), {headers: header})
+            .post('/teacher/end_test',
+                JSON.stringify({testId: testId}), {headers: header})
             .toPromise()
-            .then(response => that.router.navigate(['/home']))
-            .catch();
+            .then(response => {
+                    that.router.navigate(['/home']);
+                    localStorage.clear();
+            }).catch();
         
     }
     
@@ -147,9 +151,12 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             toast('Please, change your mark', 3000, 'red');
             this.rangeValue = 0;
         } else {
-            tc.sendMarkToServer(this.rangeValue, () => that.goToNextItem(tc));
+            let mark = this.rangeValue;
+            tc.sendMarkToServer(mark, () => that.goToNextItem(tc));
             ++this.countSentAnswers;
             this.saveCountSentAnswers();
+            this.canFinishCheck();
+            this.rangeValue = 0;
         }
 
         
@@ -195,7 +202,9 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         this.getSendButtonClass();
         let item = this.navigationItems[this.currentIndex];
         tc.goByItem(item);
+        this.canFinishCheck();
         this.activateParentButton();
+
 
 
     }
