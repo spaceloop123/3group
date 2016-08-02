@@ -7,7 +7,10 @@ var generatePassword = require('password-generator');
 var mailer = require('../libs/mailer');
 var mdlwares = require('../libs/mdlwares');
 var questionMap = require('../libs/questionMap');
-var questionService = require('../services/questionService')
+var questionService = require('../services/questionService');
+var userService = require('../services/userService');
+var notificationService = require('../services/notificationService');
+var response = require('../libs/responseHelper');
 
 router.use(mdlwares.isAdmin);
 
@@ -60,12 +63,17 @@ router.post('/new_test', function (req, res, next) {
 router.post('/add_questions', function (req, res, next) {
     questionService.addQuestions(req.body);
     res.status(200).end();
+
+});
+
+router.post('/user_list', function (req, res, next) {
+   userService.getUserList(req.body.n, req.body.searchFilter, response.dataResponse(res));
 });
 
 function addUser(username, password, role, req) {
     var user = new User({
         email: req.body.email,
-        firstName: req.body.firsName,
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
         username: username,
         role: role,
@@ -74,5 +82,21 @@ function addUser(username, password, role, req) {
     user.setPassword(password);
     user.save();
 }
+
+router.get('/teachers_list', function (req, res, next) {
+    userService.getTeachersList(response.dataResponse(res));
+});
+
+router.get('/notifications', function (req, res, next) {
+    notificationService.getNotifications(response.dataResponse(res));
+});
+
+router.post('/done_notification', function (req, res, next) {
+    notificationService.closeDoneNotification(req.body.notificationId, response.emptyResponse(res));
+});
+
+router.post('/decline_request_notification', function (req, res, next) {
+    notificationService.declineRequestNotification(req.body.notificationId, req.body.testId, response.emptyResponse(res));
+});
 
 module.exports = router;

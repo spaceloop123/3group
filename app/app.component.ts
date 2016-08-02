@@ -1,7 +1,8 @@
+//angular
 import {Component, OnInit, OnDestroy} from "@angular/core";
+import {ROUTER_DIRECTIVES, NavigationEnd, Router, NavigationError} from "@angular/router";
 import {LoginComponent} from "./login/login.component";
 import {HeaderComponent} from "./common/header/header.component";
-import {ROUTER_DIRECTIVES, Router, NavigationError} from "@angular/router";
 import {RunTestComponent} from "./user/runTest/runTest.component";
 import {UserComponent} from "./user/user.component";
 import {AdminComponent} from "./admin/admin.component";
@@ -10,26 +11,40 @@ import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
 import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
+import {DatepickerComponent} from "./admin/actions/show-users/user-info/datepicker.component";
+import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
+import {LoginService} from "./login/login.service";
+import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
+import {TeacherInfoComponent} from "./admin/actions/show-users/teacher-info/teacher-info.component";
 import {Constants} from "./common/constants/constants.data";
 import {AuthService} from "./common/auth/auth.service";
 import {Subscription} from "rxjs/Rx";
+//components
+
+//others
+
+
 
 @Component({
-	selector: 'my-app',
-	templateUrl: 'app/app.component.html',
-	directives: [ROUTER_DIRECTIVES, HeaderComponent],
-	precompile: [
-		LoginComponent,
-		UserComponent,
-		AdminComponent,
-		TeacherComponent,
-		RunTestComponent,
-		FinishTestPageComponent,
-		TeacherCheckingComponent,
-		ChartsComponent,
-		ShowTestsComponent
-	],
-	providers: [Location]
+    selector: 'my-app',
+    templateUrl: 'app/app.component.html',
+    directives: [ROUTER_DIRECTIVES, HeaderComponent],
+    precompile: [
+    	LoginComponent,
+	    UserComponent,
+	    AdminComponent,
+	    TeacherComponent,
+	    AssignTestComponent,
+	    TeacherInfoComponent,
+	    DatepickerComponent,
+        RunTestComponent,
+	    FinishTestPageComponent,
+	    TeacherCheckingComponent,
+	    ChartsComponent,
+	    ShowTestsComponent,
+	    ShowUsersComponent
+    ],
+    providers: [Location]
 })
 
 export class AppComponent implements OnInit, OnDestroy {
@@ -43,9 +58,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	checkPath():boolean {
 		let pathname = window.location.href;
-		return (pathname.indexOf("/login") !== -1) ||
-			((this.authService.role === 'user') && (pathname.indexOf("/home") !== -1)) ||
-			((this.authService.role === 'teacher') && (pathname.indexOf("/home") !== -1));
+		return ((pathname.indexOf("/login") !== -1) ||
+		((this.authService.role === 'user') && (pathname.indexOf("/home") !== -1)) ||
+		((this.authService.role === 'teacher') && (pathname.indexOf("/home") !== -1)) ||
+		((this.authService.role === 'admin') && (pathname.indexOf("/admin/assignTest") !== -1)) ||
+		((this.authService.role === 'admin') && (pathname.indexOf("/admin/teacher_info") !== -1)));
 	}
 
 	ngOnInit():any {

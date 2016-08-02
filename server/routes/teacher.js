@@ -22,4 +22,12 @@ router.post('/check_answer', function (req, res, next) {
     answerService.getAnswerById(req.body.answerId, response.dataResponse(res));
 });
 
+router.post('/send_mark', function (req, res, next) {
+    answerService.setMark(req.body.answerId, req.body.testId, req.body.mark, response.emptyResponse(res));
+});
+
+router.post('/end_test', function (req, res, next) {
+    testService.changeTestStatus('complete', req.body.testId, response.emptyResponse(res));
+});
+
 module.exports = router;

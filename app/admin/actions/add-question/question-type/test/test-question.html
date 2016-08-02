@@ -12,7 +12,6 @@
             </div>
 
             <!-- difficulty -->
-
             <div class="input-field col s12 m6 l6">
                 <input id="test-question-difficulty-{{question.id}}"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
@@ -66,8 +65,7 @@
                        type="text"
                        [(ngModel)]="item.content"
                        name="test-question-answer-{{question.id}}-{{i}}"/>
-                <label [attr.for]="'test-question-answer-' + question.id + '-' + i">Option {{i +
-                    1}}</label>
+                <label [attr.for]="'test-question-answer-' + question.id + '-' + i">Option {{i + 1}}</label>
             </div>
 
             <!-- correct answer number -->
@@ -85,22 +83,13 @@
 
         </div>
     </form>
-    <div class="col s12 m12 l12" [ngSwitch]="question.state">
-        <div *ngSwitchCase="'edit'" align="center">
-            <a class="waves-effect btn-flat" id="test-question-finish-btn-{{question.id}}"
-               (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
-            <div>
-                <a class="waves-effect btn-flat" id="test-question-abort-btn-1-{{question.id}}"
-                   (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
-            </div>
-        </div>
-        <div *ngSwitchCase="'done'" align="center">
-            <a class="waves-effect btn-flat" id="test-question-edit-btn-{{question.id}}"
-               (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
-            <div>
-                <a class="waves-effect btn-flat" id="test-question-abort-btn-2-{{question.id}}"
-                   (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
-            </div>
-        </div>
+
+    <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
+        <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="test-question-finish-btn-{{question.id}}"
+           (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
+        <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="test-question-edit-btn-{{question.id}}"
+           (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
+        <a class="waves-effect btn-flat" id="test-question-abort-btn-{{question.id}}"
+           (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
     </div>
 </div>

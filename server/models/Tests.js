@@ -5,7 +5,7 @@ var TestSchema = new mongoose.Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     teacher: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
-    fromTime: {type: Date, default: Date.now},
+    fromTime: {type: Date},
     toTime: {type: Date},
     finishTime: {type: Date},
     result: {type: Number, required: true, default: 0},
@@ -13,9 +13,12 @@ var TestSchema = new mongoose.Schema({
 });
 
 TestSchema.methods.getTestInfo = function () {
+    var month = (this.finishTime.getMonth() < 10 ? '0' : '') + (this.finishTime.getMonth() + 1);
+    var day = (this.finishTime.getDate() < 10 ? '0' : '') + this.finishTime.getDate();
+    var year = this.finishTime.getFullYear();
     return {
         id: this.id,
-        date: this.finishTime
+        date: day + '/' + month + '/' + year
     };
 };
 

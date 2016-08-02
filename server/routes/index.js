@@ -11,9 +11,19 @@ var OpenQuestion = mongoose.model('OpenQuestion');
 var SpeechQuestion = mongoose.model('SpeechQuestion');
 var Test = mongoose.model('Test');
 var Answer = mongoose.model('Answer');
+var Notification = mongoose.model('Notification');
 var path = require('path');
 
 router.get('/', function (req, res) {
+    // var notification = new Notification({
+    //     type: 'done',
+    //     user: '5782a87a8ef025441931cb5b',
+    //     teacher: '5782a8ae8ef025441931cb5d',
+    //     test: '579752c31055441dd083427b'
+    // });
+    // notification.save(function (err) {
+    //     console.log(err);
+    // });
     res.render('index');
 });
 

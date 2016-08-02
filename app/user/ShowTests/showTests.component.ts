@@ -1,16 +1,21 @@
+import {ChartsComponent} from "../charts/charts.component";
 import {Component, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
-import {Http} from "@angular/http";
+import {CustomHttp} from "../../common/services/CustomHttp";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-    templateUrl: 'app/user/showTests.html'
+    templateUrl: 'app/user/showTests.html',
+    directives: [ChartsComponent]
 })
 
 export class ShowTestsComponent implements OnInit {
 
-    constructor() { }
+    constructor(private customHttp:CustomHttp,
+                private route:ActivatedRoute) {
+    }
 
     ngOnInit() {
-        //TODO add customHttp.checkRole()
+        this.customHttp.checkRole();
+
     }
 }

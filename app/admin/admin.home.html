@@ -1,20 +1,21 @@
 <div class="container">
     <div class="row">
 
+        <notifications-component class="col s12"
+                                 *ngIf="currentWidth < 600"></notifications-component>
+
         <div class="col s12 m8 l8">
 
             <div class="row">
-                <div class="col s12 m12 offset-l2 l7">
+                <div class="col s12 m12 offset-l2 l8">
                     <ul class="tabs grey lighten-5" materialize="tabs">
-                        <li class="tab col s4 m4 l4">
-                            <a href="#tab1"><i class="material-icons">contacts</i></a>
+                        <li class="tab col s4 m4 l4" (click)="changeTab(1)"><a href="#tab1"><i
+                                class="material-icons">contacts</i></a></li>
+                        <li class="tab col s4 m4 l4" (click)="changeTab(2)"><a class="active" href="#tab2">
+                            <i class="material-icons">question_answer</i></a>
                         </li>
-                        <li class="tab col s4 m4 l4">
-                            <a class="active" href="#tab2"><i class="material-icons">question_answer</i></a>
-                        </li>
-                        <li class="tab col s4 m4 l4">
-                            <a href="#tab3"><i class="material-icons">supervisor_account</i></a>
-                        </li>
+                        <li class="tab col s4 m4 l4" (click)="changeTab(3)"><a href="#tab3"><i
+                                class="material-icons">supervisor_account</i></a></li>
                     </ul>
                 </div>
 
@@ -43,7 +44,7 @@
                 <div id="tab3" class="col s12">
                     <div class="row">
                         <div class="col s12">
-                            <h5 align="center">Coming soon...</h5>
+                            <show-users-component *ngIf="currentTab === 3"></show-users-component>
                         </div>
                     </div>
                 </div>
@@ -53,13 +54,17 @@
         </div>
 
         <!-- Notifications -->
+        <notifications-component class="notifications col m4"
+                                 *ngIf="currentWidth >= 600 && currentWidth <= 768"></notifications-component>
+        <notifications-component class="notifications col l3"
+                                 *ngIf="currentWidth > 768"></notifications-component>
 
-        <div class="col s12 m4 l4">
-            <notifications-component class="hide-on-med-and-up"></notifications-component>
-            <!-- TODO: (pay attention) inline style not loocking good try to get rid of it-->
-            <notifications-component class="show-on-medium-and-up hide-on-small-and-down"
-                                     style="position: fixed; top: 298px; transform: translateY(-50%);">
-            </notifications-component>
-        </div>
+        <!--<input type="file" ng2FileSelect [uploader]="uploader" />
+        <a class="waves-effect waves-light btn">upload</a>
+        -->
+
     </div>
+
+    <!--<a class="waves-effect default btn" [routerLink]="['/admin/assignTest']">Assign Test</a>-->
+
 </div>

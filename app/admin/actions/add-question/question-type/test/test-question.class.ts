@@ -5,9 +5,9 @@ export class TestQuestion extends QuestionBase {
 
     constructor() {
         super();
-        this._answers = [{content: ''}, {content: ''}, {content: ''}];
-        this._correctAnswerIdx = 1;
-        this._type = 'TestQuestion';
+        this.answers = [{content: ''}, {content: ''}, {content: ''}];
+        this.correctAnswerIdx = 1;
+        this.type = 'TestQuestion';
     }
 
     get correctAnswerIdx() {

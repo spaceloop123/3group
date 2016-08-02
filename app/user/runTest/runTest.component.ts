@@ -3,9 +3,9 @@ import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from "@angular/router";
 import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 import {MaterializeDirective} from 'angular2-materialize'
-import {TestInfo} from "./test.info";
+import {TestInfo} from "../../test/test.info";
 import {TimerComponent} from "./timer.component";
-import {TestComponent} from "./test.component";
+import {TestComponent} from "../../test/test.component";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
@@ -18,12 +18,16 @@ export class RunTestComponent implements OnInit, OnDestroy {
     testInfo:TestInfo;
     timerSec: number;
     progress: number;
+    opMode: string;
+    answersId: any;
 
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http) {
-        this.timerSec = 605;
+
         this.progress = 80;
+        this.opMode = 'user';
+        this.answersId = {};
     }
 
     restoreTestInfo(){
@@ -38,16 +42,20 @@ export class RunTestComponent implements OnInit, OnDestroy {
             console.log('that.status ' + that.role);
         });
         this.testInfo = this.restoreTestInfo();
+        console.log(this.testInfo);
+        console.log('blabla');
         if(this.testInfo === null) {
             this.getTestInfoFromServer();
+        } else {
+            this.initTimer(this.testInfo.deadline);
         }
-        console.log(this.testInfo);
+        //console.log(this.testInfo);
     }
 
     getTestInfoFromServer(){
         var that = this;
-        //TODO (pay attention) CustomHttp + Observables
-        this.http.get('/' + this.role + '/init_test')
+	    //TODO (pay attention) CustomHttp + Observables
+        this.http.get('/user/init_test')
             .toPromise()
             .then(response => that.onResponse(response))
             .catch(this.handleError);
@@ -58,13 +66,16 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     onResponse(response) {
-        this.initTestInfo(response.json().time, response.json().count, response.json().testId);
+        console.log(response.json().deadline + ' ' + response.json().count  + ' ' +  response.json().testId);
+        this.initTestInfo(response.json().deadline, response.json().count, response.json().testId);
+
         //this.getNextQuestionFromServer();
     }
 
-    initTestInfo(time, numQuestion, id) {
-        this.testInfo = new TestInfo(time, numQuestion, id);
+    initTestInfo(deadline, numQuestion, id) {
+        this.testInfo = new TestInfo(deadline, numQuestion, id);
         this.saveTestInfo();
+        this.initTimer(deadline);
     }
 
     handleError(error:any) {
@@ -79,7 +90,17 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     finishTest() {
         localStorage.clear();
-        this.router.navigate(['/finishTest', this.role]);
+        let that = this;
+	    //TODO (pay attention) CustomHttp + Observables
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        this.http
+            .post('/user/end_test',
+                JSON.stringify({testId: that.testInfo.id}), {headers: header})
+            .toPromise()
+            .then(response => that.router.navigate(['/finishPage', that.role]))
+            .catch();
+
     }
 
     afterSent(tc : TestComponent){
@@ -96,4 +117,14 @@ export class RunTestComponent implements OnInit, OnDestroy {
     setProgress(newValue: number){
         this.progress = newValue;
     }
+
+    initTimer(deadline: string){
+        let deadlineDate = new Date(deadline);
+        let currentDate = new Date();
+        this.timerSec = Math.floor((deadlineDate.getTime() - currentDate.getTime()) / 1000);
+        console.log('this.timerSec ' + this.timerSec);
+
+    }
+
+
 }

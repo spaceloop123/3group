@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit{
         let that = this;
         this.model.submitAttempt = true;
         this.errorMessage = (this.model.username !== '' && this.model.password !== '') ? '' : this.getErrorMessage();
-        if (this.errorMessage.length !== 0) {
-            toast(this.errorMessage, 3000, 'amber darken-');
+        if(this.errorMessage.length !== 0) {
+            toast(this.errorMessage, 3000, 'amber darken-2');
         }
         console.log('loginRequest');
         if (this.errorMessage === '') {
