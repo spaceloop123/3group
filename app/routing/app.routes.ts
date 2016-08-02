@@ -10,6 +10,9 @@ import {TeacherComponent} from "../teacher/teacher.component";
 import {TeacherCheckingComponent} from "../teacher/teacher-checking.component";
 import {AdminComponent} from "../admin/admin.component";
 import {AuthGuard} from "../common/auth/auth.guard";
+import {TeacherInfoComponent} from "../admin/actions/show-users/teacher-info/teacher-info.component";
+import {AuthErrorComponent} from "../common/auth/error/auth.error.component";
+import {AssignTestComponent} from "../admin/actions/show-users/user-info/assignTest.component";
 
 function wrapSecured(config: RouterConfig, role: string) {
     config.forEach((route)=> {
@@ -45,6 +48,11 @@ export const DEFAULT_ROUTES: RouterConfig = [
     {
         path: 'showTests',
         component: ShowTestsComponent
+    },
+
+    {
+        path: 'error/:code',
+        component: AuthErrorComponent
     }
 ];
 
@@ -74,6 +82,14 @@ export const ADMIN_CONFIG: RouterConfig = [
     {
         path: 'admin',
         component: AdminComponent
+    },
+    {
+        path: 'admin/assignTest/:id',
+        component: AssignTestComponent
+    },
+    {
+        path: 'admin/teacher_info/:id',
+        component: TeacherInfoComponent
     }
 ];
 

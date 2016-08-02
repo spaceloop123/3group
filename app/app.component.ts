@@ -13,7 +13,6 @@ import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {DatepickerComponent} from "./admin/actions/show-users/user-info/datepicker.component";
 import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
-import {LoginService} from "./login/login.service";
 import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
 import {TeacherInfoComponent} from "./admin/actions/show-users/teacher-info/teacher-info.component";
 import {Constants} from "./common/constants/constants.data";
@@ -59,10 +58,9 @@ export class AppComponent implements OnInit, OnDestroy {
 	checkPath():boolean {
 		let pathname = window.location.href;
 		return ((pathname.indexOf("/login") !== -1) ||
-		((this.authService.role === 'user') && (pathname.indexOf("/home") !== -1)) ||
-		((this.authService.role === 'teacher') && (pathname.indexOf("/home") !== -1)) ||
-		((this.authService.role === 'admin') && (pathname.indexOf("/admin/assignTest") !== -1)) ||
-		((this.authService.role === 'admin') && (pathname.indexOf("/admin/teacher_info") !== -1)));
+		((this.authService.role === 'user') && (pathname.indexOf("/user") !== -1)) ||
+		((this.authService.role === 'teacher') && (pathname.indexOf("/teacher") !== -1)) ||
+		((this.authService.role === 'admin') && (pathname.indexOf("/admin") !== -1)));
 	}
 
 	ngOnInit():any {

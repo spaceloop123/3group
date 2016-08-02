@@ -1,5 +1,5 @@
 import {ChartsComponent} from "../charts/charts.component";
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {CustomHttp} from "../../common/services/CustomHttp";
 import {ActivatedRoute} from "@angular/router";
 
@@ -8,14 +8,9 @@ import {ActivatedRoute} from "@angular/router";
     directives: [ChartsComponent]
 })
 
-export class ShowTestsComponent implements OnInit {
+export class ShowTestsComponent {
 
     constructor(private customHttp:CustomHttp,
                 private route:ActivatedRoute) {
-    }
-
-    ngOnInit() {
-        this.customHttp.checkRole();
-
     }
 }
