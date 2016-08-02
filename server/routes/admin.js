@@ -9,6 +9,7 @@ var mdlwares = require('../libs/mdlwares');
 var questionMap = require('../libs/questionMap');
 var questionService = require('../services/questionService');
 var userService = require('../services/userService');
+var notificationService = require('../services/notificationService');
 var response = require('../libs/responseHelper');
 
 router.use(mdlwares.isAdmin);
@@ -80,10 +81,22 @@ function addUser(username, password, role, req) {
     });
     user.setPassword(password);
     user.save();
-};
+}
 
 router.get('/teachers_list', function (req, res, next) {
     userService.getTeachersList(response.dataResponse(res));
+});
+
+router.get('/notifications', function (req, res, next) {
+    notificationService.getNotifications(response.dataResponse(res));
+});
+
+router.post('/done_notification', function (req, res, next) {
+    notificationService.closeDoneNotification(req.body.notificationId, response.emptyResponse(res));
+});
+
+router.post('/decline_request_notification', function (req, res, next) {
+    notificationService.declineRequestNotification(req.body.notificationId, req.body.testId, response.emptyResponse(res));
 });
 
 module.exports = router;
