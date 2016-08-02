@@ -1,4 +1,4 @@
-System.register(['./teacher/teacher-checking.component', "@angular/router", "./login/login.component", "./teacher/teacher.component", "./user/user.component", "./admin/admin.component", "./user/user.routes", "./user/charts/charts.component", "./admin/assignTest.component"], function(exports_1, context_1) {
+System.register(['./teacher/teacher-checking.component', "@angular/router", "./login/login.component", "./teacher/teacher.component", "./user/user.component", "./admin/admin.component", "./user/user.routes", "./user/charts/charts.component", "./admin/actions/show-users/user-info/assignTest.component"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var teacher_checking_component_1, router_1, login_component_1, teacher_component_1, user_component_1, admin_component_1, user_routes_1, charts_component_1, assignTest_component_1;
@@ -53,7 +53,7 @@ System.register(['./teacher/teacher-checking.component', "@angular/router", "./l
                     component: admin_component_1.AdminComponent
                 },
                 {
-                    path: 'admin/assignTest',
+                    path: 'admin/assignTest/:id',
                     component: assignTest_component_1.AssignTestComponent
                 }
             ].concat(user_routes_1.UserRoutes);

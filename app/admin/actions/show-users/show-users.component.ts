@@ -68,8 +68,8 @@ export class ShowUsersComponent implements OnChanges, OnInit{
         this.shownUsers = 0;
     }
 
-    showDetails() {
-        this.router.navigate(['/showTests']);
+    showDetails(user) {
+        this.router.navigate(['/admin/assignTest', user.id]);
     }
 
     ngOnInit () {

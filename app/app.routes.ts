@@ -45,7 +45,7 @@ const routes:RouterConfig = [
         component: ChartsComponent
     },
     {
-           path: 'admin/assignTest',
+        path: 'admin/assignTest/:id',
            component: AssignTestComponent
    },
 

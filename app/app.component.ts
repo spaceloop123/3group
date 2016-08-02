@@ -11,11 +11,11 @@ import {FinishTestPageComponent} from "./user/runTest/finish.page.component";
 import {TeacherCheckingComponent} from "./teacher/teacher-checking.component";
 import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
-import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
 import {DatepickerComponent} from "./admin/actions/show-users/user-info/datepicker.component";
 import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
 import {LoginService} from "./login/login.service";
 import {Constants} from "./common/constants/constants.data";
+import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
 
 //components
 
