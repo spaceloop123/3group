@@ -71,14 +71,15 @@ function setTimer(testId, delay) {
     }, delay);
 }
 
-module.exports.endTest = function (userId, testId, done) {
+module.exports.changeTestStatus = function (status, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
-            Test.findOne({_id: testId, user: userId, status: 'run'}, callback);
+            Test.findOne({_id: testId}, callback);
         })
         .exec(function (res) {
-            res.test.status = 'checking';
+            res.test.status = status;
             res.test.save();
+            done(null);
         }, done, done);
 };
 
@@ -89,7 +90,7 @@ module.exports.getAnswers = function (testId, done) {
                 .populate({
                     path: 'answers',
                     populate: {
-                        path: 'subAnswers',
+                        path: 'subAnswers'
                     }
                 })
                 .exec(callback);
