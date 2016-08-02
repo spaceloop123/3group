@@ -37,6 +37,15 @@ main {
     max-height: 255px;
 }
 
+.teacher-list {
+    min-height: 246px;
+    max-height: 255px;
+}
+
+.teacher-container {
+    width: 100%;
+}
+
 .questions-list {
     min-height: 100px;
 }
