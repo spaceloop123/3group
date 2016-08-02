@@ -118,6 +118,16 @@ module.exports.getTeachersTests = function (teacher, done) {
         }, done);
 };
 
+var typeMap = {
+    TestQuestion: 'Test',
+    InsertTestQuestion: 'Test',
+    InsertOpenQuestion: 'Open',
+    OpenQuestion: 'Open',
+    AudioQuestion: 'Audio',
+    ReadingQuestion: 'Reading',
+    SpeechQuestion: 'Speech'
+};
+
 module.exports.getTestHistoryByUser = function (userId, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
@@ -130,51 +140,30 @@ module.exports.getTestHistoryByUser = function (userId, testId, done) {
                 }).exec(callback);
         })
         .exec(function (res) {
-            var questions = res.test.answers.map(function (answer) {
-                var type;
-                switch (answer.question.type) {
-                    case TestQuestion:
-                    case InsertTestQuestion:
-                        type = 'Test';
-                        break;
-                    case InsertOpenQuestion:
-                    case OpenQuestion :
-                        type = 'Open';
-                        break;
-                    case AudioQuestion:
-                        type = 'Audio';
-                        break;
-                    case ReadingQuestion:
-                        type = 'Reading';
-                        break;
-                    case SpeechQuestion:
-                        type = 'Speech';
-                        break;
-                }
-                return {
-                    type: type,
-                    result: answer.mark,
-                    maxResult: answer.question.maxCost
-                }
-            });
-            var results = {};
-            questions.forEach(function (question) {
-                if (!results[question.type]) {
-                    results[question.type] = {
-                        result: 0,
-                        maxResult: 0
-                    }
-                }
-                results[question.type].result += question.result;
-                results[question.type].maxResult += question.maxResult;
-            });
+            var testMap = getTestMap(res.test.answers);
             var response = [];
-            for (key in results) {
+            for (key in testMap) {
                 response.push({
                     type: key,
-                    mark: results[key].result / results[key].maxResult * 100
-                })
+                    mark: testMap[key].result / testMap[key].maxResult * 100
+                });
             }
             done(null, {questions: response});
         }, done, done);
 };
+
+function getTestMap(answers) {
+    var map = {};
+    answers.forEach(function (answer) {
+        var type = typeMap[answer.question.type];
+        if (!map[type]) {
+            map[type] = {
+                result: 0,
+                maxResult: 0
+            }
+        }
+        map[type].result += answer.mark;
+        map[type].maxResult += answer.question.maxCost;
+    });
+    return map;
+}
