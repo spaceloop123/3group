@@ -15,10 +15,47 @@ import {MaterializeDirective} from 'angular2-materialize';
 export class DatepickerComponent {
     private assignTestUrl = 'app/admin/assignTest';  // URL to web api
 
+
+
+    dateFrom: any;
+    dateTo: any;
+
+
+
+    username: any;
+
+    toUpperCase () {
+        //this.username = parseInt(this.username, 10);
+    }
+    toLowerCase () {
+        this.username = this.username.toLowerCase();
+    }
+
+
+
     @Output() notify: EventEmitter<string> = new EventEmitter<string>();
 
-    onClick() {
-        this.notify.emit('Click from nested component');
+    selectDateFrom() {
+        //this.notify.emit('Click from nested component');
+        var a = document.getElementById("dateFrom");
+        if (a.value === '') {
+            console.log("select Date");
+        }
+        else {
+            console.log('a=', a.value);
+        }
+    }
+
+
+    selectDateTo() {
+        //this.notify.emit('Click from nested component');
+        var b = document.getElementById("dateTo");
+        if (b.value === '') {
+            console.log("select Date");
+        }
+        else {
+            console.log('b=', b.value);
+        }
     }
 
     //lineChartData;

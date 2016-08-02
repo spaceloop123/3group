@@ -4,7 +4,7 @@
         <div class="col s12 m5 l5">
             <h6>Date (from)</h6>
             <div id="datepicker1" class="datepicker" style="margin-top: 2.5%">
-                <input id="date" type="date" class="datepicker" (click)='onClick()'>
+                <input id="dateFrom" type="date" class="datepicker" (click)='selectDateFrom()' [(ngModel)]="dateFrom" >
             </div>
         </div>
         <h6>Time (from)</h6>
@@ -50,7 +50,7 @@
         <div class="col s12 m5 l5">
             <h6 style="margin: 0">Date (to)</h6>
             <div id="datepicker2" class="datepicker" style="margin-top: 2.5%">
-                <input type="date" class="datepicker">
+                <input id="dateTo" type="date" class="datepicker" (click)='selectDateTo()' [(ngModel)]="dateTo" >
             </div>
         </div>
 
@@ -90,12 +90,21 @@
                 <option value=""selected>pm</option>
                 <option value="1">am</option>
             </select>
+
+            <div>
+                <input id="example" type="text" [(ngModel)]="username"/>
+                <a class="waves-effect default btn" (click)="toUpperCase()">UPPERCASE!</a>
+                <a class="waves-effect default btn" (click)="toLowerCase()">lowercase!</a>
+
+                <h1>{{ username }}</h1>
+            </div>
+
+
         </div>
 
 
     </div>
-    <!--<div class="col s12" align=right >
-        <a class="waves-effect default btn" >Assign Test</a>
-    </div>*/-->
+
+
 
 </div>
