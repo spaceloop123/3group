@@ -68,7 +68,7 @@ module.exports.getUserHistory = function (userId, done) {
                     return {
                         testId: test.id,
                         date: test.finishTime,
-                        mark: test.maxResult / test.result * 100
+                        mark: test.result / test.maxResult * 100
                     }
                 })
             });

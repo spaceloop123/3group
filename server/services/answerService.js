@@ -20,6 +20,7 @@ function putAnswer(type, userId, testId, questionId, answer, done) {
             if (res.question.autoCheck && res.question.correctAnswer === answer) {
                 res.test.result += res.question.maxCost;
                 res.user.level++;
+                res.answer.mark = res.question.maxCost;
             } else {
                 res.user.level--;
             }
