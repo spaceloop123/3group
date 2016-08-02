@@ -73,7 +73,7 @@ main {
 
 .timer-style {
     width: 180px;
-    box-shadow: 7px 7px 5px rgba(45, 43, 184, 0.6);
+    box-shadow: 7px 7px 5px rgba(95, 95, 95, 0.6);
     padding: 8px;
     border-radius: 10px;
     font-size: xx-large;
@@ -84,19 +84,28 @@ main {
     padding-top: 12px !important;
 }
 
-.teacher textarea {
-    pointer-events: none !important;
+.teacher textarea{
+    pointer-events:none !important;
 }
 
-.teacher input {
-    pointer-events: none !important;
+.teacher input{
+    pointer-events:none !important;
 }
 
-.teacher select {
-    pointer-events: none !important;
+.teacher select{
+    pointer-events:none !important;
 }
 
-/*don't delete, this is for teacher carousel*/
+.no-display-style{
+    display: none;
+
+}
+
+.display-style{
+    display: initial;
+
+}
+
 .carousel-content-custom {
     margin-top: -40px !important;
 }
@@ -106,17 +115,10 @@ main {
     margin-bottom: 22px;
 }
 
-/*------------------------------------------------*/
-/*.carousel {*/
-/*height: 100vh;*/
-/*-webkit-perspective: 20vw;*/
-/*perspective: 20vw;*/
-/*}*/
 
-/*.carousel .carousel-item {*/
-/*width: 30vw;*/
-/*height: 100vh;*/
-/*}*/
+.teacher-checking-button{
+    padding-bottom: 15px;
+}
 
 a .disabled {
     pointer-events: none;
@@ -152,7 +154,12 @@ a .disabled {
 }
 
 .instraction-modal {
-    padding-right: 7%;
+    padding-right: 8%;
+}
+
+.parent-child-btn {
+    padding-left: 18%;
+
 }
 
 .notifications {

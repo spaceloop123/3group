@@ -1,12 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
-import {CustomHttp} from "../../../common/services/CustomHttp";
+import {NotificationsService} from "./notifications.service";
 
 @Component({
     selector: 'notifications-component',
     templateUrl: 'app/admin/actions/notifications/notifications.html',
-    directives: [ROUTER_DIRECTIVES, MaterializeDirective]
+    directives: [ROUTER_DIRECTIVES, MaterializeDirective],
+    providers: [NotificationsService]
 })
 
 export class NotificationsComponent implements OnInit {
@@ -14,7 +15,7 @@ export class NotificationsComponent implements OnInit {
      * list of notifications
      * format:
      */
-    private notifyList: any;
+    private notifyList:any;
     /* {
      *   color: 'red/yellow/green',
      *   icon: 'error_outline/new_releases/done',
@@ -24,7 +25,9 @@ export class NotificationsComponent implements OnInit {
      *  }
      * */
 
-    constructor(private customHttp:CustomHttp) {
+    private observable:any;
+
+    constructor(private notificationsService:NotificationsService) {
         this.notifyList = [];
         // this.notifyList = [
         //
@@ -44,16 +47,11 @@ export class NotificationsComponent implements OnInit {
         //     }
         // ];
 
-    }
-
-    pollFunction() {
-        this.customHttp.get('/admin/notifications')
-            .subscribe(response => {
-                // setTimeout(function(response) {
-                //     console.log(response);
-                // }, 1000);
-                console.log('h ' + response);
-            });
+        /*Observable.interval(800)
+            .map((x) => x + 1)
+            .subscribe((x) => {
+                console.log('catched ' + x);
+         });*/
     }
 
     ngOnInit() {

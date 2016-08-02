@@ -5,6 +5,7 @@ import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 import {MaterializeDirective} from "angular2-materialize";
 import {Http} from "@angular/http";
 import {ChartsComponent} from "../../../../user/charts/charts.component";
+import {CustomHttp} from "../../../../common/services/CustomHttp";
 
 
 @Component({
@@ -16,8 +17,11 @@ import {ChartsComponent} from "../../../../user/charts/charts.component";
 
 export class AssignTestComponent implements OnInit {
 
+    public currentUser:any;
+    private sub;
+
     onNotify(message:string):void {
-       var field = <HTMLElement><any>document.getElementById("datepicker");
+        var field = <HTMLElement><any>document.getElementById("datepicker");
         if ((field.textContent === 'dd') || (field.textContent === 'mm') || (field.textContent === 'yyyy')) {
             console.log("Select Date");
         }
@@ -27,23 +31,28 @@ export class AssignTestComponent implements OnInit {
     }
 
 
-
     checkInput(event) {
         console.log("checkInput")
 
     }
 
 
-    constructor(
-        private route:ActivatedRoute,
-        private router:Router,
-        private http:Http
-           ) { }
-
-
+    constructor(private route:ActivatedRoute,
+                private customHttp:CustomHttp) {
+    }
 
     ngOnInit() {
-        //TODO add customHttp.checkRole()
+        console.log('hui');
+        this.customHttp.checkRole();
+        var that = this;
+        this.sub = this.route.params.subscribe(params => {
+            that.currentUser = params['id'];
+            console.log('that.currentUser ' + that.currentUser);
+        });
+    }
+
+    ngOnDestroy():any {
+        this.sub.unsubscribe();
     }
 
 }

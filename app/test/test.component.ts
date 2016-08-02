@@ -71,13 +71,13 @@ export class TestComponent implements OnChanges {
             }
         }else if(this.mode === 'teacher'){
             if (this.testInfo !== undefined && this.answersId !== undefined){
-                let item = new NavigationItem(1, -1);
+                let item = new NavigationItem(1, -1, null);
                 this.questionInfo = this.restoreQuestionInfo();
                 this.subQuestionInfo = this.restoreSubQuestionInfo();
                 
                 if (this.questionInfo === null) {
                     this.questionInfo = new QuestionInfo('', null, null, this.answersId);
-                    item = new NavigationItem(1, -1);
+                    item = new NavigationItem(1, -1, null);
                 }else{
                     item.questionIndex =  this.questionInfo.questionIndex;
                 }
@@ -88,9 +88,6 @@ export class TestComponent implements OnChanges {
                     if(this.subQuestionInfo.subQuestionIndex != null)
                     item.subQuestionIndex = this.subQuestionInfo.subQuestionIndex;
                 }
-                
-                
-                
                 this.goByItem(item);
             }
         }
@@ -106,7 +103,12 @@ export class TestComponent implements OnChanges {
 
             }
         } else if(this.mode === 'teacher'){
-            this.getQuestionFromServerByAnswerId();
+            if (this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()) {
+                this.getSubQuestionFromServerByAnswerId(this.subQuestionInfo);
+            } else {
+                this.getQuestionFromServerByAnswerId(this.questionInfo);
+
+            }
         }
     }
 
@@ -125,22 +127,35 @@ export class TestComponent implements OnChanges {
     restoreSubQuestionInfo() {
         return SubQuestionsInfo.fromJson(localStorage.getItem('subQuestionInfo'));
     }
-
-    getQuestionFromServerByAnswerId() {
+    getSubQuestionFromServerByAnswerId(si:SubQuestionsInfo){
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        this.currentId;
-        if(this.subQuestionInfo.subQuestionIndex === (-1) ){
+
+        //console.log('this.questionInfo.questionIndex - 1 ' + (this.questionInfo.questionIndex - 1).toString());
+        //console.log('aaa ' + this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswersId);
+        this.currentId =
+            this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswersId[this.subQuestionInfo.subQuestionIndex];
+        //console.log('this.currentId ' + this.currentId);
+        //console.log('do something');
+        this.http
+            .post('/teacher/check_answer',
+                JSON.stringify({answerId: this.currentId, testId: that.subQuestionInfo.testId}), {headers: header})
+            .toPromise()
+            .then(response => that.saveSubQuestionFromResponse(response.json()))
+            .catch(that.handleError);
+
+    }
+
+
+    getQuestionFromServerByAnswerId(qi:QuestionInfo) {
+        var that = this;
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
             this.currentId = this.questionInfo.answersId[this.questionInfo.questionIndex - 1].id ;
-        }else{
-            console.log('this.questionInfo.questionIndex - 1 ' + (this.questionInfo.questionIndex - 1).toString());
-            console.log('aaa ' + this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswersId);
-            this.currentId =
-                this.questionInfo.answersId[this.questionInfo.questionIndex - 1].subAnswersId[this.subQuestionInfo.subQuestionIndex];
-        }
-        console.log('this.currentId ' + this.currentId);
-        console.log('do something');
+
+        ///console.log('this.currentId ' + this.currentId);
+        //console.log('do something');
         this.http
             .post('/teacher/check_answer',
                 JSON.stringify({answerId: this.currentId, testId: that.subQuestionInfo.testId}), {headers: header})
@@ -216,7 +231,10 @@ export class TestComponent implements OnChanges {
     }
 
     saveSubQuestionFromResponse(response) {
-        this.subQuestion = response;
+        if(this.mode === 'teacher'){
+            this.answer = response.answer;
+        }
+        this.subQuestion = response.question;
         this.processQuestion(this.subQuestion);
     }
 
@@ -260,15 +278,20 @@ export class TestComponent implements OnChanges {
             this.playCount = 0;
         }
 
-        if (this.playCount < 2 && this.myAudio.paused) {
-            this.myAudio.play();
-            var that = this;
-            this.myAudio.addEventListener("ended", () => that.playCount += 1);
-        }
+        if(this.mode === 'user') {
 
-        if (this.playCount >= 2) {
-            console.log('Your have spent all of the attempts!');
-            toast('Sorry. Your have spent all of the attempts!', 2000, 'rounded')
+            if (this.playCount < 2 && this.myAudio.paused) {
+                this.myAudio.play();
+                var that = this;
+                this.myAudio.addEventListener("ended", () => that.playCount += 1);
+            }
+
+            if (this.playCount >= 2) {
+                //console.log('Your have spent all of the attempts!');
+                toast('Sorry. Your have spent all of the attempts!', 2000, 'rounded')
+            }
+        } else{
+            this.myAudio.play();
         }
     }
 
@@ -305,13 +328,15 @@ export class TestComponent implements OnChanges {
     sendMarkToServer(mark:any, callBack) {
         var that = this;
         var header = new Headers();
+        //console.log('that.currentId ' + that.currentId);
         header.append('Content-Type', 'application/json');
         this.http
             .post('/teacher/send_mark',
                 JSON.stringify({testId: that.testInfo.id, answerId: that.currentId, mark: mark}), {headers: header})
             .toPromise()
             .then(response => {
-
+                callBack();
+                //console.log(' callBack();');
             })
             .catch(that.handleError);
     }
@@ -346,12 +371,16 @@ export class TestComponent implements OnChanges {
     
     public goByItem(item: NavigationItem){
         this.currentItem = item;
+        //console.log('item.subQuestionIndex ' + item.subQuestionIndex);
         this.questionInfo.questionIndex = item.questionIndex;
         this.subQuestionInfo.subQuestionIndex =
             item.subQuestionIndex === null ? -1 : item.subQuestionIndex;
-        this.mode = 'teacher';
-        console.log('this.subQuestionInfo.subQuestionIndex ' + this.subQuestionInfo.subQuestionIndex);
+        //this.mode = 'teacher';
+        //console.log('aaa this.subQuestionInfo.subQuestionIndex ' + this.subQuestionInfo.subQuestionIndex);
         this.requestCurrentQuestion();
+        this.saveQuestionInfo();
+        this.saveSubQuestionInfo();
+
     }
 
     getCurrentItem(){

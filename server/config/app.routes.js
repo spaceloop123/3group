@@ -52,6 +52,8 @@ System.register(['./teacher/teacher-checking.component', "@angular/router", "./l
                     path: 'error/:code',
                     component: auth_error_component_1.AuthErrorComponent
                 }
+
+
             ].concat(user_routes_1.UserRoutes);
             exports_1("APP_ROUTER_PROVIDERS", APP_ROUTER_PROVIDERS = [
                 router_1.provideRouter(routes)

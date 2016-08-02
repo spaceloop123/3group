@@ -1,4 +1,4 @@
-import {OnDestroy, OnInit, Component, Input, Output, EventEmitter} from "@angular/core";
+import {OnDestroy, OnInit, Component, Input, Output, EventEmitter, SimpleChanges, OnChanges} from "@angular/core";
 import {Observable} from "rxjs/Rx";
 import {emit} from "cluster";
 
@@ -8,17 +8,36 @@ import {emit} from "cluster";
     directives: []
 })
     
-export class TimerComponent implements OnInit, OnDestroy {
-    @Input() timeLeft: number = 0;
+export class TimerComponent implements OnChanges, OnDestroy {
+    @Input() timeLeft: number = undefined;
     @Output() onExpired = new EventEmitter<void>();
     timerSec: number;
     subscription: any;
-    
-    ngOnInit() {
+
+    initTimer(){
         let that = this;
         this.timerSec = this.timeLeft;
         let timer = Observable.timer(2000,1000);
         this.subscription = timer.subscribe((t) => that.updateTimer(t));
+    }
+
+    killTimer(){
+        if(this.subscription !== undefined) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+    ngOnChanges(changes:SimpleChanges):any {
+        if(changes['timeLeft'].currentValue) {
+            this.timeLeft = changes['timeLeft'].currentValue;
+        }
+        if(changes['timeLeft'].previousValue !== undefined){
+            this.killTimer();
+        }
+        if(this.timeLeft !== undefined){
+            this.initTimer();
+        }
+        return undefined;
     }
 
     updateTimer(ticks: number){
@@ -29,7 +48,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.killTimer();
     }
 
     zeroPad(num: number) : string{
@@ -57,10 +76,13 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
     
     public showTime() : string {
-        let hour = Math.floor(this.timeLeft / 3600);
-        let theRest = this.timeLeft - hour * 3600;
-        let min = Math.floor(theRest / 60);
-        let sec = theRest - min * 60;
-        return (hour.toString() + ":" + this.zeroPad(min) + ":" + this.zeroPad(sec));
+        if(this.timeLeft !== undefined) {
+            let hour = Math.floor(this.timeLeft / 3600);
+            let theRest = this.timeLeft - hour * 3600;
+            let min = Math.floor(theRest / 60);
+            let sec = theRest - min * 60;
+            return (hour.toString() + ":" + this.zeroPad(min) + ":" + this.zeroPad(sec));
+        }
+        return "0:00:00";
     }
 }

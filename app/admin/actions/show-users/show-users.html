@@ -12,13 +12,14 @@
                 <label for="icon_prefix">Search</label>
             </div>
             <div class="col s12 m12 offset-l1 l10">
-                <ul class="collection grey lighten-5">
+                <ul class="collection grey lighten-5"
+                    infinite-scroll
+                    [infiniteScrollDistance]="1"
+                    [infiniteScrollThrottle]="400"
+                    (scrolled)="scrollOrNot()">
                     <li>
                         <a class="collection-item" href="javascript:;" *ngFor="let user of userList"
-                           infinite-scroll
-                           [infiniteScrollDistance]="1"
-                           [infiniteScrollThrottle]="400"
-                           (scrolled)="scrollOrNot()">
+                           (click)="showDetails(user)">
                             <div class="valign-wrapper">
                                 <span class="col s6 m6 title left-align">{{user.firstName}} {{user.lastName}}</span>
                                 <span class="col s4 m4 grey-text text-darken-1 center-align">{{user.role}}</span>
