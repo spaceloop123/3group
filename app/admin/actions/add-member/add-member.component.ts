@@ -44,6 +44,7 @@ export class AddMemberComponent implements OnInit {
     }
 
     addUser() {
+        // TODO: (pay attention) Use CustomHttp + Observables !! Here is bad code now in context of app resources.
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         this.http

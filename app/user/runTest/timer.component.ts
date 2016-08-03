@@ -1,6 +1,5 @@
 import {OnDestroy, OnInit, Component, Input, Output, EventEmitter, SimpleChanges, OnChanges} from "@angular/core";
 import {Observable} from "rxjs/Rx";
-import {emit} from "cluster";
 
 @Component({
     selector: 'countdown-timer',
@@ -52,10 +51,10 @@ export class TimerComponent implements OnChanges, OnDestroy {
     }
 
     zeroPad(num: number) : string{
-        if(num < 10){
+        if (num < 10) {
             return ("0" + num.toString());
         }
-        else{
+        else {
             return num.toString();
         }
     }

@@ -10,6 +10,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var debug = require('debug')('flapper-news:server');
 var http = require('http');
+var BinaryServer = require('binaryjs').BinaryServer;
+var fs = require('fs');
+var wav = require('wav');
 
 require('./server/models/Users');
 require('./server/models/questions/Questions');
@@ -181,6 +184,27 @@ app.use(function (err, req, res, next) {
     res.render('error', {
         message: err.message,
         error: {}
+    });
+});
+
+var binaryServer = BinaryServer({port: 3001});
+binaryServer.on('connection', function (client) {
+   console.log('new connection');
+    
+    var fileWriter = new wav.FileWriter('test.wav', {
+        channels: 1,
+        sampleRate: 48000,
+        bitDepth: 16
+    });
+    
+    client.on('stream', function (stream, meta) {
+        console.log('new stream');
+        stream.pipe(fileWriter);
+
+        stream.on('end', function () {
+            fileWriter.end();
+            console.log('Wrote to file test.wav');
+        });
     });
 });
 

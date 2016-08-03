@@ -100,6 +100,12 @@ router.post('/decline_request_notification', function (req, res) {
     notificationService.declineRequestNotification(req.body.notificationId, req.body.testId, response.emptyResponse(res));
 });
 
+router.post('/assignTest', function () {
+    testService.assignNewTest(req.body.userId, req.body.teacherId,
+        req.body.timeFrom, req.body.timeTo, response.emptyResponse(res));
+});
+
+
 router.post('/user_history', function (req, res) {
     userService.getUserHistory(req.body.userId, response.dataResponse(res));
 });

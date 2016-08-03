@@ -31,7 +31,7 @@ export class ShowUsersComponent implements OnChanges, OnInit{
         this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('posted');
-                that.setUserList(response.json());
+                that.setUserList(response);
             });
     }
 
@@ -63,7 +63,7 @@ export class ShowUsersComponent implements OnChanges, OnInit{
             .subscribe(response => {
                 console.log('search posted');
                 console.log(response);
-                that.userList = response.json();
+                that.userList = response;
             });
         this.shownUsers = 0;
     }

@@ -21,20 +21,11 @@ export class DatepickerComponent {
         this.notify.emit('Click from nested component');
     }
 
-    //lineChartData;
-
     constructor(private http:Http,
                 private router:Router) {
 
             }
 }
-
-
-
-/*handleError(error:any) {
- console.error('An error occurred', error);
- return Promise.reject(error.message || error);
- }*/
 
 
 

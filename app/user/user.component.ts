@@ -1,13 +1,13 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
+import {Component, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {Http} from "@angular/http";
 import {CustomHttp} from "../common/services/CustomHttp";
+import {RecordSpeechComponent} from "./runTest/record-speech.component";
 
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES, UserComponent],
-    providers: [CustomHttp]
+    directives: [ROUTER_DIRECTIVES, UserComponent, RecordSpeechComponent]
 })
 
 export class UserComponent implements OnInit {
@@ -26,7 +26,6 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.customHttp.checkRole();
         this.getTestInfo();
         if (this.status === 'requested') {
             this.testWaiter();
@@ -35,11 +34,13 @@ export class UserComponent implements OnInit {
 
     getTestInfo() {
         var that = this;
+        //TODO (pay attention) Use CustomHttp + Observables
         this.http.get('/user/test_info')
             .toPromise()
             .then(response => that.parseTestInfo(response.json()))
             .catch(that.handleError);
     }
+
 
     parseTestInfo(response) {
         this.status = response.status
@@ -54,13 +55,15 @@ export class UserComponent implements OnInit {
         while (this.status !== 'available') {
             setTimeout(function () {
                 this.getTestInfo();
-            }, 3000);
+            }, 3000); // TODO: (pay attention) What happens here, why 3000 (move to constant if it's needed part of app)
         }
     }
 
     askTest() {
+        alert('test is asked');// TODO: (pay attention) No! get rid of native alerts, use toster or smth like that
         var that = this;
         this.status = 'requestedTest'
+        // TODO: (pay attention) Use CustomHttp + Observables
         this.http.get('/user/ask_test')
             .toPromise()
             .then(response => that.status = 'requested')
