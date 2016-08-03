@@ -45,9 +45,9 @@ export class AddMemberComponent implements OnInit {
         if (this.isMemberFieldsEmpty()) {
             return toast('Fill in all fields', 3000, 'amber darken-1');
         }
-        if (!this.isValidEmail()) {
-            return toast('Wrong email', 3000, 'amber darken-1');
-        }
+        // if (!this.isValidEmail()) {
+        //     return toast('Wrong email', 3000, 'amber darken-1');
+        // }
         this.customHttp
             .post(this.newMemberUrl + this.member.role, this.member)
             .subscribe(
@@ -67,8 +67,8 @@ export class AddMemberComponent implements OnInit {
             email: ''
         };
 
-        $('#add-member-form').find('label').removeClass('active');
-        $('#add-member-form').find('materialInput:text').val('');
+        /*$('#add-member-form').find('label').removeClass('active');
+         $('#add-member-form').find('materialInput:text').val('');*/
 
     }
 
