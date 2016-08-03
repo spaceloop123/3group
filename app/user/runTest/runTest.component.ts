@@ -6,10 +6,12 @@ import {MaterializeDirective} from 'angular2-materialize'
 import {TestInfo} from "../../test/test.info";
 import {TimerComponent} from "./timer.component";
 import {TestComponent} from "../../test/test.component";
+import {RecordSpeechComponent} from "./record-speech.component";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
-    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, ROUTER_DIRECTIVES, TimerComponent, TestComponent]
+    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, ROUTER_DIRECTIVES, TimerComponent, TestComponent,
+        RecordSpeechComponent]
 })
 
 export class RunTestComponent implements OnInit, OnDestroy {

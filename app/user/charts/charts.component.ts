@@ -1,7 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from "@angular/common";
-import {Http} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
+import {Router} from "@angular/router-deprecated";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -16,7 +18,10 @@ export class ChartsComponent implements OnInit{
     testsData: any[];
      //lineChartLabels:Array<any> = ['20/04/2014', '20/04/2015', '20/04/2016'];
     lineChartLabels: any[];
-    constructor(private http:Http) {
+
+    constructor(private route:ActivatedRoute,
+                private router:Router,
+                private http:Http) {
         this.lineChartData =[ {
             data: []
         }];
@@ -41,6 +46,20 @@ export class ChartsComponent implements OnInit{
         // date, testId, mark
         this.processTestData();
 
+    }
+
+    getTestInfo() {
+        let that = this;
+        var header = new Headers();
+        header.append('Content-Type', "application/json");
+        this.http
+            .post(this.role + '/test_history',
+                JSON.stringify({testId: that.testInfo.id}), {headers: header})
+            .toPromise()
+            .then(response => that.router.navigate(['/finishPage', that.role]))
+            .catch();
+
+        
     }
 
     processTestData(){
