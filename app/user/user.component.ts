@@ -1,12 +1,13 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
+import {Component, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {Http} from "@angular/http";
 import {CustomHttp} from "../common/services/CustomHttp";
+import {RecordSpeechComponent} from "./runTest/record-speech.component";
 
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES, UserComponent]
+    directives: [ROUTER_DIRECTIVES, UserComponent, RecordSpeechComponent]
 })
 
 export class UserComponent implements OnInit {
