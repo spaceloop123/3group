@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {CardsColorsData} from "./cards-colors.data";
-import "rxjs/add/operator/toPromise";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {MaterializeDirective} from "angular2-materialize/dist/index";
 
@@ -9,7 +8,7 @@ import {MaterializeDirective} from "angular2-materialize/dist/index";
     selector: 'teacher-component',
     templateUrl: 'app/teacher/teacher-home.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective],
-    providers: [CardsColorsData, CustomHttp]
+    providers: [CardsColorsData] // TODO: (pay attention) see comment in main.js
 })
 
 export class TeacherComponent implements OnInit {
@@ -29,7 +28,7 @@ export class TeacherComponent implements OnInit {
         var that = this;
         this.customHttp.get('/teacher/tests')
             .subscribe(response => {
-                that.setTests(response.json());
+                that.setTests(response);
             });
     }
 
@@ -53,12 +52,11 @@ export class TeacherComponent implements OnInit {
     }
 
     checkTest(test) {
-        //this happens when teacher clicks CHECK button
+        //this happens when teacher clicks CHECK button TODO (pay attention) and this must be clear from method name, not from comment
         this.router.navigate(['/teacher/check_test', test.id]);
     }
 
     ngOnInit() {
-        this.customHttp.checkRole();
         this.getTests();
     }
 }

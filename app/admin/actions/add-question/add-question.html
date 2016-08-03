@@ -98,7 +98,7 @@
     </div>
     <div class="card-action" align="center">
         <a class="waves-effect waves-light btn"
-           [ngClass]="isEditModeOn() || questionsList.length === 0 ? 'disabled' : ''"
+           [class.disabled]="isEditModeOn() || questionsList.length === 0"
            (click)="sendAllQuestions()">Add all created questions</a>
     </div>
 </div>

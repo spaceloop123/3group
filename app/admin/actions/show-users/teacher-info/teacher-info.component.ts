@@ -18,7 +18,6 @@ export class TeacherInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.customHttp.checkRole();
         var that = this;
         this.sub = this.route.params.subscribe(params => {
             that.currentUser = params['id'];

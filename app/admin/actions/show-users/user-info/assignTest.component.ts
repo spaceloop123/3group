@@ -42,7 +42,7 @@ export class AssignTestComponent implements OnInit {
         this.customHttp.get('/admin/teachers_list')
             .subscribe(response => {
                 console.log('posted');
-                that.setTeacherList(response.json());
+                that.setTeacherList(response);
             });
     }
 
@@ -78,7 +78,6 @@ export class AssignTestComponent implements OnInit {
 
     ngOnInit() {
         //TODO check test status for user and block test assignment if test is requested or has been assigned
-        this.customHttp.checkRole();
         this.getTeacherList();
         var that = this;
         this.sub = this.route.params.subscribe(params => {

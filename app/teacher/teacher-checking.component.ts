@@ -55,6 +55,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.currentIndex = 0;
         }
         this.countSentAnswers = this.restoreCountSentAnswers();
+	    // TODO: (pay attention) CustomHttp + Observables
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http.post('/teacher/check_test',
@@ -126,7 +127,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     }
 
 
-    
+
     finishCheckTest(){
         let  testId = JSON.parse(localStorage.getItem('subQuestionInfo')).testId;
         let that = this;
@@ -140,9 +141,9 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
                     that.router.navigate(['/home']);
                     localStorage.clear();
             }).catch();
-        
+
     }
-    
+
     sendAndGo(tc: TestComponent){
         this.status[this.currentIndex] = NavigationItem.CHECKED;
         this.saveStatus();
@@ -159,9 +160,9 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.rangeValue = 0;
         }
 
-        
+
     }
-    
+
 
     findParent(index:number) {
         this.childNIIndex = index;
@@ -316,7 +317,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         }
 
     }
-    
+
     createStatus(){
         this.status = new Array();
         for(let item of this.navigationItems){
@@ -324,7 +325,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         }
         this.saveStatus();
     }
-    
+
     ngOnDestroy():any {
         this.sub.unsubscribe();
     }

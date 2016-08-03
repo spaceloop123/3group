@@ -42,8 +42,8 @@
         </div>
     </div>
     <div class="card-action" align="center">
-        <a class="waves-effect waves-light btn" *ngIf="isMemberFieldsEmpty()"
+        <a class="waves-effect waves-light btn"
+           [class.disabled]="isMemberFieldsEmpty()"
            (click)="addUser()">add</a>
-        <a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">add</a>
     </div>
 </div>
