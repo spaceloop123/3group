@@ -1,18 +1,25 @@
-<div class="valign-wrapper">
-    <div class="container valign">
-        <div class="row">
-            <h5 align="center">Test statistics</h5>
-            <div class="col s12 m12 l12" align="center">
-                <base-chart class="chart"
-                            [datasets]="lineChartData"
-                            [labels]="lineChartLabels"
-                            [options]="lineChartOptions"
-                            [colors]="lineChartColours"
-                            [legend]="lineChartLegend"
-                            [chartType]="lineChartType"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></base-chart>
-            </div>
-        </div>
+<!-- костыыыль! sorry -->
+<base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColours"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></base-chart>
+
+
+<div>
+    <div>
+        Your result
     </div>
+    <ul>
+        <li>Test questions: 50%</li>
+        <li>Open questions: 20%</li>
+        <li>Reading questions: 55%</li>
+        <li>Speach questions: 2%</li>
+        <li>Audition: 100%</li>
+    </ul>
+
 </div>

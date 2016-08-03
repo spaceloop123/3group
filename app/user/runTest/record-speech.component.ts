@@ -2,7 +2,6 @@ import {onError} from "@angular/upgrade/src/util";
 import {Component} from "@angular/core";
 
 //import {BinaryClient} from 'binaryjs-client'
-
 //var BinaryClient = require('binaryjs-client');
 
 @Component({
@@ -36,18 +35,10 @@ export class RecordSpeechComponent {
         navigator.webkitGetUserMedia(session, ((s) => that.initializeRecorder(s)), onError);
     }
 
-    //sendData(ctx){
-    //    var data = ctx.getImageData(0, 0, 200, 200).data;
-    //    var byteArray = new Uint8Array(data);
-    //    this.socket.send(byteArray.buffer);
-    //}
-
-
     initializeRecorder(stream) {
         let context = new AudioContext();
         let audioInput = context.createMediaStreamSource(stream);
         let bufferSize = 2048;
-        // create a javascript node
         let recorder = context.createScriptProcessor(bufferSize, 1, 1);
         // specify the processing function
         let that = this;
