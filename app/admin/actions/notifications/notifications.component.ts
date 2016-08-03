@@ -24,6 +24,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         this.notificationObservable = notificationsService.getData();
 
         this.currentNotificationIdx = -1;
+        console.log('sdfsdf');
     }
 
     ngOnInit() {
@@ -47,13 +48,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
             let notification = new Notification(list[i]);
             newNotificationsList.push(notification);
         }
-        let start = this.notificationList.length;
-        let finish = newNotificationsList.length;
-        if (start < finish) {
-            Array.prototype.push.apply(this.notificationList, newNotificationsList.slice(start, finish));
-        } else {
-            this.notificationList = newNotificationsList;
-        }
+        this.notificationList = newNotificationsList;
+        console.log(JSON.stringify(this.notificationList));
     }
 
     refreshNotifications() {

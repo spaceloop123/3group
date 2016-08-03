@@ -13,7 +13,7 @@ import {AuthService} from "../common/auth/auth.service";
 
 export class LoginComponent implements OnInit{
 
-    errorMessage :string = ''
+    errorMessage:string = '';
     model = new LoginData('', false, '', false);
 
     constructor(private authService:AuthService,
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit{
 
     getErrorMessage(): string{
         let nameIsEmpty = false;
-        let message = 'Please enter '
+        let message = 'Please enter ';
         if(this.model.username == ''){
             message += 'your login';
             nameIsEmpty = true;
