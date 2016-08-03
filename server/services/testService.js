@@ -81,7 +81,7 @@ module.exports.changeTestStatus = function (status, testId, done) {
         .exec(function (res) {
             res.test.status = status;
             res.test.save();
-            if(status === 'complete') {
+            if (status === 'complete') {
                 notificationService.createDoneNotification(res.test.user.id, res.test.teacher.id, testId);
             }
             done(null);
@@ -181,5 +181,36 @@ module.exports.getTestHistoryByUser = function (userId, testId, done) {
                 })
             }
             done(null, {questions: response});
+        }, done, done);
+};
+
+module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, done) {
+    var test = new Test({
+        status: 'available',
+        user: userId,
+        teacher: teacherId,
+        answers: [],
+        fromTime: timeFrom,
+        toTime: timeTo
+    });
+    test.save(function (err) {
+        done(err);
+    });
+};
+
+module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo, done) {
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.fine({_id: testId, status: 'request'}, callback);
+        })
+        .exec(function (res) {
+            res.test.status = 'available';
+            res.test.teacher = teacherId;
+            res.test.answers = [];
+            res.test.fromTime = timeFrom;
+            res.test.toTome = timeTo;
+            res.test.save(function (err) {
+               done(err);
+            });
         }, done, done);
 };

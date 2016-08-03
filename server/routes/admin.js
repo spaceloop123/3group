@@ -9,6 +9,7 @@ var mdlwares = require('../libs/mdlwares');
 var questionMap = require('../libs/questionMap');
 var questionService = require('../services/questionService');
 var userService = require('../services/userService');
+var testService = require('../services/testService');
 var notificationService = require('../services/notificationService');
 var response = require('../libs/responseHelper');
 
@@ -98,5 +99,11 @@ router.post('/done_notification', function (req, res, next) {
 router.post('/decline_request_notification', function (req, res, next) {
     notificationService.declineRequestNotification(req.body.notificationId, req.body.testId, response.emptyResponse(res));
 });
+
+router.post('/assignTest', function () {
+    testService.assignNewTest(req.body.userId, req.body.teacherId,
+        req.body.timeFrom, req.body.timeTo, response.emptyResponse(res));
+});
+
 
 module.exports = router;
