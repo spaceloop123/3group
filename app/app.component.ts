@@ -60,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		return ((pathname.indexOf("/login") !== -1) ||
 		((this.authService.role === 'user') && (pathname.indexOf("/user") !== -1)) ||
 		((this.authService.role === 'teacher') && (pathname.indexOf("/teacher") !== -1)) ||
-		((this.authService.role === 'admin') && (pathname.indexOf("/admin") !== -1)));
+		((this.authService.role === 'admin') && (pathname.indexOf("/admin/assignTest") !== -1)));
 	}
 
 	ngOnInit():any {

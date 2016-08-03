@@ -19,6 +19,7 @@ export class AssignTestComponent implements OnInit {
 
     public currentUser:any;
     public assignedTeacher:any;
+    private data: any;
     private sub;
     teacherList = [];
 
@@ -51,26 +52,19 @@ export class AssignTestComponent implements OnInit {
         console.log(this.teacherList);
     }
 
-    // onScrollDown () {
-    //     console.log('scrolled down!!');
-    //     this.shownUsers += 10;
-    //     this.getUsers();
-    // }
-    //
-    // scrollOrNot() {
-    //     if(this.scrollCount <= 10) {
-    //         console.log(this.scrollCount);
-    //         this.scrollCount++;
-    //     } else {
-    //         this.onScrollDown();
-    //         this.scrollCount = 0;
-    //     }
-    // }
-
-    checkInput(event) {
-        console.log("checkInput")
+    assignTest(){
+        this.data = {
+                dateFrom: '15/07/2016',
+                timeFrom: '14:00',
+                dateTo: '15/07/2016',
+                timeTo: '17:00',
+                teacher: '5457430uhot798y4'
+        };
+        this.customHttp.post('/admin/assign_test', {test: this.data})
+            .subscribe(response => {
+                console.log('test has been assigned');
+            });
     }
-
 
     constructor(private route:ActivatedRoute,
                 private customHttp:CustomHttp) {
