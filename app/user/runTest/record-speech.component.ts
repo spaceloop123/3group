@@ -1,9 +1,6 @@
 import {onError} from "@angular/upgrade/src/util";
 import {Component} from "@angular/core";
 
-//import {BinaryClient} from 'binaryjs-client'
-//var BinaryClient = require('binaryjs-client');
-
 @Component({
     selector: 'speech-recorder',
     templateUrl: 'app/user/runTest/record-speech.html',
@@ -15,14 +12,8 @@ export class RecordSpeechComponent {
     socket:any;
 
     constructor() {
-        //this.client = new BinaryClient('ws://localhost:3001');
-        //this.client.on('open', function () {
-        // for the sake of this example let's put the stream in the window
-        //    this.stream = this.client.createStream();
-        //});
         this.socket = new WebSocket('ws://localhost:3001');
         this.socket.binaryType = 'arraybuffer';
-        //this.socket.onopen = this.sendData;
     }
 
     recordAudio() {
@@ -52,7 +43,9 @@ export class RecordSpeechComponent {
 
     recorderProcess(e) {
         let left = e.inputBuffer.getChannelData(0);
-        this.socket.send(this.convertFloat32ToInt16(left));
+        console.log('recorderProcess');
+        console.log(left);
+        this.socket.send(left);
     }
 
     convertFloat32ToInt16(buffer) {
