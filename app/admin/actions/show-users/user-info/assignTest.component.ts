@@ -22,7 +22,7 @@ export class AssignTestComponent implements OnInit {
     constructor(private route:ActivatedRoute,
                 private customHttp:CustomHttp) {
 
-        this.date = new Date();
+       // this.dateTo = new Date();
 
     }
 
@@ -36,7 +36,7 @@ export class AssignTestComponent implements OnInit {
         console.log('this.date.value');
         if(a.value!='' && b.value!=''){
             alert("alreadySelected")
-            document.getElementById("assignTestButton").buttonState='visible'
+
         }
         }
 

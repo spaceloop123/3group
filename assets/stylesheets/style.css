@@ -167,3 +167,13 @@ a .disabled {
     top: 297px;
     transform: translateY(-50%);
 }
+
+
+.disabled-style{
+
+}
+
+.visible-style{
+    visibility: visible;
+
+}

@@ -12,7 +12,6 @@
                         <p align="left">Email</p>
                         <line-chart-demo class="chart-wrapper"></line-chart-demo>
                     </div>
-
                 </div>
             </div>
 
@@ -23,21 +22,18 @@
                         <p class="card-title" align="center">Assign Test</p>
 
                         <p align="center">Select estimated date and time</p>
-                        <datepicker (notify)='onNotify($event)'></datepicker>
+                        <datepicker (notify)='onNotify($event)' view-format="DD.MM.YYYY" model-format="YYYY-MM-DD" init-date="dateFrom"></datepicker>
                     </div>
 
                     <div class="card-action" align="center">
-                        <a id="assignTestButton"class="waves-effect disabled btn" (click)="checkInput()" [ngClass]="buttonState">Assign Test</a>
+                        <a id="assignTestButton"class="waves-effect disabled btn" (click)="checkInput()" [ngClass]="buttonState"
+                           [attr.disabled]="!data.dateFrom ? true : none">Assign Test</a>
                     </div>
                 </div>
             </div>
 
-        </div>
-        <p>{{date | date:'yMMMMd'}}</p>
-            <p>{{date | date:'shortTime'}}</p>
-
     </div>
 </div>
-
+</div>
 
 

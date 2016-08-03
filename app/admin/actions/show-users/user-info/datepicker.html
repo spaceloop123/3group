@@ -10,7 +10,7 @@
         <h6>Time (from)</h6>
         <div class="col m2" style="padding:0">
 
-            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeFrom.hours">
                 <option value="" selected>00</option>
                 <option value="1">01</option>
                 <option value="2">02</option>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col m2" style="padding:0">
-            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
+            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeFrom.minutes">
                 <option value="" selected>00</option>
                 <option value="1">10</option>
                 <option value="2">20</option>
@@ -38,28 +38,29 @@
             </select>
         </div>
         <div class="col m2" style="padding:0">
-            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions">
-                <option value="1" selected>pm</option>
-                <option value="2">am</option>
+            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeFrom.am">
+                <option value=""selected>pm</option>
+                <option value="1">am</option>
             </select>
         </div>
     </div>
 
-    <p>{{date | date:'yMMMMd'}}</p>
+    <p>{{date | date:'yyyy dd MM '}}</p>
     <p>{{date | date:'shortTime'}}</p>
 
     <div class="row">
         <div class="col s12 m5 l5">
             <h6 style="margin: 0">Date (to)</h6>
             <div id="datepicker2" class="datepicker" style="margin-top: 2.5%">
-                <input id="dateTo" type="date" class="datepicker" (click)='selectDateTo()' [(ngModel)]="dateTo" disabled>
+                <input id="dateTo" type="date" class="datepicker" (click)='selectDateTo()' [(ngModel)]="data.dateTo" [ngClass]="inputState"
+                [attr.disabled]="!data.dateFrom ? true : none">
             </div>
         </div>
 
         <h6>Time (to)</h6>
         <div class="col m2" style="padding:0">
 
-            <select  style="margin: 0;" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" disabled>
+            <select  style="margin: 0;" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeTo.hours">
                 <option value=""  selected >00</option>
                 <option value="1">01</option>
                 <option value="2">02</option>
@@ -77,7 +78,7 @@
         </div>
 
         <div class="col m2" style="padding:0">
-            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" disabled>
+            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeTo.minutes">
                 <option value="" selected>00</option>
                 <option value="1">10</option>
                 <option value="2">20</option>
@@ -88,7 +89,7 @@
             </select>
         </div>
         <div class="col m2" style="padding:0">
-            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" disabled>
+            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeTo.am">
                 <option value=""selected>pm</option>
                 <option value="1">am</option>
             </select>
@@ -110,3 +111,5 @@
 
 
 </div>
+
+
