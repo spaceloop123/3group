@@ -74,3 +74,18 @@ module.exports.getUserHistory = function (userId, done) {
             });
         }, done, done);
 };
+
+module.exports.checkGuest = function (guestId, done) {
+    new Validator()
+        .checkItems({
+            test: function (callback) {
+                Test.findOne({user: guestId, status: 'available'}, callback);
+            },
+            guest: function (callback) {
+                User.findOne({_id: guestId}, callback);
+            }
+        })
+        .exec(function (res) {
+            done(null, res.guest);
+        }, done, done);
+};

@@ -9,6 +9,7 @@ var mdlwares = require('../libs/mdlwares');
 var questionMap = require('../libs/questionMap');
 var questionService = require('../services/questionService');
 var userService = require('../services/userService');
+var testService = require('../services/testService');
 var notificationService = require('../services/notificationService');
 var response = require('../libs/responseHelper');
 
@@ -60,13 +61,13 @@ router.post('/new_test', function (req, res, next) {
     test.save();
 });
 
-router.post('/add_questions', function (req, res, next) {
+router.post('/add_questions', function (req, res) {
     questionService.addQuestions(req.body);
     res.status(200).end();
 
 });
 
-router.post('/user_list', function (req, res, next) {
+router.post('/user_list', function (req, res) {
    userService.getUserList(req.body.n, req.body.searchFilter, response.dataResponse(res));
 });
 
@@ -83,20 +84,28 @@ function addUser(username, password, role, req) {
     user.save();
 }
 
-router.get('/teachers_list', function (req, res, next) {
+router.get('/teachers_list', function (req, res) {
     userService.getTeachersList(response.dataResponse(res));
 });
 
-router.get('/notifications', function (req, res, next) {
+router.get('/notifications', function (req, res) {
     notificationService.getNotifications(response.dataResponse(res));
 });
 
-router.post('/done_notification', function (req, res, next) {
+router.post('/done_notification', function (req, res) {
     notificationService.closeDoneNotification(req.body.notificationId, response.emptyResponse(res));
 });
 
-router.post('/decline_request_notification', function (req, res, next) {
+router.post('/decline_request_notification', function (req, res) {
     notificationService.declineRequestNotification(req.body.notificationId, req.body.testId, response.emptyResponse(res));
 });
+
+router.post('/user_history', function (req, res) {
+    userService.getUserHistory(req.body.userId, response.dataResponse(res));
+});
+
+router.post('/test_history', function (req, res) {
+    testService.getTestHistory(req.userId, req.testId, response.dataResponse(res));
+})
 
 module.exports = router;

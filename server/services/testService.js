@@ -52,7 +52,7 @@ module.exports.initTest = function (userId, done) {
         res.test.finishTime = finishTime;
         res.test.save();
 
-        setTimer(res.test.id, res.template.time * 60 * 1000);
+        module.exports.setTestTimer(res.test.id, res.template.time * 60 * 1000);
 
         done(null, {
             testId: res.test.id,
@@ -62,7 +62,7 @@ module.exports.initTest = function (userId, done) {
     }, done, done);
 };
 
-function setTimer(testId, delay) {
+module.exports.setTestTimer = function (testId, delay) {
     setTimeout(function () {
         require('mongoose').model('Test').findOne({_id: testId, status: 'run'}, function (err, test) {
             if (!err && test) {
@@ -81,7 +81,7 @@ module.exports.changeTestStatus = function (status, testId, done) {
         .exec(function (res) {
             res.test.status = status;
             res.test.save();
-            if(status === 'complete') {
+            if (status === 'complete') {
                 notificationService.createDoneNotification(res.test.user.id, res.test.teacher.id, testId);
             }
             done(null);
@@ -133,7 +133,7 @@ var typeMap = {
     SpeechQuestion: 'Speech'
 };
 
-module.exports.getTestHistoryByUser = function (userId, testId, done) {
+module.exports.getTestHistory = function (userId, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
             Test.findOne({_id: testId, user: userId, status: 'complete'})
