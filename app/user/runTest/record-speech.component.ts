@@ -1,9 +1,6 @@
 import {onError} from "@angular/upgrade/src/util";
 import {Component} from "@angular/core";
 
-//import {BinaryClient} from 'binaryjs-client'
-//var BinaryClient = require('binaryjs-client');
-
 @Component({
     selector: 'speech-recorder',
     templateUrl: 'app/user/runTest/record-speech.html',
@@ -15,14 +12,12 @@ export class RecordSpeechComponent {
     socket:any;
 
     constructor() {
-        //this.client = new BinaryClient('ws://localhost:3001');
-        //this.client.on('open', function () {
-        // for the sake of this example let's put the stream in the window
-        //    this.stream = this.client.createStream();
-        //});
-        this.socket = new WebSocket('ws://localhost:3001');
-        this.socket.binaryType = 'arraybuffer';
-        //this.socket.onopen = this.sendData;
+        this.socket = new WebSocket('ws://localhost:9160');
+    }
+
+    getUserMediaWrapper(session, successHandler, errorHandler) {
+        (navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia ||
+        navigator.msGetUserMedia).call(navigator, session, successHandler, errorHandler);
     }
 
     recordAudio() {
@@ -32,7 +27,7 @@ export class RecordSpeechComponent {
         };
         let recordRTC = null;
         let that = this;
-        navigator.webkitGetUserMedia(session, ((s) => that.initializeRecorder(s)), onError);
+        this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
     }
 
     initializeRecorder(stream) {
@@ -52,6 +47,8 @@ export class RecordSpeechComponent {
 
     recorderProcess(e) {
         let left = e.inputBuffer.getChannelData(0);
+        console.log('recorderProcess');
+        console.log(this.convertFloat32ToInt16(left));
         this.socket.send(this.convertFloat32ToInt16(left));
     }
 
@@ -61,6 +58,6 @@ export class RecordSpeechComponent {
         while (l--) {
             buf[l] = Math.min(1, buffer[l]) * 0x7FFF;
         }
-        return buf.buffer;
+        return buf;
     }
 }

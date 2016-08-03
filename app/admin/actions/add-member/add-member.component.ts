@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
-import {MaterializeDirective} from "angular2-materialize";
-import {Http, Headers} from "@angular/http";
+import {MaterializeDirective, toast} from "angular2-materialize";
+import {CustomHttp} from "../../../common/services/CustomHttp";
 
 @Component({
     selector: 'add-member-component',
@@ -14,22 +14,15 @@ export class AddMemberComponent implements OnInit {
     private member;
     private newMemberUrl;
 
-    constructor(private http:Http) {
+    constructor(private customHttp:CustomHttp) {
         this.member = {};
         this.newMemberUrl = '';
     }
 
     ngOnInit():any {
-        this.member = {
-            role: 'guest',
-            firstName: '',
-            lastName: '',
-            email: ''
-        };
+        this.clearForm();
         this.newMemberUrl = '/admin/new_';
     }
-
-    //*** Add a member ***
 
     changeMemberType() {
         if (this.member.role === 'guest') {
@@ -40,16 +33,46 @@ export class AddMemberComponent implements OnInit {
     }
 
     isMemberFieldsEmpty() {
-        return (this.member.email != '' && this.member.firstName != '' && this.member.lastName != '');
+        return (this.member.email === '' || this.member.firstName === '' || this.member.lastName === '');
     }
 
-    addUser() {
-        // TODO: (pay attention) Use CustomHttp + Observables !! Here is bad code now in context of app resources.
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        this.http
-            .post(this.newMemberUrl + this.member.role, JSON.stringify(this.member), {headers: headers})
-            .toPromise()
-            .then(response => console.log(response.json()));
+    isValidEmail() {
+        let regex = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+        return regex.test(this.member.email);
+    }
+
+    onSubmit() {
+        if (this.isMemberFieldsEmpty()) {
+            return toast('Fill in all fields', 3000, 'amber darken-1');
+        }
+        // if (!this.isValidEmail()) {
+        //     return toast('Wrong email', 3000, 'amber darken-1');
+        // }
+        this.customHttp
+            .post(this.newMemberUrl + this.member.role, this.member)
+            .subscribe(
+                res => {
+                    toast(this.member.firstName + ' ' + this.member.lastName + ' was successfully added', 3000, 'green');
+                    this.clearForm();
+                },
+                err => this.handleError(err)
+            );
+    }
+
+    clearForm() {
+        this.member = {
+            role: 'guest',
+            firstName: '',
+            lastName: '',
+            email: ''
+        };
+
+        /*$('#add-member-form').find('label').removeClass('active');
+         $('#add-member-form').find('materialInput:text').val('');*/
+
+    }
+
+    handleError(error) {
+        toast('Failed to add new member', 3000, 'red darken-2');
     }
 }

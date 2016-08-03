@@ -30,18 +30,50 @@ export class AudioQuestionComponent implements OnInit {
         this.question = new AudioQuestion();
         this.oldSubQuestionsLength = this.question.subQuestions.length;
 
-        this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
-            {type: new InsertOpenQuestion().type, checked: false},
-            {type: new InsertTestQuestion().type, checked: false}];
+        this.questionsCatalog = [
+            {
+                type: new TestQuestion().type,
+                title: 'Test Question',
+                image: 'app/admin/actions/add-question/education-icons/test.png',
+                description: 'Common task with one right variant to choose'
+            },
+            {
+                type: new InsertOpenQuestion().type,
+                title: 'Gap-filling',
+                image: 'app/admin/actions/add-question/education-icons/fountain-pen.png',
+                description: 'Empty inputs to insert right answers where needed'
+            },
+            {
+                type: new InsertTestQuestion().type,
+                title: 'One of many',
+                image: 'app/admin/actions/add-question/education-icons/paste.png',
+                description: 'Dropdown menu in sentence with options to insert'
+            }];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
     ngOnInit():any {
         this.oldSubQuestionsLength = this.question.subQuestions.length;
 
-        this.questionsCatalog = [{type: new TestQuestion().type, checked: true},
-            {type: new InsertOpenQuestion().type, checked: false},
-            {type: new InsertTestQuestion().type, checked: false}];
+        this.questionsCatalog = [
+            {
+                type: new TestQuestion().type,
+                title: 'Test Question',
+                image: 'app/admin/actions/add-question/education-icons/test.png',
+                description: 'Common task with one right variant to choose'
+            },
+            {
+                type: new InsertOpenQuestion().type,
+                title: 'Gap-filling',
+                image: 'app/admin/actions/add-question/education-icons/fountain-pen.png',
+                description: 'Empty inputs to insert right answers where needed'
+            },
+            {
+                type: new InsertTestQuestion().type,
+                title: 'One of many',
+                image: 'app/admin/actions/add-question/education-icons/paste.png',
+                description: 'Dropdown menu in sentence with options to insert'
+            }];
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
@@ -93,11 +125,14 @@ export class AudioQuestionComponent implements OnInit {
     }
 
     changeState(idx) {
-        for (let i = 0; i < this.questionsCatalog.length; ++i) {
-            this.questionsCatalog[i].checked = false;
-        }
-        this.questionsCatalog[idx].checked = true;
+        /*for (let i = 0; i < this.questionsCatalog.length; ++i) {
+         this.questionsCatalog[i].checked = false;
+         }
+         this.questionsCatalog[idx].checked = true;*/
         this.selectedQuestion = this.questionsCatalog[idx].type;
+        console.log(this.selectedQuestion);
+        // $('#audioChooseSubQuestion').closeModal();
+        this.addSubQuestion();
     }
 
     onCreateFinish() {

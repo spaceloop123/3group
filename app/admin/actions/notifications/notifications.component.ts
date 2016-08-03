@@ -28,9 +28,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.notificationSubscription = this.notificationObservable.subscribe(res => {
-            if (res.status === 200) {
-                this.updateNotificationList(res.json());
-            }
+            this.updateNotificationList(res);
         }, err => {
             console.log('Error in Notification Service');
         });
@@ -40,24 +38,19 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         this.notificationSubscription.unsubscribe();
     }
 
-    updateNotificationList(list) {
-        let that = this;
-        let newNotificationsList = [];
-        for (let i = 0; i < list.length; ++i) {
-            let notification = new Notification(list[i]);
-            newNotificationsList.push(notification);
-        }
-        let start = this.notificationList.length;
-        let finish = newNotificationsList.length;
-        if (start < finish) {
-            Array.prototype.push.apply(this.notificationList, newNotificationsList.slice(start, finish));
-        } else {
-            this.notificationList = newNotificationsList;
+    updateNotificationList(res) {
+        for (let i = 0; i < res.length; ++i) {
+            this.notificationList[i] = new Notification(res[i]);
         }
     }
 
     refreshNotifications() {
-        alert("Refresh coming soon...");
+        this.notificationSubscription.unsubscribe();
+        this.notificationSubscription = this.notificationObservable.subscribe(res => {
+            this.updateNotificationList(res);
+        }, err => {
+            console.log('Error in Notification Service');
+        });
     }
 
     get notificationList():any {
