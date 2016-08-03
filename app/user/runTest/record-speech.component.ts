@@ -12,8 +12,12 @@ export class RecordSpeechComponent {
     socket:any;
 
     constructor() {
-        this.socket = new WebSocket('ws://localhost:3001');
-        this.socket.binaryType = 'arraybuffer';
+        this.socket = new WebSocket('ws://localhost:9160');
+    }
+
+    getUserMediaWrapper(session, successHandler, errorHandler) {
+        (navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia ||
+        navigator.msGetUserMedia).call(navigator, session, successHandler, errorHandler);
     }
 
     recordAudio() {
@@ -23,7 +27,7 @@ export class RecordSpeechComponent {
         };
         let recordRTC = null;
         let that = this;
-        navigator.webkitGetUserMedia(session, ((s) => that.initializeRecorder(s)), onError);
+        this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
     }
 
     initializeRecorder(stream) {
@@ -44,8 +48,8 @@ export class RecordSpeechComponent {
     recorderProcess(e) {
         let left = e.inputBuffer.getChannelData(0);
         console.log('recorderProcess');
-        console.log(left);
-        this.socket.send(left);
+        console.log(this.convertFloat32ToInt16(left));
+        this.socket.send(this.convertFloat32ToInt16(left));
     }
 
     convertFloat32ToInt16(buffer) {
@@ -54,6 +58,6 @@ export class RecordSpeechComponent {
         while (l--) {
             buf[l] = Math.min(1, buffer[l]) * 0x7FFF;
         }
-        return buf.buffer;
+        return buf;
     }
 }
