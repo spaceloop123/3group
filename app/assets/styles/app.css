@@ -176,3 +176,7 @@ a .disabled {
     top: 297px;
     transform: translateY(-50%);
 }
+
+.add-question-icon-container {
+    padding: 20%;
+}
