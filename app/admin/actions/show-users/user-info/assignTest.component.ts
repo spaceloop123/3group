@@ -21,6 +21,7 @@ export class AssignTestComponent implements OnInit {
     public assignedTeacher:any;
     private data: any;
     private sub;
+    private isActive;
     teacherList = [];
 
     onNotify(message:string):void {
@@ -35,6 +36,10 @@ export class AssignTestComponent implements OnInit {
 
     assignTeacher(teacher) {
         this.assignedTeacher = teacher;
+        for(let i = 0; i < this.teacherList.length; i++) {
+            this.teacherList[i].isActive = '';
+        }
+        this.assignedTeacher.isActive = 'active';
         console.log(this.assignedTeacher);
     }
 
