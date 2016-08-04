@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Notification = mongoose.model('Notification');
 var Test = mongoose.model('Test');
 var Validator = require('../libs/requestValidator');
+var testService = require('./testService');
 var mailer = require('../libs/mailer');
 
 module.exports.getNotifications = function (done) {
@@ -34,7 +35,7 @@ module.exports.declineRequestNotification = function (notificationId, testId, do
     new Validator()
         .checkItems({
             notification: function (callback) {
-                Notification.findOne({_id: notificationId}).populate('user').exec(callback);
+                Notification.findOne({_id: notificationId, type: 'request'}).populate('user').exec(callback);
             },
             test: function (callback) {
                 Test.findOne({_id: testId, status: 'requested'}, callback);
@@ -52,6 +53,22 @@ module.exports.declineRequestNotification = function (notificationId, testId, do
             );
             done(null);
         }, done, done);
+};
+
+module.exports.acceptRequestNotification = function (notificationId, userId, teacherId, timeFrom, timeTo, done) {
+    new Validator()
+        .checkItems({
+            notification: function (callback) {
+                Notification.findOne({_id: notificationId, status: 'request'}, callback);
+            },
+            test: function (callback) {
+                Test.findOne({user: userId, status: 'requested'}, callback);
+            }
+        })
+        .exec(function (res) {
+            res.notification.remove();
+            testService.acceptTestRequest(res.test.id, teacherId, timeFrom, timeTo, done);
+        });
 };
 
 module.exports.createRequestNotification = function (userId, testId) {

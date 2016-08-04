@@ -54,7 +54,6 @@ app.set('views', path.join(__dirname, 'app'));
 app.set('view engine', 'ejs');
 
 
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
@@ -79,7 +78,7 @@ app.use(passport.session());
 app.use('/', routes);
 
 app.use('/node_modules', express.static(__dirname + '/node_modules/'));
-app.use('/server', function (req, res){
+app.use('/server', function (req, res) {
     res.status(403).end();
 });
 app.use('/', express.static(__dirname));
@@ -187,25 +186,50 @@ app.use(function (err, req, res, next) {
     });
 });
 
-var binaryServer = BinaryServer({port: 3001});
-binaryServer.on('connection', function (client) {
-   console.log('new connection');
-    
-    var fileWriter = new wav.FileWriter('test.wav', {
-        channels: 1,
-        sampleRate: 48000,
-        bitDepth: 16
-    });
-    
-    client.on('stream', function (stream, meta) {
-        console.log('new stream');
-        stream.pipe(fileWriter);
+// var binaryServer = BinaryServer({port: 3001});
+// var fs = require('fs');
+// binaryServer.on('connection', function (client) {
+//    console.log('new connection');
+//
+//     // var fileWriter = new wav.FileWriter('test.wav', {
+//     //     channels: 1,
+//     //     sampleRate: 48000,
+//     //     bitDepth: 16
+//     // });
+//
+//     client.on('stream', function (stream, meta) {
+//         console.log('new stream');
+//         stream.pipe(fileWriter);
+//
+//         stream. on('end', function () {
+//             fileWriter.end();
+//             console.log('Wrote to file test.wav');
+//         });
+//     });
+// });
 
-        stream.on('end', function () {
-            fileWriter.end();
-            console.log('Wrote to file test.wav');
-        });
+var WebSocketServer = new require('ws');
+var wav = require('wav');
+var fs = require('fs');
+
+var webSocketServer = new WebSocketServer.Server({
+    port: 3001
+});
+webSocketServer.on('connection', function (ws) {
+    var fileName = 'test.wav';
+
+    ws.on('message', function (message) {
+        console.log("New connection ");
+        // fs.appendFile(fileName, message, function (err) {
+        //     if(err) {
+        //         console.log(err);
+        //     }
+        // });
+    });
+    ws.on('close', function () {
+        console.log('Connection close ');
     });
 });
+
 
 module.exports = app;
