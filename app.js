@@ -13,6 +13,7 @@ var http = require('http');
 var BinaryServer = require('binaryjs').BinaryServer;
 var fs = require('fs');
 var wav = require('wav');
+var ss = require('./SocketServer');
 
 require('./server/models/Users');
 require('./server/models/questions/Questions');
@@ -185,51 +186,5 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
-// var binaryServer = BinaryServer({port: 3001});
-// var fs = require('fs');
-// binaryServer.on('connection', function (client) {
-//    console.log('new connection');
-//
-//     // var fileWriter = new wav.FileWriter('test.wav', {
-//     //     channels: 1,
-//     //     sampleRate: 48000,
-//     //     bitDepth: 16
-//     // });
-//
-//     client.on('stream', function (stream, meta) {
-//         console.log('new stream');
-//         stream.pipe(fileWriter);
-//
-//         stream. on('end', function () {
-//             fileWriter.end();
-//             console.log('Wrote to file test.wav');
-//         });
-//     });
-// });
-
-var WebSocketServer = new require('ws');
-var wav = require('wav');
-var fs = require('fs');
-
-var webSocketServer = new WebSocketServer.Server({
-    port: 3001
-});
-webSocketServer.on('connection', function (ws) {
-    var fileName = 'test.wav';
-
-    ws.on('message', function (message) {
-        console.log("New connection ");
-        // fs.appendFile(fileName, message, function (err) {
-        //     if(err) {
-        //         console.log(err);
-        //     }
-        // });
-    });
-    ws.on('close', function () {
-        console.log('Connection close ');
-    });
-});
-
 
 module.exports = app;

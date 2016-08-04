@@ -35,10 +35,10 @@ module.exports.declineRequestNotification = function (notificationId, testId, do
     new Validator()
         .checkItems({
             notification: function (callback) {
-                Notification.findOne({_id: notificationId, type: 'request'}).populate('user').exec(callback);
+                Notification.findOne({_id: notificationId}).populate('user').exec(callback);
             },
             test: function (callback) {
-                Test.findOne({_id: testId, status: 'requested'}, callback);
+                Test.findOne({_id: testId}, callback);
             }
         })
         .exec(function (res) {
@@ -49,7 +49,7 @@ module.exports.declineRequestNotification = function (notificationId, testId, do
                 'Test request',
                 'Hello, ' + res.notification.user.firstName + ' ' + res.notification.user.lastName + '\n' +
                 'Your test request was declined.' + '\n' +
-                'With love from TheTuga\'s administration!'
+                'With love from administration of TheTuga!'
             );
             done(null);
         }, done, done);
