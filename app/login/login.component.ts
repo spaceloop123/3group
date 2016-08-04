@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit{
         console.log('loginRequest');
         if (this.errorMessage === '') {
             this.authService.logIn(this.model, err => {
-                toast('Please, enter correct login and password', 3000, 'red darken-2');
+                toast('Please enter correct login and password', 3000, 'red darken-2');
                 if (that.model !== null) {
                     that.model.clearForm();
                 }

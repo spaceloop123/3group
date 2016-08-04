@@ -3,6 +3,7 @@ import {GUID} from "../../../../common/guid/GUID";
 // TODO: (pay attention) Do you really need use code like that in TS? All non custom get/set is on _id field so only it
 // TODO: must be protected and decorated by custom setters getters.
 export class QuestionBase {
+
     protected _id:string;
     protected _type:string;
     protected _state:string; //edit | done // TODO: (pay attention) That was fine idea to use enumeration instead of just string
@@ -13,9 +14,13 @@ export class QuestionBase {
     protected _question:any;
     protected _answers:any;
 
-    constructor() {
+    private _isSubQuestion:boolean;
+
+    constructor(difficulty, isSubQuestion) {
         this.id = GUID.generate().toString();
         this.state = 'edit';
+        this.difficulty = difficulty;
+        this.isSubQuestion = isSubQuestion;
     }
 
     get id():string {
@@ -80,5 +85,13 @@ export class QuestionBase {
 
     set answers(value:any) {
         this._answers = value;
+    }
+
+    get isSubQuestion():boolean {
+        return this._isSubQuestion;
+    }
+
+    set isSubQuestion(value:boolean) {
+        this._isSubQuestion = value;
     }
 }

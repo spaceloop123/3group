@@ -26,7 +26,8 @@
             <!-- maxCost -->
             <div class="input-field col s12 m6 l6">
                 <input id="speech-question-maxCost-{{question.id}}"
-                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       [attr.disabled]="((question.state !== 'edit')
+                       || (question.isSubQuestion ? true : null) ? true : null)"
                        placeholder="Weight (between 1 and 10)"
                        type="number" min="1" max="10" class="validate"
                        [(ngModel)]="question.maxCost"

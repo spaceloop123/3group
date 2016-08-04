@@ -3,8 +3,8 @@ import {QuestionBase} from "../question-base";
 export class TestQuestion extends QuestionBase {
     private _correctAnswerIdx;
 
-    constructor() {
-        super();
+    constructor(difficulty, isSubQuestion) {
+        super(difficulty, isSubQuestion);
         this.answers = [{content: ''}, {content: ''}, {content: ''}];
         this.correctAnswerIdx = 1;
         this.type = 'TestQuestion';

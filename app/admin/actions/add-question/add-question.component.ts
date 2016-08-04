@@ -35,13 +35,13 @@ export class AddQuestionComponent implements OnInit {
         this.questionsList = [];
         this.questionsCatalog = [
             {
-                type: new TestQuestion().type,
+                type: new TestQuestion(null, false).type,
                 title: 'Test Question',
                 image: 'app/admin/actions/add-question/education-icons/test.png',
                 description: 'Common task with one right variant to choose'
             },
             {
-                type: new InsertOpenQuestion().type,
+                type: new InsertOpenQuestion(null, false).type,
                 title: 'Gap-filling',
                 image: 'app/admin/actions/add-question/education-icons/fountain-pen.png',
                 description: 'Empty inputs to insert right answers where needed'
@@ -53,19 +53,19 @@ export class AddQuestionComponent implements OnInit {
                 description: 'A little story to check text understanding and reading skills'
             },
             {
-                type: new OpenQuestion().type,
+                type: new OpenQuestion(null, false).type,
                 title: 'Open question',
                 image: 'app/admin/actions/add-question/education-icons/keyboard.png',
                 description: 'Task to show your opinion and write a little paragraph on subject'
             },
             {
-                type: new SpeechQuestion().type,
+                type: new SpeechQuestion(null, false).type,
                 title: 'Speech',
                 image: 'app/admin/actions/add-question/education-icons/microphone.png',
                 description: 'Recording an answer on topic for showing pronunciation skills'
             },
             {
-                type: new InsertTestQuestion().type,
+                type: new InsertTestQuestion(null, false).type,
                 title: 'One of many',
                 image: 'app/admin/actions/add-question/education-icons/paste.png',
                 description: 'Dropdown menu in sentence with options to insert'
@@ -83,13 +83,13 @@ export class AddQuestionComponent implements OnInit {
         this.questionsList = [];
         this.questionsCatalog = [
             {
-                type: new TestQuestion().type,
+                type: new TestQuestion(null, false).type,
                 title: 'Test Question',
                 image: 'app/admin/actions/add-question/education-icons/test.png',
                 description: 'Common task with one right variant to choose'
             },
             {
-                type: new InsertOpenQuestion().type,
+                type: new InsertOpenQuestion(null, false).type,
                 title: 'Gap-filling',
                 image: 'app/admin/actions/add-question/education-icons/fountain-pen.png',
                 description: 'Empty inputs to insert right answers where needed'
@@ -101,19 +101,19 @@ export class AddQuestionComponent implements OnInit {
                 description: 'A little story to check text understanding and reading skills'
             },
             {
-                type: new OpenQuestion().type,
+                type: new OpenQuestion(null, false).type,
                 title: 'Open question',
                 image: 'app/admin/actions/add-question/education-icons/keyboard.png',
                 description: 'Task to show your opinion and write a little paragraph on subject'
             },
             {
-                type: new SpeechQuestion().type,
+                type: new SpeechQuestion(null, false).type,
                 title: 'Speech',
                 image: 'app/admin/actions/add-question/education-icons/microphone.png',
                 description: 'Recording an answer on topic for showing pronunciation skills'
             },
             {
-                type: new InsertTestQuestion().type,
+                type: new InsertTestQuestion(null, false).type,
                 title: 'One of many',
                 image: 'app/admin/actions/add-question/education-icons/paste.png',
                 description: 'Dropdown menu in sentence with options to insert'
@@ -143,27 +143,27 @@ export class AddQuestionComponent implements OnInit {
         switch (this.selectedQuestion) {
             case 'TestQuestion':
             {
-                this.questionsList.push(new TestQuestion());
+                this.questionsList.push(new TestQuestion(null, false));
                 break;
             }
             case 'InsertOpenQuestion':
             {
-                this.questionsList.push(new InsertOpenQuestion());
+                this.questionsList.push(new InsertOpenQuestion(null, false));
                 break;
             }
             case 'InsertTestQuestion':
             {
-                this.questionsList.push(new InsertTestQuestion());
+                this.questionsList.push(new InsertTestQuestion(null, false));
                 break;
             }
             case 'OpenQuestion':
             {
-                this.questionsList.push(new OpenQuestion());
+                this.questionsList.push(new OpenQuestion(null, false));
                 break;
             }
             case 'SpeechQuestion':
             {
-                this.questionsList.push(new SpeechQuestion());
+                this.questionsList.push(new SpeechQuestion(null, false));
                 break;
             }
             case 'ReadingQuestion':

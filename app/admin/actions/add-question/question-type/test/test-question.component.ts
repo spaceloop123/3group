@@ -22,8 +22,7 @@ export class TestQuestionComponent implements OnInit {
     }
 
     constructor() {
-        this.question = new TestQuestion();
-        this.oldAnswersLength = this.question.answers.length;
+        
     }
 
     resizeAnswers() {

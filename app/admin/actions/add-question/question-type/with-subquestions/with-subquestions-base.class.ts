@@ -5,7 +5,7 @@ export class WithSubQuestionsBase extends QuestionBase {
     private _subQuestions:any[];
 
     constructor(type:string, subQuestions:any[]) {
-        super();
+        super(null, false);
         this.type = type;
         this.subQuestions = subQuestions;
     }

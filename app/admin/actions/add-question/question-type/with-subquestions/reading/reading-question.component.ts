@@ -34,25 +34,25 @@ export class ReadingQuestionComponent implements OnInit {
 
         this.questionsCatalog = [
             {
-                type: new TestQuestion().type,
+                type: new TestQuestion(null, false).type,
                 title: 'Test Question',
                 image: 'app/admin/actions/add-question/education-icons/test.png',
                 description: 'Common task with one right variant to choose'
             },
             {
-                type: new InsertOpenQuestion().type,
+                type: new InsertOpenQuestion(null, false).type,
                 title: 'Gap-filling',
                 image: 'app/admin/actions/add-question/education-icons/fountain-pen.png',
                 description: 'Empty inputs to insert right answers where needed'
             },
             {
-                type: new InsertTestQuestion().type,
+                type: new InsertTestQuestion(null, false).type,
                 title: 'One of many',
                 image: 'app/admin/actions/add-question/education-icons/paste.png',
                 description: 'Dropdown menu in sentence with options to insert'
             },
             {
-                type: new OpenQuestion().type,
+                type: new OpenQuestion(null, false).type,
                 title: 'Open question',
                 image: 'app/admin/actions/add-question/education-icons/keyboard.png',
                 description: 'Task to show your opinion and write a little paragraph on subject'
@@ -65,25 +65,25 @@ export class ReadingQuestionComponent implements OnInit {
 
         this.questionsCatalog = [
             {
-                type: new TestQuestion().type,
+                type: new TestQuestion(null, false).type,
                 title: 'Test Question',
                 image: 'app/admin/actions/add-question/education-icons/test.png',
                 description: 'Common task with one right variant to choose'
             },
             {
-                type: new InsertOpenQuestion().type,
+                type: new InsertOpenQuestion(null, false).type,
                 title: 'Gap-filling',
                 image: 'app/admin/actions/add-question/education-icons/fountain-pen.png',
                 description: 'Empty inputs to insert right answers where needed'
             },
             {
-                type: new InsertTestQuestion().type,
+                type: new InsertTestQuestion(null, false).type,
                 title: 'One of many',
                 image: 'app/admin/actions/add-question/education-icons/paste.png',
                 description: 'Dropdown menu in sentence with options to insert'
             },
             {
-                type: new OpenQuestion().type,
+                type: new OpenQuestion(null, false).type,
                 title: 'Open question',
                 image: 'app/admin/actions/add-question/education-icons/keyboard.png',
                 description: 'Task to show your opinion and write a little paragraph on subject'
@@ -91,30 +91,39 @@ export class ReadingQuestionComponent implements OnInit {
         this.selectedQuestion = this.questionsCatalog[0].type;
     }
 
-    addSubQuestion() {
-        if (this.question.state !== 'edit') {
-            return;
-        }
+    toastError() {
+            toast('Complete editing question before adding sub-question', 3000, 'amber darken-2');
+    }
 
+    isAllFieldsFilledIn() {
+        if(this.question.state === 'edit' && !this.question.difficulty) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    addSubQuestion() {
         switch (this.selectedQuestion) {
             case 'TestQuestion':
             {
-                this.question.subQuestions.push(new TestQuestion());
+                this.question.subQuestions.push(new TestQuestion(this.question.difficulty, true));
+                console.log('JKDFKDS = ' + JSON.stringify(this.question.subQuestions[0]));
                 break;
             }
             case 'InsertOpenQuestion':
             {
-                this.question.subQuestions.push(new InsertOpenQuestion());
+                this.question.subQuestions.push(new InsertOpenQuestion(this.question.difficulty, true));
                 break;
             }
             case 'InsertTestQuestion':
             {
-                this.question.subQuestions.push(new InsertTestQuestion());
+                this.question.subQuestions.push(new InsertTestQuestion(this.question.difficulty, true));
                 break;
             }
             case 'OpenQuestion':
             {
-                this.question.subQuestions.push(new OpenQuestion());
+                this.question.subQuestions.push(new OpenQuestion(this.question.difficulty, true));
                 break;
             }
             default:

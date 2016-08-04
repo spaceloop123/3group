@@ -32,19 +32,19 @@ export class AudioQuestionComponent implements OnInit {
 
         this.questionsCatalog = [
             {
-                type: new TestQuestion().type,
+                type: new TestQuestion(null, false).type,
                 title: 'Test Question',
                 image: 'app/admin/actions/add-question/education-icons/test.png',
                 description: 'Common task with one right variant to choose'
             },
             {
-                type: new InsertOpenQuestion().type,
+                type: new InsertOpenQuestion(null, false).type,
                 title: 'Gap-filling',
                 image: 'app/admin/actions/add-question/education-icons/fountain-pen.png',
                 description: 'Empty inputs to insert right answers where needed'
             },
             {
-                type: new InsertTestQuestion().type,
+                type: new InsertTestQuestion(null, false).type,
                 title: 'One of many',
                 image: 'app/admin/actions/add-question/education-icons/paste.png',
                 description: 'Dropdown menu in sentence with options to insert'
@@ -57,24 +57,36 @@ export class AudioQuestionComponent implements OnInit {
 
         this.questionsCatalog = [
             {
-                type: new TestQuestion().type,
+                type: new TestQuestion(null, false).type,
                 title: 'Test Question',
                 image: 'app/admin/actions/add-question/education-icons/test.png',
                 description: 'Common task with one right variant to choose'
             },
             {
-                type: new InsertOpenQuestion().type,
+                type: new InsertOpenQuestion(null, false).type,
                 title: 'Gap-filling',
                 image: 'app/admin/actions/add-question/education-icons/fountain-pen.png',
                 description: 'Empty inputs to insert right answers where needed'
             },
             {
-                type: new InsertTestQuestion().type,
+                type: new InsertTestQuestion(null, false).type,
                 title: 'One of many',
                 image: 'app/admin/actions/add-question/education-icons/paste.png',
                 description: 'Dropdown menu in sentence with options to insert'
             }];
         this.selectedQuestion = this.questionsCatalog[0].type;
+    }
+
+    toastError() {
+        toast('Complete editing question before adding sub-question', 3000, 'amber darken-2');
+    }
+
+    isAllFieldsFilledIn() {
+        if(this.question.state === 'edit' && !this.question.difficulty) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     addSubQuestion() {
@@ -85,17 +97,17 @@ export class AudioQuestionComponent implements OnInit {
         switch (this.selectedQuestion) {
             case 'TestQuestion':
             {
-                this.question.subQuestions.push(new TestQuestion());
+                this.question.subQuestions.push(new TestQuestion(this.question.difficulty, true));
                 break;
             }
             case 'InsertOpenQuestion':
             {
-                this.question.subQuestions.push(new InsertOpenQuestion());
+                this.question.subQuestions.push(new InsertOpenQuestion(this.question.difficulty, true));
                 break;
             }
             case 'InsertTestQuestion':
             {
-                this.question.subQuestions.push(new InsertTestQuestion());
+                this.question.subQuestions.push(new InsertTestQuestion(this.question.difficulty, true));
                 break;
             }
             default:
