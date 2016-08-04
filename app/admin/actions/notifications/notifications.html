@@ -3,11 +3,56 @@
     <ul class="notifications-list collection grey lighten-5 valign-wrapper" *ngIf="_notificationList.length === 0">
         <li class="col s10 m10 offset-s1 offset-m1">
             <div align="center">
-                <i class="material-icons grey-text">av_timer</i>
-            </div>
-            <div align="center">
-                <h6 class="grey-text">Nothing happened yet</h6>
-                <a class="waves-effect btn-flat grey-text" (click)="refreshNotifications()">Refresh</a>
+                <h6 class="grey-text">Waiting for new notifications...</h6>
+                <div class="preloader-wrapper small active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-red">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-yellow">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-green">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </li>
     </ul>
@@ -35,15 +80,4 @@
         <li class="divider" *ngIf="_notificationList.length <= 2"></li>
     </ul>
 
-</div>
-
-<div id="notificationModal" class="modal">
-    <div class="modal-content">
-        <h4></h4>
-        <p>{{notificationList[currentNotificationIdx]}}</p>
-    </div>
-    <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-        <a class="modal-action modal-close waves-effect waves-green btn-flat">Select</a>
-    </div>
 </div>
