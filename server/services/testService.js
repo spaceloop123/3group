@@ -24,7 +24,10 @@ module.exports.getTestStatus = function (userId, done) {
         user: userId,
         status: {$in: ['available', 'requested', 'run']}
     }).exec(function (res) {
-        done(null, {status: res.test.status, time: res.template.time, count: res.template.questions.length});
+        done(null, {
+            status: res.test.status, count: res.template.questions.length,
+            time: res.template.time, fromTime: res.test.fromTime, toTime: res.test.toTime
+        });
     }, function () {
         done(null, {status: 'notAvailable'});
     }, done);
@@ -113,6 +116,43 @@ module.exports.getTeachersTests = function (teacher, done) {
         }, done);
 };
 
+module.exports.getTestsHistory = function (userId, testIds, done) {
+    new Validator()
+        .checkItems(testIds.map(function (testId) {
+            return getTestHistory(userId, testId);
+        }))
+        .exec(function (res) {
+            var response = [];
+            for (key in res) {
+                response.push(res[key]);
+            }
+            done(null, {tests: response});
+        }, done, done);
+};
+
+function getTestHistory(userId, testId) {
+    return function (done) {
+        new Validator()
+            .checkItem('test', function (callback) {
+                Test.findOne({_id: testId, user: userId, status: 'complete'})
+                    .populate([{path: 'answers', populate: {path: 'question'}},
+                        {path: 'subAnswers', populate: {path: 'question'}}])
+                    .exec(callback);
+            })
+            .exec(function (res) {
+                var testMap = getTestMap(res.test.answers);
+                var response = [];
+                for (key in testMap) {
+                    response.push({
+                        type: key,
+                        mark: testMap[key].result / testMap[key].maxResult * 100 || 0
+                    });
+                }
+                done(null, response);
+            }, done, done);
+    }
+}
+
 var typeMap = {
     TestQuestion: 'Test',
     InsertTestQuestion: 'Test',
@@ -121,27 +161,6 @@ var typeMap = {
     AudioQuestion: 'Audio',
     ReadingQuestion: 'Reading',
     SpeechQuestion: 'Speech'
-};
-
-module.exports.getTestHistory = function (userId, testId, done) {
-    new Validator()
-        .checkItem('test', function (callback) {
-            Test.findOne({_id: testId, user: userId, status: 'complete'})
-                .populate([{path: 'answers', populate: {path: 'question'}},
-                    {path: 'subAnswers', populate: {path: 'question'}}])
-                .exec(callback);
-        })
-        .exec(function (res) {
-            var testMap = getTestMap(res.test.answers);
-            var response = [];
-            for (key in testMap) {
-                response.push({
-                    type: key,
-                    mark: testMap[key].result / testMap[key].maxResult * 100 || 0
-                });
-            }
-            done(null, {questions: response});
-        }, done, done);
 };
 
 function getTestMap(answers) {

@@ -63,17 +63,35 @@ module.exports.getUserHistory = function (userId, done) {
             res.tests.sort(function (firstTest, secondTest) {
                 return firstTest.finishTime - secondTest.finishTime;
             });
-            done(null, {
-                tests: res.tests.map(function (test) {
-                    return {
-                        testId: test.id,
-                        date: test.finishTime,
-                        mark: test.result / test.maxResult * 100
-                    }
-                })
-            });
+            var historyMap = getHistoryMap(res.tests);
+            var response = [];
+            for (key in historyMap) {
+                response.push({
+                    date: new Date(+key),
+                    tests: historyMap[key].tests,
+                    mark: historyMap[key].sumMark / historyMap[key].tests.length
+                });
+            }
+            done(null, {nodes: response});
         }, done, done);
 };
+
+function getHistoryMap(tests) {
+    var historyMap = {};
+    tests.forEach(function (test) {
+        var key = test.finishTime.setHours(0, 0, 0, 0);
+        if (!historyMap[key]) {
+            historyMap[key] = {
+                tests: [],
+                sumMark: 0
+            }
+        }
+
+        historyMap[key].tests.push(test.id);
+        historyMap[key].sumMark += test.result / test.maxResult * 100 || 0;
+    });
+    return historyMap;
+}
 
 module.exports.checkGuest = function (guestId, done) {
     new Validator()
