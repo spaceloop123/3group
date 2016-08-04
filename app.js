@@ -13,6 +13,7 @@ var http = require('http');
 var BinaryServer = require('binaryjs').BinaryServer;
 var fs = require('fs');
 var wav = require('wav');
+var ss = require('./SocketServer');
 
 require('./server/models/Users');
 require('./server/models/questions/Questions');
@@ -55,7 +56,6 @@ app.set('views', path.join(__dirname, 'app'));
 app.set('view engine', 'ejs');
 
 
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
@@ -80,7 +80,7 @@ app.use(passport.session());
 app.use('/', routes);
 
 app.use('/node_modules', express.static(__dirname + '/node_modules/'));
-app.use('/server', function (req, res){
+app.use('/server', function (req, res) {
     res.status(403).end();
 });
 app.use('/', express.static(__dirname));
@@ -185,27 +185,6 @@ app.use(function (err, req, res, next) {
     res.render('error', {
         message: err.message,
         error: {}
-    });
-});
-
-var binaryServer = BinaryServer({port: 3001});
-binaryServer.on('connection', function (client) {
-   console.log('new connection');
-    
-    var fileWriter = new wav.FileWriter('test.wav', {
-        channels: 1,
-        sampleRate: 48000,
-        bitDepth: 16
-    });
-    
-    client.on('stream', function (stream, meta) {
-        console.log('new stream');
-        stream.pipe(fileWriter);
-
-        stream.on('end', function () {
-            fileWriter.end();
-            console.log('Wrote to file test.wav');
-        });
     });
 });
 

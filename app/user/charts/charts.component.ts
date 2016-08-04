@@ -12,7 +12,7 @@ import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 export class ChartsComponent {
 
     private showTestsUrl = 'app/user/showTests';
-    @Input role:string;
+    @Input() role:string;
     lineChartData;
     testsData:any[];
     lineChartLabels:any[];

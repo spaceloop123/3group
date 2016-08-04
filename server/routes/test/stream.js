@@ -5,7 +5,7 @@ var ss = require('socket.io-stream');
 var path = require('path');
 var fs = require('fs');
 
-io.of('/a').on('connection', function (socket) {
+io.of('/').on('connection', function (socket) {
     ss(socket).on('audio', function (stream, data) {
         var filename = path.basename(data.name);
         stream.pipe(fs.createReadStream(filename));
