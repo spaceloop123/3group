@@ -15,14 +15,16 @@ export class ChartsComponent {
     role:string = 'user';
     lineChartData;
     testsData:any[];
-    //lineChartLabels:Array<any> = ['20/04/2014', '20/04/2015', '20/04/2016'];
     lineChartLabels:any[];
+    testStatustics:any[];
+
 
     constructor(private http:Http) {
         this.lineChartData =[ {
             data: []
         }];
         this.lineChartLabels = new Array();
+        this.testStatustics = new Array();
 
     }
 
@@ -97,18 +99,20 @@ export class ChartsComponent {
 
     // events
     public chartClicked(e:any):void {
-        console.log(e.active[0]._index);
-        let index = e.active[0]._index;
-        var that = this;
-        var header = new Headers();
-        console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
-        header.append('Content-Type', 'application/json');
-        this.http
-            .post('/' + this.role + '/test_history',
-                JSON.stringify({testId: that.testsData[index].testId}), {headers: header})
-            .toPromise()
-            .then(response => that.updateTestStatustics(response.json()))
-            .catch(that.handleError);
+        if (e.active[0]) {
+            console.log(e.active[0]._index);
+            let index = e.active[0]._index;
+            var that = this;
+            var header = new Headers();
+            console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
+            header.append('Content-Type', 'application/json');
+            this.http
+                .post('/' + this.role + '/test_history',
+                    JSON.stringify({testId: that.testsData[index].testId}), {headers: header})
+                .toPromise()
+                .then(response => that.updateTestStatustics(response.json()))
+                .catch(that.handleError);
+        }
     }
 
     public chartHovered(e:any):void {
@@ -116,7 +120,8 @@ export class ChartsComponent {
     }
 
     updateTestStatustics(response) {
-        console.log(response);
+        console.log(response.questions);
+        this.testStatustics = response.questions;
     }
 
 

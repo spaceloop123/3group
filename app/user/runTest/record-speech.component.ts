@@ -47,8 +47,8 @@ export class RecordSpeechComponent {
 
     recorderProcess(e) {
         let left = e.inputBuffer.getChannelData(0);
-        console.log('recorderProcess');
-        console.log(this.convertFloat32ToInt16(left));
+        //console.log('recorderProcess');
+        //console.log(this.convertFloat32ToInt16(left));
         this.socket.send(this.convertFloat32ToInt16(left));
     }
 
