@@ -1,9 +1,11 @@
 export class Notification {
+
     private _notificationId:string;
     private _type:string;
 
     private _user:string;
     private _teacher:string;
+    private _testId:string;
 
     private _color:string;
     private _icon:string;
@@ -17,6 +19,10 @@ export class Notification {
 
         this.teacher = notification['teacher'];
         this.user = notification['user'];
+
+        if (this.type === 'request') {
+            this.testId = notification['testId'];
+        }
     }
 
     get notificationId():string {
@@ -107,5 +113,13 @@ export class Notification {
 
     set secondLine(value:string) {
         this._secondLine = value;
+    }
+
+    get testId():string {
+        return this._testId;
+    }
+
+    set testId(value:string) {
+        this._testId = value;
     }
 }

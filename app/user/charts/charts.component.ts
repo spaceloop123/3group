@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from "@angular/common";
 import {Http, Headers} from "@angular/http";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
@@ -12,7 +12,7 @@ import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 export class ChartsComponent {
 
     private showTestsUrl = 'app/user/showTests';
-    role:string = 'user';
+    @Input role:string;
     lineChartData;
     testsData:any[];
     lineChartLabels:any[];
@@ -126,4 +126,3 @@ export class ChartsComponent {
 
 
 }
-
