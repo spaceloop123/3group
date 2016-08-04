@@ -5,6 +5,7 @@ var Question = mongoose.model('Question');
 var async = require('async');
 var Validator = require('../libs/requestValidator');
 var notificationService = require('../services/notificationService');
+var agenda = require('../libs/agenda');
 
 module.exports.getTestValidator = function validateTest(findOptions, populateOptions) {
     return new Validator().checkItems({
@@ -52,7 +53,7 @@ module.exports.initTest = function (userId, done) {
         res.test.finishTime = finishTime;
         res.test.save();
 
-        module.exports.setTestTimer(res.test.id, res.template.time * 60 * 1000);
+        agenda.setTimer('test-timer', {testId: res.test.id}, res.template.time * 60 * 1000);
 
         done(null, {
             testId: res.test.id,
@@ -61,17 +62,6 @@ module.exports.initTest = function (userId, done) {
         });
     }, done, done);
 };
-
-module.exports.setTestTimer = function (testId, delay) {
-    setTimeout(function () {
-        require('mongoose').model('Test').findOne({_id: testId, status: 'run'}, function (err, test) {
-            if (!err && test) {
-                test.status = 'checking';
-                test.save();
-            }
-        });
-    }, delay);
-}
 
 module.exports.changeTestStatus = function (status, testId, done) {
     new Validator()
@@ -137,12 +127,9 @@ module.exports.getTestHistory = function (userId, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
             Test.findOne({_id: testId, user: userId, status: 'complete'})
-                .populate({
-                    path: 'answers',
-                    populate: {
-                        path: 'question'
-                    }
-                }).exec(callback);
+                .populate([{path: 'answers', populate: {path: 'question'}},
+                    {path: 'subAnswers', populate: {path: 'question'}}])
+                .exec(callback);
         })
         .exec(function (res) {
             var testMap = getTestMap(res.test.answers);
@@ -150,7 +137,7 @@ module.exports.getTestHistory = function (userId, testId, done) {
             for (key in testMap) {
                 response.push({
                     type: key,
-                    mark: testMap[key].result / testMap[key].maxResult * 100
+                    mark: testMap[key].result / testMap[key].maxResult * 100 || 0
                 });
             }
             done(null, {questions: response});
@@ -167,8 +154,13 @@ function getTestMap(answers) {
                 maxResult: 0
             }
         }
-        map[type].result += answer.mark;
-        map[type].maxResult += answer.question.maxCost;
+
+        var curAnswers = answer.subAnswers.length === 0 ? [answer] : answer.subAnswers;
+
+        curAnswers.forEach(function (answer) {
+            map[type].result += answer.mark;
+            map[type].maxResult += answer.question.maxCost;
+        });
     });
     return map;
 }
@@ -200,7 +192,7 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
             res.test.fromTime = timeFrom;
             res.test.toTome = timeTo;
             res.test.save(function (err) {
-               done(err);
+                done(err);
             });
         }, done, done);
 };
