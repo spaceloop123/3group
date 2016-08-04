@@ -20,7 +20,7 @@ export class SpeechQuestionComponent implements OnInit {
     }
 
     constructor() {
-        this.question = new SpeechQuestion();
+
     }
 
     onCreateFinish() {

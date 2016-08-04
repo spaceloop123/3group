@@ -1,9 +1,10 @@
+<!-- TODO: (pay attention) Still much inline styles move all in classes-->
 <div *ngIf="status!==''">
     <div class="valign-wrapper ">
         <div class="container valign">
             <div class="row" align=center>
 
-                <div *ngIf="status==='available'" class="col s12 m6 l6 card-width" align=center>
+                <div *ngIf="status==='available' || status==='run'" class="col s12 m6 l6 card-width" align=center>
                     <div class="card white valign">
                         <div class="card-content" align=center style="min-height:250px">
                             <span class="card-title">Current Test</span>
@@ -54,7 +55,7 @@
                                 </div>
                             </div>
 
-                            <p class="card-content">You've already ask for test</p>
+                            <p class="card-content">You've already asked for test</p>
                         </div>
                         <div class="card-action" align=center>
                             <a class="waves-effect default btn" [routerLink]="['/logo']">Back</a>
@@ -81,3 +82,4 @@
 <div *ngIf="status ===''">
     loading...
 </div>
+<speech-recorder></speech-recorder>

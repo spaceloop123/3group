@@ -13,64 +13,72 @@ import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {DatepickerComponent} from "./admin/actions/show-users/user-info/datepicker.component";
 import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
-import {LoginService} from "./login/login.service";
 import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
 import {TeacherInfoComponent} from "./admin/actions/show-users/teacher-info/teacher-info.component";
-
+import {Constants} from "./common/constants/constants.data";
+import {AuthService} from "./common/auth/auth.service";
+import {Subscription} from "rxjs/Rx";
 //components
 
 //others
+
 
 
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
-    precompile: [LoginComponent, UserComponent, AdminComponent, TeacherComponent, AssignTestComponent, TeacherInfoComponent, DatepickerComponent,
-        RunTestComponent, FinishTestPageComponent, TeacherCheckingComponent, ChartsComponent, ShowTestsComponent, ShowUsersComponent],
-    providers: [LoginService, Location]
+    precompile: [
+    	LoginComponent,
+	    UserComponent,
+	    AdminComponent,
+	    TeacherComponent,
+	    AssignTestComponent,
+	    TeacherInfoComponent,
+	    DatepickerComponent,
+        RunTestComponent,
+	    FinishTestPageComponent,
+	    TeacherCheckingComponent,
+	    ChartsComponent,
+	    ShowTestsComponent,
+	    ShowUsersComponent
+    ],
+    providers: [Location]
 })
 
 export class AppComponent implements OnInit, OnDestroy {
+	// TODO: (pay attention) 'sub' says nothing use clear names for variable
+	private routeChangeSubscription:Subscription;
 
-    private sub;
-    private pathname;
-    private role;
+	constructor(private authService:AuthService,
+	            private router:Router,
+	            private constants:Constants) {
+	}
 
-    constructor(private router:Router) {
-    }
+	checkPath():boolean {
+		let pathname = window.location.href;
+		return ((pathname.indexOf("/login") !== -1) ||
+		((this.authService.role === 'user') && (pathname.indexOf("/user") !== -1)) ||
+		((this.authService.role === 'teacher') && (pathname.indexOf("/teacher") !== -1)) ||
+		((this.authService.role === 'admin') && (pathname.indexOf("/admin/assignTest") !== -1)) ||
+		((this.authService.role === 'admin') && (pathname.indexOf("/admin/teacher_info") !== -1)));
+	}
 
-    checkPath() {
-        this.pathname = window.location.href;
-        return ((this.pathname.indexOf("/login") !== -1) ||
-        ((this.role === 'user') && (this.pathname.indexOf("/home") !== -1)) ||
-        ((this.role === 'teacher') && (this.pathname.indexOf("/home") !== -1)) ||
-        ((this.role === 'admin') && (this.pathname.indexOf("/admin/assignTest") !== -1)) ||
-        ((this.role === 'admin') && (this.pathname.indexOf("/admin/teacher_info") !== -1)));
-    }
+	ngOnInit():any {
+		this.routeChangeSubscription = this.router.events.subscribe(event => {
+			if (event instanceof NavigationError) {
+				console.log('Handled that!');
+				this.router.navigate(['/login']);
+				// TODO: (pay attention) : Just note for code that was here:
+				// another subscriber with this.checkPath(); in content
+				// - It's useless subscriber if its calls checkPath because of
+				// changes of its value watch angular itself, no need to do useless call
+				// state will not save.
+			}
+		});
+	}
 
-    RoutesErrorHandler() {
-        this.sub = this.router.events.subscribe(event => {
-            if (event instanceof NavigationError) {
-                console.log('Handled that!');
-                this.router.navigate(['/login']);
-            }
-        });
-    }
-
-    ngOnInit() {
-        this.role = sessionStorage.getItem('role');
-        this.checkPath();
-        this.RoutesErrorHandler();
-        this.sub = this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                this.checkPath();
-            }
-        });
-    }
-
-    ngOnDestroy():any {
-        this.sub.unsubscribe();
-    }
-
+	ngOnDestroy():any {
+		this.routeChangeSubscription.unsubscribe();
+	}
 }

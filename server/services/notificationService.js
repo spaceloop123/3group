@@ -53,3 +53,22 @@ module.exports.declineRequestNotification = function (notificationId, testId, do
             done(null);
         }, done, done);
 };
+
+module.exports.createRequestNotification = function (userId, testId) {
+    var notification = new Notification({
+        type: 'request',
+        user: userId,
+        test: testId
+    });
+    notification.save();
+};
+
+module.exports.createDoneNotification = function (userId, teacherId, testId) {
+    var notification = new Notification({
+        type: 'done',
+        user: userId,
+        teacher: teacherId,
+        test: testId
+    });
+    notification.save();
+};

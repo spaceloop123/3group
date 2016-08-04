@@ -18,7 +18,7 @@ export class InsertOpenQuestionComponent implements OnInit {
     }
 
     constructor() {
-        this.question = new InsertOpenQuestion();
+
     }
 
     onCreateFinish() {

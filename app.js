@@ -10,6 +10,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var debug = require('debug')('flapper-news:server');
 var http = require('http');
+var BinaryServer = require('binaryjs').BinaryServer;
+var fs = require('fs');
+var wav = require('wav');
 
 require('./server/models/Users');
 require('./server/models/questions/Questions');
@@ -23,7 +26,7 @@ require('./server/models/questions/InsertOpenQuestions');
 require('./server/models/TestTemplate');
 require('./server/models/Tests');
 require('./server/models/Answers');
-require('./server/models/Notifications')
+require('./server/models/Notifications');
 
 mongoose.connect("mongodb://localhost/test");
 
@@ -85,13 +88,13 @@ app.use('/fonts', express.static(__dirname + 'public'));
 //routes
 app.post('/login', auth.login);
 app.get('/logout', auth.logout);
+app.use('/guest', guest);
 
 app.use(mdlwares.isAuthenticated);
 
 app.use('/admin', admin);
 app.use('/teacher', teacher);
 app.use('/user', user);
-app.use('/guest', guest);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -181,6 +184,27 @@ app.use(function (err, req, res, next) {
     res.render('error', {
         message: err.message,
         error: {}
+    });
+});
+
+var binaryServer = BinaryServer({port: 3001});
+binaryServer.on('connection', function (client) {
+   console.log('new connection');
+    
+    var fileWriter = new wav.FileWriter('test.wav', {
+        channels: 1,
+        sampleRate: 48000,
+        bitDepth: 16
+    });
+    
+    client.on('stream', function (stream, meta) {
+        console.log('new stream');
+        stream.pipe(fileWriter);
+
+        stream.on('end', function () {
+            fileWriter.end();
+            console.log('Wrote to file test.wav');
+        });
     });
 });
 

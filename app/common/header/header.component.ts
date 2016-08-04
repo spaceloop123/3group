@@ -1,44 +1,23 @@
-import {Component, OnInit, OnDestroy} from "@angular/core";
-import {ROUTER_DIRECTIVES, Router, NavigationEnd} from "@angular/router";
-import {LoginService} from "../../login/login.service";
+import {Component} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
-    selector: 'header-component',
-    templateUrl: '../app/common/header/header-logo.html',
-    directives: [ROUTER_DIRECTIVES],
-    providers: [LoginService]
+	selector: 'header-component',
+	templateUrl: '../app/common/header/header-logo.html',
+	directives: [ROUTER_DIRECTIVES]
 })
 
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent {
 
-    private sub;
-    private pathname;
-    private isLogin;
+	constructor(private authService:AuthService) {
+	}
 
-    constructor(private loginService: LoginService,
-                private router: Router){}
+	checkLogin() {
+		return ( window.location.href.indexOf("/login") !== -1);
+	}
 
-    checkLogin () {
-        this.pathname = window.location.href;
-        return (this.pathname.indexOf("/login") !== -1);
-    }
-
-    goAway() {
-        this.loginService.logOut(this.router);
-    }
-
-    ngOnInit () {
-        this.checkLogin();
-        
-        this.sub = this.router.events.subscribe(event => {
-            if(event instanceof NavigationEnd) {
-                this.checkLogin();
-            }
-        });
-    }
-
-    ngOnDestroy():any {
-        this.sub.unsubscribe();
-    }
-
+	goAway() {
+		this.authService.logOut();
+	}
 }

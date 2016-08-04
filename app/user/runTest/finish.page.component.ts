@@ -2,7 +2,6 @@ import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from "@angular/router";
 import {Http} from "@angular/http";
-import {Constants} from "../../common/constants/constants.data";
 
 @Component({
     templateUrl: 'app/user/runTest/finish-page.html',
@@ -41,7 +40,8 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
     }
 
     exit(){
-        var link = (this.role === "user") ? "/home" : "/logo";//потом сделать для quest logOut
+        var link = (this.role === "user") ? "/user" : "/logo";//потом сделать для quest logOut
+        // TODO (pay attention) Aga no ispolsuite TODO-shki dlya takih zametok ))
         this.router.navigate([link]);
     }
 }

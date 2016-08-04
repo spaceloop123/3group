@@ -6,7 +6,7 @@
         </div>
         <div class="col s12 offset-m1 m5 offset-l2 l4">
             <div class="card-panel">
-                <form (keyup.Enter)="loginRequest()">
+                <form (submit)="onSubmit()">
                     <div class="row">
                         <div class="input-field col s10 offset-s1 offset-l2 l8">
                             <input id="login-field" type="text" class="validate" ngControl="username"
@@ -23,8 +23,9 @@
 
                     </div>
                     <div class="center-align">
+                        <!-- TODO (pay attention) Use materialize classes or your own classes instead of inline styles -->
                         <button class="waves-effect waves-light btn" id="login-btn"
-                                style="width: 70%;" (click)="loginRequest()" type="submit">login
+                                style="width: 70%;" type="submit">login
                         </button>
                     </div>
                 </form>

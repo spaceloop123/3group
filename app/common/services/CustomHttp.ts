@@ -1,9 +1,13 @@
 import 'rxjs/Rx';
 
 import {Http, Request, RequestOptionsArgs, Response, RequestOptions, ConnectionBackend, Headers} from '@angular/http';
-import {Router, NavigationError} from '@angular/router';
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from "@angular/core";
+
+export interface CustomRequestOptions extends RequestOptionsArgs {
+	parseAs?: 'json' | 'text' | 'response'
+}
 
 @Injectable()
 export class CustomHttp {
@@ -12,30 +16,43 @@ export class CustomHttp {
 		private http: Http,
 		private router: Router) {}
 
-	request(url: string | Request, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.request(url, options));
+	request(url:string | Request, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.request(url, options), options && options.parseAs);
 	}
 
-	get(url: string, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.get(url,options));
+	get(url:string, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.get(url, options), options && options.parseAs);
 	}
 
-	post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.post(url, JSON.stringify(body), this.prepareOptionsObject(options)));
+	post(url:string, body:any, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.post(url, JSON.stringify(body), this.prepareOptionsObject(options)), options && options.parseAs);
 	}
 
-	put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.put(url, JSON.stringify(body), this.prepareOptionsObject(options)));
+	put(url:string, body:any, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.put(url, JSON.stringify(body), this.prepareOptionsObject(options)), options && options.parseAs);
 	}
 
-	delete(url: string, options?: RequestOptionsArgs): Observable<any> {
-		return this.wrap(this.http.delete(url, options));
+	delete(url:string, options?:CustomRequestOptions):Observable<any> {
+		return this.wrap(this.http.delete(url, options), options && options.parseAs);
 	}
 
-	wrap(observable: Observable<Response>): Observable<any> {
+	wrap(observable: Observable<Response>, mode: ('json' | 'text' | 'response') = 'json'): Observable<any> {
 		return observable
 			.catch(this.errorHandler.bind(this))
-			.map( (response) => response );
+			.map( (response: Response) => {
+				switch (mode) {
+					case 'json':
+						if(response.text().length) {
+							return response.json();
+						} else {
+							return {};
+						}
+					case 'text':
+						return response.text();
+					default:
+						return response;
+				}
+			});
 	}
 
 	prepareOptionsObject(options?: RequestOptionsArgs) : RequestOptionsArgs {
@@ -45,10 +62,6 @@ export class CustomHttp {
 			options.headers.append('Content-Type', 'application/json');
 		}
 		return options;
-	}
-
-	checkRole() {
-			return this.wrap(this.get('/role'));
 	}
 
 	errorHandler(err): Observable<any> {

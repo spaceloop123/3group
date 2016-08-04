@@ -1,6 +1,6 @@
 <div class="card-panel white">
 
-    <ul class="notifications-list collection grey lighten-5 valign-wrapper" *ngIf="notifyList.length === 0">
+    <ul class="notifications-list collection grey lighten-5 valign-wrapper" *ngIf="_notificationList.length === 0">
         <li class="col s10 m10 offset-s1 offset-m1">
             <div align="center">
                 <i class="material-icons grey-text">av_timer</i>
@@ -12,14 +12,38 @@
         </li>
     </ul>
 
-    <ul class="notifications-list list-overflow-y collection  grey lighten-5" *ngIf="notifyList.length !== 0">
-        <li class="collection-item avatar" *ngFor="let item of notifyList">
-            <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
-            <span class="title">{{item.title}}</span>
-            <div class="grey-text text-darken-1">{{item.firstLine}}<br>
-                <p class="grey-text text-darken-1">{{item.secondLine}}</p>
+    <ul class="notifications-list list-overflow-y collection  grey lighten-5" *ngIf="_notificationList.length !== 0">
+        <li class="collection-item avatar" *ngFor="let item of notificationList; let i = index" [ngSwitch]="item.type">
+            <div class="modal-trigger" *ngSwitchCase="'request'" (click)="onNotificationClick(item, i)"
+                 materialize="leanModal" [materializeParams]="[{dismissible: false}]"
+                 [attr.href]="'#notificationModal'">
+                <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
+                <span class="title">{{item.title}}</span>
+                <div class="grey-text text-darken-1">{{item.firstLine}}<br>
+                    <p class="grey-text text-darken-1">{{item.secondLine}}</p>
+                </div>
             </div>
+            <div *ngSwitchDefault (click)="onNotificationClick(item, i)">
+                <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
+                <span class="title">{{item.title}}</span>
+                <div class="grey-text text-darken-1">{{item.firstLine}}<br>
+                    <p class="grey-text text-darken-1">{{item.secondLine}}</p>
+                </div>
+            </div>
+
         </li>
-        <li class="divider" *ngIf="notifyList.length <= 2"></li>
+        <li class="divider" *ngIf="_notificationList.length <= 2"></li>
     </ul>
+
+</div>
+
+<div id="notificationModal" class="modal">
+    <div class="modal-content">
+        <h4></h4>
+        <p>{{notificationList[currentNotificationIdx]}}</p>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Select</a>
+    </div>
 </div>

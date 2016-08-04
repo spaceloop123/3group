@@ -5,7 +5,8 @@
             <!-- header -->
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="insert-test-question-header-{{question.id}}"
-                          [attr.disabled]="question.state !== 'edit' ? true : null"
+                          [attr.disabled]="((question.state !== 'edit')
+                          || (question.isSubQuestion ? true : null) ? true : null)"
                           [(ngModel)]="question.header"
                           name="insert-test-question-header-{{question.id}}"></textarea>
                 <label [attr.for]="'insert-test-question-header-' + question.id">Task description</label>
@@ -14,7 +15,8 @@
             <!-- difficulty -->
             <div class="input-field col s12 m6 l6">
                 <input id="insert-test-question-difficulty-{{question.id}}"
-                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       [attr.disabled]="((question.state !== 'edit')
+                       || (question.isSubQuestion ? true : null) ? true : null)"
                        placeholder="Complexity (between 1 and 100)"
                        type="number" min="1" max="100" class="validate"
                        [(ngModel)]="question.difficulty"

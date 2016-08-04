@@ -1,8 +1,8 @@
-<div class="card white">
+<form (submit)="onSubmit()" class="card white" id="add-member-form">
     <div class="card-content black-text">
         <div class="card-title flow-text" align="center">Add member</div>
         <div class="row">
-            <form class="col s12 offset-m2 m8 offset-l2 l8" action="#">
+            <form class="col s12 offset-m2 m8 offset-l2 l8">
                 <p>
                     <input [checked]="member.role === 'guest'" (click)="changeMemberType()"
                            name="member-type" type="radio" id="admin-member-1"
@@ -16,34 +16,35 @@
                     <label for="admin-member-2" class="black-text">Teacher</label>
                 </p>
             </form>
-            <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
+            <div class="col s12 offset-m2 m8 offset-l2 l8">
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
+                        <i id="icon_first_name" class="material-icons prefix">account_circle</i>
                         <input id="icon_prefix_first_name" type="text" class="validate"
-                               [(ngModel)]="member.firstName" name="firstName"/>
-                        <label for="icon_prefix_first_name">First Name</label>
+                               ngControl="firstName" [(ngModel)]="member.firstName" name="firstName">
+                        <label id="icon_label_first_name" for="icon_prefix_first_name">First Name</label>
                     </div>
                     <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
+                        <i id="icon_last_name" class="material-icons prefix">account_circle</i>
                         <input id="icon_prefix_last_name" type="text" class="validate"
-                               [(ngModel)]="member.lastName" name="lastName"/>
-                        <label for="icon_prefix_last_name">Last Name</label>
+                               ngControl="lastName" [(ngModel)]="member.lastName" name="lastName"/>
+                        <label id="icon_label_last_name" for="icon_prefix_last_name">Last Name</label>
                     </div>
                     <div class="input-field col s12">
-                        <i class="material-icons prefix">email</i>
+                        <i id="icon_email" class="material-icons prefix">email</i>
                         <input id="email" type="email" class="validate"
-                               [(ngModel)]="member.email"
-                               name="email"/>
-                        <label for="email" data-error="wrong" data-success="right">Email</label>
+                               [(ngModel)]="member.email" name="email"/>
+                        <label id="icon_label_email" for="email" data-error="wrong" data-success="right">Email</label>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     <div class="card-action" align="center">
-        <a class="waves-effect waves-light btn" *ngIf="isMemberFieldsEmpty()"
-           (click)="addUser()">add</a>
-        <a class="waves-effect waves-light btn disabled" *ngIf="!isMemberFieldsEmpty()">add</a>
+        <button class="waves-effect waves-light btn"
+                [class.disabled]="isMemberFieldsEmpty()"
+                type="submit">
+            add
+        </button>
     </div>
-</div>
+</form>

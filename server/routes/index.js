@@ -27,6 +27,7 @@ router.get('/', function (req, res) {
     res.render('index');
 });
 
+// TODO: (pay attention) May not necessary now
 router.get('/is_authenticated', function (req, res) {
     res.json(req.isAuthenticated());
 });
@@ -35,8 +36,8 @@ router.get('/app_routes', function (req, res) {
     res.sendFile(__dirname + '\\index.js');
 });
 
-router.get('/dist/app/app.routes.js', function (req, res) {
-    res.sendFile(path.join(__dirname, '../config/app.routes.' + (req.user ? req.user.role + '.' : '') + 'js'));
+router.get('/role', function (req, res) {
+    res.json(req.user ? req.user.role : null);
 });
 
 module.exports = router;

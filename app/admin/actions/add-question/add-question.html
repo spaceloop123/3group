@@ -68,27 +68,52 @@
                             </a>
                         </div>
 
-                        <div id="chooseQuestion" class="modal bottom-sheet">
+                        <div id="chooseQuestion" class="modal modal-fixed-footer">
                             <div class="modal-content">
-                                <p class="flow-text">Please, select question type to add</p>
-                                <form action="#">
-                                    <div class="col s12" *ngFor="let question of questionsCatalog; let i = index">
-                                        <input [attr.id]="'question-catalog-options-' + i"
-                                               type="checkbox" class="filled-in"
-                                               [checked]="question['checked']"
-                                               (change)="changeState(i)"
-                                               name="question-catalog-options-{{i}}"/>
-                                        <label [attr.for]="'question-catalog-options-' + i">
-                                            {{question['type']}}
-                                        </label>
+
+                                <div class="row">
+                                    <div class="col s12 m4" *ngFor="let question of questionsCatalog; let i = index">
+                                        <div class="card">
+                                            <div class="card-image waves-effect waves-block waves-light modal-action modal-close"
+                                                 (click)="changeState(i)">
+                                                <div class="add-question-icon-container">
+                                                    <img class="activator" src="{{question['image']}}">
+                                                </div>
+                                            </div>
+                                            <div class="card-content">
+                                                <span class="card-title flow-text activator grey-text text-darken-4">{{question['title']}}<i
+                                                        class="material-icons right">more_vert</i></span>
+                                            </div>
+                                            <div class="card-reveal">
+                                                <span class="card-title grey-text text-darken-4">{{question['title']}}<i
+                                                        class="material-icons right">close</i></span>
+                                                <p>{{question['description']}}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
+                                </div>
+
+
+                                <!--<p class="flow-text">Please select question type to add</p>-->
+                                <!--<form action="#">-->
+                                <!--<div class="col s12" *ngFor="let question of questionsCatalog; let i = index">-->
+                                <!--<input [attr.id]="'question-catalog-options-' + i"-->
+                                <!--type="checkbox" class="filled-in"-->
+                                <!--[checked]="question['checked']"-->
+                                <!--(change)="changeState(i)"-->
+                                <!--name="question-catalog-options-{{i}}"/>-->
+                                <!--<label [attr.for]="'question-catalog-options-' + i">-->
+                                <!--{{question['type']}}-->
+                                <!--</label>-->
+                                <!--</div>-->
+                                <!--</form>-->
                             </div>
                             <div class="modal-footer">
                                 <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-                                <a class="modal-action modal-close waves-effect waves-green btn-flat"
-                                   (click)="addNewQuestion()">Select</a>
+                                <!--<a class="modal-action modal-close waves-effect waves-green btn-flat"-->
+                                <!--(click)="addNewQuestion()">Select</a>-->
                             </div>
+
                         </div>
                     </li>
                 </ul>
@@ -98,7 +123,7 @@
     </div>
     <div class="card-action" align="center">
         <a class="waves-effect waves-light btn"
-           [ngClass]="isEditModeOn() || questionsList.length === 0 ? 'disabled' : ''"
+           [class.disabled]="isEditModeOn() || questionsList.length === 0"
            (click)="sendAllQuestions()">Add all created questions</a>
     </div>
 </div>

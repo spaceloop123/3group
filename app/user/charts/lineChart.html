@@ -1,18 +1,23 @@
-<div class="valign-wrapper">
-    <div class="container valign">
-        <div class="row">
-            <h5 align="center">Test statistics</h5>
-            <div class="col s12 m12 l12" align="center">
-                <base-chart class="chart"
-                            [datasets]="lineChartData"
-                            [labels]="lineChartLabels"
-                            [options]="lineChartOptions"
-                            [colors]="lineChartColours"
-                            [legend]="lineChartLegend"
-                            [chartType]="lineChartType"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></base-chart>
-            </div>
-        </div>
+<!-- костыыыль! sorry -->
+<base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColours"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></base-chart>
+
+
+<div *ngIf="testStatustics.length !== 0">
+    <div>
+        Your result
     </div>
+    <ul>
+        <li *ngFor="let item of testStatustics">{{item.type + ': ' +item.mark + '%'}}</li>
+    </ul>
+</div>
+<div *ngIf="testStatustics.length === 0">
+    do something to see your test results
 </div>

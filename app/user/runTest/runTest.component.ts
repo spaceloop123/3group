@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from "@angular/router";
 import {Http, Headers} from "@angular/http";
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
-import {MaterializeDirective} from 'angular2-materialize'
+import {MaterializeDirective} from "angular2-materialize";
 import {TestInfo} from "../../test/test.info";
 import {TimerComponent} from "./timer.component";
 import {TestComponent} from "../../test/test.component";
@@ -65,7 +65,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     onResponse(response) {
-        console.log(response.json().deadline + ' ' + response.json().count  + ' ' +  response.json().testId);
+        console.log(response.json().deadline + ' ' + response.json().count + ' ' + response.json().testId);
         this.initTestInfo(response.json().deadline, response.json().count, response.json().testId);
 
         //this.getNextQuestionFromServer();
@@ -106,7 +106,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
             this.finishTest();
         }
     }
-    
+
     sendAndGo(tc :TestComponent){
         let that = this;
         tc.sendAnswer(() => that.afterSent(tc));
@@ -116,7 +116,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
         this.progress = newValue;
     }
 
-    initTimer(deadline: string){
+    initTimer(deadline:string) {
         let deadlineDate = new Date(deadline);
         let currentDate = new Date();
         this.timerSec = Math.floor((deadlineDate.getTime() - currentDate.getTime()) / 1000);

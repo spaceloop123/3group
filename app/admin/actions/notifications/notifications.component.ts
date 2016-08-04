@@ -1,7 +1,8 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
 import {NotificationsService} from "./notifications.service";
+import {Notification} from "./notifications.class";
 
 @Component({
     selector: 'notifications-component',
@@ -10,49 +11,58 @@ import {NotificationsService} from "./notifications.service";
     providers: [NotificationsService]
 })
 
-export class NotificationsComponent implements OnInit {
-    /*
-     * list of notifications
-     * format:
-     */
-    private notifyList:any;
-    /* {
-     *   color: 'red/yellow/green',
-     *   icon: 'error_outline/new_releases/done',
-     *   title: 'Request/New/Done',
-     *   firstLine: 'first line text',
-     *   secondLine: 'second line text'
-     *  }
-     * */
+export class NotificationsComponent implements OnInit, OnDestroy {
+
+    private _notificationList:any;
+    private notificationObservable;
+    private notificationSubscription;
+
+    private currentNotificationIdx;
 
     constructor(private notificationsService:NotificationsService) {
-        this.notifyList = [];
-        // this.notifyList = [
-        //
-        //     {
-        //         color: 'red',
-        //         icon: 'error_outline',
-        //         title: 'Request',
-        //         firstLine: 'Username requested test',
-        //         secondLine: 'Accept or decline'
-        //     },
-        //     {
-        //         color: 'green',
-        //         icon: 'done',
-        //         title: 'Done',
-        //         firstLine: 'Username passed test',
-        //         secondLine: 'Teachername checked test'
-        //     }
-        // ];
+        this._notificationList = [];
+        this.notificationObservable = notificationsService.getData();
 
-        notificationsService.getData();
+        this.currentNotificationIdx = -1;
     }
 
     ngOnInit() {
-        console.log('Notification component init');
+        this.notificationSubscription = this.notificationObservable.subscribe(res => {
+            this.updateNotificationList(res);
+        }, err => {
+            console.log('Error in Notification Service');
+        });
+    }
+
+    ngOnDestroy() {
+        this.notificationSubscription.unsubscribe();
+    }
+
+    updateNotificationList(res) {
+        for (let i = 0; i < res.length; ++i) {
+            this.notificationList[i] = new Notification(res[i]);
+        }
     }
 
     refreshNotifications() {
-        alert("Refresh coming soon...");
+        this.notificationSubscription.unsubscribe();
+        this.notificationSubscription = this.notificationObservable.subscribe(res => {
+            this.updateNotificationList(res);
+        }, err => {
+            console.log('Error in Notification Service');
+        });
+    }
+
+    get notificationList():any {
+        return this._notificationList;
+    }
+
+    set notificationList(value:any) {
+        this._notificationList = value;
+    }
+
+    onNotificationClick(notification, idx) {
+        console.log('Clicked on : ' + JSON.stringify(notification));
+        this.currentNotificationIdx = idx;
     }
 }

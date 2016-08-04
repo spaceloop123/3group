@@ -20,7 +20,7 @@ export class OpenQuestionComponent implements OnInit {
     }
 
     constructor() {
-        this.question = new OpenQuestion();
+
     }
 
     onCreateFinish() {

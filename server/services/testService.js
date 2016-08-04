@@ -4,6 +4,7 @@ var TestTemplate = mongoose.model('TestTemplate');
 var Question = mongoose.model('Question');
 var async = require('async');
 var Validator = require('../libs/requestValidator');
+var notificationService = require('../services/notificationService');
 
 module.exports.getTestValidator = function validateTest(findOptions, populateOptions) {
     return new Validator().checkItems({
@@ -38,7 +39,8 @@ module.exports.requestTest = function (userId, done) {
         }, function () {
             var test = new Test({user: userId, status: 'requested'});
             test.save();
-            done();
+            notificationService.createRequestNotification(userId, test.id);
+            done()
         }, done);
 };
 
@@ -50,7 +52,7 @@ module.exports.initTest = function (userId, done) {
         res.test.finishTime = finishTime;
         res.test.save();
 
-        setTimer(res.test.id, res.template.time * 60 * 1000);
+        module.exports.setTestTimer(res.test.id, res.template.time * 60 * 1000);
 
         done(null, {
             testId: res.test.id,
@@ -60,7 +62,7 @@ module.exports.initTest = function (userId, done) {
     }, done, done);
 };
 
-function setTimer(testId, delay) {
+module.exports.setTestTimer = function (testId, delay) {
     setTimeout(function () {
         require('mongoose').model('Test').findOne({_id: testId, status: 'run'}, function (err, test) {
             if (!err && test) {
@@ -74,11 +76,14 @@ function setTimer(testId, delay) {
 module.exports.changeTestStatus = function (status, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
-            Test.findOne({_id: testId}, callback);
+            Test.findOne({_id: testId}).populate('user teacher').exec(callback);
         })
         .exec(function (res) {
             res.test.status = status;
             res.test.save();
+            if (status === 'complete') {
+                notificationService.createDoneNotification(res.test.user.id, res.test.teacher.id, testId);
+            }
             done(null);
         }, done, done);
 };
@@ -118,7 +123,17 @@ module.exports.getTeachersTests = function (teacher, done) {
         }, done);
 };
 
-module.exports.getTestHistoryByUser = function (userId, testId, done) {
+var typeMap = {
+    TestQuestion: 'Test',
+    InsertTestQuestion: 'Test',
+    InsertOpenQuestion: 'Open',
+    OpenQuestion: 'Open',
+    AudioQuestion: 'Audio',
+    ReadingQuestion: 'Reading',
+    SpeechQuestion: 'Speech'
+};
+
+module.exports.getTestHistory = function (userId, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
             Test.findOne({_id: testId, user: userId, status: 'complete'})
@@ -130,51 +145,62 @@ module.exports.getTestHistoryByUser = function (userId, testId, done) {
                 }).exec(callback);
         })
         .exec(function (res) {
-            var questions = res.test.answers.map(function (answer) {
-                var type;
-                switch (answer.question.type) {
-                    case TestQuestion:
-                    case InsertTestQuestion:
-                        type = 'Test';
-                        break;
-                    case InsertOpenQuestion:
-                    case OpenQuestion :
-                        type = 'Open';
-                        break;
-                    case AudioQuestion:
-                        type = 'Audio';
-                        break;
-                    case ReadingQuestion:
-                        type = 'Reading';
-                        break;
-                    case SpeechQuestion:
-                        type = 'Speech';
-                        break;
-                }
-                return {
-                    type: type,
-                    result: answer.mark,
-                    maxResult: answer.question.maxCost
-                }
-            });
-            var results = {};
-            questions.forEach(function (question) {
-                if (!results[question.type]) {
-                    results[question.type] = {
-                        result: 0,
-                        maxResult: 0
-                    }
-                }
-                results[question.type].result += question.result;
-                results[question.type].maxResult += question.maxResult;
-            });
+            var testMap = getTestMap(res.test.answers);
             var response = [];
-            for (key in results) {
+            for (key in testMap) {
                 response.push({
                     type: key,
-                    mark: results[key].result / results[key].maxResult * 100
-                })
+                    mark: testMap[key].result / testMap[key].maxResult * 100
+                });
             }
             done(null, {questions: response});
+        }, done, done);
+};
+
+function getTestMap(answers) {
+    var map = {};
+    answers.forEach(function (answer) {
+        var type = typeMap[answer.question.type];
+        if (!map[type]) {
+            map[type] = {
+                result: 0,
+                maxResult: 0
+            }
+        }
+        map[type].result += answer.mark;
+        map[type].maxResult += answer.question.maxCost;
+    });
+    return map;
+}
+
+
+module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, done) {
+    var test = new Test({
+        status: 'available',
+        user: userId,
+        teacher: teacherId,
+        answers: [],
+        fromTime: timeFrom,
+        toTime: timeTo
+    });
+    test.save(function (err) {
+        done(err);
+    });
+};
+
+module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo, done) {
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.fine({_id: testId, status: 'request'}, callback);
+        })
+        .exec(function (res) {
+            res.test.status = 'available';
+            res.test.teacher = teacherId;
+            res.test.answers = [];
+            res.test.fromTime = timeFrom;
+            res.test.toTome = timeTo;
+            res.test.save(function (err) {
+               done(err);
+            });
         }, done, done);
 };

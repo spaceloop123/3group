@@ -64,52 +64,83 @@
             </div>
 
             <!-- add subquestions -->
-            <div class="col s12 m12 l12" align="center" [ngSwitch]="question.state">
-                <a *ngSwitchCase="'edit'" class="waves-effect btn-flat modal-trigger"
-                   materialize="leanModal" [materializeParams]="[{dismissible: false}]"
-                   id="audio-question-add-subquestions-btn-edit-{{question.id}}"
-                   [attr.href]="'#chooseAudioSubQuestion'">
-                    <i class="material-icons blue-text">add</i>
-                </a>
-                <a *ngSwitchDefault class="waves-effect btn-flat disabled"
-                   id="audio-question-add-subquestions-btn-done-{{question.id}}">
+            <div class="col s12 m12 l12" align="center" *ngIf="!isAllFieldsFilledIn()">
+                <a class="waves-effect btn-flat disabled"
+                   id="reading-question-add-subquestions-btn-edit-{{question.id}}-disabled"
+                   (click)="toastError()">
                     <i class="material-icons grey-text">add</i>
                 </a>
             </div>
 
-            <!-- modal for sub-questions -->
-            <div id="chooseAudioSubQuestion" class="modal bottom-sheet">
-                <div class="modal-content">
-                    <p class="flow-text">Please, select question type to add</p>
-                    <form action="#">
-                        <div class="col s12" *ngFor="let question of questionsCatalog; let i = index">
-                            <input [attr.id]="'audio-subquestion-catalog-options-' + i"
-                                   type="checkbox" class="filled-in"
-                                   [checked]="question['checked']"
-                                   (change)="changeState(i)"
-                                   name="subquestion-catalog-options-{{i}}"/>
-                            <label [attr.for]="'audio-subquestion-catalog-options-' + i">
-                                {{question['type']}}
-                            </label>
+            <div class="col s12 m12 l12" align="center" *ngIf="isAllFieldsFilledIn()">
+                <a class="waves-effect btn-flat modal-trigger"
+                   materialize="leanModal" [materializeParams]="[{dismissible: false}]"
+                   id="reading-question-add-subquestions-btn-done-{{question.id}}"
+                   [attr.href]="'#readingChooseSubQuestion'"
+                   (click)="addSubQuestion()">
+                    <i class="material-icons blue-text">add</i>
+                </a>
+
+                <!-- modal for sub-questions -->
+                <div id="readingChooseSubQuestion" class="modal modal-fixed-footer">
+                    <div class="modal-content">
+                        <div class="row">
+                            <div class="col s12 m4" *ngFor="let question of questionsCatalog; let i = index">
+                                <div class="card">
+                                    <div class="card-image waves-effect waves-block waves-light modal-action modal-close"
+                                         (click)="changeState(i)">
+                                        <div class="add-question-icon-container">
+                                            <img class="activator" src="{{question['image']}}">
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                    <span class="card-title flow-text activator grey-text text-darken-4">{{question['title']}}<i
+                                            class="material-icons right">more_vert</i></span>
+                                    </div>
+                                    <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">{{question['title']}}<i
+                                            class="material-icons right">close</i></span>
+                                        <p>{{question['description']}}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
+
+
+                        <!--<div class="modal-content">-->
+                        <!--<p class="flow-text">Please, select question type to add</p>-->
+                        <!--<form action="#">-->
+                        <!--<div class="col s12" *ngFor="let question of questionsCatalog; let i = index">-->
+                        <!--<input [attr.id]="'subquestion-catalog-options-' + i"-->
+                        <!--type="checkbox" class="filled-in"-->
+                        <!--[checked]="question['checked']"-->
+                        <!--(change)="changeState(i)"-->
+                        <!--name="subquestion-catalog-options-{{i}}"/>-->
+                        <!--<label [attr.for]="'subquestion-catalog-options-' + i">-->
+                        <!--{{question['type']}}-->
+                        <!--</label>-->
+                        <!--</div>-->
+                        <!--</form>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                        <!--<a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>-->
+                        <!--<a class="modal-action modal-close waves-effect waves-green btn-flat"-->
+                        <!--(click)="addSubQuestion()">Select</a>-->
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-                    <a class="modal-action modal-close waves-effect waves-green btn-flat"
-                       (click)="addSubQuestion()">Select</a>
-                </div>
+
             </div>
 
+            <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
+                <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="audio-question-finish-btn-{{question.id}}"
+                   (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
+                <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="audio-question-edit-btn-{{question.id}}"
+                   (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
+                <a class="waves-effect btn-flat" id="audio-question-abort-btn-{{question.id}}"
+                   (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
+            </div>
         </div>
     </form>
-
-    <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
-        <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="audio-question-finish-btn-{{question.id}}"
-           (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
-        <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="audio-question-edit-btn-{{question.id}}"
-           (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
-        <a class="waves-effect btn-flat" id="audio-question-abort-btn-{{question.id}}"
-           (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
-    </div>
 </div>
