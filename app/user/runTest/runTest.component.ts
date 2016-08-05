@@ -96,7 +96,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
             .post('/user/end_test',
                 JSON.stringify({testId: that.testInfo.id}), {headers: header})
             .toPromise()
-            .then(response => that.router.navigate(['/finishPage', that.role]))
+            .then(response => that.router.navigate(['/finishTest', that.role]))
             .catch();
 
     }
@@ -123,6 +123,4 @@ export class RunTestComponent implements OnInit, OnDestroy {
         console.log('this.timerSec ' + this.timerSec);
 
     }
-
-
 }
