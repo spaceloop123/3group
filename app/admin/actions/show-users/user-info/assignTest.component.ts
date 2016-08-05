@@ -16,15 +16,14 @@ import {InfiniteScroll} from "angular2-infinite-scroll/angular2-infinite-scroll"
 })
 
 export class AssignTestComponent implements OnInit {
-
     public currentUser:any;
     public assignedTeacher:any;
     private data: any;
     private sub;
     teacherList = [];
 
-    onNotify():void {
-        alert('onNotify')
+    onNotify(responce):void {
+        console.log('Notify : ' + responce);
     }
 
     assignTeacher(teacher) {

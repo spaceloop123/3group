@@ -13,7 +13,7 @@
                                 <p>Test duration:{{time}}</p>
                                 <p>Number of questions:{{numQuestions}}</p>
 
-                                <p class="card-content" align="center">Press button "Start" to start English Test.</p>
+                                <h5 class="card-content" align="center">Press button "Start" to start English Test.</h5>
                             </div>
                         </div>
                         <div class="card-action" align=center>
@@ -28,11 +28,11 @@
                     <div class="card white valign">
                         <div class="card-content" align=center style="min-height:250px">
                             <span class="card-title">Current Test</span>
-                            <p class="red-text">Nobody appointed you any test</p>
-                            <p class="card-content">You can ask for it</p>
+                            <h5 class="red-text" style="margin-top:22%">You have no test assigned to you</h5>
+
                         </div>
                         <div class="card-action" align=center>
-                            <a class="waves-effect default btn" (click)="askTest()">Ask</a>
+                            <a class="waves-effect default btn" (click)="askTest()">Ask for test</a>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,8 @@
                 <div *ngIf="status==='requested'" class="col s12 m6 l6 card-width" align=center>
                     <div class="card white valign">
                         <div class="card-content" align=center style="min-height:250px">
-                            <div class="preloader-wrapper big active">
+                            <span class="card-title">Current Test</span>
+                          <!--  <div class="preloader-wrapper big active">
                                 <div class="spinner-layer spinner-blue-only">
                                     <div class="circle-clipper left">
                                         <div class="circle"></div>
@@ -53,13 +54,15 @@
                                         <div class="circle"></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
-                            <p class="card-content">You've already asked for test</p>
+                            <h5 class="card-content red-text">You've already asked for test</h5>
+                            <h6 class="card-content">Please, wait until admin assign you test</h6>
                         </div>
-                        <div class="card-action" align=center>
-                            <a class="waves-effect default btn" [routerLink]="['/logo']">Back</a>
+                        <div class="card-action" align=center style="height:77px">
+
                         </div>
+
                     </div>
                 </div>
 
@@ -68,7 +71,7 @@
                     <div class="card white valign">
                         <div class="card-content" align=center style="min-height:250px">
                             <span class="card-title">Past Tests</span>
-                            <p class="card-content">Check out your previous attempts</p>
+                            <h5 class="card-content" style="margin-top:15%">Check out your previous attempts</h5>
                         </div>
                         <div class="card-action" align=center>
                             <a class="waves-effect default btn" [routerLink]="['/showTests']">Show</a>
