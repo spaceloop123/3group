@@ -56,7 +56,7 @@ module.exports.initTest = function (userId, done) {
         res.test.finishTime = finishTime;
         res.test.save();
 
-        agenda.setTimer('test-timer', {testId: res.test.id}, 10 * 1000);
+        agenda.setTimer('test-timer', {testId: res.test.id}, res.template.time * 60 * 1000);
 
         done(null, {
             testId: res.test.id,
@@ -150,7 +150,7 @@ function getTestHistory(userId, testId) {
                 }
                 done(null, {
                     date: res.test.finishTime,
-                    mark: test.result / test.maxResult * 100 || 0,
+                    mark: res.test.result / res.test.maxResult * 100 || 0,
                     questions: questions
                 });
             }, done, done);

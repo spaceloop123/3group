@@ -1,65 +1,20 @@
 <div class="card-panel white">
 
-    <ul class="notifications-list collection grey lighten-5 valign-wrapper" *ngIf="_notificationList.length === 0">
+    <ul class="notifications-list collection grey lighten-5 valign-wrapper" *ngIf="notificationList.length === 0">
         <li class="col s10 m10 offset-s1 offset-m1">
             <div align="center">
-                <h6 class="grey-text">Waiting for new notifications...</h6>
-                <div class="preloader-wrapper small active">
-                    <div class="spinner-layer spinner-blue">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-
-                    <div class="spinner-layer spinner-red">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-
-                    <div class="spinner-layer spinner-yellow">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-
-                    <div class="spinner-layer spinner-green">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                </div>
+                <i class="material-icons grey-text">av_timer</i>
+            </div>
+            <div align="center">
+                <h6 class="grey-text">Nothing happened yet</h6>
+                <a class="waves-effect btn-flat grey-text" (click)="refreshNotifications()">Refresh</a>
             </div>
         </li>
     </ul>
 
-    <ul class="notifications-list list-overflow-y collection  grey lighten-5" *ngIf="_notificationList.length !== 0">
+    <ul class="notifications-list list-overflow-y collection  grey lighten-5" *ngIf="notificationList.length !== 0">
         <li class="collection-item avatar" *ngFor="let item of notificationList; let i = index" [ngSwitch]="item.type">
-            <div class="modal-trigger" *ngSwitchCase="'request'" (click)="onNotificationClick(item, i)"
+            <div class="modal-trigger" *ngSwitchCase="'request'" (click)="onNotificationClick(item)"
                  materialize="leanModal" [materializeParams]="[{dismissible: false}]"
                  [attr.href]="'#notificationModal'">
                 <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
@@ -68,7 +23,7 @@
                     <p class="grey-text text-darken-1">{{item.secondLine}}</p>
                 </div>
             </div>
-            <div *ngSwitchDefault (click)="onNotificationClick(item, i)">
+            <div *ngSwitchDefault (click)="onDoneNotificationClick(item)">
                 <i class="material-icons circle {{item.color}}">{{item.icon}}</i>
                 <span class="title">{{item.title}}</span>
                 <div class="grey-text text-darken-1">{{item.firstLine}}<br>
@@ -77,7 +32,7 @@
             </div>
 
         </li>
-        <li class="divider" *ngIf="_notificationList.length <= 2"></li>
+        <li class="divider" *ngIf="notificationList.length <= 2"></li>
     </ul>
 
 </div>

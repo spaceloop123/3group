@@ -10,14 +10,18 @@
             (chartClick)="chartClicked($event)"></base-chart>
 
 
-<div *ngIf="testStatustics.length !== 0">
+<div *ngIf="testStatistics.length !== 0">
     <div>
         Your result
     </div>
     <ul>
-        <li *ngFor="let item of testStatustics">{{item.type + ': ' +item.mark + '%'}}</li>
+        <li *ngFor="let item of testStatistics">{{"time: " + item.date + ': ' +item.mark + '%'}}
+            <ol *ngFor='let elem of item.questions'>{{elem.type + ' ' + elem.mark + '%'}}</ol>
+        </li>
     </ul>
 </div>
-<div *ngIf="testStatustics.length === 0">
-    do something to see your test results
-</div>
+<ul>
+    <li *ngIf="testStatistics.length === 0">
+        do something to see your test results
+    </li>
+</ul>

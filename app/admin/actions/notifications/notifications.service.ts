@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {CustomHttp} from "../../../common/services/CustomHttp";
 import {Observable} from "rxjs/Rx";
 import {NotificationActive} from "./notification.active.class";
+import {Notification} from "./notifications.class";
 
 @Injectable()
 export class NotificationsService {
@@ -17,10 +18,18 @@ export class NotificationsService {
     }
 
     declineNotification(notification:NotificationActive):any {
-        return this.customHttp.post('/admin/decline_request_notification', this.prepareNotification(notification));
+        return this.customHttp.post('/admin/decline_request_notification', this.prepareDeclineNotification(notification));
     }
 
-    private prepareNotification(notification:NotificationActive) {
+    deleteNotification(notification:Notification):any {
+        return this.customHttp.post('/admin/done_notification', this.prepareDoneNotification(notification));
+    }
+
+    private prepareDeclineNotification(notification:NotificationActive) {
         return {'notificationId': notification.notificationId, 'testId': notification.testId};
+    }
+
+    private prepareDoneNotification(notification:Notification) {
+        return {'notificationId': notification.notificationId};
     }
 }

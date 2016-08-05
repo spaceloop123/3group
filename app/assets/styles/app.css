@@ -20,7 +20,7 @@ header {
 
 main {
     flex: 1 1 auto;
-    margin-top: 84px;
+    margin-top: 22px;
 }
 
 .route {
@@ -183,4 +183,8 @@ a .disabled {
 
 .login-btn {
     width: 70%;
+}
+
+#notificationModal {
+    background-color: #FAFAFA;
 }

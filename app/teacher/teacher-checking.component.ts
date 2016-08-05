@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http, Headers} from "@angular/http";
 import {NavigationItem} from "./navigation.item";
@@ -148,7 +148,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         this.status[this.currentIndex] = NavigationItem.CHECKED;
         this.saveStatus();
         let that = this;
-        if(this.rangeValue > 100 || this.rangeValue < 0){
+        if (this.rangeValue > 100 || this.rangeValue <= 0) {
             toast('Please, change your mark', 3000, 'red');
             this.rangeValue = 0;
         } else {

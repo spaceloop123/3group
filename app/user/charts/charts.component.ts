@@ -1,7 +1,8 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from "@angular/common";
 import {Http, Headers} from "@angular/http";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
+import {TestStatistics} from "./test.statistics";
 
 
 @Component({
@@ -9,26 +10,30 @@ import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
     templateUrl: 'app/user/charts/lineChart.html',
     directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
-export class ChartsComponent {
+export class ChartsComponent implements OnChanges {
 
     private showTestsUrl = 'app/user/showTests';
     @Input() role:string;
     lineChartData;
     testsData:any[];
     lineChartLabels:any[];
-    testStatustics:any[];
+    testStatistics:TestStatistics[];
+
 
     constructor(private http:Http) {
         this.lineChartData =[ {
             data: []
         }];
         this.lineChartLabels = new Array();
-        this.testStatustics = new Array();
+        this.testStatistics = new Array();
 
     }
 
-    ngOnInit() {
-        this.getTestsHistory();
+    ngOnChanges(changes:SimpleChanges):any {
+        if (changes['role'].currentValue) {
+            this.role = changes['role'].currentValue;
+            this.getTestsHistory();
+        }
     }
 
     getTestsHistory() {
@@ -42,7 +47,7 @@ export class ChartsComponent {
 
     initTestsHistory(response:any) {
         this.testsData = response.nodes;
-        // date, testId, mark
+        // date, tests[], mark
         this.processTestData();
 
     }
@@ -81,7 +86,7 @@ export class ChartsComponent {
     };
     public lineChartColours:Array<any> = [
 
-        { // grey
+        {
             backgroundColor: 'rgba(148,159,177,0.2)',
             borderColor: 'rgba(148,159,177,1)',
             pointBackgroundColor: 'rgba(148,159,177,1)',
@@ -99,15 +104,15 @@ export class ChartsComponent {
     // events
     public chartClicked(e:any):void {
         if (e.active[0]) {
-            console.log(e.active[0]._index);
+            //console.log(e.active[0]._index);
             let index = e.active[0]._index;
             var that = this;
             var header = new Headers();
-            console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
+            //console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
             header.append('Content-Type', 'application/json');
             this.http
                 .post('/' + this.role + '/test_history',
-                    JSON.stringify({testId: that.testsData[index].testId}), {headers: header})
+                    JSON.stringify({testIds: that.testsData[index].tests}), {headers: header})
                 .toPromise()
                 .then(response => that.updateTestStatustics(response.json()))
                 .catch(that.handleError);
@@ -119,8 +124,8 @@ export class ChartsComponent {
     }
 
     updateTestStatustics(response) {
-        console.log(response.questions);
-        this.testStatustics = response.questions;
+        this.testStatistics = response.tests;
+
     }
 
 
