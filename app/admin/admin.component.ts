@@ -14,36 +14,20 @@ import {NotificationActive} from "./actions/notifications/notification.active.cl
 })
 
 export class AdminComponent {
-	private _currentTab:number;
-	private _currentWidth:number;
+    currentTab:number;
+    currentWidth:number;
 
-    private currentNotification;
-    
-	constructor(ngZone:NgZone) {
-		this.currentTab = 2;
-		this.currentWidth = window.innerWidth;
+    currentNotification;
 
-		window.onresize = (e) => {
-			ngZone.run(() => {
-				this.currentWidth = window.innerWidth;
-			});
-		};
-	}
+    constructor(ngZone:NgZone) {
+        this.currentTab = 2;
+        this.currentWidth = window.innerWidth;
 
-    get currentWidth():number {
-        return this._currentWidth;
-    }
-
-    set currentWidth(value:number) {
-        this._currentWidth = value;
-    }
-
-    get currentTab():number {
-        return this._currentTab;
-    }
-
-    set currentTab(value:number) {
-        this._currentTab = value;
+        window.onresize = () => {
+            ngZone.run(() => {
+                this.currentWidth = window.innerWidth;
+            });
+        };
     }
 
     changeTab(currentTab) {

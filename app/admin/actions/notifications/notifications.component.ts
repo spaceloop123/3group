@@ -14,24 +14,25 @@ import {NotificationActive} from "./notification.active.class";
 
 export class NotificationsComponent implements OnInit, OnDestroy, OnChanges {
 
-    private _notificationList:any;
-    private notificationObservable;
-    private notificationSubscription;
+    notificationList:any;
+    notificationObservable;
+    notificationSubscription;
 
     @Input() seenNotification;
     @Output() notify:EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private notificationsService:NotificationsService) {
-        this._notificationList = [];
+        this.notificationList = [];
         this.notificationObservable = notificationsService.getData();
     }
 
     ngOnInit() {
-        this.notificationSubscription = this.notificationObservable.subscribe(res => {
-            this.updateNotificationList(res);
-        }, err => {
-            console.log('Error in Notification Service');
-        });
+        this.notificationSubscription = this.notificationObservable.subscribe(
+            this.updateNotificationList.bind(this),
+            err => {
+                console.log('Error in Notification Service');
+            }
+        );
     }
 
     ngOnDestroy() {
@@ -42,51 +43,55 @@ export class NotificationsComponent implements OnInit, OnDestroy, OnChanges {
         let previousValue = changes['seenNotification'].previousValue;
         let currentValue = changes['seenNotification'].currentValue;
         if (previousValue instanceof Notification && currentValue instanceof NotificationActive) {
-            this.notificationsService.declineNotification(currentValue)
-                .subscribe(res => {
-                    toast('Request was declined', 3000, 'green');
-                    let idx = this.notificationList.indexOf(previousValue);
-                    console.log(JSON.stringify(previousValue) + ' ====== ' + idx);
-                    if (idx !== -1) {
-                        this.notificationList.splice(idx, 1);
-                    }
-                }, err => {
-                    toast('Failed to decline the request', 3000, 'red darken-2');
-                });
+            if (currentValue.state === 'decline') {
+                this.onDeclineNotification(previousValue, currentValue);
+            }
         }
     }
 
-    findNotificationInNotificationList(notification, idx, array) {
-
+    onDeclineNotification(previousValue, currentValue) {
+        this.notificationsService.declineNotification(currentValue)
+            .subscribe(res => {
+                toast('Request was declined', 3000, 'green');
+                console.log(previousValue.idx);
+                console.log(currentValue.state);
+                this.notificationList.splice(previousValue.idx, 1);
+            }, err => {
+                toast('Failed to decline the request', 3000, 'red darken-2');
+            });
     }
 
     updateNotificationList(res) {
-        this.notificationList = [];
-        for (let i = 0; i < res.length; ++i) {
-            this.notificationList[i] = new Notification(res[i]);
-        }
+        this.notificationList = (res || []).map(
+            (item, idx) => {
+                let notification:Notification = new Notification(item);
+                notification.idx = idx;
+                return notification;
+            }
+        );
     }
 
     refreshNotifications() {
         this.notificationSubscription.unsubscribe();
-        this.notificationSubscription = this.notificationObservable.subscribe(res => {
-            this.updateNotificationList(res);
-        }, err => {
-            console.log('Error in Notification Service');
-        });
+        this.notificationSubscription = this.notificationObservable.subscribe(
+            this.updateNotificationList.bind(this),
+            err => {
+                console.log('Error in Notification Service');
+            }
+        );
     }
 
-    get notificationList():any {
-        return this._notificationList;
-    }
-
-    set notificationList(value:any) {
-        this._notificationList = value;
-    }
-
-    onNotificationClick(notification, idx) {
+    onNotificationClick(notification) {
         this.notify.emit(notification);
     }
 
-
+    onDoneNotificationClick(notification) {
+        this.notificationsService.deleteNotification(notification)
+            .subscribe(res => {
+                toast('Seen', 3000, 'green');
+                this.notificationList.splice(notification.idx, 1);
+            }, err => {
+                toast('Failed', 3000, 'red darken-2');
+            });
+    }
 }
