@@ -129,9 +129,15 @@ main {
     padding-bottom: 15px;
 }
 
-a .disabled {
+a .disabled{
     pointer-events: none;
     cursor: default;
+}
+
+a.disabled.collection-item {
+    pointer-events: none;
+    cursor: default;
+    background-color: #DFDFDF;
 }
 
 .edit {

@@ -23,12 +23,20 @@ export class AssignTestComponent implements OnInit {
     private isActive;
     teacherList = [];
 
+    state:string;
+
+    constructor(private route:ActivatedRoute,
+                private customHttp:CustomHttp) {
+      //  this.state = 'date-picker-active';
+    }
+
     onNotify(responce):void {
         console.log('Notify : ' + responce);
     }
 
-
-
+    onToggleState(responce) {
+        this.state = responce;
+    }
 
 
     assignTeacher(teacher) {
@@ -38,6 +46,7 @@ export class AssignTestComponent implements OnInit {
         }
         this.assignedTeacher.isActive = 'active';
         console.log(this.assignedTeacher);
+        // document.getElementById("assignTestButton").disabled = false;
     }
 
     getTeacherList() {
@@ -66,11 +75,10 @@ export class AssignTestComponent implements OnInit {
             .subscribe(response => {
                 console.log('test has been assigned');
             });
+
     }
 
-    constructor(private route:ActivatedRoute,
-                private customHttp:CustomHttp) {
-    }
+
 
     ngOnInit() {
         //TODO check test status for user and block test assignment if test is requested or has been assigned
