@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, Input} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import {Http} from "@angular/http";
@@ -12,11 +12,14 @@ import {MaterializeDirective} from 'angular2-materialize';
 export class DatepickerComponent {
 
     private assignTestUrl = 'app/admin/assignTest';  // URL to web api
-
+    private state:boolean;
     @Output() notify:EventEmitter<string> = new EventEmitter<string>();
+    @Output() toggleState:EventEmitter<string> = new EventEmitter<string>();
+    @Input() state:true;
 
     constructor(private http:Http,
                 private router:Router) {
+
     }
 
     data = {
@@ -24,7 +27,7 @@ export class DatepickerComponent {
         dateTo: new Date()
     };
 
-    selectDateFrom() {
+    confirmDate() {
         var a = document.getElementById("dateFrom");
         var b = document.getElementById("dateTo");
         if (!a.value || !b.value) {
@@ -40,37 +43,9 @@ export class DatepickerComponent {
 
         console.log('month-test', this.data.dateFrom);
         this.notify.emit(JSON.stringify(this.data));
+        this.toggleState.emit(!this.state);
+
     }
 
-    showDateTo() {
-        var a = document.getElementById("dateFrom");
-        if (!a.value) {
-            console.log("select date")
-        }
-        if (a.value != '') {
-            document.getElementById("dateTo").disabled = false;
-            document.getElementById("hoursTo").disabled = false;
-            document.getElementById("minutesTo").disabled = false;
-        }
-    }
-
-    selectDateTo() {
-        var a = document.getElementById("dateFrom");
-        var b = document.getElementById("dateTo");
-        if (!a.value || !b.value) {
-            console.log("select date")
-        }
-
-        this.data.dateFrom.setFullYear(parseInt(a.value.substr(0, 4)), parseInt(a.value.substr(5, 2)) - 1, parseInt(a.value.substr(8, 2)));
-        this.data.dateFrom.setUTCHours(document.getElementById("hoursFrom").value);
-        this.data.dateFrom.setUTCMinutes(document.getElementById("minutesFrom").value);
-
-        this.data.dateTo.setFullYear(parseInt(b.value.substr(0, 4)), parseInt(b.value.substr(5, 2)) - 1, parseInt(b.value.substr(8, 2)));
-        this.data.dateTo.setUTCHours(document.getElementById("hoursTo").value);
-        this.data.dateTo.setUTCMinutes(document.getElementById("minutesTo").value);
-
-        console.log('month-test', this.data.dateFrom);
-        this.notify.emit(JSON.stringify(this.data));
-    }
-}
+       }
 

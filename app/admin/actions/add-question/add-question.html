@@ -108,8 +108,7 @@
 
     </div>
     <div class="card-action" align="center">
-        <a class="waves-effect waves-light btn"
-           [class.disabled]="isEditModeOn() || questionsList.length === 0"
+        <a class="waves-effect waves-light btn" [class.disabled]="isEditModeOn() || questionsList.length === 0"
            (click)="sendAllQuestions()">Add all created questions</a>
     </div>
 </div>

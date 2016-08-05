@@ -33,7 +33,7 @@ export class ChartsComponent {
 
     getTestsHistory() {
         var that = this;
-        this.http.get('/user/history')
+        this.http.get('/' + this.role + '/history')
             .toPromise()
             .then(response => that.initTestsHistory(response.json()))
             .catch(that.handleError);
@@ -41,7 +41,7 @@ export class ChartsComponent {
     }
 
     initTestsHistory(response:any) {
-        this.testsData = response.tests;
+        this.testsData = response.nodes;
         // date, testId, mark
         this.processTestData();
 

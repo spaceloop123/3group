@@ -18,7 +18,7 @@ import {InfiniteScroll} from "angular2-infinite-scroll/angular2-infinite-scroll"
 export class AssignTestComponent implements OnInit {
     public currentUser:any;
     public assignedTeacher:any;
-    private data: any;
+    private data:any;
     private sub;
     private isActive;
     teacherList = [];
@@ -27,9 +27,13 @@ export class AssignTestComponent implements OnInit {
         console.log('Notify : ' + responce);
     }
 
+
+
+
+
     assignTeacher(teacher) {
         this.assignedTeacher = teacher;
-        for(let i = 0; i < this.teacherList.length; i++) {
+        for (let i = 0; i < this.teacherList.length; i++) {
             this.teacherList[i].isActive = '';
         }
         this.assignedTeacher.isActive = 'active';
@@ -50,13 +54,13 @@ export class AssignTestComponent implements OnInit {
         console.log(this.teacherList);
     }
 
-    assignTest(){
+    assignTest() {
         this.data = {
-                dateFrom: '15/07/2016',
-                timeFrom: '14:00',
-                dateTo: '15/07/2016',
-                timeTo: '17:00',
-                teacher: '5457430uhot798y4'
+            dateFrom: '15/07/2016',
+            timeFrom: '14:00',
+            dateTo: '15/07/2016',
+            timeTo: '17:00',
+            teacher: '5457430uhot798y4'
         };
         this.customHttp.post('/admin/assign_test', {test: this.data})
             .subscribe(response => {
@@ -82,4 +86,8 @@ export class AssignTestComponent implements OnInit {
         this.sub.unsubscribe();
     }
 
+
 }
+
+
+

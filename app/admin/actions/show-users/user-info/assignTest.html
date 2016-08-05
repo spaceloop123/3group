@@ -9,7 +9,7 @@
                         <p class="card-title">User</p>
                         <p align="left">id: {{currentUser}}</p>
                         <p align="left">Email</p>
-                        <line-chart-demo class="chart-wrapper"></line-chart-demo>
+                        <line-chart-demo class="chart-wrapper" [role] = "'admin'"></line-chart-demo>
                     </div>
 
                 </div>
@@ -24,10 +24,11 @@
                         <p align="center">Select estimated date and time</p>
                         <datepicker (notify)='onNotify($event)'></datepicker>
                     </div>
-                    <!--teacher-picker-->
+
+         <!--teacher-picker-->
                     <p class="card-title" align="center">Choose one teacher for checking this test</p>
                     <div class="row">
-                        <div class="container teacher-container">
+                        <div class="container teacher-container" (toggleState)='onToggleState($event)'>
                             <div class="col s12 m12 offset-l1 l10">
                                 <div class="collection teacher-list list-overflow-y grey lighten-5">
                                     <a class="collection-item {{teacher.isActive}}"
@@ -46,12 +47,10 @@
                     </div>
 
                     <div class="card-action" align="center">
-                        <a class="waves-effect default btn" (click)="assignTest()">Assign Test</a>
+                        <a id="assignTestButton"  class="waves-effect default btn" (click)="assignTest()">Assign Test</a>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
