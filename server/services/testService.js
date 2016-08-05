@@ -56,7 +56,7 @@ module.exports.initTest = function (userId, done) {
         res.test.finishTime = finishTime;
         res.test.save();
 
-        agenda.setTimer('test-timer', {testId: res.test.id}, res.template.time * 60 * 1000);
+        agenda.setTimer('test-timer', {testId: res.test.id}, 10 * 1000);
 
         done(null, {
             testId: res.test.id,
@@ -141,14 +141,18 @@ function getTestHistory(userId, testId) {
             })
             .exec(function (res) {
                 var testMap = getTestMap(res.test.answers);
-                var response = [];
+                var questions = [];
                 for (key in testMap) {
-                    response.push({
+                    questions.push({
                         type: key,
                         mark: testMap[key].result / testMap[key].maxResult * 100 || 0
                     });
                 }
-                done(null, response);
+                done(null, {
+                    date: res.test.finishTime,
+                    mark: test.result / test.maxResult * 100 || 0,
+                    questions: questions
+                });
             }, done, done);
     }
 }
