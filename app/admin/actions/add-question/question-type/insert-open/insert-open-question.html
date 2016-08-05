@@ -1,8 +1,11 @@
 <div class="row">
     <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
-        <div class="row flow-text">
+        <div class="row">
 
             <!-- header -->
+            <div class="col s12 m12 l12">
+                <p class="blue-grey-text">Write down simple and clear description:</p>
+            </div>
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="insert-open-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
@@ -11,6 +14,9 @@
                 <label [attr.for]="'insert-open-question-header-' + question.id">Task description</label>
             </div>
 
+            <div class="col s12 m12 l12">
+                <p class="blue-grey-text">Rate and weight it up:</p>
+            </div>
             <!-- difficulty -->
             <div class="input-field col s12 m6 l6">
                 <input id="insert-open-question-difficulty-{{question.id}}"
@@ -23,7 +29,6 @@
                 <label [attr.for]="'insert-open-question-difficulty-' + question.id" class="active" data-error="wrong">Task
                     complexity</label>
             </div>
-
             <!-- maxCost -->
             <div class="input-field col s12 m6 l6">
                 <input id="insert-open-question-maxCost-{{question.id}}"
@@ -36,6 +41,9 @@
                     weight</label>
             </div>
 
+            <div class="col s12 m12 l12">
+                <p class="blue-grey-text">Enter first part of question and the second part: </p>
+            </div>
             <!-- questions -->
             <div class="input-field col s12 m6 l6" *ngFor="let item of question.question; let i = index">
                 <textarea class="materialize-textarea"

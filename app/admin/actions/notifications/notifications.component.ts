@@ -79,6 +79,9 @@ export class NotificationsComponent implements OnInit, OnDestroy, OnChanges {
                 console.log('Error in Notification Service');
             }
         );
+        if (this.notificationList.length === 0) {
+            toast('Nothing new', 3000, 'orange darken-2');
+        }
     }
 
     onNotificationClick(notification) {
