@@ -150,7 +150,7 @@ function getTestHistory(userId, testId) {
                 }
                 done(null, {
                     date: res.test.finishTime,
-                    mark: test.result / test.maxResult * 100 || 0,
+                    mark: res.test.result / res.test.maxResult * 100 || 0,
                     questions: questions
                 });
             }, done, done);

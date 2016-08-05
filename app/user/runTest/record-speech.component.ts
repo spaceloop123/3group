@@ -10,10 +10,8 @@ import {Component} from "@angular/core";
 export class RecordSpeechComponent {
 
     socket:any;
-
-    constructor() {
-        this.socket = new WebSocket('ws://localhost:3001');
-    }
+    stream:any;
+    recorder:any;
 
     getUserMediaWrapper(session, successHandler, errorHandler) {
         (navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia ||
@@ -21,34 +19,35 @@ export class RecordSpeechComponent {
     }
 
     recordAudio() {
+        this.socket = new WebSocket('ws://localhost:3001');
         let session = {
             audio: true,
             video: false
         };
-        let recordRTC = null;
         let that = this;
         this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
     }
 
     initializeRecorder(stream) {
+        this.stream = stream;
         let context = new AudioContext();
         let audioInput = context.createMediaStreamSource(stream);
         let bufferSize = 2048;
-        let recorder = context.createScriptProcessor(bufferSize, 1, 1);
+        this.recorder = context.createScriptProcessor(bufferSize, 5, 2);
         // specify the processing function
         let that = this;
-        recorder.onaudioprocess = ((e) => that.recorderProcess(e));
+        this.recorder.onaudioprocess = ((e) => that.recorderProcess(e));
         // connect stream to our recorder
-        audioInput.connect(recorder);
+        audioInput.connect(this.recorder);
         // connect our recorder to the previous destination
-        recorder.connect(context.destination);
+        this.recorder.connect(context.destination);
     }
 
 
     recorderProcess(e) {
         let left = e.inputBuffer.getChannelData(0);
         //console.log('recorderProcess');
-        //console.log(this.convertFloat32ToInt16(left));
+        console.log('a');
         this.socket.send(this.convertFloat32ToInt16(left));
     }
 
@@ -59,5 +58,20 @@ export class RecordSpeechComponent {
             buf[l] = Math.min(1, buffer[l]) * 0x7FFF;
         }
         return buf;
+    }
+
+    closeAudio() {
+        if (this.recorder !== undefined) {
+            this.recorder.disconnect();
+            this.recorder = undefined;
+        }
+        if (this.stream !== undefined) {
+            this.stream.getAudioTracks().forEach((track) => track.stop());
+            this.stream = undefined;
+        }
+        if (this.socket !== undefined) {
+            this.socket.close();
+            this.socket = undefined;
+        }
     }
 }
