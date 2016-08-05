@@ -1,4 +1,3 @@
-// TODO (pay attention) nice I like that class, well done ;)
 export class GUID {
     constructor(public guid:string) {
         this._guid = guid;

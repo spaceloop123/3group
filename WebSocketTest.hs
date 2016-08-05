@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
+    {-# LANGUAGE OverloadedStrings #-}
 import Data.Char (isPunctuation, isSpace)
 import Data.Monoid (mappend)
 import Data.Text (Text)

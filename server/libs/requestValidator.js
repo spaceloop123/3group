@@ -38,6 +38,6 @@ Validator.prototype.exec = function (success, empty, error) {
     } catch (err) {
         error(err);
     }
-}
+};
 
 module.exports = Validator;

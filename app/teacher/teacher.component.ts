@@ -52,7 +52,6 @@ export class TeacherComponent implements OnInit {
     }
 
     checkTest(test) {
-        //this happens when teacher clicks CHECK button TODO (pay attention) and this must be clear from method name, not from comment
         this.router.navigate(['/teacher/check_test', test.id]);
     }
 

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Notification = mongoose.model('Notification');
 var Test = mongoose.model('Test');
 var Validator = require('../libs/requestValidator');
+var testService = require('./testService');
 var mailer = require('../libs/mailer');
 
 module.exports.getNotifications = function (done) {
@@ -37,7 +38,7 @@ module.exports.declineRequestNotification = function (notificationId, testId, do
                 Notification.findOne({_id: notificationId}).populate('user').exec(callback);
             },
             test: function (callback) {
-                Test.findOne({_id: testId, status: 'requested'}, callback);
+                Test.findOne({_id: testId}, callback);
             }
         })
         .exec(function (res) {
@@ -48,10 +49,26 @@ module.exports.declineRequestNotification = function (notificationId, testId, do
                 'Test request',
                 'Hello, ' + res.notification.user.firstName + ' ' + res.notification.user.lastName + '\n' +
                 'Your test request was declined.' + '\n' +
-                'With love from TheTuga\'s administration!'
+                'With love from administration of TheTuga!'
             );
             done(null);
         }, done, done);
+};
+
+module.exports.acceptRequestNotification = function (notificationId, userId, teacherId, timeFrom, timeTo, done) {
+    new Validator()
+        .checkItems({
+            notification: function (callback) {
+                Notification.findOne({_id: notificationId, status: 'request'}, callback);
+            },
+            test: function (callback) {
+                Test.findOne({user: userId, status: 'requested'}, callback);
+            }
+        })
+        .exec(function (res) {
+            res.notification.remove();
+            testService.acceptTestRequest(res.test.id, teacherId, timeFrom, timeTo, done);
+        });
 };
 
 module.exports.createRequestNotification = function (userId, testId) {

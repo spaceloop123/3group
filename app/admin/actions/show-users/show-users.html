@@ -16,7 +16,7 @@
                     infinite-scroll
                     [infiniteScrollDistance]="1"
                     [infiniteScrollThrottle]="400"
-                    (scrolled)="scrollOrNot()">
+                    (scrolled)="onScrollDown()">
                     <li>
                         <a class="collection-item" href="javascript:;" *ngFor="let user of userList"
                            (click)="showDetails(user)">
@@ -26,6 +26,10 @@
                                 <i class="material-icons grey-text">trending_flat</i>
                             </div>
                         </a>
+                    </li>
+                    <li class="collection-item grey lighten-5 grey-text">
+                        <div align="center" *ngIf="isThereDataToScroll && searchFilter === ''">Scroll down to see more results</div>
+                        <div align="center" *ngIf="!isThereDataToScroll || searchFilter !== ''">No more results</div>
                     </li>
                 </ul>
             </div>

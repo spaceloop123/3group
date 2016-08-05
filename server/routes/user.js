@@ -55,7 +55,7 @@ router.get('/history', function (req, res) {
 });
 
 router.post('/test_history', function (req, res) {
-    testService.getTestHistory(req.user.id, req.body.testId, response.dataResponse(res));
+    testService.getTestsHistory(req.user.id, req.body.testIds, response.dataResponse(res));
 });
 
 module.exports = router;

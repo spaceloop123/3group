@@ -180,3 +180,7 @@ a .disabled {
 .add-question-icon-container {
     padding: 20%;
 }
+
+.login-btn {
+    width: 70%;
+}

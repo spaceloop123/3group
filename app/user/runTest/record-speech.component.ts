@@ -12,7 +12,7 @@ export class RecordSpeechComponent {
     socket:any;
 
     constructor() {
-        this.socket = new WebSocket('ws://localhost:9160');
+        this.socket = new WebSocket('ws://localhost:3001');
     }
 
     getUserMediaWrapper(session, successHandler, errorHandler) {

@@ -14,7 +14,7 @@ import {CustomHttp} from '../../../common/services/CustomHttp';
 export class ShowUsersComponent implements OnChanges, OnInit{
 
     private searchFilter = '';
-    private scrollCount;
+    private isThereDataToScroll: boolean;
     userList = [];
     shownUsers = 0;
 
@@ -36,7 +36,22 @@ export class ShowUsersComponent implements OnChanges, OnInit{
     }
 
     setUserList(response) {
+        if (response.length === 0) {
+            this.isThereDataToScroll = false;
+        } else {
+            this.isThereDataToScroll = true;
+        }
         this.userList = this.userList.concat(response);
+        console.log(this.userList);
+    }
+
+    renewUserList(response) {
+        if (response.length === 0) {
+            this.isThereDataToScroll = false;
+        } else {
+            this.isThereDataToScroll = true;
+        }
+        this.userList = response;
         console.log(this.userList);
     }
 
@@ -46,16 +61,6 @@ export class ShowUsersComponent implements OnChanges, OnInit{
         this.getUsers();
     }
 
-    scrollOrNot() {
-        if(this.scrollCount <= 10) {
-            console.log(this.scrollCount);
-            this.scrollCount++;
-        } else {
-            this.onScrollDown();
-            this.scrollCount = 0;
-        }
-    }
-
     applySearch () {
         var that = this;
         console.log(this.searchFilter);
@@ -63,7 +68,7 @@ export class ShowUsersComponent implements OnChanges, OnInit{
             .subscribe(response => {
                 console.log('search posted');
                 console.log(response);
-                that.userList = response;
+                that.renewUserList(response);
             });
         this.shownUsers = 0;
     }
