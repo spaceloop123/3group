@@ -1,6 +1,6 @@
 //angular
 import {Component, OnInit, OnDestroy} from "@angular/core";
-import {ROUTER_DIRECTIVES, NavigationEnd, Router, NavigationError} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router, NavigationError} from "@angular/router";
 import {LoginComponent} from "./login/login.component";
 import {HeaderComponent} from "./common/header/header.component";
 import {RunTestComponent} from "./user/runTest/runTest.component";
@@ -23,62 +23,61 @@ import {Subscription} from "rxjs/Rx";
 //others
 
 
-
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent],
     precompile: [
-    	LoginComponent,
-	    UserComponent,
-	    AdminComponent,
-	    TeacherComponent,
-	    AssignTestComponent,
-	    TeacherInfoComponent,
-	    DatepickerComponent,
+        LoginComponent,
+        UserComponent,
+        AdminComponent,
+        TeacherComponent,
+        AssignTestComponent,
+        TeacherInfoComponent,
+        DatepickerComponent,
         RunTestComponent,
-	    FinishTestPageComponent,
-	    TeacherCheckingComponent,
-	    ChartsComponent,
-	    ShowTestsComponent,
-	    ShowUsersComponent
+        FinishTestPageComponent,
+        TeacherCheckingComponent,
+        ChartsComponent,
+        ShowTestsComponent,
+        ShowUsersComponent
     ],
     providers: [Location]
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-	// TODO: (pay attention) 'sub' says nothing use clear names for variable
-	private routeChangeSubscription:Subscription;
+    // TODO: (pay attention) 'sub' says nothing use clear names for variable
+    private routeChangeSubscription:Subscription;
 
-	constructor(private authService:AuthService,
-	            private router:Router,
-	            private constants:Constants) {
-	}
+    constructor(private authService:AuthService,
+                private router:Router,
+                private constants:Constants) {
+    }
 
-	checkPath():boolean {
-		let pathname = window.location.href;
-		return ((pathname.indexOf("/login") !== -1) ||
-		((this.authService.role === 'user') && (pathname.indexOf("/user") !== -1)) ||
-		((this.authService.role === 'teacher') && (pathname.indexOf("/teacher") !== -1)) ||
-		((this.authService.role === 'admin') && (pathname.indexOf("/admin/assignTest") !== -1)) ||
-		((this.authService.role === 'admin') && (pathname.indexOf("/admin/teacher_info") !== -1)));
-	}
+    checkPath():boolean {
+        let pathname = window.location.href;
+        return ((pathname.indexOf("/login") !== -1) ||
+        ((this.authService.role === 'user') && (pathname.indexOf("/user") !== -1)) ||
+        ((this.authService.role === 'teacher') && (pathname.indexOf("/teacher") !== -1)) ||
+        ((this.authService.role === 'admin') && (pathname.indexOf("/admin/assignTest") !== -1)) ||
+        ((this.authService.role === 'admin') && (pathname.indexOf("/admin/teacher_info") !== -1)));
+    }
 
-	ngOnInit():any {
-		this.routeChangeSubscription = this.router.events.subscribe(event => {
-			if (event instanceof NavigationError) {
-				console.log('Handled that!');
-				this.router.navigate(['/login']);
-				// TODO: (pay attention) : Just note for code that was here:
-				// another subscriber with this.checkPath(); in content
-				// - It's useless subscriber if its calls checkPath because of
-				// changes of its value watch angular itself, no need to do useless call
-				// state will not save.
-			}
-		});
-	}
+    ngOnInit():any {
+        this.routeChangeSubscription = this.router.events.subscribe(event => {
+            if (event instanceof NavigationError) {
+                console.log('Handled that!');
+                this.router.navigate(['/login']);
+                // TODO: (pay attention) : Just note for code that was here:
+                // another subscriber with this.checkPath(); in content
+                // - It's useless subscriber if its calls checkPath because of
+                // changes of its value watch angular itself, no need to do useless call
+                // state will not save.
+            }
+        });
+    }
 
-	ngOnDestroy():any {
-		this.routeChangeSubscription.unsubscribe();
-	}
+    ngOnDestroy():any {
+        this.routeChangeSubscription.unsubscribe();
+    }
 }

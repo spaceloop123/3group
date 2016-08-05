@@ -4,7 +4,7 @@ import {AuthService} from "../auth/auth.service";
 
 @Component({
 	selector: 'header-component',
-	templateUrl: '../app/common/header/header-logo.html',
+	templateUrl: '../app/common/header/header.html',
 	directives: [ROUTER_DIRECTIVES]
 })
 
