@@ -1,7 +1,7 @@
-<div class="container"style="width: 100%">
+<div class="container" style="width: 100%">
 
     <div class="row">
-        <div class="col s12 m6 l6">
+        <div class="col s12 m5 l5">
             <h6>Date (from)</h6>
             <div id="datepicker1" class="datepicker" style="margin-top: 2.5%">
                 <input id="dateFrom" type="date" class="datepicker">
@@ -9,9 +9,10 @@
 
         </div>
         <h6>Time (from)</h6>
-        <div class="col m2 offset-m1 l2 offset-l1" style="padding:0">
+        <div class="col m2 l2" style="padding:0">
 
-            <select id="hoursFrom" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeFrom.hours">
+            <select id="hoursFrom" class="browser-default" materialize="material_select"
+                    [materializeSelectOptions]="selectOptions" [(ngModel)]="timeFrom.hours">
                 <option value="00" disabled selected>00</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
@@ -40,8 +41,9 @@
             </select>
         </div>
 
-        <div class="col m2" style="padding:0">
-            <select id="minutesFrom" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeFrom.minutes">
+        <div class="col m2 l2" style="padding:0">
+            <select id="minutesFrom" class="browser-default" materialize="material_select"
+                    [materializeSelectOptions]="selectOptions" [(ngModel)]="timeFrom.minutes">
                 <option value="00" disabled selected>00</option>
                 <option value="05">05</option>
                 <option value="10">10</option>
@@ -56,29 +58,29 @@
                 <option value="55">55</option>
             </select>
         </div>
-        <div class="col m2" style="padding:0">
-          <!--  <select id="amFrom" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeFrom.am">
-                <option value="pm" disabled selected>pm</option>
-                <option value="am">am</option>
-            </select>-->
+
+        <div class="horizontal click-to-toggle" style="bottom: 67%; right: 8%">
+            <a class="btn-floating btn " (click)='showDateTo()'>
+                <i class="material-icons">verified_user</i>
+            </a>
         </div>
     </div>
 
 
-
     <div class="row">
-        <div class="col s12 m6 l6">
+        <div class="col s12 m5 l5">
             <h6 style="margin: 0">Date (to)</h6>
             <div id="datepicker2" class="datepicker" style="margin-top: 2.5%">
-                <input id="dateTo" type="date" class="datepicker">
+                <input id="dateTo" type="date" class="datepicker" disabled>
             </div>
         </div>
 
         <h6>Time (to)</h6>
-        <div class="col m2 offset-m1 l2 offset-l1" style="padding:0">
+        <div class="col m2 l2" style="padding:0">
 
-            <select  id="hoursTo" style="margin: 0;" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeTo.hours">
-                <option value="00"  selected >00</option>
+            <select disabled id="hoursTo" style="margin: 0;" class="browser-default" materialize="material_select"
+                    [materializeSelectOptions]="selectOptions" [(ngModel)]="timeTo.hours" >
+                <option value="00" selected>00</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
                 <option value="03">03</option>
@@ -105,9 +107,10 @@
             </select>
         </div>
 
-        <div class="col m2" style="padding:0">
-            <select id="minutesTo" class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeTo.minutes">
-                <option value="00" disabled selected>00</option>
+        <div class="col m2 l2" style="padding:0">
+            <select disabled id="minutesTo" class="browser-default" materialize="material_select"
+                    [materializeSelectOptions]="selectOptions" [(ngModel)]="timeTo.minutes">
+                <option value="00" selected>00</option>
                 <option value="05">05</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -122,27 +125,14 @@
 
             </select>
         </div>
-        <!-- <div class="col m2" style="padding:0">
-            <select class="browser-default" materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="timeTo.am">
-                <option id="amTo" value=""selected>pm</option>
-                <option value="1">am</option>
-            </select>
-
-           <div>
-                <input id="example" type="text" [(ngModel)]="username"/>
-                <a class="waves-effect default btn" (click)="toUpperCase()">UPPERCASE!</a>
-                <a class="waves-effect default btn" (click)="toLowerCase()">lowercase!</a>
-
-                <h1>{{ username }}</h1>
-            </div>-->
-
-        </div>
 
     </div>
-<div>
-    <a id="assignTestButton"class="waves-effect btn" (click)='selectDateFrom()' [ngClass]="buttonState">
-        accept date</a>
+
 </div>
+<div>
+    <a class="waves-effect btn" (click)='selectDateFrom()' [ngClass]="buttonState">accept date from</a>
+</div>
+
 
 
 
