@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Output, OnInit} from '@angular/core';
+import {Component, EventEmitter, Output, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
-import {MaterializeDirective} from 'angular2-materialize';
+import {MaterializeDirective} from "angular2-materialize";
 
 @Component({
     selector: 'datepicker',
@@ -17,7 +17,7 @@ export class DatepickerComponent implements OnInit{
     }
 
     ngOnInit():any {
-        $('.datepicker-component').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+        // $('.datepicker-component').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
     }
 
     constructor() {}
