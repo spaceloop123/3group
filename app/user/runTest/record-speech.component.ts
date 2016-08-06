@@ -19,12 +19,17 @@ export class RecordSpeechComponent {
     }
 
     recordAudio() {
-        this.socket = new WebSocket('ws://localhost:3001');
+        this.socket = new WebSocket('ws://localhost:2016');
         let session = {
             audio: true,
             video: false
         };
         let that = this;
+        this.socket.onopen = function (event) {
+            that.socket.send("Some data for Maxim\n");
+        };
+        //please, add supporte for reading metadata on serverside
+
         this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
     }
 
