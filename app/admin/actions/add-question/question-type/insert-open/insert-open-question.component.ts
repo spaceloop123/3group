@@ -18,7 +18,6 @@ export class InsertOpenQuestionComponent implements OnInit {
     }
 
     constructor() {
-
     }
 
     onCreateFinish() {

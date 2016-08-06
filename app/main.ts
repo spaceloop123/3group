@@ -1,5 +1,7 @@
 import 'rxjs/Rx';
-import 'jquery'
+import 'jquery';
+import 'moment';
+import 'datepicker';
 import 'angular2-materialize';
 
 import {bootstrap} from '@angular/platform-browser-dynamic';
