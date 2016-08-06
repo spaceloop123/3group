@@ -21,10 +21,9 @@ export class TeacherInfoComponent implements OnInit {
 
     ngOnInit() {
         StateService.fromDetail = true;
-        var that = this;
         this.sub = this.route.params.subscribe(params => {
-            that.currentUser = params['id'];
-            console.log('that.currentUser ' + that.currentUser);
+            this.currentUser = params['id'];
+            console.log('that.currentUser ' + this.currentUser);
         });
     }
 }

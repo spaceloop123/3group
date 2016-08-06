@@ -1,3 +1,4 @@
+import moment = require("moment/moment");
 interface MaterialDatapickerOptions {
 	date?:boolean,
 	time?:boolean,
