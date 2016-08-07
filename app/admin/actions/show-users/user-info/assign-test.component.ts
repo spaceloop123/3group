@@ -11,7 +11,7 @@ import {StateService} from "../StateService";
 
 @Component({
 
-    templateUrl: 'app/admin/actions/show-users/user-info/assignTest.html',
+    templateUrl: 'app/admin/actions/show-users/user-info/assign-test.html',
     directives: [DatepickerComponent, ChartsComponent, CHART_DIRECTIVES, ROUTER_DIRECTIVES, MaterializeDirective, InfiniteScroll],
     providers: [StateService]
 })

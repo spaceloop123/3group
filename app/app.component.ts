@@ -13,7 +13,7 @@ import {ChartsComponent} from "./user/charts/charts.component";
 import {ShowTestsComponent} from "./user/ShowTests/showTests.component";
 import {DatepickerComponent} from "./admin/actions/show-users/user-info/datepicker.component";
 import {ShowUsersComponent} from "./admin/actions/show-users/show-users.component";
-import {AssignTestComponent} from "./admin/actions/show-users/user-info/assignTest.component";
+import {AssignTestComponent} from "./admin/actions/show-users/user-info/assign-test.component";
 import {TeacherInfoComponent} from "./admin/actions/show-users/teacher-info/teacher-info.component";
 import {Constants} from "./common/constants/constants.data";
 import {AuthService} from "./common/auth/auth.service";

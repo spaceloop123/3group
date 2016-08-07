@@ -66,7 +66,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     showDetails(user) {
         StateService.scrollPosition = $(document).scrollTop().valueOf();
         if (user.role === 'user') {
-            this.router.navigate(['/admin/assignTest', user.id]);
+            this.router.navigate(['/admin/assign_test', user.id]);
         } else if (user.role === 'teacher') {
             this.router.navigate(['/admin/teacher_info', user.id]);
         }
