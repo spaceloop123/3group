@@ -108,7 +108,9 @@ module.exports.getTeachersTests = function (teacher, done) {
         })
         .exec(function (res) {
             res.tests.forEach(function (test, tests) {
-                response.push(test.getTestInfo());
+                if(test.getNotAutomaticallyCheckAnswers().length !== 0) {
+                    response.push(test.getTestInfo());
+                }
             });
             done(null, response);
         }, function () {
