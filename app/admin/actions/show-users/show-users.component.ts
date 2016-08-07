@@ -59,10 +59,10 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
         console.log('scrolled down!!');
         this.shownUsers += 10;
         this.getUsers();
+        $('#show-users-list').scrollTop(StateService.scrollPosition);
     }
 
     applySearch() {
-        //TODO remove var that = this in all requests. Lambda function doesn't create it's own lexical environment.
         console.log(this.searchFilter);
         this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
@@ -79,6 +79,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
         } else if (user.role === 'teacher') {
             this.router.navigate(['/admin/teacher_info', user.id]);
         }
+        StateService.scrollPosition = $('#show-users-list').scrollTop();
     }
 
     ngOnInit() {

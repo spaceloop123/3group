@@ -23,7 +23,6 @@ export class InsertOpenQuestionComponent implements OnInit {
     onCreateFinish() {
         this.question.state = 'done';
         this.notify.emit(this.question);
-        // console.log(JSON.stringify(this.question));
     }
 
     onEditStart() {

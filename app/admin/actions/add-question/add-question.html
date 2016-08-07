@@ -9,43 +9,43 @@
                         [ngClass]="item['state']">
                         <div [ngSwitch]="item['type']">
                             <div *ngSwitchCase="'TestQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Test Question</h6>
+                                <h6 class="flow-text">{{i + 1}}. Test question</h6>
                                 <test-question-component [question]="item"
                                                          (notify)="onQuestionCreate($event, i)">
                                 </test-question-component>
                             </div>
                             <div *ngSwitchCase="'InsertOpenQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Open-Insert Question</h6>
+                                <h6 class="flow-text">{{i + 1}}. Gap-filling</h6>
                                 <insert-open-question-component [question]="item"
                                                                 (notify)="onQuestionCreate($event, i)">
                                 </insert-open-question-component>
                             </div>
                             <div *ngSwitchCase="'InsertTestQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Insert Test Question</h6>
+                                <h6 class="flow-text">{{i + 1}}. One of many</h6>
                                 <insert-test-question-component [question]="item"
                                                                 (notify)="onQuestionCreate($event, i)">
                                 </insert-test-question-component>
                             </div>
                             <div *ngSwitchCase="'OpenQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Open Question</h6>
+                                <h6 class="flow-text">{{i + 1}}. Open question</h6>
                                 <open-question-component [question]="item"
                                                          (notify)="onQuestionCreate($event, i)">
                                 </open-question-component>
                             </div>
                             <div *ngSwitchCase="'SpeechQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Speech Question</h6>
+                                <h6 class="flow-text">{{i + 1}}. Speech</h6>
                                 <speech-question-component [question]="item"
                                                            (notify)="onQuestionCreate($event, i)">
                                 </speech-question-component>
                             </div>
                             <div *ngSwitchCase="'ReadingQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Reading Question</h6>
+                                <h6 class="flow-text">{{i + 1}}. Reading</h6>
                                 <reading-question-component [question]="item"
                                                             (notify)="onQuestionCreate($event, i)">
                                 </reading-question-component>
                             </div>
                             <div *ngSwitchCase="'AudioQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Audio Question</h6>
+                                <h6 class="flow-text">{{i + 1}}. Listening</h6>
                                 <audio-question-component [question]="item"
                                                           (notify)="onQuestionCreate($event, i)">
                                 </audio-question-component>
@@ -81,7 +81,8 @@
                                                 </div>
                                             </div>
                                             <div class="card-content">
-                                                <span class="card-title activator grey-text text-darken-4">
+                                                <span class="card-title activator grey-text text-darken-4"
+                                                      style="font-size: 1.3em">
                                                     {{question['title']}}
                                                     <i class="material-icons right">more_vert</i>
                                                 </span>

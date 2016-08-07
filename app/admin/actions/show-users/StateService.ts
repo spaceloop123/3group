@@ -5,4 +5,5 @@ import {Injectable} from "@angular/core";
 export class StateService {
     static searchFilter: any;
     static fromDetail: boolean;
+    static scrollPosition:number;
 }

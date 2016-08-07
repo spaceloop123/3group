@@ -137,13 +137,8 @@ export class AudioQuestionComponent implements OnInit {
     }
 
     changeState(idx) {
-        /*for (let i = 0; i < this.questionsCatalog.length; ++i) {
-         this.questionsCatalog[i].checked = false;
-         }
-         this.questionsCatalog[idx].checked = true;*/
         this.selectedQuestion = this.questionsCatalog[idx].type;
         console.log(this.selectedQuestion);
-        // $('#audioChooseSubQuestion').closeModal();
         this.addSubQuestion();
     }
 
