@@ -16,7 +16,7 @@
     'angular2-localstorage':      'node_modules/angular2-localstorage',
     'angular2-infinite-scroll':   'node_modules/angular2-infinite-scroll',
     'ng2-charts':                 'node_modules/ng2-charts',
-    'moment': 'node_modules/moment'
+    'moment':                     'node_modules/moment'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {

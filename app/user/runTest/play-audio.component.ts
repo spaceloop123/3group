@@ -16,7 +16,7 @@ export class PlayAudioComponent {
         console.log('trying to play "bla-bla.data"');
         this.initAudio();
         let that = this;
-        this.socket = new WebSocket('ws://localhost:2016');
+        this.socket = new WebSocket('ws://localhost:3002');
         this.socket.binaryType = "arraybuffer";
         this.socket.onmessage = ((message) => that.processSample(message));
     }
@@ -51,7 +51,7 @@ export class PlayAudioComponent {
         //this.audioBuffer.getChannelData(0).set(sample);
         //this.source.start(0);
     }
-
+    
     activatePlay() {
         console.log("Activated");
         this.doPlay();
