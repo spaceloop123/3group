@@ -7,15 +7,14 @@
             <div class="card {{cardSize}}">
                 <div class="card-image">
                     <div align="center" class="parent-of-badge">
-                        <img class="badge-gif" src="app/user/runTest/badge.gif">
+                        <img class="badge-gif" src="app/user/runTest/img/badge.gif">
                     </div>
                     <span class="card-title blue-text">Success</span>
                 </div>
                 <div class="card-content flow-text">
-                    <div *ngIf="currentWidth < 600">
-                        <br><br>
-                    </div>
+                    <br *ngIf="currentWidth < 600">
                     <p class="green-text text-darken-1">You successfully completed the test!</p>
+                    <br *ngIf="currentWidth < 600">
                     <p>Please, wait for your results</p>
                 </div>
                 <div class="card-action">

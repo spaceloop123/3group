@@ -39,7 +39,7 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
             console.log('that.status ' + that.role);
 
         });
-        //this.autoExit();
+        this.autoExit();
 
 
     }
@@ -50,10 +50,10 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
 
     }
 
-    // autoExit(){
-    //     var that = this;
-    //     this.timeout_id = setTimeout(() => that.exit(), 5000);
-    // }
+    autoExit(){
+        var that = this;
+        this.timeout_id = setTimeout(() => that.exit(), 5000);
+    }
 
     changeCardSize() {
         if (this.currentWidth > 768) {
