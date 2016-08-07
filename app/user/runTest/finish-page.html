@@ -6,16 +6,16 @@
         <div class="col s10 m6 l6 offset-m3 offset-l3 offset-s1">
             <div class="card {{cardSize}}">
                 <div class="card-image">
-                    <img class="badge-gif" src="app/user/runTest/badge.gif">
+                    <div align="center" class="parent-of-badge">
+                        <img class="badge-gif" src="app/user/runTest/badge.gif">
+                    </div>
                     <span class="card-title blue-text">Success</span>
                 </div>
-                <!--<div class="card-image">-->
-                    <!--<img src="http://www.minimalstudent.com/wp-content/uploads/2016/04/man-on-top-of-mountain.jpg">-->
-                    <!--<span class="card-title">Success</span>-->
-                <!--</div>-->
                 <div class="card-content flow-text">
+                    <div *ngIf="currentWidth < 600">
+                        <br><br>
+                    </div>
                     <p class="green-text text-darken-1">You successfully completed the test!</p>
-                    <br *ngIf="currentWidth < 600">
                     <p>Please, wait for your results</p>
                 </div>
                 <div class="card-action">
