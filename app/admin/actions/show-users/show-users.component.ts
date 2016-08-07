@@ -24,11 +24,10 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     }
 
     getUsers() {
-        var that = this;
         this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('posted');
-                that.setUserList(response);
+                this.setUserList(response);
             });
     }
 
