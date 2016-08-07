@@ -182,15 +182,29 @@ a .disabled {
     padding: 20%;
 }
 
-.parent-of-badge {
+.parent-of-images {
     overflow: visible;
     position: relative;
     width: 100%;
     min-height: 200px;
 }
 
-.badge-gif {
+.image-gif {
     /*height: 100%;*/
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.parent-of-badge {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.badge-gif {
+    height: 100%;
+    width: 50% !important;
     position: absolute;
     right: 0;
     top: 0;
