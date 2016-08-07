@@ -19,9 +19,6 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     userList = [];
     shownUsers = 0;
 
-    // array = [];
-    // sum = 30;
-
     constructor(private customHttp:CustomHttp,
                 private router:Router) {
     }
@@ -36,21 +33,14 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     }
 
     setUserList(response) {
-        if (response.length === 0) {
-            this.isThereDataToScroll = false;
-        } else {
-            this.isThereDataToScroll = true;
-        }
+        this.isThereDataToScroll = response.length !== 0;
         this.userList = this.userList.concat(response);
         console.log(this.userList);
+        $(document).scrollTop(StateService.scrollPosition);
     }
 
     renewUserList(response) {
-        if (response.length === 0) {
-            this.isThereDataToScroll = false;
-        } else {
-            this.isThereDataToScroll = true;
-        }
+        this.isThereDataToScroll = response.length !== 0;
         this.userList = response;
         console.log(this.userList);
     }
@@ -59,7 +49,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
         console.log('scrolled down!!');
         this.shownUsers += 10;
         this.getUsers();
-        $('#show-users-list').scrollTop(StateService.scrollPosition);
+        StateService.scrollPosition = $(document).scrollTop();
     }
 
     applySearch() {
@@ -74,12 +64,12 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     }
 
     showDetails(user) {
+        StateService.scrollPosition = $(document).scrollTop().valueOf();
         if (user.role === 'user') {
             this.router.navigate(['/admin/assignTest', user.id]);
         } else if (user.role === 'teacher') {
             this.router.navigate(['/admin/teacher_info', user.id]);
         }
-        StateService.scrollPosition = $('#show-users-list').scrollTop();
     }
 
     ngOnInit() {

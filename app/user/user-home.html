@@ -2,82 +2,69 @@
 <div *ngIf="status!==''">
     <div class="valign-wrapper ">
         <div class="container valign">
-            <div class="row" align=center>
+            <div class="row">
 
-                <div *ngIf="status==='available' || status==='run'" class="col s12 m6 l6 card-width" align=center>
+                <div class="col s12 m6 l6 card-width">
                     <div class="card white valign">
                         <div class="card-image">
                             <div align="center" class="parent-of-badge">
-                                <img class="badge-gif" src="app/user/runTest/img/testToRun.gif">
+                                <img *ngIf="status==='available' || status==='run'"
+                                     class="badge-gif" src="app/user/runTest/img/testToRun.gif">
+                                <img *ngIf="status==='notAvailable'"
+                                     class="badge-gif" src="app/user/runTest/img/bell.gif">
+                                <img *ngIf="status==='requested'"
+                                     class="badge-gif" src="app/user/runTest/img/waiting.gif">
                             </div>
+                            <span *ngIf="status==='available' || status==='run'"
+                                  class="card-title green-text text-darken-2" style="font-weight: 400;">
+                                Test is available
+                            </span>
+                            <span *ngIf="status==='notAvailable'"
+                                  class="card-title green-text text-darken-2" style="font-weight: 400;">
+                                Test isn't appointed
+                            </span>
+                            <span *ngIf="status==='requested'"
+                                  class="card-title orange-text text-darken-2" style="font-weight: 400;">
+                                Waiting for test
+                            </span>
                         </div>
-                        <div class="card-content" align=center style="min-height:250px">
-                            <p class="green-text">You have a new test to pass</p>
-                            <div class="card-content" align="center">
-                                <br>
-                                <p>Test duration: {{time}} minutes</p>
-                                <p>Number of questions: {{numQuestions}}</p>
-                                <p class="card-content" align="center">Press button "Start" to start English Test.</p>
-                            </div>
+                        <div class="card-content" *ngIf="status==='available' || status==='run'">
+                            <p>Test duration: {{time}} minutes</p>
+                            <p>Number of questions: {{numQuestions}}</p>
+                        </div>
+                        <div class="card-content" *ngIf="status==='notAvailable'">
+                            <p>Nobody appointed you any test</p>
+                            <p>Please, ask for it</p>
+                        </div>
+                        <div class="card-content" *ngIf="status==='requested'">
+                            <p>You've already asked for test</p>
+                            <p>Please, wait until the request is approved</p>
                         </div>
                         <div class="card-action" align=center>
-                            <a class="waves-effect default btn" (click)="runTest()">Start</a>
+                            <a *ngIf="status==='available' || status==='run'" class="waves-effect default btn"
+                               (click)="runTest()">Start</a>
+                            <a *ngIf="status==='notAvailable'" class="waves-effect default btn"
+                               (click)="askTest()">Ask for test</a>
+                            <a *ngIf="status==='requested'" class="waves-effect default btn disabled">
+                                Ask for test</a>
                         </div>
                     </div>
                 </div>
 
-
-
-                <div *ngIf="status==='notAvailable'" class="col s12 m6 l6 card-width" align=center>
-                    <div class="card white valign">
-                        <div class="card-image">
-                            <div align="center" class="parent-of-badge">
-                                <img class="badge-gif" src="app/user/runTest/img/bell.gif">
-                            </div>
-                        </div>
-                        <div class="card-content" align=center style="min-height:250px">
-                            <br>
-                            <p class="red-text">Nobody appointed you any test</p>
-                            <p class="card-content">You can ask for it</p>
-                        </div>
-                        <div class="card-action" align=center>
-                            <a class="waves-effect default btn" (click)="askTest()">Ask</a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div *ngIf="status==='requested'" class="col s12 m6 l6 card-width" align=center>
-                    <div class="card white valign">
-                        <div class="card-image">
-                            <div align="center" class="parent-of-badge">
-                                <img class="badge-gif" src="app/user/runTest/img/waiting.gif">
-                            </div>
-                        </div>
-                        <div class="card-content" align=center style="min-height:250px">
-                            <br>
-                            <p class="card-content">You've already asked for test</p>
-                        </div>
-                        <div class="card-action" align=center>
-                            <a class="waves-effect default btn" [routerLink]="['/logo']">Back</a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col s12 m6 l6 card-width" align=center>
+                <div class="col s12 m6 l6 card-width">
                     <div class="card white valign">
                         <div class="card-image">
                             <div align="center" class="parent-of-badge">
                                 <img class="badge-gif" src="app/user/runTest/img/mac_chart.gif">
                             </div>
+                            <span class="card-title purple-text text-darken-2" style="font-weight: 400;">Stats</span>
                         </div>
-                        <div class="card-content" align=center style="min-height:250px">
-                            <br>
-                            <p class="card-content">Check out your previous attempts</p>
+                        <div class="card-content">
+                            <p>All your previous attempts are available</p>
+                            <p>Check them out</p>
                         </div>
                         <div class="card-action" align=center>
-                            <a class="waves-effect default btn" [routerLink]="['/showTests']">Show</a>
+                            <a class="waves-effect default btn" [routerLink]="['/showTests']">Show </a>
                         </div>
                     </div>
                 </div>

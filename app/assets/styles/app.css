@@ -183,14 +183,14 @@ a .disabled {
 }
 
 .parent-of-badge {
-    overflow: hidden;
+    overflow: visible;
     position: relative;
     width: 100%;
+    min-height: 200px;
 }
 
 .badge-gif {
-    height: 100%;
-    width: 50% !important;
+    /*height: 100%;*/
     position: absolute;
     right: 0;
     top: 0;
