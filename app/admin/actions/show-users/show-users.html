@@ -7,9 +7,10 @@
                 <input id="icon_prefix"
                        class="form-control"
                        type="text"
+                       placeholder="Type in what you what to find..."
                        (keyup)="applySearch()"
                        [(ngModel)]="searchFilter"/>
-                <label for="icon_prefix">Search</label>
+                <label for="icon_prefix"></label>
             </div>
             <div class="col s12 m12 offset-l1 l10">
                 <ul class="collection grey lighten-5" id="show-users-list"

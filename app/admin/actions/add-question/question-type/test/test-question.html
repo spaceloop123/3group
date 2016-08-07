@@ -7,9 +7,10 @@
                 <textarea class="materialize-textarea" id="test-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
-                          placeholder="Write down simple and clear description"
+                          placeholder="E.g: Choose the correct option"
                           name="test-question-header-{{question.id}}"></textarea>
-                <!--<label [attr.for]="'test-question-header-' + question.id">Task description</label>-->
+                <label [attr.for]="'test-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
             <!-- difficulty -->
@@ -41,8 +42,9 @@
                 <textarea class="materialize-textarea" id="test-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.question"
+                          placeholder="E.g: The puppy often damaged the narrator’s shoes and journals."
                           name="test-question-question-{{question.id}}"></textarea>
-                <label [attr.for]="'test-question-question-' + question.id">Question</label>
+                <label [attr.for]="'test-question-question-' + question.id" class="active">Question</label>
             </div>
 
             <!-- number of answers -->
@@ -55,8 +57,7 @@
                        (change)="resizeAnswers()"
                        name="test-question-answersNumber-{{question.id}}"/>
                 <label [attr.for]="'test-question-answersNumber-' + question.id" data-error="wrong" class="active">Number
-                    of
-                    options</label>
+                    of options</label>
             </div>
 
             <!-- answers -->
@@ -64,9 +65,11 @@
                 <input [attr.id]="'test-question-answer-' + question.id + '-' + i"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
                        type="text"
+                       placeholder="Write your option"
                        [(ngModel)]="item.content"
                        name="test-question-answer-{{question.id}}-{{i}}"/>
-                <label [attr.for]="'test-question-answer-' + question.id + '-' + i">Option {{i + 1}}</label>
+                <label [attr.for]="'test-question-answer-' + question.id + '-' + i" class="active">Option {{i +
+                    1}}</label>
             </div>
 
             <!-- correct answer number -->

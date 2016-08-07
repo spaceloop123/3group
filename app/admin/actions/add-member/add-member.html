@@ -21,18 +21,21 @@
                     <div class="input-field col s12">
                         <i id="icon_first_name" class="material-icons prefix">account_circle</i>
                         <input id="icon_prefix_first_name" type="text" class="validate"
+                               placeholder="John"
                                ngControl="firstName" [(ngModel)]="member.firstName" name="firstName">
                         <label id="icon_label_first_name" for="icon_prefix_first_name">First Name</label>
                     </div>
                     <div class="input-field col s12">
                         <i id="icon_last_name" class="material-icons prefix">account_circle</i>
                         <input id="icon_prefix_last_name" type="text" class="validate"
+                               placeholder="Smith"
                                ngControl="lastName" [(ngModel)]="member.lastName" name="lastName"/>
                         <label id="icon_label_last_name" for="icon_prefix_last_name">Last Name</label>
                     </div>
                     <div class="input-field col s12">
                         <i id="icon_email" class="material-icons prefix">email</i>
                         <input id="email" type="email" class="validate"
+                               placeholder="itis@email.com"
                                [(ngModel)]="member.email" name="email"/>
                         <label id="icon_label_email" for="email" data-error="wrong" data-success="right">Email</label>
                     </div>

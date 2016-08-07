@@ -7,18 +7,20 @@
                 <textarea class="materialize-textarea" id="audio-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
-                          placeholder="Write down simple and clear description"
+                          placeholder="E.g: Listen to the record and answer the following questions"
                           name="audio-question-header-{{question.id}}"></textarea>
-                <!--<label [attr.for]="'audio-question-header-' + question.id">Task description</label>-->
+                <label [attr.for]="'audio-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
             <!-- path -->
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="audio-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
+                          placeholder="Path to the audio file"
                           [(ngModel)]="question.path"
                           name="audio-question-question-{{question.id}}"></textarea>
-                <label [attr.for]="'audio-question-question-' + question.id">Path</label>
+                <label [attr.for]="'audio-question-question-' + question.id" class="active">Path</label>
             </div>
 
             <!-- difficulty -->

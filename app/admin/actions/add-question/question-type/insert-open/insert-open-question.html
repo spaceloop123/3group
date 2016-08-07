@@ -7,9 +7,10 @@
                 <textarea class="materialize-textarea" id="insert-open-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
-                          placeholder="Write down simple and clear description"
+                          placeholder="E.g: Enter the correct option"
                           name="insert-open-question-header-{{question.id}}"></textarea>
-                <!--<label [attr.for]="'insert-open-question-header-' + question.id" class="active">Description</label>-->
+                <label [attr.for]="'insert-open-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
             <!-- difficulty -->
@@ -49,7 +50,7 @@
                           type="text"
                           [(ngModel)]="question.question[0].content"
                           name="insert-open-question-question-{{question.id}}-1"></textarea>
-                <label [attr.for]="'insert-open-question-answer-' + question.id + '-1'"></label>
+                <label [attr.for]="'insert-open-question-answer-' + question.id + '-1'" class="active"></label>
             </div>
             <div class="input-field col s12 m6 l6">
                 <textarea class="materialize-textarea"
@@ -59,7 +60,7 @@
                           type="text"
                           [(ngModel)]="question.question[1].content"
                           name="insert-open-question-question-{{question.id}}-2"></textarea>
-                <label [attr.for]="'insert-open-question-answer-' + question.id + '-2'"></label>
+                <label [attr.for]="'insert-open-question-answer-' + question.id + '-2'" class="active"></label>
             </div>
 
         </div>
