@@ -81,11 +81,12 @@ main {
 }
 
 .timer-style {
-    width: 180px;
-    box-shadow: 7px 7px 5px rgba(95, 95, 95, 0.6);
-    padding: 8px;
-    border-radius: 10px;
-    font-size: xx-large;
+    /*width: 180px;*/
+    /*box-shadow: 7px 7px 5px rgba(95, 95, 95, 0.6);*/
+    /*padding: 8px;*/
+    /*border-radius: 10px;*/
+    /*font-size: xx-large;*/
+    vertical-align: baseline;
 }
 
 .logo {
@@ -177,8 +178,22 @@ a .disabled {
     transform: translateY(-50%);
 }
 
-.add-question-icon-container {
+.add-icon-container {
     padding: 20%;
+}
+
+.parent-of-badge {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.badge-gif {
+    height: 100%;
+    width: 50% !important;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .login-btn {

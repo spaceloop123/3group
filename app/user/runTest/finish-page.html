@@ -3,13 +3,25 @@
 </div>
 <div *ngIf="role==='user'">
     <div class="row">
-        <div class="col l10 m10 s10 offset-m1 offset-l1 offset-s1">
-            <div class="card medium #fafafa grey lighten-5 valign">
-                <div class="card-content flow-text" align=left>
-                    <div class="text">"bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla"</div>
-                    <div>"bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla"</div>
-                    <a style="display: inline-block;" (click)="exit()">главной странице</a>
-                    <div>"bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla"</div>
+        <div class="col s10 m6 l6 offset-m3 offset-l3 offset-s1">
+            <div class="card {{cardSize}}">
+                <div class="card-image">
+                    <div align="center" class="parent-of-badge">
+                        <img class="badge-gif" src="app/user/runTest/badge.gif">
+                    </div>
+                    <span class="card-title blue-text">Success</span>
+                </div>
+                <div class="card-content flow-text">
+                    <div *ngIf="currentWidth < 600">
+                        <br><br>
+                    </div>
+                    <p class="green-text text-darken-1">You successfully completed the test!</p>
+                    <p>Please, wait for your results</p>
+                </div>
+                <div class="card-action">
+                    <div align="center">
+                        <a class="waves-effect waves-light btn" (click)="exit()">OK</a>
+                    </div>
                 </div>
             </div>
         </div>

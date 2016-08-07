@@ -3,16 +3,17 @@
         <div class="row">
 
             <!-- header -->
-            <div class="input-field col s12 m12 l12 flow-text">
+            <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="audio-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
+                          placeholder="Write down simple and clear description"
                           name="audio-question-header-{{question.id}}"></textarea>
-                <label [attr.for]="'audio-question-header-' + question.id">Task description</label>
+                <!--<label [attr.for]="'audio-question-header-' + question.id">Task description</label>-->
             </div>
 
-            <!-- text -->
-            <div class="input-field col s12 m12 l12 flow-text">
+            <!-- path -->
+            <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="audio-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.path"
@@ -21,37 +22,37 @@
             </div>
 
             <!-- difficulty -->
-            <div class="input-field col s12 m12 l12 flow-text">
+            <div class="input-field col s12 m6 l6">
                 <input id="audio-question-difficulty-{{question.id}}"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
-                       placeholder="Complexity (between 1 and 100)"
+                       placeholder="Of 1 to 100"
                        type="number" min="1" max="100" class="validate"
                        [(ngModel)]="question.difficulty"
                        name="audio-question-difficulty-{{question.id}}"/>
-                <label [attr.for]="'audio-question-difficulty-' + question.id" class="active" data-error="wrong">Task
-                    complexity</label>
+                <label [attr.for]="'audio-question-difficulty-' + question.id"
+                       class="active" data-error="wrong">Complexity</label>
             </div>
 
             <!-- subquestions -->
             <div *ngIf="question.subQuestions.length !== 0" class="col s12 m12 l12">
                 <ul class="sub-questions-list collection grey lighten-5">
-                    <li class="collection-item sub-question" *ngFor=" let item of question.subQuestions; let i = index"
+                    <li class="collection-item sub-question" *ngFor="let item of question.subQuestions; let i = index"
                         [ngClass]="item['state']">
                         <div [ngSwitch]="item['type']">
                             <div *ngSwitchCase="'TestQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Test Sub-Question</h6>
+                                <h6 class="flow-text">Test question</h6>
                                 <test-question-component [question]="item"
                                                          (notify)="onQuestionCreate($event, i)">
                                 </test-question-component>
                             </div>
                             <div *ngSwitchCase="'InsertOpenQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Open-Insert Sub-Question</h6>
+                                <h6 class="flow-text">Gap-filling</h6>
                                 <insert-open-question-component [question]="item"
                                                                 (notify)="onQuestionCreate($event, i)">
                                 </insert-open-question-component>
                             </div>
                             <div *ngSwitchCase="'InsertTestQuestion'">
-                                <h6 class="flow-text">{{i + 1}}. Insert Test Sub-Question</h6>
+                                <h6 class="flow-text">One of many</h6>
                                 <insert-test-question-component [question]="item"
                                                                 (notify)="onQuestionCreate($event, i)">
                                 </insert-test-question-component>
@@ -68,7 +69,8 @@
                 <a class="waves-effect btn-flat disabled"
                    id="reading-question-add-subquestions-btn-edit-{{question.id}}-disabled"
                    (click)="toastError()">
-                    <i class="material-icons grey-text">add</i>
+                    <!--<i class="material-icons grey-text">add</i>-->
+                    add sub-questions
                 </a>
             </div>
 
@@ -76,68 +78,51 @@
                 <a class="waves-effect btn-flat modal-trigger"
                    materialize="leanModal" [materializeParams]="[{dismissible: false}]"
                    id="reading-question-add-subquestions-btn-done-{{question.id}}"
-                   [attr.href]="'#readingChooseSubQuestion'">
-                    <i class="material-icons blue-text">add</i>
+                   [attr.href]="'#readingChooseSubQuestion-' + question.id">
+                    <!--<i class="material-icons blue-text">add</i>-->
+                    add sub-questions
                 </a>
+            </div>
 
-                <!-- modal for sub-questions -->
-                <div id="readingChooseSubQuestion" class="modal modal-fixed-footer">
-                    <div class="modal-content">
-                        <div class="row">
-                            <div class="col s12 m4" *ngFor="let question of questionsCatalog; let i = index">
-                                <div class="card">
-                                    <div class="card-image waves-effect waves-block waves-light modal-action modal-close"
-                                         (click)="changeState(i)">
-                                        <div class="add-question-icon-container">
-                                            <img class="activator" src="{{question['image']}}">
-                                        </div>
+            <!-- modal for sub-questions -->
+            <div id="readingChooseSubQuestion-{{question.id}}" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="col s12 m4" *ngFor="let question of questionsCatalog; let i = index">
+                            <div class="card">
+                                <div class="card-image waves-effect waves-block waves-light modal-action modal-close"
+                                     (click)="changeState(i)">
+                                    <div class="add-question-icon-container">
+                                        <img class="activator" src="{{question['image']}}">
                                     </div>
-                                    <div class="card-content">
-                                    <span class="card-title flow-text activator grey-text text-darken-4">{{question['title']}}<i
-                                            class="material-icons right">more_vert</i></span>
-                                    </div>
-                                    <div class="card-reveal">
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title activator grey-text text-darken-4" style="font-size: 1.3em">
+                                        {{question['title']}}<i class="material-icons right">more_vert</i></span>
+                                </div>
+                                <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4">{{question['title']}}<i
                                             class="material-icons right">close</i></span>
-                                        <p>{{question['description']}}</p>
-                                    </div>
+                                    <p>{{question['description']}}</p>
                                 </div>
                             </div>
                         </div>
-
-
-                        <!--<div class="modal-content">-->
-                        <!--<p class="flow-text">Please, select question type to add</p>-->
-                        <!--<form action="#">-->
-                        <!--<div class="col s12" *ngFor="let question of questionsCatalog; let i = index">-->
-                        <!--<input [attr.id]="'subquestion-catalog-options-' + i"-->
-                        <!--type="checkbox" class="filled-in"-->
-                        <!--[checked]="question['checked']"-->
-                        <!--(change)="changeState(i)"-->
-                        <!--name="subquestion-catalog-options-{{i}}"/>-->
-                        <!--<label [attr.for]="'subquestion-catalog-options-' + i">-->
-                        <!--{{question['type']}}-->
-                        <!--</label>-->
-                        <!--</div>-->
-                        <!--</form>-->
-                        <!--</div>-->
-                    </div>
-                    <div class="modal-footer">
-                        <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-                        <!--<a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>-->
-                        <!--<a class="modal-action modal-close waves-effect waves-green btn-flat"-->
-                        <!--(click)="addSubQuestion()">Select</a>-->
                     </div>
                 </div>
-
+                <div class="modal-footer">
+                    <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                    <!--<a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>-->
+                    <!--<a class="modal-action modal-close waves-effect waves-green btn-flat"-->
+                    <!--(click)="addSubQuestion()">Select</a>-->
+                </div>
             </div>
 
             <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
-                <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="audio-question-finish-btn-{{question.id}}"
+                <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="speech-question-finish-btn-{{question.id}}"
                    (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
-                <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="audio-question-edit-btn-{{question.id}}"
+                <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="speech-question-edit-btn-{{question.id}}"
                    (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
-                <a class="waves-effect btn-flat" id="audio-question-abort-btn-{{question.id}}"
+                <a class="waves-effect btn-flat" id="speech-question-abort-btn-{{question.id}}"
                    (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
             </div>
         </div>

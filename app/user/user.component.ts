@@ -3,11 +3,12 @@ import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {Http} from "@angular/http";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {RecordSpeechComponent} from "./runTest/record-speech.component";
+import {PlayAudioComponent} from "./runTest/play-audio.component";
 
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES, UserComponent, RecordSpeechComponent]
+    directives: [ROUTER_DIRECTIVES, UserComponent, RecordSpeechComponent, PlayAudioComponent]
 })
 
 export class UserComponent implements OnInit {

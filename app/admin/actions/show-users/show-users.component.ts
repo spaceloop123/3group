@@ -1,29 +1,29 @@
-import {Component, OnInit, OnChanges} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
-import {InfiniteScroll} from 'angular2-infinite-scroll';
-import {CustomHttp} from '../../../common/services/CustomHttp';
+import {InfiniteScroll} from "angular2-infinite-scroll";
+import {CustomHttp} from "../../../common/services/CustomHttp";
+import {StateService} from "./StateService";
 
 @Component({
     selector: 'show-users-component',
     templateUrl: 'app/admin/actions/show-users/show-users.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, InfiniteScroll],
-    providers: [CustomHttp]
+    providers: [CustomHttp, StateService]
 })
 
-export class ShowUsersComponent implements OnChanges, OnInit{
+export class ShowUsersComponent implements OnInit, OnDestroy {
 
-    private searchFilter = '';
-    private isThereDataToScroll: boolean;
+    private searchFilter:string;
+    private isThereDataToScroll:boolean;
     userList = [];
     shownUsers = 0;
 
     // array = [];
     // sum = 30;
 
-    constructor(private customHttp: CustomHttp,
-                private router: Router) {
-        this.searchFilter = '';
+    constructor(private customHttp:CustomHttp,
+                private router:Router) {
     }
 
     getUsers() {
@@ -55,20 +55,20 @@ export class ShowUsersComponent implements OnChanges, OnInit{
         console.log(this.userList);
     }
 
-    onScrollDown () {
+    onScrollDown() {
         console.log('scrolled down!!');
         this.shownUsers += 10;
         this.getUsers();
+        $('#show-users-list').scrollTop(StateService.scrollPosition);
     }
 
-    applySearch () {
-        var that = this;
+    applySearch() {
         console.log(this.searchFilter);
         this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('search posted');
                 console.log(response);
-                that.renewUserList(response);
+                this.renewUserList(response);
             });
         this.shownUsers = 0;
     }
@@ -79,15 +79,23 @@ export class ShowUsersComponent implements OnChanges, OnInit{
         } else if (user.role === 'teacher') {
             this.router.navigate(['/admin/teacher_info', user.id]);
         }
+        StateService.scrollPosition = $('#show-users-list').scrollTop();
     }
 
-    ngOnInit () {
+    ngOnInit() {
+        console.log(StateService.searchFilter);
+        console.log(this.searchFilter);
+        if (StateService.fromDetail == true) {
+            this.searchFilter = StateService.searchFilter;
+        } else {
+            this.searchFilter = '';
+        }
         console.log('initialized');
         this.getUsers();
     }
 
-    ngOnChanges () {
-
+    ngOnDestroy() {
+        StateService.searchFilter = this.searchFilter;
     }
 }
 

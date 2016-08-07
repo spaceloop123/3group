@@ -23,6 +23,7 @@ import {Subscription} from "rxjs/Rx";
 //others
 
 
+
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
@@ -58,6 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
         let pathname = window.location.href;
         return ((pathname.indexOf("/login") !== -1) ||
         ((this.authService.role === 'user') && (pathname.indexOf("/user") !== -1)) ||
+        ((this.authService.role === 'user') && (pathname.indexOf("/finishTest") !== -1)) ||
         ((this.authService.role === 'teacher') && (pathname.indexOf("/teacher") !== -1)) ||
         ((this.authService.role === 'admin') && (pathname.indexOf("/admin/assignTest") !== -1)) ||
         ((this.authService.role === 'admin') && (pathname.indexOf("/admin/teacher_info") !== -1)));

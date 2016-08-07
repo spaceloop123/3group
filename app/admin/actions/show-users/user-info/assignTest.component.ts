@@ -6,13 +6,14 @@ import {MaterializeDirective} from "angular2-materialize";
 import {ChartsComponent} from "../../../../user/charts/charts.component";
 import {CustomHttp} from "../../../../common/services/CustomHttp";
 import {InfiniteScroll} from "angular2-infinite-scroll/angular2-infinite-scroll";
+import {StateService} from "../StateService";
 
 
 @Component({
 
     templateUrl: 'app/admin/actions/show-users/user-info/assignTest.html',
     directives: [DatepickerComponent, ChartsComponent, CHART_DIRECTIVES, ROUTER_DIRECTIVES, MaterializeDirective, InfiniteScroll],
-
+    providers: [StateService]
 })
 
 export class AssignTestComponent implements OnInit {
@@ -23,6 +24,9 @@ export class AssignTestComponent implements OnInit {
     private sub;
     private isActive;
     teacherList = [];
+
+    constructor(private route:ActivatedRoute,
+                private customHttp:CustomHttp) {}
 
     onNotify(message:string):void {
         var field = <HTMLElement><any>document.getElementById("datepicker");
@@ -71,11 +75,9 @@ export class AssignTestComponent implements OnInit {
             });
     }
 
-    constructor(private route:ActivatedRoute,
-                private customHttp:CustomHttp) {
-    }
-
     ngOnInit() {
+        StateService.fromDetail = true;
+        //TODO return by back button on keyboard and save searchFilter as it was
         //TODO check test status for user and block test assignment if test is requested or has been assigned
         this.getTeacherList();
         var that = this;

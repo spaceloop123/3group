@@ -1,10 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {CustomHttp} from "../../../../common/services/CustomHttp";
+import {StateService} from "../StateService";
 
 @Component({
     templateUrl: 'app/admin/actions/show-users/teacher-info/teacher-info.html',
     directives: [ROUTER_DIRECTIVES],
+    providers: [StateService]
 
 })
 
@@ -18,10 +20,10 @@ export class TeacherInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        var that = this;
+        StateService.fromDetail = true;
         this.sub = this.route.params.subscribe(params => {
-            that.currentUser = params['id'];
-            console.log('that.currentUser ' + that.currentUser);
+            this.currentUser = params['id'];
+            console.log('that.currentUser ' + this.currentUser);
         });
     }
 }
