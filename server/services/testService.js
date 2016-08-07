@@ -104,7 +104,7 @@ module.exports.getTeachersTests = function (teacher, done) {
 
     new Validator()
         .checkItem('tests', function (callback) {
-            Test.find({teacher: teacher, status: 'checking'}, callback);
+            Test.find({teacher: teacher, status: 'checking'}).populate('answers').exec(callback);
         })
         .exec(function (res) {
             res.tests.forEach(function (test, tests) {
