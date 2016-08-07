@@ -1,7 +1,15 @@
 exports.isAuthenticated = function (req, res, next) {
-    req.isAuthenticated()
-        ? next()
-        : res.status(401).end();
+    if (req.isAuthenticated()) {
+        var tmp = req.session.passport;
+        req.session.regenerate(function () {
+            req.session.passport = tmp;
+            req.session.save(function () {
+                next();
+            });
+        });
+    } else {
+        res.status(401).end();
+    }
 };
 
 exports.isAdmin = function (req, res, next) {
