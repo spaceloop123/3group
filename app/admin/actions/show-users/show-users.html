@@ -23,7 +23,9 @@
                             <div class="valign-wrapper">
                                 <span class="col s6 m6 title left-align">{{user.firstName}} {{user.lastName}}</span>
                                 <span class="col s4 m4 grey-text text-darken-1 center-align">{{user.role}}</span>
-                                <i class="material-icons grey-text">trending_flat</i>
+                                <i *ngIf="user.role !== 'admin' && user.role !== 'guest'" class="material-icons grey-text">trending_flat</i>
+                                <i *ngIf="user.role === 'admin'" class="material-icons grey-text">supervisor_account</i>
+                                <i *ngIf="user.role === 'guest'" class="material-icons grey-text">perm_identity</i>
                             </div>
                         </a>
                     </li>

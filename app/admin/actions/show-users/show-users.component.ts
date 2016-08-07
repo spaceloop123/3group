@@ -77,6 +77,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
         console.log(this.searchFilter);
         if (StateService.fromDetail == true) {
             this.searchFilter = StateService.searchFilter;
+            StateService.fromDetail = false;
         } else {
             this.searchFilter = '';
         }

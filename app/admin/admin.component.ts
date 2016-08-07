@@ -55,7 +55,6 @@ export class AdminComponent implements OnInit {
         console.log(StateService.fromDetail);
         if (StateService.fromDetail === true) {
             this.currentTab = 3;
-            StateService.fromDetail = false;
         } else {
             this.currentTab = 2;
         }
