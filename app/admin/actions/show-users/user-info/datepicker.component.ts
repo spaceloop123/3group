@@ -59,31 +59,34 @@ export class DatepickerComponent implements OnInit {
     confirmDate() {
         var a = document.getElementById("dateFrom");
         var b = document.getElementById("dateTo");
-        if (!a.value || !b.value) {
+        if (a.value && b.value) {
+
+
+            this.data.dateFrom.setFullYear(parseInt(a.value.substr(0, 4)), parseInt(a.value.substr(5, 2)) - 1, parseInt(a.value.substr(8, 2)));
+            this.data.dateFrom.setUTCHours(document.getElementById("hoursFrom").value);
+            this.data.dateFrom.setUTCMinutes(document.getElementById("minutesFrom").value);
+
+            this.data.dateTo.setFullYear(parseInt(b.value.substr(0, 4)), parseInt(b.value.substr(5, 2)) - 1, parseInt(b.value.substr(8, 2)));
+            this.data.dateTo.setUTCHours(document.getElementById("hoursTo").value);
+            this.data.dateTo.setUTCMinutes(document.getElementById("minutesTo").value);
+
+            console.log('month-test', this.data.dateFrom);
+            this.notify.emit(JSON.stringify(this.data));
+
+            if (this.state !== 'date-picker-active') {
+                this.state = 'date-picker-active';
+                this.disableAllInputFields();
+                this.toggleState.emit(this.state);
+            } else {
+                this.state = 'teacher-picker-active';
+                this.enableAllInputFields();
+                this.toggleState.emit(this.state);
+            }
+
         }
-
-        this.data.dateFrom.setFullYear(parseInt(a.value.substr(0, 4)), parseInt(a.value.substr(5, 2)) - 1, parseInt(a.value.substr(8, 2)));
-        this.data.dateFrom.setUTCHours(document.getElementById("hoursFrom").value);
-        this.data.dateFrom.setUTCMinutes(document.getElementById("minutesFrom").value);
-
-        this.data.dateTo.setFullYear(parseInt(b.value.substr(0, 4)), parseInt(b.value.substr(5, 2)) - 1, parseInt(b.value.substr(8, 2)));
-        this.data.dateTo.setUTCHours(document.getElementById("hoursTo").value);
-        this.data.dateTo.setUTCMinutes(document.getElementById("minutesTo").value);
-
-        console.log('month-test', this.data.dateFrom);
-        this.notify.emit(JSON.stringify(this.data));
-
-        if (this.state !== 'date-picker-active') {
-            this.state = 'date-picker-active';
-           this.disableAllInputFields();
-            this.toggleState.emit(this.state);
-        } else {
-            this.state = 'teacher-picker-active';
-            this.enableAllInputFields();
-            this.toggleState.emit(this.state);
+        else {
+            console.log("select date")
         }
-
     }
-
 }
 

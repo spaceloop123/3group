@@ -27,7 +27,7 @@ export class AssignTestComponent implements OnInit {
 
     constructor(private route:ActivatedRoute,
                 private customHttp:CustomHttp) {
-      //  this.state = 'date-picker-active';
+        //  this.state = 'date-picker-active';
     }
 
     onNotify(responce):void {
@@ -46,7 +46,6 @@ export class AssignTestComponent implements OnInit {
         }
         this.assignedTeacher.isActive = 'active';
         console.log(this.assignedTeacher);
-        // document.getElementById("assignTestButton").disabled = false;
     }
 
     getTeacherList() {
@@ -77,7 +76,6 @@ export class AssignTestComponent implements OnInit {
             });
 
     }
-
 
 
     ngOnInit() {

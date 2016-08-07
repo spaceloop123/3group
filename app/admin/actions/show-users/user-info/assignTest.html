@@ -49,7 +49,9 @@
                     </div>
 
                     <div class="card-action" align="center">
-                        <a id="assignTestButton" class="waves-effect default btn" (click)="assignTest()" disabled>Assign Test</a>
+                        <a id="assignTestButton" class="waves-effect default btn" (click)="assignTest()"
+                           [ngClass]="(state === 'date-picker-active') ? null : 'disabled' "
+                           href="javascript:;">Assign Test</a>
                     </div>
                 </div>
             </div>
