@@ -6,18 +6,19 @@ import {TestInfo} from "./test.info";
 import {QuestionInfo} from "./question.info";
 import {SubQuestionsInfo} from "./subQuestions.info";
 import {NavigationItem} from "../teacher/navigation.item";
+import {RecordSpeechComponent} from "../user/runTest/record-speech.component";
 
 @Component({
     selector: 'display-test',
     templateUrl: 'app/test/test.html',
-    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective]
+    directives: [REACTIVE_FORM_DIRECTIVES, MaterializeDirective, RecordSpeechComponent]
 })
 
 export class TestComponent implements OnChanges {
 
     @Input() testInfo:TestInfo;
     @Input() answersId:any;
-    @Input() mode: string;
+    @Input() mode:string;
     @Output() progress = new EventEmitter<number>();
     question:any;
     top:any;
@@ -27,9 +28,8 @@ export class TestComponent implements OnChanges {
     myAudio:any;
     isPlayed:boolean;
     playCount:number;
-    currentItem: NavigationItem;
-    currentId: any;
-
+    currentItem:NavigationItem;
+    currentId:any;
 
 
     options:any[];
@@ -43,18 +43,19 @@ export class TestComponent implements OnChanges {
         this.answer = '';
 
     }
+
     ngOnChanges(changes:SimpleChanges):any {
-        if(changes['testInfo'] && changes['testInfo'].currentValue) {
+        if (changes['testInfo'] && changes['testInfo'].currentValue) {
             this.testInfo = changes['testInfo'].currentValue;
         }
-        if(changes['answersId'] && changes['answersId']) {
+        if (changes['answersId'] && changes['answersId']) {
             this.answersId = changes['answersId'].currentValue;
         }
-        if(changes['mode']) {
+        if (changes['mode']) {
             this.mode = changes['mode'].currentValue;
         }
 
-        if(this.mode === 'user') {
+        if (this.mode === 'user') {
             if (this.testInfo !== undefined && this.testInfo !== null) {
 
                 this.questionInfo = this.restoreQuestionInfo();
@@ -69,24 +70,24 @@ export class TestComponent implements OnChanges {
                 this.reportProgress();
 
             }
-        }else if(this.mode === 'teacher'){
-            if (this.testInfo !== undefined && this.answersId !== undefined){
+        } else if (this.mode === 'teacher') {
+            if (this.testInfo !== undefined && this.answersId !== undefined) {
                 let item = new NavigationItem(1, -1, null);
                 this.questionInfo = this.restoreQuestionInfo();
                 this.subQuestionInfo = this.restoreSubQuestionInfo();
-                
+
                 if (this.questionInfo === null) {
                     this.questionInfo = new QuestionInfo('', null, null, this.answersId);
                     item = new NavigationItem(1, -1, null);
-                }else{
-                    item.questionIndex =  this.questionInfo.questionIndex;
+                } else {
+                    item.questionIndex = this.questionInfo.questionIndex;
                 }
                 if (this.subQuestionInfo === null) {
                     this.subQuestionInfo = new SubQuestionsInfo(null, null, null);
-                    
-                }else{
-                    if(this.subQuestionInfo.subQuestionIndex != null)
-                    item.subQuestionIndex = this.subQuestionInfo.subQuestionIndex;
+
+                } else {
+                    if (this.subQuestionInfo.subQuestionIndex != null)
+                        item.subQuestionIndex = this.subQuestionInfo.subQuestionIndex;
                 }
                 this.goByItem(item);
             }
@@ -95,14 +96,14 @@ export class TestComponent implements OnChanges {
     }
 
     requestCurrentQuestion() {
-        if(this.mode === 'user') {
+        if (this.mode === 'user') {
             if (this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()) {
                 this.getSubQuestionFromServer(this.subQuestionInfo);
             } else {
                 this.getQuestionFromServer(this.questionInfo);
 
             }
-        } else if(this.mode === 'teacher'){
+        } else if (this.mode === 'teacher') {
             if (this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()) {
                 this.getSubQuestionFromServerByAnswerId(this.subQuestionInfo);
             } else {
@@ -127,7 +128,8 @@ export class TestComponent implements OnChanges {
     restoreSubQuestionInfo() {
         return SubQuestionsInfo.fromJson(localStorage.getItem('subQuestionInfo'));
     }
-    getSubQuestionFromServerByAnswerId(si:SubQuestionsInfo){
+
+    getSubQuestionFromServerByAnswerId(si:SubQuestionsInfo) {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -152,7 +154,7 @@ export class TestComponent implements OnChanges {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-            this.currentId = this.questionInfo.answersId[this.questionInfo.questionIndex - 1].id ;
+        this.currentId = this.questionInfo.answersId[this.questionInfo.questionIndex - 1].id;
 
         ///console.log('this.currentId ' + this.currentId);
         //console.log('do something');
@@ -205,7 +207,6 @@ export class TestComponent implements OnChanges {
         return result;
     }
 
-    
 
     saveQuestionFromResponse(response) {
         this.question = response.question;
@@ -218,20 +219,26 @@ export class TestComponent implements OnChanges {
                     toast('You can listen this story twice', 5000);
                 }
             }
+
+        }
+        if (this.mode === 'user' && this.question.type === "SpeechQuestion") {
+            this.answer = this.testInfo.id.toString() + this.questionInfo.questionIndex.toString();
+            console.log('this.answer ' + this.answer);
+
         }
         this.saveQuestionInfo();
         this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
         this.saveSubQuestionInfo();
-       
+
         this.processQuestion(this.question);
-        if(this.mode === 'teacher'){
+        if (this.mode === 'teacher') {
             this.answer = response.answer;
         }
 
     }
 
     saveSubQuestionFromResponse(response) {
-        if(this.mode === 'teacher'){
+        if (this.mode === 'teacher') {
             this.answer = response.answer;
         }
         this.subQuestion = response.question;
@@ -278,7 +285,7 @@ export class TestComponent implements OnChanges {
             this.playCount = 0;
         }
 
-        if(this.mode === 'user') {
+        if (this.mode === 'user') {
 
             if (this.playCount < 2 && this.myAudio.paused) {
                 this.myAudio.play();
@@ -290,14 +297,14 @@ export class TestComponent implements OnChanges {
                 //console.log('Your have spent all of the attempts!');
                 toast('Sorry. Your have spent all of the attempts!', 2000, 'rounded')
             }
-        } else{
+        } else {
             this.myAudio.play();
         }
     }
 
     public  sendAnswer(callBack) {
 
-            this.sendAnswerToServer(this.answer, callBack);
+        this.sendAnswerToServer(this.answer, callBack);
 
     }
 
@@ -305,7 +312,7 @@ export class TestComponent implements OnChanges {
         var that = this;
         var header = new Headers();
         let url;
-        if(this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()){
+        if (this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()) {
             url = 'subanswer';
         } else {
             url = 'answer';
@@ -367,9 +374,9 @@ export class TestComponent implements OnChanges {
             }
         }
     }
-    
-    
-    public goByItem(item: NavigationItem){
+
+
+    public goByItem(item:NavigationItem) {
         this.currentItem = item;
         //console.log('item.subQuestionIndex ' + item.subQuestionIndex);
         this.questionInfo.questionIndex = item.questionIndex;
@@ -383,21 +390,21 @@ export class TestComponent implements OnChanges {
 
     }
 
-    getCurrentItem(){
+    getCurrentItem() {
         return this.currentItem;
     }
 
-    goToNextItem(item: NavigationItem){
-       
-        if(this.subQuestionInfo.subQuestionIndex === -1){
+    goToNextItem(item:NavigationItem) {
+
+        if (this.subQuestionInfo.subQuestionIndex === -1) {
             ++this.questionInfo.questionIndex;
-        } else if(this.subQuestionInfo.subQuestionIndex === this.questionInfo.answersId.length - 1){
+        } else if (this.subQuestionInfo.subQuestionIndex === this.questionInfo.answersId.length - 1) {
             ++this.questionInfo.questionIndex;
-        } else{
+        } else {
             //???
         }
         this.requestCurrentQuestion();
-    }       
+    }
 
     goForward():boolean {
         let canGo = true;
@@ -419,7 +426,7 @@ export class TestComponent implements OnChanges {
     }
 
     reportProgress() {
-     
+
         this.progress.emit((this.questionInfo.questionIndex - 1) * 100 / this.testInfo.numQuestions);
     }
 

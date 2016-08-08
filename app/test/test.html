@@ -84,9 +84,10 @@
 </div>
 <div *ngIf="top.type==='SpeechQuestion'">
     <div class="card-content flow-text" align=left>
-        <div>
-            SpeechQuestion
+        <div class="card-content" align=left>
+            <blockquote>{{top.header}}</blockquote>
+            <p class="black-text">{{top.question}}</p>
         </div>
+        <speech-recorder [filename]="answer"></speech-recorder>
     </div>
 </div>
-

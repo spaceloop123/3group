@@ -1,16 +1,27 @@
 import {onError} from "@angular/upgrade/src/util";
-import {Component} from "@angular/core";
+import {Component, SimpleChanges, Input, OnChanges} from "@angular/core";
+
 @Component({
     selector: 'speech-recorder',
     templateUrl: 'app/user/runTest/record-speech.html',
     directives: []
 })
 
-export class RecordSpeechComponent {
+export class RecordSpeechComponent implements OnChanges {
 
     socket:any;
     stream:any;
     recorder:any;
+    @Input() filename;
+
+    ngOnChanges(changes:SimpleChanges):any {
+        if (changes['filename']) {
+            this.filename = changes['filename'].currentValue;
+            console.log('this.filename ' + this.filename);
+        }
+
+    }
+
 
     getUserMediaWrapper(session, successHandler, errorHandler) {
         (navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia ||
@@ -25,7 +36,8 @@ export class RecordSpeechComponent {
         };
         let that = this;
         this.socket.onopen = function (event) {
-            that.socket.send("neTest.wav");  //send fileName(Maxim)
+            console.log('this.filename ' + this.filename);
+            that.socket.send('aaaa');  //send fileName(Maxim)
         };
 
         this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
