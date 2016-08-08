@@ -1,5 +1,6 @@
 <div class="card lighten-1">
     <div class='row'>
+        <div align="center" class='flow-text'>User statistics</div>
         <div [ngClass]='chart_style'>
             <base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
                         [datasets]="lineChartData"
@@ -12,7 +13,7 @@
                         (chartClick)="chartClicked($event)"></base-chart>
         </div>
         <div [ngClass]='info_style'>
-            <div *ngIf="testStatistics.length !== 0">
+            <div *ngIf="testStatistics.length !== 0" align="left">
                 <div>
                     Your results
                 </div>
@@ -29,11 +30,12 @@
 
                 </ul>
             </div>
-            <ul>
-                <li *ngIf="testStatistics.length === 0">
-                    Click on the chart to view history details
-                </li>
-            </ul>
+            <div *ngIf="testStatistics.length === 0 && lineChartLabels.length !== 0">
+                <p>Click on the chart to view history details</p>
+            </div>
+            <div *ngIf="testStatistics.length === 0 && lineChartLabels.length === 0">
+                <p>User has no statiskics</p>
+            </div>
         </div>
     </div>
 </div>
