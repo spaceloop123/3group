@@ -11,7 +11,7 @@
                         (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)"></base-chart>
         </div>
-        <div class='col s12 m5 l5 blue-grey-text flow-text'>
+        <div class='col s12 m5 l5 blue-grey-text charts-class'>
             <div *ngIf="testStatistics.length !== 0">
                 <div>
                     Your results
@@ -31,7 +31,7 @@
             </div>
             <ul>
                 <li *ngIf="testStatistics.length === 0">
-                    click on the chart to view history details
+                    Click on the chart to view history details
                 </li>
             </ul>
         </div>

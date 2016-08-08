@@ -70,7 +70,7 @@ app.use(expressSession({
     store: new MongoStore({
         url: "mongodb://localhost/passport"
     }),
-    secret: 'SECRET', resave: false, saveUninitialized: false,
+    secret: 'SECRET', resave: true, saveUninitialized: false,
     cookie: {secure: false, maxAge: 24 * 60 * 60 * 1000}
 }));
 
