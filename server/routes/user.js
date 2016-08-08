@@ -17,45 +17,45 @@ var mdlwares = require('../libs/mdlwares');
 router.use(mdlwares.isTested);
 
 router.get('/init_test', function (req, res) {
-    testService.initTest(req.user.id, response.dataResponse(res));
+    testService.initTest(req.user.id, response.dataResponse(req, res));
 });
 
 router.post('/next_question', function (req, res) {
-    questionService.getQuestion(req.user.id, req.body.testId, req.body.n, response.dataResponse(res));
+    questionService.getQuestion(req.user.id, req.body.testId, req.body.n, response.dataResponse(req, res));
 });
 
 router.post('/next_subquestion', function (req, res) {
-    questionService.getSubquestion(req.user.id, req.body.testId, req.body.id, response.dataResponse(res));
+    questionService.getSubquestion(req.user.id, req.body.testId, req.body.id, response.dataResponse(req, res));
 });
 
 router.post('/answer', function (req, res) {
-    answerService.addAnswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
+    answerService.addAnswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(req, res));
 });
 
 router.post('/subanswer', function (req, res) {
-    answerService.addSubanswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(res));
+    answerService.addSubanswer(req.user.id, req.body.testId, req.body.questionId, req.body.answer, response.emptyResponse(req, res));
 });
 
 router.post('/end_test', function (req, res) {
-    testService.changeTestStatus('checking', req.body.testId, response.emptyResponse(res));
+    testService.finishTest(req.user.id, req.body.testId, response.emptyResponse(req, res));
 });
 
 router.use(mdlwares.isUser);
 
 router.get('/test_info', function (req, res) {
-    testService.getTestStatus(req.user.id, response.dataResponse(res));
+    testService.getTestStatus(req.user.id, response.dataResponse(req, res));
 });
 
 router.get('/ask_test', function (req, res) {
-    testService.requestTest(req.user.id, response.emptyResponse(res));
+    testService.requestTest(req.user.id, response.emptyResponse(req, res));
 });
 
 router.get('/history', function (req, res) {
-    userService.getUserHistory(req.user.id, response.dataResponse(res));
+    userService.getUserHistory(req.user.id, response.dataResponse(req, res));
 });
 
 router.post('/test_history', function (req, res) {
-    testService.getTestsHistory(req.user.id, req.body.testIds, response.dataResponse(res));
+    testService.getTestsHistory(req.user.id, req.body.testIds, response.dataResponse(req, res));
 });
 
 module.exports = router;

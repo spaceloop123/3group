@@ -29,16 +29,19 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     childButtonClass:string = 'no-display-style';
     finishButtonClass:string = 'no-display-style';
     status:number[];
+    marks:number[];
     sendButtonClass:string = 'no-display-style';
     nextButtonClass:string = 'no-display-style';
     countSentAnswers:number = 0;
     totalAnswersCount:number = 0;
+    markPlaceClass:string = 'green-text text-darken-1';
 
     constructor(private route:ActivatedRoute,
                 private http:Http,
                 private router:Router) {
         this.navigationItems = new Array();
         this.answersId = [];
+        this.marks = new Array();
         this.opMode = "teacher";
         this.status = new Array();
         this.rangeValue = 50;
@@ -77,6 +80,14 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
 
     saveStatus() {
         localStorage.setItem('status', JSON.stringify(this.status));
+    }
+
+    restoreTeacherMarks() {
+        return JSON.parse(localStorage.getItem('marks'));
+    }
+
+    saveTeacherMarks() {
+        localStorage.setItem('marks', JSON.stringify(this.marks));
     }
 
     restoreStatus() {
@@ -137,10 +148,19 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
                 JSON.stringify({testId: testId}), {headers: header})
             .toPromise()
             .then(response => {
-                that.router.navigate(['/home']);
-                localStorage.clear();
+                that.router.navigate(['/teacher']);
+                that.clearTestInfo();
             }).catch();
 
+    }
+
+    setRangeValue() {
+        this.rangeValue = (this.marks[this.currentIndex] === -1) ? 50 : this.marks[this.currentIndex];
+    }
+
+    clearTestInfo() {
+        localStorage.clear();
+        localStorage.setItem('auth', 'teacher');
     }
 
     sendAndGo(tc:TestComponent) {
@@ -149,11 +169,15 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         let that = this;
 
         let mark = this.rangeValue;
+        this.marks[this.currentIndex] = this.rangeValue;
+        this.saveTeacherMarks();
         tc.sendMarkToServer(mark, () => that.goToNextItem(tc));
         ++this.countSentAnswers;
         this.saveCountSentAnswers();
         this.canFinishCheck();
-        this.rangeValue = 50;
+        this.saveTeacherMarks();
+        this.setRangeValue()
+        console.log('this.rangeValue ' + this.rangeValue);
 
 
     }
@@ -169,7 +193,9 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.status[this.currentIndex] === NavigationItem.CHECKED) {
             this.sendButtonClass = 'no-display-style';
             this.nextButtonClass = 'display-style';
+            this.markPlaceClass = 'blue-grey-text darken-1';
         } else {
+            this.markPlaceClass = 'green-text text-darken-1';
             this.sendButtonClass = 'display-style';
             this.nextButtonClass = 'no-display-style';
         }
@@ -183,6 +209,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.finishButtonClass = 'display-style';
             this.sendButtonClass = 'no-display-style';
             this.nextButtonClass = 'no-display-style';
+            this.markPlaceClass = 'blue-grey-text darken-1';
             return true;
         } else {
             return false;
@@ -193,6 +220,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     goByItem(index:number, tc:TestComponent) {
 
         this.currentIndex = index;
+        this.setRangeValue();
         this.canGo();
         this.saveCurrentIndex();
         this.getSendButtonClass();
@@ -228,6 +256,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         } else {
             this.currentIndex = this.currentIndex + 1;
             this.goByItem(this.currentIndex, tc);
+
             return true;
         }
 
@@ -273,13 +302,16 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         let index = 0;
         for (let item of answersId) {
             result.push(new NavigationItem(counter, null, NavigationItem.UNCHECKED));
+            this.marks.push(-1);
             ++index;
             ++this.totalAnswersCount;
             let subCounter = 0;
+
             if (item.subAnswersId.length !== 0) {
                 --this.totalAnswersCount;
                 result[result.length - 1].status = NavigationItem.NO_ANSWER;
                 for (let index of item.subAnswersId) {
+                    this.marks.push(-1);
                     ++this.totalAnswersCount;
                     result.push(new NavigationItem(counter, subCounter, NavigationItem.UNCHECKED));
                     subCounter += 1;
@@ -308,6 +340,10 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.countSentAnswers = countAnswers;
             this.canFinishCheck();
 
+        }
+        let teacherMarks = this.restoreTeacherMarks();
+        if (teacherMarks) {
+            this.marks = teacherMarks;
         }
 
     }

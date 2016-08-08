@@ -3,11 +3,7 @@ var agenda = new Agenda({db: {address: "mongodb://localhost/agenda"}});
 
 agenda.on('ready', function () {
     agenda.define('test-timer', function (job) {
-        require('mongoose').model('Test').findOne({_id: job.attrs.data.testId, status: 'run'}, function (err, test) {
-            if (!err && test) {
-                test.status = 'checking';
-                test.save();
-            }
+        require('../services/testService').finishTest(job.attrs.data.userId, job.attrs.data.testId, function () {
         });
     });
 
@@ -28,6 +24,7 @@ agenda.setTimer = function (jobName, data, delay) {
     var date = new Date();
     date.setMilliseconds(date.getMilliseconds() + delay);
     this.schedule(date, jobName, data);
-}
+};
 
 module.exports = agenda;
+ 

@@ -46,6 +46,9 @@ function getNewQuestion(test, type, level, callback) {
         //     return Math.abs(level - cur.difficulty) < Math.abs(level - res.difficulty) ? cur : res;
         // });
         var question = questions[Math.floor(Math.random() * questions.length)];
+        if (question.type === 'AudioQuestion') {
+            question.createTempFile();
+        }
         var answer = new Answer({question: question.id, autoCheck: question.autoCheck});
         if (question.subQuestions) {
             question.subQuestions.forEach(function (subQuestion) {

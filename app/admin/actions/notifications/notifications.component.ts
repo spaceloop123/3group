@@ -45,6 +45,8 @@ export class NotificationsComponent implements OnInit, OnDestroy, OnChanges {
         if (previousValue instanceof Notification && currentValue instanceof NotificationActive) {
             if (currentValue.state === 'decline') {
                 this.onDeclineNotification(previousValue, currentValue);
+            } else if (currentValue.state === 'assign') {
+                this.onAcceptNotification(previousValue, currentValue);
             }
         }
     }
@@ -53,11 +55,19 @@ export class NotificationsComponent implements OnInit, OnDestroy, OnChanges {
         this.notificationsService.declineNotification(currentValue)
             .subscribe(res => {
                 toast('Request was declined', 3000, 'green');
-                console.log(previousValue.idx);
-                console.log(currentValue.state);
                 this.notificationList.splice(previousValue.idx, 1);
             }, err => {
                 toast('Failed to decline the request', 3000, 'red darken-2');
+            });
+    }
+
+    onAcceptNotification(previousValue, currentValue) {
+        this.notificationsService.acceptNotification(currentValue)
+            .subscribe(res => {
+                toast('Request was accepted', 3000, 'green');
+                this.notificationList.splice(previousValue.idx, 1);
+            }, err => {
+                toast('Failed to accept the request', 3000, 'red darken-2');
             });
     }
 

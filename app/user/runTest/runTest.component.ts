@@ -88,7 +88,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     finishTest() {
-        localStorage.clear();
+        this.clearTestInfo();
         let that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -99,6 +99,12 @@ export class RunTestComponent implements OnInit, OnDestroy {
             .then(response => that.router.navigate(['/finishTest', that.role]))
             .catch();
 
+    }
+
+    clearTestInfo() {
+        localStorage.removeItem("questionInfo");
+        localStorage.removeItem("subQuestionInfo");
+        localStorage.removeItem("testInfo");
     }
 
     afterSent(tc : TestComponent){

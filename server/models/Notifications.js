@@ -10,6 +10,7 @@ var NotificationSchema = new mongoose.Schema({
 NotificationSchema.methods.getNotification = function () {
     if(this.type === 'request') {
         return {
+            userId: this.user.id,
             notificationId: this.id,
             type: this.type,
             user: this.user.firstName + ' ' + this.user.lastName,

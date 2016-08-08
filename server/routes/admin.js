@@ -40,7 +40,8 @@ router.post('/new_guest', function (req, res, next) {
     User.count({}, function (err, count) {
         var username = 'Guest' + count;
         var password = '11111';
-        addUser(username, password, 'guest', req);
+        var guest = addUser(username, password, 'guest', req);
+        
         mailer.sendMail(
             req.body.email,
             'Welcome to ProjectName',
@@ -68,7 +69,7 @@ router.post('/add_questions', function (req, res) {
 });
 
 router.post('/user_list', function (req, res) {
-   userService.getUserList(req.body.n, req.body.searchFilter, response.dataResponse(res));
+   userService.getUserList(req.body.n, req.body.searchFilter, response.dataResponse(req, res));
 });
 
 function addUser(username, password, role, req) {
@@ -82,45 +83,46 @@ function addUser(username, password, role, req) {
     });
     user.setPassword(password);
     user.save();
+    return user;
 }
 
 router.get('/teachers_list', function (req, res) {
-    userService.getTeachersList(response.dataResponse(res));
+    userService.getTeachersList(response.dataResponse(req, res));
 });
 
 router.get('/notifications', function (req, res) {
-    notificationService.getNotifications(response.dataResponse(res));
+    notificationService.getNotifications(response.dataResponse(req, res));
 });
 
 router.post('/done_notification', function (req, res) {
-    notificationService.closeDoneNotification(req.body.notificationId, response.emptyResponse(res));
+    notificationService.closeDoneNotification(req.body.notificationId, response.emptyResponse(req, res));
 });
 
 router.post('/decline_request_notification', function (req, res) {
-    notificationService.declineRequestNotification(req.body.notificationId, req.body.testId, response.emptyResponse(res));
+    notificationService.declineRequestNotification(req.body.notificationId, req.body.testId, response.emptyResponse(req, res));
 });
 
 router.post('/accept_request_notification', function (req, res) {
     notificationService.acceptRequestNotification(req.body.notificationId, req.body.userId,
-        req.body.teacherId, req.body.timeFrom, req.body.timeTo, response.emptyResponse(res));
+        req.body.teacherId, req.body.timeFrom, req.body.timeTo, response.emptyResponse(req, res));
 });
 
-router.post('/assign_test', function () {
+router.post('/assign_test', function (req, res) {
     testService.assignNewTest(req.body.userId, req.body.teacherId,
-        req.body.timeFrom, req.body.timeTo, response.emptyResponse(res));
+        req.body.timeFrom, req.body.timeTo, response.emptyResponse(req, res));
 });
 
 
 router.post('/user_history', function (req, res) {
-    userService.getUserHistory(req.body.userId, response.dataResponse(res));
+    userService.getUserHistory(req.body.userId, response.dataResponse(req, res));
 });
 
 router.post('/test_history', function (req, res) {
-    testService.getTestHistory(req.body.userId, req.body.testIds, response.dataResponse(res));
+    testService.getTestsHistory(req.body.userId, req.body.testIds, response.dataResponse(req, res));
 });
 
 router.post('/user_info', function (req, res) {
-    userService.getUserInfo(req.body.userId, response.dataResponse(res));
+    userService.getUserInfo(req.body.userId, response.dataResponse(req, res));
 });
 
 module.exports = router;

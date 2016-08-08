@@ -59,7 +59,7 @@ module.exports.acceptRequestNotification = function (notificationId, userId, tea
     new Validator()
         .checkItems({
             notification: function (callback) {
-                Notification.findOne({_id: notificationId, status: 'request'}, callback);
+                Notification.findOne({_id: notificationId, type: 'request'}, callback);
             },
             test: function (callback) {
                 Test.findOne({user: userId, status: 'requested'}, callback);
@@ -68,7 +68,7 @@ module.exports.acceptRequestNotification = function (notificationId, userId, tea
         .exec(function (res) {
             res.notification.remove();
             testService.acceptTestRequest(res.test.id, teacherId, timeFrom, timeTo, done);
-        });
+        }, done, done);
 };
 
 module.exports.createRequestNotification = function (userId, testId) {

@@ -1,6 +1,7 @@
 import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 import {Component, OnDestroy, OnInit, NgZone} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from "@angular/router";
+import {AuthService} from "../../common/auth/auth.service";
 import {Http} from "@angular/http";
 
 @Component({
@@ -15,11 +16,11 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
     cardSize: string;
     currentWidth:number;
 
-
     constructor(private route:ActivatedRoute,
                 private router:Router,
                 private http:Http,
-                ngZone:NgZone){
+                ngZone:NgZone,
+                private authService:AuthService) {
         this.role = 'nobody';
         this.currentWidth = window.innerWidth;
         this.changeCardSize();
@@ -64,8 +65,15 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
     }
 
     exit(){
-        var link = (this.role === "user") ? "/user" : "/logo";//потом сделать для quest logOut
+        //var link = (this.role === "user") ? "/user" : "/logo";//потом сделать для quest logOut
         // TODO (pay attention) Aga no ispolsuite TODO-shki dlya takih zametok ))
-        this.router.navigate([link]);
+        //this.router.navigate([link]);
+        if (this.role === 'user') {
+            this.router.navigate(['/user']);
+        } else {
+
+            this.authService.logOut();
+        }
+
     }
 }

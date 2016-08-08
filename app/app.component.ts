@@ -60,8 +60,9 @@ export class AppComponent implements OnInit, OnDestroy {
         return ((pathname.indexOf("/login") !== -1) ||
         ((this.authService.role === 'user') && (pathname.indexOf("/user") !== -1)) ||
         ((this.authService.role === 'user') && (pathname.indexOf("/finishTest") !== -1)) ||
+        ((this.authService.role === 'user') && (pathname.indexOf("/showTests") !== -1)) ||
         ((this.authService.role === 'teacher') && (pathname.indexOf("/teacher") !== -1)) ||
-        ((this.authService.role === 'admin') && (pathname.indexOf("/admin/assignTest") !== -1)) ||
+        ((this.authService.role === 'admin') && (pathname.indexOf("/admin/assign_test") !== -1)) ||
         ((this.authService.role === 'admin') && (pathname.indexOf("/admin/teacher_info") !== -1)));
     }
 

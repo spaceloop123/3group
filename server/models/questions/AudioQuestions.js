@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var fs = require('fs');
 
 var AudioQuestionsSchema = new mongoose.Schema({
     path: {type: String, required: true},
@@ -12,11 +13,19 @@ AudioQuestionsSchema.methods.getQuestion = function () {
         id: this.id,
         type: this.type,
         header: this.header,
-        file: this.path,
+        path: '../../../temp/' + this.path,
         subQuestions: this.subQuestions.map(function (item) {
             return item.id;
         })
     };
+};
+
+AudioQuestionsSchema.methods.createTempFile = function () {
+    fs.createReadStream('./server/assets/' + this.path).pipe(fs.createWriteStream('./temp/' + this.path));
+};
+
+AudioQuestionsSchema.methods.deleteTempFile = function () {
+    fs.unlink('./temp/' + this.path);
 };
 
 mongoose.model('Question').discriminator('AudioQuestion', AudioQuestionsSchema);

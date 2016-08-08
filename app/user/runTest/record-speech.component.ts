@@ -27,7 +27,6 @@ export class RecordSpeechComponent {
         this.socket.onopen = function (event) {
             that.socket.send("neTest.wav");  //send fileName(Maxim)
         };
-        //please, add supporte for reading metadata on serverside
 
         this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
     }
@@ -38,18 +37,16 @@ export class RecordSpeechComponent {
         let audioInput = context.createMediaStreamSource(stream);
         let bufferSize = 2048;
         this.recorder = context.createScriptProcessor(bufferSize, 5, 2);
-        // specify the processing function
         let that = this;
         this.recorder.onaudioprocess = ((e) => that.recorderProcess(e));
-        // connect stream to our recorder
         audioInput.connect(this.recorder);
-        // connect our recorder to the previous destination
         this.recorder.connect(context.destination);
     }
 
 
     recorderProcess(e) {
         let left = e.inputBuffer.getChannelData(0);
+        console.log('a');
         this.socket.send(this.convertFloat32ToInt16(left));
     }
 

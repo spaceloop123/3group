@@ -16,6 +16,9 @@ module.exports.addSubanswer = function (userId, testId, questionId, answer, done
 function putAnswer(type, userId, testId, questionId, answer, done) {
     validateAnswer(type, userId, testId, questionId)
         .exec(function (res) {
+            if (res.question.type === 'AudioQuestion') {
+                res.question.deleteTempFile();
+            }
             res.answer.answer = answer;
             if (res.question.autoCheck && res.question.correctAnswer === answer) {
                 res.test.result += res.question.maxCost;
@@ -24,7 +27,7 @@ function putAnswer(type, userId, testId, questionId, answer, done) {
             } else {
                 res.user.level -= res.user.level > 0;
             }
-            res.test.maxResult += res.question.maxCost;
+            res.test.maxResult += res.question.maxCost || 0;
             res.user.save();
             res.answer.save();
             done();

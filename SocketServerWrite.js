@@ -9,10 +9,10 @@ var webSocketServer = new WebSocketServer.Server({
 });
 webSocketServer.on('connection', function (ws) {
     var wavStream;
+    var id = Math.random();
 
     ws.on('message', function (message) {
         if(message === 'spy') {
-            var id = Math.random();
             spies[id] = ws;
         } else if(wavStream === undefined) {
             wavStream = new wav.FileWriter('server/assets/' + message, {
@@ -34,6 +34,7 @@ webSocketServer.on('connection', function (ws) {
 
     ws.on('close', function () {
         wavStream.end(null);
+        delete spies[id];
     });
 });
 

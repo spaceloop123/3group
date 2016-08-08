@@ -3,21 +3,26 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from "@angular/common";
 import {Http, Headers} from "@angular/http";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 import {TestStatistics} from "./test.statistics";
+import {MaterializeDirective} from "angular2-materialize/dist/index";
 
 
 @Component({
     selector: 'line-chart-demo',
     templateUrl: 'app/user/charts/lineChart.html',
-    directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
+    directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES, MaterializeDirective]
 })
 export class ChartsComponent implements OnChanges {
 
     private showTestsUrl = 'app/user/showTests';
     @Input() role:string;
+    @Input() userId:any;
     lineChartData;
     testsData:any[];
     lineChartLabels:any[];
     testStatistics:TestStatistics[];
+    chart_style:string;
+    info_style:string;
+    admin_style:string = '';
 
 
     constructor(private http:Http) {
@@ -32,18 +37,53 @@ export class ChartsComponent implements OnChanges {
     ngOnChanges(changes:SimpleChanges):any {
         if (changes['role'].currentValue) {
             this.role = changes['role'].currentValue;
+
+            if (changes['userId'].currentValue) {
+                console.log('bla');
+                this.userId = changes['userId'].currentValue;
+                console.log('blabla');
+            }
             this.getTestsHistory();
         }
     }
 
+
     getTestsHistory() {
+
+        if (this.role === 'user') {
+            this.getTestHistoryInUserMode();
+            this.chart_style = 'col s12 m7 l7 offset-l1 charts-class flow-text';
+            this.info_style = 'col s12 m5 l4 blue-grey-text charts-class flow-text';
+        } else if (this.role === 'admin') {
+            this.getTestHistoryInAdminMode();
+            this.admin_style = 'container';
+            this.chart_style = 'col s12 m12 l12 charts-class container';
+            this.info_style = 'col s12 m12 l12 blue-grey-text';
+        }
+
+
+    }
+
+    getTestHistoryInUserMode() {
         var that = this;
         this.http.get('/' + this.role + '/history')
             .toPromise()
             .then(response => that.initTestsHistory(response.json()))
             .catch(that.handleError);
-
     }
+
+    getTestHistoryInAdminMode() {
+        var that = this;
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        this.http
+            .post('/' + this.role + '/user_history',
+                JSON.stringify({userId: that.userId}), {headers: header})
+            .toPromise()
+            .then(response => that.initTestsHistory(response.json()))
+            .catch(that.handleError);
+    }
+
 
     initTestsHistory(response:any) {
         this.testsData = response.nodes;
@@ -54,9 +94,6 @@ export class ChartsComponent implements OnChanges {
 
 
     processTestData() {
-        console.log(this.testsData);
-        console.log('aaa');
-
         for (let item of this.testsData) {
             this.lineChartData[0].data.push(item.mark);
             this.lineChartLabels.push(this.parseDate(item.date));
@@ -72,7 +109,7 @@ export class ChartsComponent implements OnChanges {
 
     parseDate(date:string):string {
         let buffer = new Date(date);
-        return (buffer.getMonth() + '/' + buffer.getDay());
+        return ((buffer.getMonth() + 1).toString() + '/' + (buffer.getDay() + 1).toString());
 
     }
 
@@ -106,17 +143,39 @@ export class ChartsComponent implements OnChanges {
         if (e.active[0]) {
             //console.log(e.active[0]._index);
             let index = e.active[0]._index;
-            var that = this;
-            var header = new Headers();
-            //console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
-            header.append('Content-Type', 'application/json');
-            this.http
-                .post('/' + this.role + '/test_history',
-                    JSON.stringify({testIds: that.testsData[index].tests}), {headers: header})
-                .toPromise()
-                .then(response => that.updateTestStatustics(response.json()))
-                .catch(that.handleError);
+            if (this.role === 'user') {
+                this.testHistoryInUserMode(index);
+            } else if (this.role === 'admin') {
+                this.testHistoryInAdminMode(index);
+            }
+
         }
+    }
+
+    testHistoryInUserMode(index:number) {
+        var that = this;
+        var header = new Headers();
+        //console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
+        header.append('Content-Type', 'application/json');
+        this.http
+            .post('/' + this.role + '/test_history',
+                JSON.stringify({testIds: that.testsData[index].tests}), {headers: header})
+            .toPromise()
+            .then(response => that.updateTestStatustics(response.json()))
+            .catch(that.handleError);
+    }
+
+    testHistoryInAdminMode(index:number) {
+        var that = this;
+        var header = new Headers();
+        //console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
+        header.append('Content-Type', 'application/json');
+        this.http
+            .post('/' + this.role + '/test_history',
+                JSON.stringify({userId: that.userId, testIds: that.testsData[index].tests}), {headers: header})
+            .toPromise()
+            .then(response => that.updateTestStatustics(response.json()))
+            .catch(that.handleError);
     }
 
     public chartHovered(e:any):void {
@@ -126,6 +185,15 @@ export class ChartsComponent implements OnChanges {
     updateTestStatustics(response) {
         this.testStatistics = response.tests;
 
+    }
+
+    showTime(date:string):string {
+        let time = new Date(date);
+        return time.getHours().toString() + ':' + time.getMinutes().toString();
+    }
+
+    showMark(mark:number):string {
+        return (Math.floor(mark * 100) / 100).toString();
     }
 
 

@@ -11,29 +11,45 @@ export class PlayAudioComponent {
     source:any;
     audioBuffer:any;
     currentPosition:number;
+    first:boolean;
 
     play() {
         console.log('trying to play "bla-bla.data"');
-        this.initAudio();
+        this.initCommunication();
         let that = this;
         this.socket = new WebSocket('ws://localhost:3002');
         this.socket.binaryType = "arraybuffer";
+
         this.socket.onmessage = ((message) => that.processSample(message));
     }
 
-    initAudio() {
+    initCommunication() {
+        this.first = true;
+
+    }
+
+    initAudio(fileSize:number) {
         let context = new AudioContext();
         this.source = context.createBufferSource();
-        this.audioBuffer = context.createBuffer(1, 150000, context.sampleRate);
+        this.audioBuffer = context.createBuffer(1, fileSize, context.sampleRate);//filesize in samples
         this.source.buffer = this.audioBuffer;
         this.source.connect(context.destination);
         this.currentPosition = 0;
     }
 
+    onMessage(message) {
+        if (this.first) {
+            message.data// need a number / sampleRate
+            this.initAudio(150000);
+        }
+        else {
+            this.processSample(message);
+        }
+    }
+
     processSample(message) {
         //console.log(message);
         let sample = new Float32Array(message.data);
-
         //console.log(sample);
         console.log(sample.length);
         let newPosition = this.currentPosition + sample.length;

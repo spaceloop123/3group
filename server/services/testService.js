@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Test = mongoose.model('Test');
+var User = mongoose.model('User');
 var TestTemplate = mongoose.model('TestTemplate');
 var Question = mongoose.model('Question');
 var async = require('async');
@@ -56,7 +57,7 @@ module.exports.initTest = function (userId, done) {
         res.test.finishTime = finishTime;
         res.test.save();
 
-        agenda.setTimer('test-timer', {testId: res.test.id}, res.template.time * 60 * 1000);
+        agenda.setTimer('test-timer', {userId: userId, testId: res.test.id}, res.template.time * 60 * 1000);
 
         done(null, {
             testId: res.test.id,
@@ -78,6 +79,19 @@ module.exports.changeTestStatus = function (status, testId, done) {
                 notificationService.createDoneNotification(res.test.user.id, res.test.teacher.id, testId);
             }
             done(null);
+        }, done, done);
+};
+
+module.exports.finishTest = function (userId, testId, done) {
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.findOne({_id: testId, user: userId, status: 'run'}, callback);
+        })
+        .exec(function (res) {
+            res.test.status = 'checking';
+            res.test.finishTime = new Date();
+            res.test.save();
+            done();
         }, done, done);
 };
 
@@ -110,9 +124,6 @@ module.exports.getTeachersTests = function (teacher, done) {
             res.tests.forEach(function (test, tests) {
                 if (test.getNotAutomaticallyCheckAnswers().length !== 0) {
                     response.push(test.getTestInfo());
-                } else {
-                    this.changeTestStatus('complete', test.id, function () {
-                    });
                 }
             });
             done(null, response);
@@ -140,7 +151,10 @@ function getTestHistory(userId, testId) {
         new Validator()
             .checkItem('test', function (callback) {
                 Test.findOne({_id: testId, user: userId, status: 'complete'})
-                    .populate({path: 'answers', populate: {path: 'question subAnswers', populate: {path: 'question'}}})
+                    .populate({
+                        path: 'answers',
+                        populate: {path: 'question subAnswers', populate: {path: 'subAnswers.question'}}
+                    })
                     .exec(callback);
             })
             .exec(function (res) {
@@ -181,7 +195,7 @@ function getTestMap(answers) {
                 maxResult: 0
             }
         }
-        
+
         var curAnswers = answer.subAnswers.length === 0 ? [answer] : answer.subAnswers;
 
         curAnswers.forEach(function (answer) {
@@ -199,27 +213,45 @@ module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, do
         user: userId,
         teacher: teacherId,
         answers: [],
-        fromTime: timeFrom,
-        toTime: timeTo
+        fromTime: new Date(timeFrom),
+        toTime: new Date(timeTo)
     });
-    test.save(function (err) {
-        done(err);
+    User.findOne({_id: userId}, function (err, user) {
+        agenda.setTimer('send-mail', {
+                to: user.email,
+                subject: 'Your test',
+                text: 'Your test will be available in hour'
+            },
+            test.fromTime.getTime() - new Date().getTime() - 3600000);
+        agenda.setTimer('open-window', {testId: test.id}, test.fromTime.getTime() - new Date().getTime());
+        test.save(function (err) {
+            done(err);
+        });
     });
 };
 
 module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo, done) {
     new Validator()
         .checkItem('test', function (callback) {
-            Test.fine({_id: testId, status: 'request'}, callback);
+            Test.findOne({_id: testId, status: 'requested'}, callback);
         })
         .exec(function (res) {
-            res.test.status = 'available';
+            res.test.status = 'wait';
             res.test.teacher = teacherId;
             res.test.answers = [];
-            res.test.fromTime = timeFrom;
-            res.test.toTome = timeTo;
-            res.test.save(function (err) {
-                done(err);
+            res.test.fromTime = new Date(timeFrom);
+            res.test.toTome = new Date(timeTo);
+            User.findOne({_id: res.test.user}, function (err, user) {
+                agenda.setTimer('send-mail', {
+                        to: user.email,
+                        subject: 'Your test',
+                        text: 'Your test will be available in hour'
+                    },
+                    res.test.fromTime.getTime() - new Date().getTime() - 3600000);
+                agenda.setTimer('open-window', {testId: res.test.id}, res.test.fromTime.getTime() - new Date().getTime());
+                res.test.save(function (err) {
+                    done(err);
+                });
             });
         }, done, done);
 };

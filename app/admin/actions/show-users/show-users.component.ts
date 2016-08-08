@@ -73,6 +73,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         console.log(StateService.searchFilter);
+        this.searchFilter = StateService.searchFilter;
         console.log(this.searchFilter);
         if (StateService.fromDetail == true) {
             this.searchFilter = StateService.searchFilter;
