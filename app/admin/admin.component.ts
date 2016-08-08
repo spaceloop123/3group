@@ -100,7 +100,6 @@ export class AdminComponent implements OnInit {
         this.getData();
         this.currentNotification = new NotificationActive(this.currentNotification, 'assign', this.assignedTeacher['id']
             , this.data);
-        console.log('CARA : ' + JSON.stringify(this.currentNotification));
     }
 
 }

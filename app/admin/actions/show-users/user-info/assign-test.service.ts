@@ -16,12 +16,28 @@ export class AssignTestService {
     }
 
     assignTest(user, teacher, data) {
+        console.log('Assing test service = ' + JSON.stringify(this.prepareDate(user, teacher, data)));
         return this.customHttp.post('/admin/assign_test', this.prepareDate(user, teacher, data));
     }
 
     private prepareDate(user, teacher, data) {
         return {
             'userId': user,
+            'teacherId': teacher['id'],
+            'timeFrom': data.dateFrom,
+            'timeTo': data.dateTo
+        };
+    }
+
+    addGuest(user, teacher, data) {
+        return this.customHttp.post('/admin/new_guest', this.prepareGuest(user, teacher, data));
+    }
+
+    private prepareGuest(user, teacher, data) {
+        return {
+            'firstName': user.firstName,
+            'lastName': user.lastName,
+            'email': user.firstName,
             'teacherId': teacher['id'],
             'timeFrom': data.dateFrom,
             'timeTo': data.dateTo
