@@ -151,11 +151,7 @@ function getTestHistory(userId, testId) {
             .checkItem('test', function (callback) {
                 Test.findOne({_id: testId, user: userId, status: 'complete'})
                     .populate({path: 'answers', populate: {path: 'question subAnswers', populate: {path: 'subAnswers.question'}}})
-                    .exec(function (err, test) {
-                        err ? console.log(err) :
-                            test ? console.log(test.answers) : console.log('empty');
-                        callback(err, test);
-                    });
+                    .exec(callback);
             })
             .exec(function (res) {
                 var testMap = getTestMap(res.test.answers);
