@@ -199,8 +199,8 @@ module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, do
         user: userId,
         teacher: teacherId,
         answers: [],
-        fromTime: timeFrom,
-        toTime: timeTo
+        fromTime: new Date(timeFrom),
+        toTime: new Date(timeTo)
     });
     test.save(function (err) {
         done(err);
