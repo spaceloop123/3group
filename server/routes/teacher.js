@@ -11,23 +11,23 @@ var response = require('../libs/responseHelper');
 router.use(mdlwares.isTeacher);
 
 router.get('/tests', function (req, res, next) {
-    testService.getTeachersTests(req.user.id, response.dataResponse(req, res));
+    testService.getTeachersTests(req.user.id, response.dataResponse(res));
 });
 
 router.post('/check_test', function (req, res, next) {
-    testService.getAnswers(req.body.testId, response.dataResponse(req, res));
+    testService.getAnswers(req.body.testId, response.dataResponse(res));
 });
 
 router.post('/check_answer', function (req, res, next) {
-    answerService.getAnswerById(req.body.answerId, response.dataResponse(req, res));
+    answerService.getAnswerById(req.body.answerId, response.dataResponse(res));
 });
 
 router.post('/send_mark', function (req, res, next) {
-    answerService.setMark(req.body.answerId, req.body.testId, req.body.mark, response.emptyResponse(req, res));
+    answerService.setMark(req.body.answerId, req.body.testId, req.body.mark, response.emptyResponse(res));
 });
 
 router.post('/end_test', function (req, res, next) {
-    testService.changeTestStatus('complete', req.body.testId, response.emptyResponse(req, res));
+    testService.changeTestStatus('complete', req.body.testId, response.emptyResponse(res));
 });
 
 module.exports = router;
