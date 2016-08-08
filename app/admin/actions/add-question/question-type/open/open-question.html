@@ -7,9 +7,10 @@
                 <textarea class="materialize-textarea" id="open-question-header-{{question.id}}"
                           [attr.disabled]="(question.state !== 'edit') ? true : null"
                           [(ngModel)]="question.header"
-                          placeholder="Write down simple and clear description"
+                          placeholder="E.g: Answer the question"
                           name="open-question-header-{{question.id}}"></textarea>
-                <!--<label [attr.for]="'open-question-header-' + question.id">Task description</label>-->
+                <label [attr.for]="'open-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
 
@@ -43,8 +44,9 @@
                 <textarea class="materialize-textarea" id="open-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.question"
+                          placeholder="E.g.: What did Jane decide to bake on Monday morning?"
                           name="open-question-question-{{question.id}}"></textarea>
-                <label [attr.for]="'open-question-question-' + question.id">Question</label>
+                <label [attr.for]="'open-question-question-' + question.id" class="active">Question</label>
             </div>
 
         </div>

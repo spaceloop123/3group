@@ -7,9 +7,10 @@
                 <input id="icon_prefix"
                        class="form-control"
                        type="text"
+                       placeholder="Type in what you what to find..."
                        (keyup)="applySearch()"
                        [(ngModel)]="searchFilter"/>
-                <label for="icon_prefix">Search</label>
+                <label for="icon_prefix"></label>
             </div>
             <div class="col s12 m12 offset-l1 l10">
                 <ul class="collection grey lighten-5" id="show-users-list"
@@ -23,7 +24,9 @@
                             <div class="valign-wrapper">
                                 <span class="col s6 m6 title left-align">{{user.firstName}} {{user.lastName}}</span>
                                 <span class="col s4 m4 grey-text text-darken-1 center-align">{{user.role}}</span>
-                                <i class="material-icons grey-text">trending_flat</i>
+                                <i *ngIf="user.role !== 'admin' && user.role !== 'guest'" class="material-icons grey-text">trending_flat</i>
+                                <i *ngIf="user.role === 'admin'" class="material-icons grey-text">supervisor_account</i>
+                                <i *ngIf="user.role === 'guest'" class="material-icons grey-text">perm_identity</i>
                             </div>
                         </a>
                     </li>

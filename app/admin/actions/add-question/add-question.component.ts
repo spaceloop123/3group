@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, style, state, transition, animate, trigger, keyframes} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective, toast} from "angular2-materialize";
 import {NgSwitchDefault, NgSwitch} from "@angular/common";
@@ -23,7 +23,21 @@ import {AudioQuestionComponent} from "./question-type/with-subquestions/audio/au
     templateUrl: 'app/admin/actions/add-question/add-question.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertOpenQuestionComponent,
         InsertTestQuestionComponent, OpenQuestionComponent, SpeechQuestionComponent, ReadingQuestionComponent,
-        AudioQuestionComponent, NgSwitch, NgSwitchDefault]
+        AudioQuestionComponent, NgSwitch, NgSwitchDefault],
+    animations: [
+        trigger('animateAddQuestionBtn', [
+            state('visible', style({display: 'visible', transform: 'translateY(0)'})),
+            state('invisible', style({display: 'none', transform: 'translateY(-2000px)'})),
+            transition('visible => invisible', animate(200, keyframes([
+                style({display: 'visible', transform: 'translateY(0)', offset: 0}),
+                style({display: 'none', transform: 'translateY(-22px)', offset: 1.0})
+            ]))),
+            transition('invisible => visible', animate(200, keyframes([
+                style({display: 'none', transform: 'translateY(-22px)', offset: 0}),
+                style({display: 'visible', transform: 'translateY(0)', offset: 1.0})
+            ])))
+        ])
+    ]
 })
 
 export class AddQuestionComponent implements OnInit {
@@ -128,14 +142,8 @@ export class AddQuestionComponent implements OnInit {
     }
 
     changeState(idx) {
-        /*for (let i = 0; i < this.questionsCatalog.length; ++i) {
-            this.questionsCatalog[i].checked = false;
-        }
-        this.questionsCatalog[idx].checked = true;*/
         this.selectedQuestion = this.questionsCatalog[idx].type;
         console.log(this.selectedQuestion);
-        //TODO review red inspector problem
-        // $('#chooseQuestion').closeModal();
         this.addNewQuestion();
     }
 
