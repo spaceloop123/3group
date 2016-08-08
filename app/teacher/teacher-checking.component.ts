@@ -25,7 +25,6 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     rightIconStatus:string = '';
     parentNIIndex:number = 0;
     childNIIndex:number = 0;
-    markPlaceClass:string = ''
     parentButtonClass:string = 'no-display-style';
     childButtonClass:string = 'no-display-style';
     finishButtonClass:string = 'no-display-style';
@@ -35,6 +34,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     nextButtonClass:string = 'no-display-style';
     countSentAnswers:number = 0;
     totalAnswersCount:number = 0;
+    markPlaceClass:string = 'green-text text-darken-1';
 
     constructor(private route:ActivatedRoute,
                 private http:Http,
@@ -80,6 +80,14 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
 
     saveStatus() {
         localStorage.setItem('status', JSON.stringify(this.status));
+    }
+
+    restoreTeacherMarks() {
+        return JSON.parse(localStorage.getItem('marks'));
+    }
+
+    saveTeacherMarks() {
+        localStorage.setItem('marks', JSON.stringify(this.marks));
     }
 
     restoreStatus() {
@@ -146,6 +154,10 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
 
     }
 
+    setRangeValue() {
+        this.rangeValue = (this.marks[this.currentIndex] === -1) ? 50 : this.marks[this.currentIndex];
+    }
+
     clearTestInfo() {
         localStorage.clear();
         localStorage.setItem('auth', 'teacher');
@@ -158,11 +170,14 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
 
         let mark = this.rangeValue;
         this.marks[this.currentIndex] = this.rangeValue;
+        this.saveTeacherMarks();
         tc.sendMarkToServer(mark, () => that.goToNextItem(tc));
         ++this.countSentAnswers;
         this.saveCountSentAnswers();
         this.canFinishCheck();
-        this.rangeValue = (this.marks[this.currentIndex] === -1) ? 50 : this.marks[this.currentIndex];
+        this.saveTeacherMarks();
+        this.setRangeValue()
+        console.log('this.rangeValue ' + this.rangeValue);
 
 
     }
@@ -178,7 +193,9 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.status[this.currentIndex] === NavigationItem.CHECKED) {
             this.sendButtonClass = 'no-display-style';
             this.nextButtonClass = 'display-style';
+            this.markPlaceClass = 'blue-grey-text darken-1';
         } else {
+            this.markPlaceClass = 'green-text text-darken-1';
             this.sendButtonClass = 'display-style';
             this.nextButtonClass = 'no-display-style';
         }
@@ -192,6 +209,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.finishButtonClass = 'display-style';
             this.sendButtonClass = 'no-display-style';
             this.nextButtonClass = 'no-display-style';
+            this.markPlaceClass = 'blue-grey-text darken-1';
             return true;
         } else {
             return false;
@@ -202,6 +220,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     goByItem(index:number, tc:TestComponent) {
 
         this.currentIndex = index;
+        this.setRangeValue();
         this.canGo();
         this.saveCurrentIndex();
         this.getSendButtonClass();
@@ -237,6 +256,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         } else {
             this.currentIndex = this.currentIndex + 1;
             this.goByItem(this.currentIndex, tc);
+
             return true;
         }
 
@@ -320,6 +340,10 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.countSentAnswers = countAnswers;
             this.canFinishCheck();
 
+        }
+        let teacherMarks = this.restoreTeacherMarks();
+        if (teacherMarks) {
+            this.marks = teacherMarks;
         }
 
     }

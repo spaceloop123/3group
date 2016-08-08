@@ -21,18 +21,23 @@
             </div>
             <div class="card-action">
                 <div class="row">
-                    <div class="col s12 m5 l5" style="font-size: 1.1em" [ngClass]='markPlaceClass'>
-                        <p id='markPlaceText' class="green-text text-darken-1">Swipe to evaluate question: </p>
+                    <div class="col s12 m5 l5" style="font-size: 1.1em">
+                        <p [ngClass]='markPlaceClass'>Swipe to evaluate question: </p>
                         <p class="blue-grey-text darken-1">Your mark: {{rangeValue}}</p>
                     </div>
                     <div class="col s12 m7 l7">
-                        <div [ngClass]='sendButtonClass'>
-                            <p class="range-field active">
-                                <input type="range" name="blabla" id="test5" min="0" max="100" autofocus
-                                       [(ngModel)]="rangeValue"/>
-                            </p>
-                        </div>
-
+                        <p class="range-field" [ngClass]='sendButtonClass'>
+                            <input type="range" name="blabla" id="test5" min="0" max="100" autofocus
+                                   [(ngModel)]="rangeValue"/>
+                        </p>
+                        <p class="range-field" [ngClass]='nextButtonClass'>
+                            <input type="range" name="blabla" id="test6" min="0" max="100" autofocus
+                                   disabled [(ngModel)]="rangeValue"/>
+                        </p>
+                        <p class="range-field" [ngClass]='finishButtonClass'>
+                            <input type="range" name="blabla" id="test7" min="0" max="100" autofocus
+                                   disabled [(ngModel)]="rangeValue"/>
+                        </p>
                     </div>
                     <div class="col s12 m6 offset-m3 l6 offset-l3 center">
                         <div align="center" class='teacher-checking-button'>

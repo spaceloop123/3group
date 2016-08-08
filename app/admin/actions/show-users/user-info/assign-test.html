@@ -1,5 +1,5 @@
 <div class="valign-wrapper" style="width: 100%">
-    <div class="container valign">
+    <div class="col s12 m12 container valign">
         <div class="row">
 
             <div class="col s12 m6 card-width" align="center">
@@ -13,7 +13,7 @@
                                 <div align="left">
                                     <h2 class="flow-text cyan-text">{{userInfo.firstName}} {{userInfo.lastName}}</h2>
                                     <p class="flow-text purple-text">{{userInfo.username}}</p>
-                                    <p class="flow-text blue-text">{{userInfo.email}}</p>
+                                    <p class="blue-text">{{userInfo.email}}</p>
                                 </div>
                             </div>
                         </div>
@@ -25,130 +25,136 @@
                 </div>
             </div>
 
-            <div class="col s12 m6 l6 card-width" align="center">
+            <div class="col s12 m6 l6 card-width">
                 <div class="card white valign">
+                    <div class="card-image">
+                        <div align="center" class="parent-of-images">
+                            <img class="image-gif" src="app/user/runTest/img/testToRun.gif">
+                        </div>
+                        <span class="card-title purple-text text-darken-2" style="font-weight: 400;">
+                            Assign Test
+                        </span>
+                    </div>
                     <div class="card-content">
-                        <p class="card-title purple-text text-darken-2" align="center">Assign Test</p>
                         <p style="font-weight: 500;">Select estimated date and time</p>
                         <br>
+
                         <!-- Date picker -->
 
-                        <div class="container" style="width: 100%">
-
-                            <div class="row">
-                                <div class="col s12 m2 l2">
-                                    <h6>From:</h6>
-                                </div>
-                                <div id="datepicker1" class="datepicker col s12 m6 l6">
-                                    <input id="dateFrom" type="date" class="datepicker">
-                                </div>
-
-                                <div class="col m2 l2" style="padding:0">
-                                    <select id="hoursFrom" class="browser-default" materialize="material_select"
-                                            [materializeSelectOptions]="selectOptions">
-                                        <option value="00" disabled selected>00</option>
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                    </select>
-                                </div>
-
-                                <div class="col m2 l2" style="padding:0">
-                                    <select id="minutesFrom" class="browser-default" materialize="material_select"
-                                            [materializeSelectOptions]="selectOptions">
-                                        <option value="00" disabled selected>00</option>
-                                        <option value="05">05</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="20">20</option>
-                                        <option value="25">25</option>
-                                        <option value="30">30</option>
-                                        <option value="35">35</option>
-                                        <option value="40">40</option>
-                                        <option value="45">45</option>
-                                        <option value="50">50</option>
-                                        <option value="55">55</option>
-                                    </select>
-                                </div>
+                        <div class="row">
+                            <div class="col s12 m2 l2">
+                                <h6>From:</h6>
+                            </div>
+                            <div id="datepicker1" class="datepicker col s12 m6 l6">
+                                <input id="dateFrom" type="date" class="datepicker">
                             </div>
 
-                            <div class="row">
-                                <div class="col s12 m2 l2">
-                                    <h6>To:</h6>
-                                </div>
-                                <div id="datepicker2" class="datepicker col s12 m6 l6">
-                                    <input id="dateTo" type="date" class="datepicker">
-                                </div>
+                            <div class="col m2 l2" style="padding:0">
+                                <select id="hoursFrom" class="browser-default" materialize="material_select"
+                                        [materializeSelectOptions]="selectOptions">
+                                    <option value="00" disabled selected>00</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                </select>
+                            </div>
 
-                                <div class="col m2 l2" style="padding:0">
-                                    <select id="hoursTo" class="browser-default" materialize="material_select"
-                                            [materializeSelectOptions]="selectOptions">
-                                        <option value="00" selected>00</option>
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                    </select>
-                                </div>
-
-                                <div class="col m2 l2" style="padding:0">
-                                    <select id="minutesTo" class="browser-default" materialize="material_select"
-                                            [materializeSelectOptions]="selectOptions">
-                                        <option value="00" selected>00</option>
-                                        <option value="05">05</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="20">20</option>
-                                        <option value="25">25</option>
-                                        <option value="30">30</option>
-                                        <option value="35">35</option>
-                                        <option value="40">40</option>
-                                        <option value="45">45</option>
-                                        <option value="50">50</option>
-                                        <option value="55">55</option>
-                                    </select>
-                                </div>
+                            <div class="col m2 l2" style="padding:0">
+                                <select id="minutesFrom" class="browser-default" materialize="material_select"
+                                        [materializeSelectOptions]="selectOptions">
+                                    <option value="00" disabled selected>00</option>
+                                    <option value="05">05</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                    <option value="35">35</option>
+                                    <option value="40">40</option>
+                                    <option value="45">45</option>
+                                    <option value="50">50</option>
+                                    <option value="55">55</option>
+                                </select>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col s12 m2 l2">
+                                <h6>To:</h6>
+                            </div>
+                            <div id="datepicker2" class="datepicker col s12 m6 l6">
+                                <input id="dateTo" type="date" class="datepicker">
+                            </div>
+
+                            <div class="col m2 l2" style="padding:0">
+                                <select id="hoursTo" class="browser-default" materialize="material_select"
+                                        [materializeSelectOptions]="selectOptions">
+                                    <option value="00" selected>00</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                </select>
+                            </div>
+
+                            <div class="col m2 l2" style="padding:0">
+                                <select id="minutesTo" class="browser-default" materialize="material_select"
+                                        [materializeSelectOptions]="selectOptions">
+                                    <option value="00" selected>00</option>
+                                    <option value="05">05</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                    <option value="35">35</option>
+                                    <option value="40">40</option>
+                                    <option value="45">45</option>
+                                    <option value="50">50</option>
+                                    <option value="55">55</option>
+                                </select>
+                            </div>
+                        </div>
+
 
                         <!-- End of Date picker -->
 

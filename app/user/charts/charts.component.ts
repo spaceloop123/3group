@@ -20,6 +20,9 @@ export class ChartsComponent implements OnChanges {
     testsData:any[];
     lineChartLabels:any[];
     testStatistics:TestStatistics[];
+    chart_style:string;
+    info_style:string;
+    admin_style:string = '';
 
 
     constructor(private http:Http) {
@@ -49,8 +52,13 @@ export class ChartsComponent implements OnChanges {
 
         if (this.role === 'user') {
             this.getTestHistoryInUserMode();
+            this.chart_style = 'col s12 m7 l7 offset-l1 charts-class flow-text';
+            this.info_style = 'col s12 m5 l4 blue-grey-text charts-class flow-text';
         } else if (this.role === 'admin') {
             this.getTestHistoryInAdminMode();
+            this.admin_style = 'container';
+            this.chart_style = 'col s12 m12 l12 charts-class container';
+            this.info_style = 'col s12 m12 l12 blue-grey-text';
         }
 
 

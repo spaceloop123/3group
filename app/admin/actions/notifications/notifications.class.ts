@@ -4,6 +4,7 @@ export class Notification {
     _type:string;
 
     _user:string;
+    userId:string;
     _teacher:string;
     testId:string;
 
@@ -21,6 +22,8 @@ export class Notification {
 
         this.teacher = notification['teacher'];
         this.user = notification['user'];
+
+        this.userId = notification['userId'];
 
         if (this.type === 'request') {
             this.testId = notification['testId'];

@@ -51,7 +51,7 @@ export class TeacherComponent implements OnInit {
     setTests(response) {
         let i = 0;
         let j = 0;
-        for (; i < response.length; i++, j++) {
+        while (i < response.length) {
 
             if (j >= CardsColorsData.CARDS_COLORS_ACCENT.length) {
                 j = 0;
@@ -66,6 +66,8 @@ export class TeacherComponent implements OnInit {
 
 
             response[i].number = i + 1;
+            i++;
+            j++;
         }
         this.assignedTests = response;
         console.log(this.assignedTests);

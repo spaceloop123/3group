@@ -1,39 +1,46 @@
 <div class="card lighten-1">
     <div class='row'>
-        <div class='col s12 m7 l7 charts-class'>
-            <base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
-                        [datasets]="lineChartData"
-                        [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
-                        [colors]="lineChartColours"
-                        [legend]="lineChartLegend"
-                        [chartType]="lineChartType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></base-chart>
-        </div>
-        <div class='col s12 m5 l5 blue-grey-text flow-text'>
-            <div *ngIf="testStatistics.length !== 0">
-                <div>
-                    Your results
-                </div>
-                <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
-                    <li *ngFor="let item of testStatistics">
-                        <div class="collapsible-header"><i class="material-icons">query_builder</i>
-                            {{showTime(item.date) + ' : ' +showMark(item.mark) + '%'}}
-                        </div>
-                        <div class="collapsible-body" style="margin-left: 4%">
-                            <div *ngFor='let elem of item.questions'>{{elem.type + ' ' + showMark(elem.mark) + '%'}}
-                            </div>
-                        </div>
-                    </li>
-
-                </ul>
+        <div align="center" class='flow-text'>User statistics</div>
+        <div [ngClass]='admin_style' align="left">
+            <div [ngClass]='chart_style'>
+                <base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
+                            [datasets]="lineChartData"
+                            [labels]="lineChartLabels"
+                            [options]="lineChartOptions"
+                            [colors]="lineChartColours"
+                            [legend]="lineChartLegend"
+                            [chartType]="lineChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></base-chart>
             </div>
-            <ul>
-                <li *ngIf="testStatistics.length === 0">
-                    click on the chart to view history details
-                </li>
-            </ul>
+        </div>
+        <div [ngClass]='admin_style'>
+            <div [ngClass]='info_style'>
+
+                <div *ngIf="testStatistics.length !== 0" align="left">
+                    <div>
+                        Your results
+                    </div>
+                    <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+                        <li *ngFor="let item of testStatistics">
+                            <div class="collapsible-header"><i class="material-icons">query_builder</i>
+                                {{showTime(item.date) + ' : ' +showMark(item.mark) + '%'}}
+                            </div>
+                            <div class="collapsible-body" style="margin-left: 4%">
+                                <div *ngFor='let elem of item.questions'>{{elem.type + ' ' + showMark(elem.mark) + '%'}}
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div *ngIf="testStatistics.length === 0 && lineChartLabels.length !== 0">
+                    <p>Click on the chart to view history details</p>
+                </div>
+                <div *ngIf="testStatistics.length === 0 && lineChartLabels.length === 0">
+                    <p>User has no statistics</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
