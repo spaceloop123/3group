@@ -14,7 +14,6 @@ var BinaryServer = require('binaryjs').BinaryServer;
 var fs = require('fs');
 var wav = require('wav');
 var ssw = require('./SocketServerWrite');
-var ssr = require('./SocketServerRead')
 
 require('./server/models/Users');
 require('./server/models/questions/Questions');

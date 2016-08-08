@@ -223,7 +223,7 @@ export class TestComponent implements OnChanges {
         }
         if (this.mode === 'user' && this.question.type === "SpeechQuestion") {
             this.answer = this.testInfo.id.toString() + this.questionInfo.questionIndex.toString();
-            console.log('this.answer ' + this.answer);
+            console.log('this.answer ' + this.answer + '.wav');
 
         }
         this.saveQuestionInfo();

@@ -41,7 +41,16 @@ router.post('/new_guest', function (req, res, next) {
         var username = 'Guest' + count;
         var password = '11111';
         var guest = addUser(username, password, 'guest', req);
-        
+
+        var test = new Test({
+            status: 'available',
+            user: guest.id,
+            teacher: req.body.teacher,
+            answerd: [],
+            fromTime: new Date(req.body.timeFrom),
+            toTime: new Date(req.body.timeTo)
+        });
+        test.save();
         mailer.sendMail(
             req.body.email,
             'Welcome to ProjectName',

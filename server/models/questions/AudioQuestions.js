@@ -21,11 +21,11 @@ AudioQuestionsSchema.methods.getQuestion = function () {
 };
 
 AudioQuestionsSchema.methods.createTempFile = function () {
-    fs.createReadStream('./server/assets/' + this.path).pipe(fs.createWriteStream('./temp/' + this.path));
+    fs.createReadStream(__dirname + '/../../assets/' + this.path).pipe(fs.createWriteStream(__dirname + '/../../../temp/' + this.path));
 };
 
 AudioQuestionsSchema.methods.deleteTempFile = function () {
-    fs.unlink('./temp/' + this.path);
+    fs.unlink(__dirname + '/../../../temp/' + this.path);
 };
 
 mongoose.model('Question').discriminator('AudioQuestion', AudioQuestionsSchema);
