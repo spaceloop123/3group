@@ -12,7 +12,7 @@ export class AssignTestService {
     }
 
     getUserInfoById(id) {
-        return this.customHttp.post('/admin/user_list', id);
+        return this.customHttp.post('/admin/user_info', id);
     }
 
     assignTest(user, teacher, data) {

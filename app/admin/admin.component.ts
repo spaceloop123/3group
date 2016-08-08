@@ -7,7 +7,7 @@ import {AddQuestionComponent} from "./actions/add-question/add-question.componen
 import {ShowUsersComponent} from "./actions/show-users/show-users.component";
 import {NotificationActive} from "./actions/notifications/notification.active.class";
 import {StateService} from "./actions/show-users/StateService";
-import {AssignTestService} from "./actions/show-users/user-info/assing-test.service";
+import {AssignTestService} from "./actions/show-users/user-info/assign-test.service";
 
 @Component({
     selector: 'admin-component',
