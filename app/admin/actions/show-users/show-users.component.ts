@@ -24,11 +24,10 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     }
 
     getUsers() {
-        var that = this;
         this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('posted');
-                that.setUserList(response);
+                this.setUserList(response);
             });
     }
 
@@ -66,7 +65,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     showDetails(user) {
         StateService.scrollPosition = $(document).scrollTop().valueOf();
         if (user.role === 'user') {
-            this.router.navigate(['/admin/assignTest', user.id]);
+            this.router.navigate(['/admin/assign_test', user.id]);
         } else if (user.role === 'teacher') {
             this.router.navigate(['/admin/teacher_info', user.id]);
         }
@@ -77,6 +76,7 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
         console.log(this.searchFilter);
         if (StateService.fromDetail == true) {
             this.searchFilter = StateService.searchFilter;
+            StateService.fromDetail = false;
         } else {
             this.searchFilter = '';
         }

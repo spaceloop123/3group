@@ -7,9 +7,10 @@
                 <textarea class="materialize-textarea" id="insert-test-question-header-{{question.id}}"
                           [attr.disabled]="(question.state !== 'edit') ? true : null"
                           [(ngModel)]="question.header"
-                          placeholder="Write down simple and clear description"
+                          placeholder="E.g: Choose the correct option"
                           name="insert-test-question-header-{{question.id}}"></textarea>
-                <!--<label [attr.for]="'insert-test-question-header-' + question.id" class="active">Description</label>-->
+                <label [attr.for]="'insert-test-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
 
@@ -49,7 +50,7 @@
                           type="text"
                           [(ngModel)]="question.question[0].content"
                           name="insert-test-question-question-{{question.id}}-1"></textarea>
-                <label [attr.for]="'insert-test-question-answer-' + question.id + '-1'"></label>
+                <label [attr.for]="'insert-test-question-answer-' + question.id + '-1'" class="active"></label>
             </div>
             <div class="input-field col s12 m6 l6">
                 <textarea class="materialize-textarea"
@@ -59,7 +60,7 @@
                           type="text"
                           [(ngModel)]="question.question[1].content"
                           name="insert-test-question-question-{{question.id}}-2"></textarea>
-                <label [attr.for]="'insert-test-question-answer-' + question.id + '-2'"></label>
+                <label [attr.for]="'insert-test-question-answer-' + question.id + '-2'" class="active"></label>
             </div>
 
             <!-- number of answers -->
@@ -80,9 +81,10 @@
                 <input [attr.id]="'insert-test-question-answer-' + question.id + '-' + i"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
                        type="text"
+                       placeholder="Write your option"
                        [(ngModel)]="item.content"
                        name="insert-test-question-answer-{{question.id}}-{{i}}"/>
-                <label [attr.for]="'insert-test-question-answer-' + question.id + '-' + i">Option {{i +
+                <label [attr.for]="'insert-test-question-answer-' + question.id + '-' + i" class="active">Option {{i +
                     1}}</label>
             </div>
 
@@ -90,7 +92,7 @@
             <div class="input-field col s12 m12 l12">
                 <input id="insert-test-question-answersCorrect-{{question.id}}"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
-                       placeholder="Correct option"
+                       placeholder="Number of the correct option"
                        type="number" min="1" max="{{oldAnswersLength}}" class="validate"
                        [(ngModel)]="question.correctAnswerIdx"
                        (change)="changeCorrectAnswerIdx()"

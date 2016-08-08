@@ -15,6 +15,11 @@ agenda.on('ready', function () {
         require('./mailer').sendMail(job.attrs.data.to, job.attrs.data.subject, job.attrs.data.text);
     });
 
+    agenda.define('open-window', function (job) {
+        require('../services/testService').changeTestStatus('available', job.attrs.data.testId, function () {
+        });
+    });
+
     agenda.start();
 });
 

@@ -7,9 +7,10 @@
                 <textarea class="materialize-textarea" id="reading-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
-                          placeholder="Write down simple and clear description"
+                          placeholder="Read the story and be ready to answer the questions"
                           name="reading-question-header-{{question.id}}"></textarea>
-                <!--<label [attr.for]="'reading-question-header-' + question.id">Task description</label>-->
+                <label [attr.for]="'reading-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
             <!-- text -->
@@ -17,8 +18,9 @@
                 <textarea class="materialize-textarea" id="reading-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.text"
+                          placeholder="E.g: Once upon a time, in a virtual galaxy far, far away, there was..."
                           name="reading-question-question-{{question.id}}"></textarea>
-                <label [attr.for]="'reading-question-question-' + question.id">Text</label>
+                <label [attr.for]="'reading-question-question-' + question.id" class="active">Text</label>
             </div>
 
             <!-- difficulty -->

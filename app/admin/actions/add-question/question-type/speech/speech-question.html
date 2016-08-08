@@ -7,9 +7,10 @@
                 <textarea class="materialize-textarea" id="speech-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
-                          placeholder="Write down simple and clear description"
+                          placeholder="E.g: Record your answer to the following question"
                           name="speech-question-header-{{question.id}}"></textarea>
-                <!--<label [attr.for]="'speech-question-header-' + question.id">Task description</label>-->
+                <label [attr.for]="'speech-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
             <!-- difficulty -->
@@ -42,8 +43,9 @@
                 <textarea class="materialize-textarea" id="speech-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.question"
+                          placeholder="E.g: Please, tell us about your favourite music jenres"
                           name="speech-question-question-{{question.id}}"></textarea>
-                <label [attr.for]="'speech-question-question-' + question.id">Question</label>
+                <label [attr.for]="'speech-question-question-' + question.id" class="active">Question</label>
             </div>
 
         </div>

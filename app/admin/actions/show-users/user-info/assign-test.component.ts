@@ -11,7 +11,7 @@ import {StateService} from "../StateService";
 
 @Component({
 
-    templateUrl: 'app/admin/actions/show-users/user-info/assignTest.html',
+    templateUrl: 'app/admin/actions/show-users/user-info/assign-test.html',
     directives: [DatepickerComponent, ChartsComponent, CHART_DIRECTIVES, ROUTER_DIRECTIVES, MaterializeDirective, InfiniteScroll],
     providers: [StateService]
 })
@@ -20,13 +20,15 @@ export class AssignTestComponent implements OnInit {
 
     public currentUser:any;
     public assignedTeacher:any;
-    private data: any;
+    private userInfo:any;
+    private data:any;
     private sub;
     private isActive;
     teacherList = [];
 
     constructor(private route:ActivatedRoute,
-                private customHttp:CustomHttp) {}
+                private customHttp:CustomHttp) {
+    }
 
     onNotify(message:string):void {
         var field = <HTMLElement><any>document.getElementById("datepicker");
@@ -38,9 +40,10 @@ export class AssignTestComponent implements OnInit {
         }
     }
 
+    //methods to interact with teacher list on assign test panel
     assignTeacher(teacher) {
         this.assignedTeacher = teacher;
-        for(let i = 0; i < this.teacherList.length; i++) {
+        for (let i = 0; i < this.teacherList.length; i++) {
             this.teacherList[i].isActive = '';
         }
         this.assignedTeacher.isActive = 'active';
@@ -61,13 +64,24 @@ export class AssignTestComponent implements OnInit {
         console.log(this.teacherList);
     }
 
-    assignTest(){
+    //end of teacher methods
+
+    getUserInfo() {
+        //TODO add backend to this request
+        this.customHttp.post('/admin/user_list', {id: this.currentUser})
+            .subscribe(response => {
+                console.log(response);
+                this.userInfo = response;
+            });
+    }
+
+    assignTest() {
         this.data = {
-                dateFrom: '15/07/2016',
-                timeFrom: '14:00',
-                dateTo: '15/07/2016',
-                timeTo: '17:00',
-                teacher: '5457430uhot798y4'
+            dateFrom: '15/07/2016',
+            timeFrom: '14:00',
+            dateTo: '15/07/2016',
+            timeTo: '17:00',
+            teacher: '5457430uhot798y4'
         };
         this.customHttp.post('/admin/assign_test', {test: this.data})
             .subscribe(response => {
@@ -77,13 +91,12 @@ export class AssignTestComponent implements OnInit {
 
     ngOnInit() {
         StateService.fromDetail = true;
-        //TODO return by back button on keyboard and save searchFilter as it was
         //TODO check test status for user and block test assignment if test is requested or has been assigned
+        this.getUserInfo();
         this.getTeacherList();
-        var that = this;
         this.sub = this.route.params.subscribe(params => {
-            that.currentUser = params['id'];
-            console.log('that.currentUser ' + that.currentUser);
+            this.currentUser = params['id'];
+            console.log('that.currentUser ' + this.currentUser);
         });
     }
 

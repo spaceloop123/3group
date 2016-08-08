@@ -105,7 +105,7 @@ router.post('/accept_request_notification', function (req, res) {
         req.body.teacherId, req.body.timeFrom, req.body.timeTo, response.emptyResponse(res));
 });
 
-router.post('/assignTest', function () {
+router.post('/assign_test', function () {
     testService.assignNewTest(req.body.userId, req.body.teacherId,
         req.body.timeFrom, req.body.timeTo, response.emptyResponse(res));
 });
