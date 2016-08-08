@@ -18,29 +18,22 @@ import {StateService} from "../StateService";
 
 export class AssignTestComponent implements OnInit {
 
-    public currentUser:any;
-    public assignedTeacher:any;
+    currentUser:any;
+    assignedTeacher:any;
     private userInfo:any;
-    private data:any;
     private sub;
     private isActive;
     teacherList = [];
+
+    data = {
+        dateFrom: new Date(),
+        dateTo: new Date()
+    };
 
     constructor(private route:ActivatedRoute,
                 private customHttp:CustomHttp) {
     }
 
-    onNotify(message:string):void {
-        var field = <HTMLElement><any>document.getElementById("datepicker");
-        if ((field.textContent === 'dd') || (field.textContent === 'mm') || (field.textContent === 'yyyy')) {
-            console.log("Select Date");
-        }
-        else {
-            console.log("OK");
-        }
-    }
-
-    //methods to interact with teacher list on assign test panel
     assignTeacher(teacher) {
         this.assignedTeacher = teacher;
         for (let i = 0; i < this.teacherList.length; i++) {
@@ -64,8 +57,6 @@ export class AssignTestComponent implements OnInit {
         console.log(this.teacherList);
     }
 
-    //end of teacher methods
-
     getUserInfo() {
         //TODO add backend to this request
         this.customHttp.post('/admin/user_list', {id: this.currentUser})
@@ -76,17 +67,31 @@ export class AssignTestComponent implements OnInit {
     }
 
     assignTest() {
-        this.data = {
-            dateFrom: '15/07/2016',
-            timeFrom: '14:00',
-            dateTo: '15/07/2016',
-            timeTo: '17:00',
-            teacher: '5457430uhot798y4'
-        };
-        this.customHttp.post('/admin/assign_test', {test: this.data})
-            .subscribe(response => {
-                console.log('test has been assigned');
+        var a = $('#dateFrom').val();
+        var b = $('#dateTo').val();
+        this.data.dateFrom.setFullYear(parseInt(a.substr(0, 4)), parseInt(a.substr(5, 2)) - 1, parseInt(a.substr(8, 2)));
+        this.data.dateFrom.setUTCHours($('#hoursFrom').val());
+        this.data.dateFrom.setUTCMinutes($('#minutesFrom').val());
+
+        this.data.dateTo.setFullYear(parseInt(b.substr(0, 4)), parseInt(b.substr(5, 2)) - 1, parseInt(b.substr(8, 2)));
+        this.data.dateTo.setUTCHours($('#hoursTo').val());
+        this.data.dateTo.setUTCMinutes($('#minutesTo').val());
+
+        this.customHttp.post('/admin/assign_test', this.prepareDate(this.currentUser, this.assignedTeacher))
+            .subscribe(res => {
+                console.log('uletelo blin :D');
+            }, err => {
+                console.log('error :(');
             });
+    }
+
+    prepareDate(user, teacher) {
+        return {
+            'userId': user,
+            'teacherId': teacher['id'],
+            'timeFrom': this.data.dateFrom,
+            'timeTo': this.data.dateTo
+        };
     }
 
     ngOnInit() {
