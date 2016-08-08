@@ -25,10 +25,12 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     rightIconStatus:string = '';
     parentNIIndex:number = 0;
     childNIIndex:number = 0;
+    markPlaceClass:string = ''
     parentButtonClass:string = 'no-display-style';
     childButtonClass:string = 'no-display-style';
     finishButtonClass:string = 'no-display-style';
     status:number[];
+    marks:number[];
     sendButtonClass:string = 'no-display-style';
     nextButtonClass:string = 'no-display-style';
     countSentAnswers:number = 0;
@@ -39,6 +41,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
                 private router:Router) {
         this.navigationItems = new Array();
         this.answersId = [];
+        this.marks = new Array();
         this.opMode = "teacher";
         this.status = new Array();
         this.rangeValue = 50;
@@ -137,10 +140,15 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
                 JSON.stringify({testId: testId}), {headers: header})
             .toPromise()
             .then(response => {
-                that.router.navigate(['/home']);
-                localStorage.clear();
+                that.router.navigate(['/teacher']);
+                that.clearTestInfo();
             }).catch();
 
+    }
+
+    clearTestInfo() {
+        localStorage.clear();
+        localStorage.setItem('auth', 'teacher');
     }
 
     sendAndGo(tc:TestComponent) {
@@ -149,11 +157,12 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         let that = this;
 
         let mark = this.rangeValue;
+        this.marks[this.currentIndex] = this.rangeValue;
         tc.sendMarkToServer(mark, () => that.goToNextItem(tc));
         ++this.countSentAnswers;
         this.saveCountSentAnswers();
         this.canFinishCheck();
-        this.rangeValue = 50;
+        this.rangeValue = (this.marks[this.currentIndex] === -1) ? 50 : this.marks[this.currentIndex];
 
 
     }
@@ -273,13 +282,16 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         let index = 0;
         for (let item of answersId) {
             result.push(new NavigationItem(counter, null, NavigationItem.UNCHECKED));
+            this.marks.push(-1);
             ++index;
             ++this.totalAnswersCount;
             let subCounter = 0;
+
             if (item.subAnswersId.length !== 0) {
                 --this.totalAnswersCount;
                 result[result.length - 1].status = NavigationItem.NO_ANSWER;
                 for (let index of item.subAnswersId) {
+                    this.marks.push(-1);
                     ++this.totalAnswersCount;
                     result.push(new NavigationItem(counter, subCounter, NavigationItem.UNCHECKED));
                     subCounter += 1;

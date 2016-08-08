@@ -1,27 +1,40 @@
-<!-- костыыыль! sorry -->
-<base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColours"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"></base-chart>
+<div class="card lighten-1">
+    <div class='row'>
+        <div class='col s12 m7 l7 charts-class'>
+            <base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [colors]="lineChartColours"
+                        [legend]="lineChartLegend"
+                        [chartType]="lineChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></base-chart>
+        </div>
+        <div class='col s12 m5 l5 blue-grey-text flow-text'>
+            <div *ngIf="testStatistics.length !== 0">
+                <div>
+                    Your results
+                </div>
+                <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+                    <li *ngFor="let item of testStatistics">
+                        <div class="collapsible-header"><i class="material-icons">query_builder</i>
+                            {{showTime(item.date) + ' : ' +showMark(item.mark) + '%'}}
+                        </div>
+                        <div class="collapsible-body" style="margin-left: 4%">
+                            <div *ngFor='let elem of item.questions'>{{elem.type + ' ' + showMark(elem.mark) + '%'}}
+                            </div>
+                        </div>
+                    </li>
 
-
-<div *ngIf="testStatistics.length !== 0">
-    <div>
-        Your result
+                </ul>
+            </div>
+            <ul>
+                <li *ngIf="testStatistics.length === 0">
+                    click on the chart to view history details
+                </li>
+            </ul>
+        </div>
     </div>
-    <ul>
-        <li *ngFor="let item of testStatistics">{{"time: " + item.date + ': ' +item.mark + '%'}}
-            <ol *ngFor='let elem of item.questions'>{{elem.type + ' ' + elem.mark + '%'}}</ol>
-        </li>
-    </ul>
 </div>
-<ul>
-    <li *ngIf="testStatistics.length === 0">
-        do something to see your test results
-    </li>
-</ul>
+

@@ -111,6 +111,10 @@ main {
 
 }
 
+.markPlaceClass-active #markPlaceText {
+
+}
+
 .display-style{
     display: initial;
 
@@ -161,6 +165,11 @@ a .disabled {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+.charts-class {
+    margin-bottom: 4%;
+    margin-top: 4%;
 }
 
 .instraction-modal {

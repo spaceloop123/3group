@@ -4,4 +4,5 @@ export class TestStatistics {
                 public questions:any[]//type, mark
     ) {
     }
+
 }

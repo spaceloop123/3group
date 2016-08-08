@@ -1,6 +1,5 @@
-import 'rxjs/Rx';
-
-import {Injectable} from '@angular/core';
+import "rxjs/Rx";
+import {Injectable} from "@angular/core";
 import {CustomHttp} from "../services/CustomHttp";
 import {AuthData} from "./auth.data";
 import {Router} from "@angular/router";
@@ -42,6 +41,7 @@ export class AuthService {
 		this.customHttp.get("/logout")
 			.subscribe(
 				() => {
+					localStorage.clear();
 					that.role = null;
 					that.updateRouteFromRole();
 				}
