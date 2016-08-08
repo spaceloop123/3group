@@ -40,7 +40,8 @@ router.post('/new_guest', function (req, res, next) {
     User.count({}, function (err, count) {
         var username = 'Guest' + count;
         var password = '11111';
-        addUser(username, password, 'guest', req);
+        var guest = addUser(username, password, 'guest', req);
+        
         mailer.sendMail(
             req.body.email,
             'Welcome to ProjectName',
@@ -82,6 +83,7 @@ function addUser(username, password, role, req) {
     });
     user.setPassword(password);
     user.save();
+    return user;
 }
 
 router.get('/teachers_list', function (req, res) {

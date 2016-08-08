@@ -195,12 +195,17 @@ function getTestMap(answers) {
 
 module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, done) {
     var test = new Test({
-        status: 'available',
+        status: 'wait',
         user: userId,
         teacher: teacherId,
         answers: [],
         fromTime: new Date(timeFrom),
         toTime: new Date(timeTo)
+    });
+    agenda.setTimer('open-window', {testId: test.id}, test.fromTime.getTime() - new Date().getTime());
+    User.findOne({_id: userId}, function (err, user) {
+        agenda.setTimer('send-mail', {to: user.email, subject: 'Your test', text: 'Your test will be available in hour\n' +
+        'With love from administration of TheTuga!'});
     });
     test.save(function (err) {
         done(err);
@@ -213,11 +218,16 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
             Test.fine({_id: testId, status: 'request'}, callback);
         })
         .exec(function (res) {
-            res.test.status = 'available';
+            res.test.status = 'wait';
             res.test.teacher = teacherId;
             res.test.answers = [];
-            res.test.fromTime = timeFrom;
-            res.test.toTome = timeTo;
+            res.test.fromTime = new Date(timeFrom);
+            res.test.toTome = new Date(timeTo);
+            agenda.setTimer('open-window', {testId: testId}, res.test.fromTime.getTime() - new Date().getTime());
+            User.findOne({_id: res.test.user}, function (err, user) {
+                agenda.setTimer('send-mail', {to: user.email, subject: 'Your test', text: 'Your test will be available in hour\n' +
+                'With love from administration of TheTuga!'});
+            });
             res.test.save(function (err) {
                 done(err);
             });
