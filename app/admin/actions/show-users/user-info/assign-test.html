@@ -2,19 +2,30 @@
     <div class="container valign">
         <div class="row">
 
-            <div class="col s12 m6 l6 card-width" align="center">
-                <div class="card white valign" align=center>
-                    <div class="card-content" style="height: 380px">
-                        <p class="card-title blue-text">User Userovski</p>
-                        <p align="left">id: {{currentUser}} - temporary</p>
-                        <p class="cyan-text" align="left">user.userovski@exadel.com</p>
-                        <line-chart-demo class="chart-wrapper" [role]="'admin'"
-                                         [userId]="currentUser"></line-chart-demo>
+            <div class="col s12 m6 card-width" align="center">
+                <div class="card horizontal">
+                    <div class="card-image valign-wrapper">
+                        <img class="valign add-icon-container" src="app/admin/actions/show-users/img/user.png">
                     </div>
+                    <div class="card-stacked">
+                        <div class="card-content valign-wrapper">
+                            <div class="container valign">
+                                <div align="left">
+                                    <h2 class="flow-text cyan-text">{{userInfo.firstName}} {{userInfo.lastName}}</h2>
+                                    <p class="flow-text purple-text">{{userInfo.username}}</p>
+                                    <p class="flow-text blue-text">{{userInfo.email}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div align="center">
+                    <line-chart-demo class="chart-wrapper" [role]="'admin'"
+                                     [userId]="currentUser"></line-chart-demo>
                 </div>
             </div>
 
-            <div class="col s12 m6 l6 card-width">
+            <div class="col s12 m6 l6 card-width" align="center">
                 <div class="card white valign">
                     <div class="card-content">
                         <p class="card-title purple-text text-darken-2" align="center">Assign Test</p>

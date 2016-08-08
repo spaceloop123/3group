@@ -13,6 +13,7 @@ import {StateService} from "../StateService";
 export class TeacherInfoComponent implements OnInit {
 
     public currentUser:any;
+    private teacherInfo:any;
     private sub;
 
     constructor(private route:ActivatedRoute,

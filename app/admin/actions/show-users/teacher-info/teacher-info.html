@@ -1,23 +1,22 @@
 <div style="width: 100%">
     <div class="container">
-        <div class="row" align=center>
-            <div class="col s12 m6" align="center">
-                <div class="card white lighten-5 valign" align=center>
-                    <div class="card-content" style="height: 380px">
-                        <p class="card-title">Teacher</p>
-                        <div align="left">
-                            <h5>id: {{currentUser}}</h5>
-                            <h5>Email</h5>
-                            <p>This teacher checked 3 tests.</p>
-                            <p>5 tests are still to check.</p>
-                        </div>
+        <div class="row">
+            <div class="col s12 m12" align="center">
+                <div class="card horizontal">
+                    <div class="card-image valign-wrapper">
+                        <img class="valign add-icon-container" src="app/admin/actions/show-users/img/teacher.png">
                     </div>
-                </div>
-            </div>
-            <div class="col s12 m6" align="center">
-                <div class="card white lighten-5 valign" align=center>
-                    <div class="card-content valign-wrapper" style="height: 380px" align="center">
-                        <h5>You can send this teacher on vacation</h5>
+                    <div class="card-stacked">
+                        <div class="card-content valign-wrapper">
+                            <div class="container valign">
+                                <div align="left">
+                                    <h2 class="flow-text cyan-text">John Teacher</h2>
+                                    <p class="flow-text">id: {{currentUser}} - temporary</p>
+                                    <p class="flow-text blue-text">john.teacher@exadel.com</p>
+                                    <p>5 tests are still to check.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

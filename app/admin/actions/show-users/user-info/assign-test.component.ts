@@ -58,12 +58,16 @@ export class AssignTestComponent implements OnInit {
     }
 
     getUserInfo() {
-        //TODO add backend to this request
-        this.customHttp.post('/admin/user_list', {id: this.currentUser})
+        this.customHttp.post('/admin/user_info', {userId: this.currentUser})
             .subscribe(response => {
                 console.log(response);
-                this.userInfo = response;
+                this.setUser(response);
             });
+    }
+
+    setUser(response) {
+        this.userInfo = response;
+        console.log(this.userInfo.email);
     }
 
     assignTest() {
@@ -82,7 +86,7 @@ export class AssignTestComponent implements OnInit {
                 console.log('uletelo blin :D');
             }, err => {
                 console.log('error :(');
-            });
+            })
     }
 
     prepareDate(user, teacher) {
@@ -97,12 +101,12 @@ export class AssignTestComponent implements OnInit {
     ngOnInit() {
         StateService.fromDetail = true;
         //TODO check test status for user and block test assignment if test is requested or has been assigned
-        this.getUserInfo();
-        this.getTeacherList();
         this.sub = this.route.params.subscribe(params => {
             this.currentUser = params['id'];
             console.log('that.currentUser ' + this.currentUser);
         });
+        this.getUserInfo();
+        this.getTeacherList();
     }
 
     ngOnDestroy():any {
