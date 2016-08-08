@@ -34,10 +34,12 @@
 
                     </ul>
                 </div>
-                <div *ngIf="testStatistics.length === 0 && lineChartLabels.length !== 0">
+                <div class="collection-item grey lighten-5 amber-text text-darken-2"
+                     *ngIf="testStatistics.length === 0 && lineChartLabels.length !== 0">
                     <p>Click on the chart to view history details</p>
                 </div>
-                <div *ngIf="testStatistics.length === 0 && lineChartLabels.length === 0">
+                <div class="collection-item grey lighten-5 amber-text text-darken-2"
+                     *ngIf="testStatistics.length === 0 && lineChartLabels.length === 0">
                     <p>User has no statistics</p>
                 </div>
             </div>

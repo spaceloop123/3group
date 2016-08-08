@@ -34,6 +34,17 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     setUserList(response) {
         this.isThereDataToScroll = response.length !== 0;
         this.userList = this.userList.concat(response);
+        for (let i = 0; i < this.userList.length; i++) {
+            if(this.userList[i].role === 'user'){
+                this.userList[i].chipColor = 'light-green lighten-3';
+            } else if(this.userList[i].role === 'admin') {
+                this.userList[i].chipColor = 'deep-purple lighten-4';
+            } else if(this.userList[i].role === 'guest') {
+                this.userList[i].chipColor = 'lime accent-1';
+            } else {
+                this.userList[i].chipColor = 'cyan lighten-4';
+            }
+        }
         console.log(this.userList);
         $(document).scrollTop(StateService.scrollPosition);
     }
