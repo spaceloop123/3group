@@ -41,6 +41,15 @@ export class AdminComponent implements OnInit {
         };
     }
 
+    ngOnInit() {
+        console.log(StateService.fromDetail);
+        if (StateService.fromDetail === true) {
+            this.currentTab = 3;
+        } else {
+            this.currentTab = 2;
+        }
+    }
+
     changeTeacherState(teacher) {
         this.assignedTeacher = teacher;
         for (let i = 0; i < this.teacherList.length; i++) {
@@ -80,6 +89,7 @@ export class AdminComponent implements OnInit {
             return;
         }
         this.currentNotification = responce;
+        this.getTeacherList();
     }
 
     onDeclineNotification() {
@@ -91,17 +101,6 @@ export class AdminComponent implements OnInit {
         this.currentNotification = new NotificationActive(this.currentNotification, 'assign', this.assignedTeacher['id']
             , this.data);
         console.log('CARA : ' + JSON.stringify(this.currentNotification));
-    }
-
-    ngOnInit() {
-        console.log(StateService.fromDetail);
-        if (StateService.fromDetail === true) {
-            this.currentTab = 3;
-        } else {
-            this.currentTab = 2;
-        }
-        this.changeTab(this.currentTab);
-        this.getTeacherList();
     }
 
 }
