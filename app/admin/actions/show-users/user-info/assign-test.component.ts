@@ -32,6 +32,7 @@ export class AssignTestComponent implements OnInit {
 
     constructor(private route:ActivatedRoute,
                 private customHttp:CustomHttp) {
+        this.userInfo = [];
     }
 
     assignTeacher(teacher) {
