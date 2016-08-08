@@ -2,82 +2,85 @@
 <div *ngIf="status!==''">
     <div class="valign-wrapper ">
         <div class="container valign">
-            <div class="row" align=center>
+            <div class="row">
 
-                <div *ngIf="status==='available' || status==='run'" class="col s12 m6 l6 card-width" align=center>
+                <div class="col s12 m6 l6 card-width">
                     <div class="card white valign">
-                        <div class="card-content" align=center style="min-height:250px">
-                            <span class="card-title">Current Test</span>
-                            <p class="green-text">Test Description</p>
-                            <div class="card-content" align="center">
-                                <p>Test duration:{{time}}</p>
-                                <p>Number of questions:{{numQuestions}}</p>
-
-                                <h5 class="card-content" align="center">Press button "Start" to start English Test.</h5>
+                        <div class="card-image">
+                            <div align="center" class="parent-of-images">
+                                <img *ngIf="status==='available'"
+                                     class="image-gif" src="app/user/runTest/img/testToRun.gif">
+                                <img *ngIf="status==='run'"
+                                     class="image-gif" src="app/user/runTest/img/super-runner.gif">
+                                <img *ngIf="status==='notAvailable'"
+                                     class="image-gif" src="app/user/runTest/img/people.gif">
+                                <img *ngIf="status==='requested'"
+                                     class="image-gif" src="app/user/runTest/img/waiting.gif">
                             </div>
+                            <span *ngIf="status==='available'"
+                                  class="card-title green-text text-darken-2" style="font-weight: 400;">
+                                Test is available
+                            </span>
+                            <span *ngIf="status==='run'"
+                                  class="card-title red-text text-darken-2" style="font-weight: 400;">
+                                Test is running
+                            </span>
+                            <span *ngIf="status==='notAvailable'"
+                                  class="card-title red-text text-lighten-2" style="font-weight: 400;">
+                                Test isn't appointed
+                            </span>
+                            <span *ngIf="status==='requested'"
+                                  class="card-title orange-text text-darken-2" style="font-weight: 400;">
+                                Waiting for test
+                            </span>
+                        </div>
+                        <div class="card-content" *ngIf="status==='available'">
+                            <p>Test duration: {{time}} minutes</p>
+                            <p>Number of questions: {{numQuestions}}</p>
+                        </div>
+                        <div class="card-content" *ngIf="status==='run'">
+                            <p>Your test is currently running</p>
+                            <p>If you go away, you'll miss it!</p>
+                        </div>
+                        <div class="card-content" *ngIf="status==='notAvailable'">
+                            <p>Nobody appointed you any test</p>
+                            <p>Please, ask for it</p>
+                        </div>
+                        <div class="card-content" *ngIf="status==='requested'">
+                            <p>You've already asked for test</p>
+                            <p>Please, wait until the request is approved</p>
                         </div>
                         <div class="card-action" align=center>
-                            <a class="waves-effect default btn" (click)="runTest()">Start</a>
+                            <a *ngIf="status==='available'" class="waves-effect default btn"
+                               (click)="runTest()">Start</a>
+                            <a *ngIf="status==='run'" class="waves-effect default btn"
+                               (click)="runTest()">Continue</a>
+                            <a *ngIf="status==='notAvailable'" class="waves-effect default btn"
+                               (click)="askTest()">Ask for test</a>
+                            <a *ngIf="status==='requested'" class="waves-effect default btn disabled">
+                                Ask for test</a>
                         </div>
                     </div>
                 </div>
 
-
-
-                <div *ngIf="status==='notAvailable'" class="col s12 m6 l6 card-width" align=center>
+                <div class="col s12 m6 l6 card-width">
                     <div class="card white valign">
-                        <div class="card-content" align=center style="min-height:250px">
-                            <span class="card-title">Current Test</span>
-                            <h5 class="red-text" style="margin-top:22%">You have no test assigned to you</h5>
-
+                        <div class="card-image">
+                            <div align="center" class="parent-of-images">
+                                <img class="image-gif" src="app/user/runTest/img/mac_chart.gif">
+                            </div>
+                            <span class="card-title purple-text text-darken-2" style="font-weight: 400;">Stats</span>
                         </div>
-                        <div class="card-action" align=center>
-                            <a class="waves-effect default btn" (click)="askTest()">Ask for test</a>
+                        <div class="card-content">
+                            <p>All your previous attempts are available</p>
+                            <p>Check them out</p>
                         </div>
-                    </div>
-                </div>
-
-
-                <div *ngIf="status==='requested'" class="col s12 m6 l6 card-width" align=center>
-                    <div class="card white valign">
-                        <div class="card-content" align=center style="min-height:250px">
-                            <span class="card-title">Current Test</span>
-                          <!--  <div class="preloader-wrapper big active">
-                                <div class="spinner-layer spinner-blue-only">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                </div>
-                            </div>-->
-
-                            <h5 class="card-content red-text">You've already asked for test</h5>
-                            <h6 class="card-content">Please, wait until admin assign you test</h6>
-                        </div>
-                        <div class="card-action" align=center style="height:77px">
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="col s12 m6 l6 card-width" align=center>
-                    <div class="card white valign">
-                        <div class="card-content" align=center style="min-height:250px">
-                            <span class="card-title">Past Tests</span>
-                            <h5 class="card-content" style="margin-top:15%">Check out your previous attempts</h5>
-                        </div>
-                        <div class="card-action" align=center>
-                            <a class="waves-effect default btn" [routerLink]="['/showTests']">Show</a>
+                        <div class="card-action" align="center">
+                            <a class="waves-effect default btn" [routerLink]="['/showTests']">Show </a>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -86,3 +89,4 @@
     loading...
 </div>
 <speech-recorder></speech-recorder>
+<play-audio></play-audio>

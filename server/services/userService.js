@@ -107,3 +107,21 @@ module.exports.checkGuest = function (guestId, done) {
             done(null, res.guest);
         }, done, done);
 };
+
+module.exports.getUserInfo = function (userId, done) {
+    new Validator()
+        .checkItem('user', function (callback) {
+            User.findOne({_id: userId}, callback);
+        })
+        .exec(function (res) {
+            var info = res.user.getMoreInfo();
+            if(res.user.role === 'teacher') {
+                Test.count({teacher: res.user.id, status: 'checking'}, function (err, count) {
+                    info.n = count;
+                    done(null, info);
+                });
+            } else {
+                done(null, info);
+            }
+        }, done, done);
+};

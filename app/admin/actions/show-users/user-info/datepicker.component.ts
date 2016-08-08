@@ -1,8 +1,6 @@
-import {Component, EventEmitter, Output, Input, OnInit} from '@angular/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
-import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
-import {Http} from "@angular/http";
-import {MaterializeDirective} from 'angular2-materialize';
+import {Component, EventEmitter, Output, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router";
+import {MaterializeDirective} from "angular2-materialize";
 
 @Component({
     selector: 'datepicker',
@@ -11,44 +9,33 @@ import {MaterializeDirective} from 'angular2-materialize';
 })
 export class DatepickerComponent implements OnInit {
 
-    private assignTestUrl = 'app/admin/assignTest';  // URL to web api
-    @Input() state:string;
+    private assignTestUrl = 'app/admin/assignTest';
     @Output() notify:EventEmitter<string> = new EventEmitter<string>();
-    @Output() toggleState:EventEmitter<string> = new EventEmitter<string>();
-
 
     constructor() {
     }
 
     ngOnInit():any {
-        console.log('state = ' + this.state);
-        if (this.state != 'date-picker-active') {
-            this.enableAllInputFields();
-            console.log('state = ' + this.state);
-        } else {
-            this.disableAllInputFields();
-            console.log('rrr ' + this.state);
-        }
+        this.enableAllInputFields();
     }
 
     enableAllInputFields() {
-        document.getElementById("dateFrom").disabled = false;
-        document.getElementById("hoursFrom").disabled = false;
-        document.getElementById("minutesFrom").disabled = false;
-        document.getElementById("dateTo").disabled = false;
-        document.getElementById("hoursTo").disabled = false;
-        document.getElementById("minutesTo").disabled = false;
+        $('#dateFrom').prop('disabled', false);
+        $('#hoursFrom').prop('disabled', false);
+        $('#minutesFrom').prop('disabled', false);
+        $('#dateTo').prop('disabled', false);
+        $('#hoursTo').prop('disabled', false);
+        $('#minutesTo').prop('disabled', false);
     }
 
 
     disableAllInputFields() {
-        document.getElementById("dateFrom").disabled = true;
-        document.getElementById("hoursFrom").disabled = true;
-        document.getElementById("minutesFrom").disabled = true;
-        document.getElementById("dateTo").disabled = true;
-        document.getElementById("hoursTo").disabled = true;
-        document.getElementById("minutesTo").disabled = true;
-
+        $('#dateFrom').prop('disabled', true);
+        $('#hoursFrom').prop('disabled', true);
+        $('#minutesFrom').prop('disabled', true);
+        $('#dateTo').prop('disabled', true);
+        $('#hoursTo').prop('disabled', true);
+        $('#minutesTo').prop('disabled', true);
     }
 
     data = {
@@ -57,36 +44,23 @@ export class DatepickerComponent implements OnInit {
     };
 
     confirmDate() {
-        var a = document.getElementById("dateFrom");
-        var b = document.getElementById("dateTo");
-        if (a.value && b.value) {
+        var a = $('#dateFrom').val();
+        var b = $('#dateTo').val();
+        if (a && b) {
 
+            this.data.dateFrom.setFullYear(parseInt(a.substr(0, 4)), parseInt(a.substr(5, 2)) - 1, parseInt(a.substr(8, 2)));
+            this.data.dateFrom.setUTCHours($('#hoursFrom').val());
+            this.data.dateFrom.setUTCMinutes($('#minutesFrom').val());
 
-            this.data.dateFrom.setFullYear(parseInt(a.value.substr(0, 4)), parseInt(a.value.substr(5, 2)) - 1, parseInt(a.value.substr(8, 2)));
-            this.data.dateFrom.setUTCHours(document.getElementById("hoursFrom").value);
-            this.data.dateFrom.setUTCMinutes(document.getElementById("minutesFrom").value);
-
-            this.data.dateTo.setFullYear(parseInt(b.value.substr(0, 4)), parseInt(b.value.substr(5, 2)) - 1, parseInt(b.value.substr(8, 2)));
-            this.data.dateTo.setUTCHours(document.getElementById("hoursTo").value);
-            this.data.dateTo.setUTCMinutes(document.getElementById("minutesTo").value);
+            this.data.dateTo.setFullYear(parseInt(b.substr(0, 4)), parseInt(b.substr(5, 2)) - 1, parseInt(b.substr(8, 2)));
+            this.data.dateTo.setUTCHours($('#hoursTo').val());
+            this.data.dateTo.setUTCMinutes($('#minutesTo').val());
 
             console.log('month-test', this.data.dateFrom);
             this.notify.emit(JSON.stringify(this.data));
-
-            if (this.state !== 'date-picker-active') {
-                this.state = 'date-picker-active';
-                this.disableAllInputFields();
-                this.toggleState.emit(this.state);
-            } else {
-                this.state = 'teacher-picker-active';
-                this.enableAllInputFields();
-                this.toggleState.emit(this.state);
-            }
-
         }
         else {
             console.log("select date")
         }
     }
 }
-

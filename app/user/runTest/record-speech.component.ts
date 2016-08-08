@@ -1,6 +1,5 @@
 import {onError} from "@angular/upgrade/src/util";
 import {Component} from "@angular/core";
-
 @Component({
     selector: 'speech-recorder',
     templateUrl: 'app/user/runTest/record-speech.html',
@@ -25,6 +24,11 @@ export class RecordSpeechComponent {
             video: false
         };
         let that = this;
+        this.socket.onopen = function (event) {
+            that.socket.send("neTest.wav");  //send fileName(Maxim)
+        };
+        //please, add supporte for reading metadata on serverside
+
         this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
     }
 
@@ -46,8 +50,6 @@ export class RecordSpeechComponent {
 
     recorderProcess(e) {
         let left = e.inputBuffer.getChannelData(0);
-        //console.log('recorderProcess');
-        console.log('a');
         this.socket.send(this.convertFloat32ToInt16(left));
     }
 

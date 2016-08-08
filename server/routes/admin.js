@@ -105,7 +105,7 @@ router.post('/accept_request_notification', function (req, res) {
         req.body.teacherId, req.body.timeFrom, req.body.timeTo, response.emptyResponse(res));
 });
 
-router.post('/assignTest', function () {
+router.post('/assign_test', function () {
     testService.assignNewTest(req.body.userId, req.body.teacherId,
         req.body.timeFrom, req.body.timeTo, response.emptyResponse(res));
 });
@@ -116,7 +116,11 @@ router.post('/user_history', function (req, res) {
 });
 
 router.post('/test_history', function (req, res) {
-    testService.getTestHistory(req.userId, req.testId, response.dataResponse(res));
-})
+    testService.getTestHistory(req.body.userId, req.body.testIds, response.dataResponse(res));
+});
+
+router.post('/user_info', function (req, res) {
+    userService.getUserInfo(req.body.userId, response.dataResponse(res));
+});
 
 module.exports = router;

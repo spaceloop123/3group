@@ -44,10 +44,10 @@ export class TestComponent implements OnChanges {
 
     }
     ngOnChanges(changes:SimpleChanges):any {
-        if(changes['testInfo'].currentValue) {
+        if(changes['testInfo'] && changes['testInfo'].currentValue) {
             this.testInfo = changes['testInfo'].currentValue;
         }
-        if(changes['answersId']) {
+        if(changes['answersId'] && changes['answersId']) {
             this.answersId = changes['answersId'].currentValue;
         }
         if(changes['mode']) {

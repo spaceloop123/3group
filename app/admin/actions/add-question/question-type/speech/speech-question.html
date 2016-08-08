@@ -1,26 +1,28 @@
 <div class="row">
     <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
-        <div class="row flow-text">
+        <div class="row">
 
             <!-- header -->
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="speech-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
+                          placeholder="E.g: Record your answer to the following question"
                           name="speech-question-header-{{question.id}}"></textarea>
-                <label [attr.for]="'speech-question-header-' + question.id">Task description</label>
+                <label [attr.for]="'speech-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
             <!-- difficulty -->
             <div class="input-field col s12 m6 l6">
                 <input id="speech-question-difficulty-{{question.id}}"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
-                       placeholder="Complexity (between 1 and 100)"
+                       placeholder="Of 1 to 100"
                        type="number" min="1" max="100" class="validate"
                        [(ngModel)]="question.difficulty"
                        name="speech-question-difficulty-{{question.id}}"/>
-                <label [attr.for]="'speech-question-difficulty-' + question.id" class="active" data-error="wrong">Task
-                    complexity</label>
+                <label [attr.for]="'speech-question-difficulty-' + question.id"
+                       class="active" data-error="wrong">Complexity</label>
             </div>
 
             <!-- maxCost -->
@@ -28,12 +30,12 @@
                 <input id="speech-question-maxCost-{{question.id}}"
                        [attr.disabled]="((question.state !== 'edit')
                        || (question.isSubQuestion ? true : null) ? true : null)"
-                       placeholder="Weight (between 1 and 10)"
+                       placeholder="Of 1 to 10"
                        type="number" min="1" max="10" class="validate"
                        [(ngModel)]="question.maxCost"
                        name="speech-question-maxCost-{{question.id}}"/>
-                <label [attr.for]="'speech-question-maxCost-' + question.id" data-error="wrong" class="active">Task
-                    weight</label>
+                <label [attr.for]="'speech-question-maxCost-' + question.id" data-error="wrong"
+                       class="active">Weight</label>
             </div>
 
             <!-- question -->
@@ -41,8 +43,9 @@
                 <textarea class="materialize-textarea" id="speech-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.question"
+                          placeholder="E.g: Please, tell us about your favourite music jenres"
                           name="speech-question-question-{{question.id}}"></textarea>
-                <label [attr.for]="'speech-question-question-' + question.id">Question</label>
+                <label [attr.for]="'speech-question-question-' + question.id" class="active">Question</label>
             </div>
 
         </div>

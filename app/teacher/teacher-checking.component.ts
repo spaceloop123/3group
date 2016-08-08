@@ -4,7 +4,7 @@ import {Http, Headers} from "@angular/http";
 import {NavigationItem} from "./navigation.item";
 import {TestComponent} from "../test/test.component";
 import {TestInfo} from "../test/test.info";
-import {MaterializeDirective, toast} from "angular2-materialize";
+import {MaterializeDirective} from "angular2-materialize";
 
 @Component({
     templateUrl: 'app/teacher/teacher-checking.html',
@@ -25,14 +25,14 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     rightIconStatus:string = '';
     parentNIIndex:number = 0;
     childNIIndex:number = 0;
-    parentButtonClass: string = 'no-display-style';
-    childButtonClass: string = 'no-display-style';
-    finishButtonClass: string = 'no-display-style';
+    parentButtonClass:string = 'no-display-style';
+    childButtonClass:string = 'no-display-style';
+    finishButtonClass:string = 'no-display-style';
     status:number[];
-    sendButtonClass: string = 'no-display-style';
-    nextButtonClass: string = 'no-display-style';
-    countSentAnswers: number = 0;
-    totalAnswersCount: number = 0;
+    sendButtonClass:string = 'no-display-style';
+    nextButtonClass:string = 'no-display-style';
+    countSentAnswers:number = 0;
+    totalAnswersCount:number = 0;
 
     constructor(private route:ActivatedRoute,
                 private http:Http,
@@ -41,6 +41,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         this.answersId = [];
         this.opMode = "teacher";
         this.status = new Array();
+        this.rangeValue = 50;
 
 
     }
@@ -55,7 +56,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
             this.currentIndex = 0;
         }
         this.countSentAnswers = this.restoreCountSentAnswers();
-	    // TODO: (pay attention) CustomHttp + Observables
+        // TODO: (pay attention) CustomHttp + Observables
         var header = new Headers();
         header.append('Content-Type', 'application/json');
         this.http.post('/teacher/check_test',
@@ -91,7 +92,6 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     }
 
 
-
     goToParent(tc:TestComponent) {
         this.parentButtonClass = 'no-display-style';
         this.childButtonClass = 'display-style';
@@ -105,9 +105,9 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
 
     }
 
-    activateParentButton(){
+    activateParentButton() {
         let item = this.navigationItems[this.currentIndex];
-        if(item.subQuestionIndex !== null){
+        if (item.subQuestionIndex !== null) {
             this.findParent(this.currentIndex);
             this.parentButtonClass = 'display-style';
             this.childButtonClass = 'no-display-style';
@@ -127,9 +127,8 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     }
 
 
-
-    finishCheckTest(){
-        let  testId = JSON.parse(localStorage.getItem('subQuestionInfo')).testId;
+    finishCheckTest() {
+        let testId = JSON.parse(localStorage.getItem('subQuestionInfo')).testId;
         let that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -138,27 +137,23 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
                 JSON.stringify({testId: testId}), {headers: header})
             .toPromise()
             .then(response => {
-                    that.router.navigate(['/home']);
-                    localStorage.clear();
+                that.router.navigate(['/home']);
+                localStorage.clear();
             }).catch();
 
     }
 
-    sendAndGo(tc: TestComponent){
+    sendAndGo(tc:TestComponent) {
         this.status[this.currentIndex] = NavigationItem.CHECKED;
         this.saveStatus();
         let that = this;
-        if (this.rangeValue > 100 || this.rangeValue <= 0) {
-            toast('Please, change your mark', 3000, 'red');
-            this.rangeValue = 0;
-        } else {
-            let mark = this.rangeValue;
-            tc.sendMarkToServer(mark, () => that.goToNextItem(tc));
-            ++this.countSentAnswers;
-            this.saveCountSentAnswers();
-            this.canFinishCheck();
-            this.rangeValue = 0;
-        }
+
+        let mark = this.rangeValue;
+        tc.sendMarkToServer(mark, () => that.goToNextItem(tc));
+        ++this.countSentAnswers;
+        this.saveCountSentAnswers();
+        this.canFinishCheck();
+        this.rangeValue = 50;
 
 
     }
@@ -169,9 +164,9 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         this.parentNIIndex = index - this.navigationItems[this.childNIIndex].subQuestionIndex - 1;
     }
 
-    getSendButtonClass(){
-        if(this.status[this.currentIndex] === NavigationItem.NO_ANSWER ||
-                this.status[this.currentIndex] === NavigationItem.CHECKED) {
+    getSendButtonClass() {
+        if (this.status[this.currentIndex] === NavigationItem.NO_ANSWER ||
+            this.status[this.currentIndex] === NavigationItem.CHECKED) {
             this.sendButtonClass = 'no-display-style';
             this.nextButtonClass = 'display-style';
         } else {
@@ -180,10 +175,10 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         }
     }
 
-    canFinishCheck(): boolean{
+    canFinishCheck():boolean {
         console.log('this.countSentAnswers ' + this.countSentAnswers);
         console.log('this.totalAnswersCount ' + this.totalAnswersCount);
-        if(this.countSentAnswers === this.totalAnswersCount){
+        if (this.countSentAnswers === this.totalAnswersCount) {
             console.log('we are here');
             this.finishButtonClass = 'display-style';
             this.sendButtonClass = 'no-display-style';
@@ -207,16 +202,15 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         this.activateParentButton();
 
 
-
     }
 
-    canGo(){
+    canGo() {
         console.log('cango');
-        if(this.currentIndex === this.navigationItems.length - 1){
+        if (this.currentIndex === this.navigationItems.length - 1) {
             //console.log('cango1');
             this.rightIconStatus = 'disabled';
 
-        } else if(this.currentIndex  === 0){
+        } else if (this.currentIndex === 0) {
             //console.log('cango2');
             this.leftIconStatus = 'disabled';
         } else {
@@ -296,20 +290,20 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         }
         // console.log(this.navigationItems);
         this.navigationItems = result;
-        if(this.navigationItems[this.currentIndex].subQuestionIndex !== null){
+        if (this.navigationItems[this.currentIndex].subQuestionIndex !== null) {
             this.findParent(this.currentIndex);
         }
         let buffer = this.restoreStatus();
         //console.log('status ' + buffer);
-        if(buffer){
+        if (buffer) {
             this.status = buffer;
-        } else{
+        } else {
             this.createStatus();
         }
         this.getSendButtonClass();
         this.canGo();
         let countAnswers = this.restoreCountSentAnswers();
-        if(countAnswers){
+        if (countAnswers) {
             console.log('countAnswers ' + countAnswers);
             this.countSentAnswers = countAnswers;
             this.canFinishCheck();
@@ -318,9 +312,9 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
 
     }
 
-    createStatus(){
+    createStatus() {
         this.status = new Array();
-        for(let item of this.navigationItems){
+        for (let item of this.navigationItems) {
             this.status.push(item.status);
         }
         this.saveStatus();

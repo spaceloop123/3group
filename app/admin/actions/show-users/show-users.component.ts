@@ -1,93 +1,91 @@
-import {Component, OnInit, OnChanges} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {MaterializeDirective} from "angular2-materialize";
-import {InfiniteScroll} from 'angular2-infinite-scroll';
-import {CustomHttp} from '../../../common/services/CustomHttp';
+import {InfiniteScroll} from "angular2-infinite-scroll";
+import {CustomHttp} from "../../../common/services/CustomHttp";
+import {StateService} from "./StateService";
 
 @Component({
     selector: 'show-users-component',
     templateUrl: 'app/admin/actions/show-users/show-users.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, InfiniteScroll],
-    providers: [CustomHttp]
+    providers: [CustomHttp, StateService]
 })
 
-export class ShowUsersComponent implements OnChanges, OnInit{
+export class ShowUsersComponent implements OnInit, OnDestroy {
 
-    private searchFilter = '';
-    private isThereDataToScroll: boolean;
+    private searchFilter:string;
+    private isThereDataToScroll:boolean;
     userList = [];
     shownUsers = 0;
 
-    // array = [];
-    // sum = 30;
-
-    constructor(private customHttp: CustomHttp,
-                private router: Router) {
-        this.searchFilter = '';
+    constructor(private customHttp:CustomHttp,
+                private router:Router) {
     }
 
     getUsers() {
-        var that = this;
         this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('posted');
-                that.setUserList(response);
+                this.setUserList(response);
             });
     }
 
     setUserList(response) {
-        if (response.length === 0) {
-            this.isThereDataToScroll = false;
-        } else {
-            this.isThereDataToScroll = true;
-        }
+        this.isThereDataToScroll = response.length !== 0;
         this.userList = this.userList.concat(response);
         console.log(this.userList);
+        $(document).scrollTop(StateService.scrollPosition);
     }
 
     renewUserList(response) {
-        if (response.length === 0) {
-            this.isThereDataToScroll = false;
-        } else {
-            this.isThereDataToScroll = true;
-        }
+        this.isThereDataToScroll = response.length !== 0;
         this.userList = response;
         console.log(this.userList);
     }
 
-    onScrollDown () {
+    onScrollDown() {
         console.log('scrolled down!!');
         this.shownUsers += 10;
         this.getUsers();
+        StateService.scrollPosition = $(document).scrollTop();
     }
 
-    applySearch () {
-        var that = this;
+    applySearch() {
         console.log(this.searchFilter);
         this.customHttp.post('/admin/user_list', {n: this.shownUsers, searchFilter: this.searchFilter})
             .subscribe(response => {
                 console.log('search posted');
                 console.log(response);
-                that.renewUserList(response);
+                this.renewUserList(response);
             });
         this.shownUsers = 0;
     }
 
     showDetails(user) {
+        StateService.scrollPosition = $(document).scrollTop().valueOf();
         if (user.role === 'user') {
-            this.router.navigate(['/admin/assignTest', user.id]);
+            this.router.navigate(['/admin/assign_test', user.id]);
         } else if (user.role === 'teacher') {
             this.router.navigate(['/admin/teacher_info', user.id]);
         }
     }
 
-    ngOnInit () {
+    ngOnInit() {
+        console.log(StateService.searchFilter);
+        console.log(this.searchFilter);
+        if (StateService.fromDetail == true) {
+            this.searchFilter = StateService.searchFilter;
+            StateService.fromDetail = false;
+        } else {
+            this.searchFilter = '';
+        }
         console.log('initialized');
         this.getUsers();
     }
 
-    ngOnChanges () {
-
+    ngOnDestroy() {
+        StateService.searchFilter = this.searchFilter;
     }
 }
 

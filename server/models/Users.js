@@ -33,4 +33,13 @@ UserSchema.methods.getInfo = function () {
   }  
 };
 
+UserSchema.methods.getMoreInfo = function () {
+    return {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        username: this.username,
+        email: this.email
+    }
+};
+
 mongoose.model('User', UserSchema);

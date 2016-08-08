@@ -12,7 +12,7 @@ import {AdminComponent} from "../admin/admin.component";
 import {AuthGuard} from "../common/auth/auth.guard";
 import {TeacherInfoComponent} from "../admin/actions/show-users/teacher-info/teacher-info.component";
 import {AuthErrorComponent} from "../common/auth/error/auth.error.component";
-import {AssignTestComponent} from "../admin/actions/show-users/user-info/assignTest.component";
+import {AssignTestComponent} from "../admin/actions/show-users/user-info/assign-test.component";
 
 function wrapSecured(config: RouterConfig, role: string) {
     config.forEach((route)=> {
@@ -84,7 +84,7 @@ export const ADMIN_CONFIG: RouterConfig = [
         component: AdminComponent
     },
     {
-        path: 'admin/assignTest/:id',
+        path: 'admin/assign_test/:id',
         component: AssignTestComponent
     },
     {

@@ -78,7 +78,7 @@ export class AudioQuestionComponent implements OnInit {
     }
 
     toastError() {
-        toast('Complete editing question before adding sub-question', 3000, 'amber darken-2');
+        toast('Complete editing question before adding sub-question', 5000, 'amber darken-2');
     }
 
     isAllFieldsFilledIn() {
@@ -137,22 +137,18 @@ export class AudioQuestionComponent implements OnInit {
     }
 
     changeState(idx) {
-        /*for (let i = 0; i < this.questionsCatalog.length; ++i) {
-         this.questionsCatalog[i].checked = false;
-         }
-         this.questionsCatalog[idx].checked = true;*/
         this.selectedQuestion = this.questionsCatalog[idx].type;
         console.log(this.selectedQuestion);
-        // $('#audioChooseSubQuestion').closeModal();
         this.addSubQuestion();
     }
 
     onCreateFinish() {
-        if (this.isSubQuestionStillEdit()) {
-            return toast('First, complete editing Audio Question', 3000, 'amber darken-1');
+        if (!this.isAllFieldsFilledIn()) {
+            return toast('First, complete editing Audio Question', 5000, 'amber darken-1');
         }
         this.question.state = 'done';
         this.notify.emit(this.question);
+        console.log(this.question.state);
     }
 
     isSubQuestionStillEdit() {

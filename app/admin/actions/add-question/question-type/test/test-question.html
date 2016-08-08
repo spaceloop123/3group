@@ -7,33 +7,34 @@
                 <textarea class="materialize-textarea" id="test-question-header-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.header"
+                          placeholder="E.g: Choose the correct option"
                           name="test-question-header-{{question.id}}"></textarea>
-                <label [attr.for]="'test-question-header-' + question.id">Task description</label>
+                <label [attr.for]="'test-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
             </div>
 
             <!-- difficulty -->
             <div class="input-field col s12 m6 l6">
                 <input id="test-question-difficulty-{{question.id}}"
-                       [attr.disabled]="((question.state !== 'edit')
-                       || (question.isSubQuestion ? true : null) ? true : null)"
-                       placeholder="Complexity (between 1 and 100)"
+                       [attr.disabled]="(question.state !== 'edit') || (question.isSubQuestion) ? true : null"
+                       placeholder="Of 1 to 100"
                        type="number" min="1" max="100" class="validate"
                        [(ngModel)]="question.difficulty"
                        name="test-question-difficulty-{{question.id}}"/>
-                <label [attr.for]="'test-question-difficulty-' + question.id" class="active" data-error="wrong">Task
-                    complexity</label>
+                <label [attr.for]="'test-question-difficulty-' + question.id"
+                       class="active" data-error="wrong">Complexity</label>
             </div>
 
             <!-- maxCost -->
             <div class="input-field col s12 m6 l6">
                 <input id="test-question-maxCost-{{question.id}}"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
-                       placeholder="Weight (between 1 and 10)"
+                       placeholder="Of 1 to 10"
                        type="number" min="1" max="10" class="validate"
                        [(ngModel)]="question.maxCost"
                        name="test-question-maxCost-{{question.id}}"/>
-                <label [attr.for]="'test-question-maxCost-' + question.id" data-error="wrong" class="active">Task
-                    weight</label>
+                <label [attr.for]="'test-question-maxCost-' + question.id" data-error="wrong"
+                       class="active">Weight</label>
             </div>
 
             <!-- question -->
@@ -41,8 +42,9 @@
                 <textarea class="materialize-textarea" id="test-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           [(ngModel)]="question.question"
+                          placeholder="E.g: The puppy often damaged the narrator’s shoes and journals."
                           name="test-question-question-{{question.id}}"></textarea>
-                <label [attr.for]="'test-question-question-' + question.id">Question</label>
+                <label [attr.for]="'test-question-question-' + question.id" class="active">Question</label>
             </div>
 
             <!-- number of answers -->
@@ -55,8 +57,7 @@
                        (change)="resizeAnswers()"
                        name="test-question-answersNumber-{{question.id}}"/>
                 <label [attr.for]="'test-question-answersNumber-' + question.id" data-error="wrong" class="active">Number
-                    of
-                    options</label>
+                    of options</label>
             </div>
 
             <!-- answers -->
@@ -64,9 +65,11 @@
                 <input [attr.id]="'test-question-answer-' + question.id + '-' + i"
                        [attr.disabled]="question.state !== 'edit' ? true : null"
                        type="text"
+                       placeholder="Write your option"
                        [(ngModel)]="item.content"
                        name="test-question-answer-{{question.id}}-{{i}}"/>
-                <label [attr.for]="'test-question-answer-' + question.id + '-' + i">Option {{i + 1}}</label>
+                <label [attr.for]="'test-question-answer-' + question.id + '-' + i" class="active">Option {{i +
+                    1}}</label>
             </div>
 
             <!-- correct answer number -->
@@ -78,8 +81,8 @@
                        [(ngModel)]="question.correctAnswerIdx"
                        (change)="changeCorrectAnswerIdx()"
                        name="test-question-answersCorrect-{{question.id}}"/>
-                <label [attr.for]="'test-question-answersCorrect-' + question.id" data-error="wrong" class="active">Correct
-                    option</label>
+                <label [attr.for]="'test-question-answersCorrect-' + question.id" data-error="wrong"
+                       class="active">Correct option</label>
             </div>
 
         </div>
