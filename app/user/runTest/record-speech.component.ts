@@ -38,7 +38,7 @@ export class RecordSpeechComponent implements OnChanges {
             };
             let that = this;
             this.socket.onopen = function (event) {
-                console.log('this.filename ' + this.filename);
+                console.log('this.filename ' + that.filename);
                 that.socket.send(this.filename);  //send fileName(Maxim)
             };
 
