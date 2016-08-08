@@ -119,4 +119,8 @@ router.post('/test_history', function (req, res) {
     testService.getTestHistory(req.body.userId, req.body.testIds, response.dataResponse(res));
 });
 
+router.post('/user_info', function (req, res) {
+    userService.getUserInfo(req.body.userId, response.dataResponse(res));
+});
+
 module.exports = router;

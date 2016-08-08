@@ -110,6 +110,9 @@ module.exports.getTeachersTests = function (teacher, done) {
             res.tests.forEach(function (test, tests) {
                 if(test.getNotAutomaticallyCheckAnswers().length !== 0) {
                     response.push(test.getTestInfo());
+                } else {
+                    this.changeTestStatus('complete', test.id, function () {
+                    });
                 }
             });
             done(null, response);
