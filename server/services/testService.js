@@ -223,6 +223,7 @@ module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, do
                 text: 'Your test will be available in hour'
             },
             test.fromTime.getTime() - new Date().getTime() - 3600000);
+        agenda.setTimer('open-window', {testId: test.id}, test.fromTime.getTime() - new Date().getTime());
         test.save(function (err) {
             done(err);
         });
@@ -247,6 +248,7 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
                         text: 'Your test will be available in hour'
                     },
                     res.test.fromTime.getTime() - new Date().getTime() - 3600000);
+                agenda.setTimer('open-window', {testId: res.test.id}, res.test.fromTime.getTime() - new Date().getTime());
                 res.test.save(function (err) {
                     done(err);
                 });

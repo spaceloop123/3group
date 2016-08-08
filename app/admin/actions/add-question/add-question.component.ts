@@ -28,11 +28,11 @@ import {AudioQuestionComponent} from "./question-type/with-subquestions/audio/au
         trigger('animateAddQuestionBtn', [
             state('visible', style({display: 'visible', transform: 'translateY(0)'})),
             state('invisible', style({display: 'none', transform: 'translateY(-2000px)'})),
-            transition('visible => invisible', animate(200, keyframes([
+            transition('visible => invisible', animate('200ms linear', keyframes([
                 style({display: 'visible', transform: 'translateY(0)', offset: 0}),
                 style({display: 'none', transform: 'translateY(-22px)', offset: 1.0})
             ]))),
-            transition('invisible => visible', animate(200, keyframes([
+            transition('invisible => visible', animate('200ms linear', keyframes([
                 style({display: 'none', transform: 'translateY(-22px)', offset: 0}),
                 style({display: 'visible', transform: 'translateY(0)', offset: 1.0})
             ])))
