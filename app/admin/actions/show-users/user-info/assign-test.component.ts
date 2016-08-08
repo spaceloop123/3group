@@ -6,7 +6,7 @@ import {MaterializeDirective, toast} from "angular2-materialize";
 import {ChartsComponent} from "../../../../user/charts/charts.component";
 import {InfiniteScroll} from "angular2-infinite-scroll/angular2-infinite-scroll";
 import {StateService} from "../StateService";
-import {AssignTestService} from "./assing-test.service";
+import {AssignTestService} from "./assign-test.service";
 
 
 @Component({
@@ -67,6 +67,7 @@ export class AssignTestComponent implements OnInit {
     }
 
     getUserInfo() {
+        console.log(' sdfsdf sdf sd= ' + JSON.stringify(this.currentUser));
         this.assignTestService.getUserInfoById({userId: this.currentUser})
             .subscribe(response => {
                 console.log(response);
