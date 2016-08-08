@@ -19,10 +19,10 @@ function putAnswer(type, userId, testId, questionId, answer, done) {
             res.answer.answer = answer;
             if (res.question.autoCheck && res.question.correctAnswer === answer) {
                 res.test.result += res.question.maxCost;
-                res.user.level++;
+                res.user.level += res.user.level < 100;
                 res.answer.mark = res.question.maxCost;
             } else {
-                res.user.level--;
+                res.user.level -= res.user.level > 0;
             }
             res.test.maxResult += res.question.maxCost;
             res.user.save();

@@ -108,7 +108,7 @@ module.exports.getTeachersTests = function (teacher, done) {
         })
         .exec(function (res) {
             res.tests.forEach(function (test, tests) {
-                if(test.getNotAutomaticallyCheckAnswers().length !== 0) {
+                if (test.getNotAutomaticallyCheckAnswers().length !== 0) {
                     response.push(test.getTestInfo());
                 }
             });
@@ -137,8 +137,7 @@ function getTestHistory(userId, testId) {
         new Validator()
             .checkItem('test', function (callback) {
                 Test.findOne({_id: testId, user: userId, status: 'complete'})
-                    .populate([{path: 'answers', populate: {path: 'question'}},
-                        {path: 'subAnswers', populate: {path: 'question'}}])
+                    .populate({path: 'answers', populate: {path: 'question subAnswers', populate: {path: 'question'}}})
                     .exec(callback);
             })
             .exec(function (res) {
@@ -179,7 +178,7 @@ function getTestMap(answers) {
                 maxResult: 0
             }
         }
-
+        
         var curAnswers = answer.subAnswers.length === 0 ? [answer] : answer.subAnswers;
 
         curAnswers.forEach(function (answer) {

@@ -3,6 +3,7 @@ var Question = mongoose.model('Question');
 var Test = mongoose.model('Test');
 var TestTemplate = mongoose.model('TestTemplate');
 var Answer = mongoose.model('Answer');
+var User = mongoose.model('User');
 var Validator = require('../libs/requestValidator');
 var testService = require('../services/testService');
 var questionMap = require('../libs/questionMap');
@@ -16,6 +17,9 @@ module.exports.getQuestion = function (userId, testId, n, done) {
 function validateQuestionRequest(userId, testId, n) {
     return testService.getTestValidator({_id: testId, user: userId, status: 'run'}, 'answers')
         .checkItems({
+            user: function (callback) {
+                User.findOne({_id: userId}, callback);
+            },
             newQuestion: function (callback, prev) {
                 var maxCount = prev.template.questions.length;
                 var curCount = prev.test.answers.length;
@@ -27,17 +31,20 @@ function validateQuestionRequest(userId, testId, n) {
             },
             question: function (callback, prev) {
                 prev.newQuestion ?
-                    getNewQuestion(prev.test, prev.template.questions[n - 1], callback) :
+                    getNewQuestion(prev.test, prev.template.questions[n - 1], prev.user.level || 0, callback) :
                     Question.findOne({_id: prev.test.answers[n - 1].question}).populate('subQuestions').exec(callback);
             }
         });
 }
 
-function getNewQuestion(test, type, callback) {
+function getNewQuestion(test, type, level, callback) {
     Question.find({parent: undefined, type: type}).populate('subQuestions').exec(function (err, questions) {
         if (err) return callback(err);
         if (!questions) return callback();
 
+        // var question = questions.reduce(function (res, cur) {
+        //     return Math.abs(level - cur.difficulty) < Math.abs(level - res.difficulty) ? cur : res;
+        // });
         var question = questions[Math.floor(Math.random() * questions.length)];
         var answer = new Answer({question: question.id, autoCheck: question.autoCheck});
         if (question.subQuestions) {
@@ -46,7 +53,7 @@ function getNewQuestion(test, type, callback) {
                     question: subQuestion.id,
                     parent: answer.id,
                     autoCheck: subQuestion.autoCheck
-                })
+                });
                 answer.subAnswers.push(subAnswer.id);
                 subAnswer.save();
             });
