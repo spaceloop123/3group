@@ -24,7 +24,7 @@ agenda.setTimer = function (jobName, data, delay) {
     var date = new Date();
     date.setMilliseconds(date.getMilliseconds() + delay);
     this.schedule(date, jobName, data);
-}
+};
 
 module.exports = agenda;
  

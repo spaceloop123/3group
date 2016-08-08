@@ -216,6 +216,7 @@ module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, do
     User.findOne({_id: userId}, function (err, user) {
         agenda.setTimer('send-mail', {to: user.email, subject: 'Your test', text: 'Your test will be available in hour'},
             test.fromTime.getTime() - new Date().getTime() - 3600000);
+        agenda.setTimer('open-window', {testId: test.id}, test.fromTime.getTime() - new Date().getTime());
         test.save(function (err) {
             done(err);
         });
@@ -236,6 +237,7 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
             User.findOne({_id: res.test.user}, function (err, user) {
                 agenda.setTimer('send-mail', {to: user.email, subject: 'Your test', text: 'Your test will be available in hour'},
                     res.test.fromTime.getTime() - new Date().getTime() - 3600000);
+                agenda.setTimer('open-window', {testId: res.test.id}, res.test.fromTime.getTime() - new Date().getTime());
                 res.test.save(function (err) {
                     done(err);
                 });
