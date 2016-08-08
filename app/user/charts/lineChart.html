@@ -1,6 +1,6 @@
 <div class="card lighten-1">
     <div class='row'>
-        <div class='col s12 m7 l7 charts-class'>
+        <div [ngClass]='chart_style'>
             <base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
                         [datasets]="lineChartData"
                         [labels]="lineChartLabels"
@@ -11,7 +11,7 @@
                         (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)"></base-chart>
         </div>
-        <div class='col s12 m5 l5 blue-grey-text charts-class'>
+        <div [ngClass]='info_style'>
             <div *ngIf="testStatistics.length !== 0">
                 <div>
                     Your results
