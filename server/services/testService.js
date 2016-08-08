@@ -151,7 +151,7 @@ function getTestHistory(userId, testId) {
         new Validator()
             .checkItem('test', function (callback) {
                 Test.findOne({_id: testId, user: userId, status: 'complete'})
-                    .populate({path: 'answers', populate: {path: 'question subAnswers', populate: {path: 'question'}}})
+                    .populate({path: 'answers', populate: {path: 'question subAnswers', populate: {path: 'subAnswers.question'}}})
                     .exec(callback);
             })
             .exec(function (res) {
