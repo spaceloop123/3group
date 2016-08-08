@@ -16,8 +16,8 @@ module.exports.addSubanswer = function (userId, testId, questionId, answer, done
 function putAnswer(type, userId, testId, questionId, answer, done) {
     validateAnswer(type, userId, testId, questionId)
         .exec(function (res) {
-            if (question.type === 'AudioQuestion') {
-                question.deleteTempFile();
+            if (res.question.type === 'AudioQuestion') {
+                res.question.deleteTempFile();
             }
             res.answer.answer = answer;
             if (res.question.autoCheck && res.question.correctAnswer === answer) {
