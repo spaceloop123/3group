@@ -151,7 +151,10 @@ function getTestHistory(userId, testId) {
         new Validator()
             .checkItem('test', function (callback) {
                 Test.findOne({_id: testId, user: userId, status: 'complete'})
-                    .populate({path: 'answers', populate: {path: 'question subAnswers', populate: {path: 'subAnswers.question'}}})
+                    .populate({
+                        path: 'answers',
+                        populate: {path: 'question subAnswers', populate: {path: 'subAnswers.question'}}
+                    })
                     .exec(callback);
             })
             .exec(function (res) {
@@ -214,7 +217,11 @@ module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, do
         toTime: new Date(timeTo)
     });
     User.findOne({_id: userId}, function (err, user) {
-        agenda.setTimer('send-mail', {to: user.email, subject: 'Your test', text: 'Your test will be available in hour'},
+        agenda.setTimer('send-mail', {
+                to: user.email,
+                subject: 'Your test',
+                text: 'Your test will be available in hour'
+            },
             test.fromTime.getTime() - new Date().getTime() - 3600000);
         test.save(function (err) {
             done(err);
@@ -234,7 +241,11 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
             res.test.fromTime = new Date(timeFrom);
             res.test.toTome = new Date(timeTo);
             User.findOne({_id: res.test.user}, function (err, user) {
-                agenda.setTimer('send-mail', {to: user.email, subject: 'Your test', text: 'Your test will be available in hour'},
+                agenda.setTimer('send-mail', {
+                        to: user.email,
+                        subject: 'Your test',
+                        text: 'Your test will be available in hour'
+                    },
                     res.test.fromTime.getTime() - new Date().getTime() - 3600000);
                 res.test.save(function (err) {
                     done(err);
