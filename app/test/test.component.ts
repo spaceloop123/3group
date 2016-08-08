@@ -278,8 +278,7 @@ export class TestComponent implements OnChanges {
 
     playAydio() {
         if (!this.isPlayed) {
-
-            this.myAudio.src = "http://localhost:3000/neTest.wav";
+            this.myAudio.src = this.question.path;
             this.myAudio.load();
             this.isPlayed = true;
             this.playCount = 0;
