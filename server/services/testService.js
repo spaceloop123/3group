@@ -56,7 +56,7 @@ module.exports.initTest = function (userId, done) {
         res.test.finishTime = finishTime;
         res.test.save();
 
-        agenda.setTimer('test-timer', {testId: res.test.id}, res.template.time * 60 * 1000);
+        agenda.setTimer('test-timer', {userId: userId, testId: res.test.id}, res.template.time * 60 * 1000);
 
         done(null, {
             testId: res.test.id,
@@ -78,6 +78,19 @@ module.exports.changeTestStatus = function (status, testId, done) {
                 notificationService.createDoneNotification(res.test.user.id, res.test.teacher.id, testId);
             }
             done(null);
+        }, done, done);
+};
+
+module.exports.finishTest = function (userId, testId, done) {
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.findOne({_id: testId, user: userId, status: 'run'}, callback);
+        })
+        .exec(function (res) {
+            res.test.status = 'checking';
+            res.test.finishTime = new Date();
+            res.test.save();
+            done();
         }, done, done);
 };
 
@@ -110,9 +123,6 @@ module.exports.getTeachersTests = function (teacher, done) {
             res.tests.forEach(function (test, tests) {
                 if (test.getNotAutomaticallyCheckAnswers().length !== 0) {
                     response.push(test.getTestInfo());
-                } else {
-                    this.changeTestStatus('complete', test.id, function () {
-                    });
                 }
             });
             done(null, response);
@@ -181,7 +191,7 @@ function getTestMap(answers) {
                 maxResult: 0
             }
         }
-        
+
         var curAnswers = answer.subAnswers.length === 0 ? [answer] : answer.subAnswers;
 
         curAnswers.forEach(function (answer) {
@@ -195,17 +205,12 @@ function getTestMap(answers) {
 
 module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, done) {
     var test = new Test({
-        status: 'wait',
+        status: 'available',
         user: userId,
         teacher: teacherId,
         answers: [],
-        fromTime: new Date(timeFrom),
-        toTime: new Date(timeTo)
-    });
-    agenda.setTimer('open-window', {testId: test.id}, test.fromTime.getTime() - new Date().getTime());
-    User.findOne({_id: userId}, function (err, user) {
-        agenda.setTimer('send-mail', {to: user.email, subject: 'Your test', text: 'Your test will be available in hour\n' +
-        'With love from administration of TheTuga!'});
+        fromTime: timeFrom,
+        toTime: timeTo
     });
     test.save(function (err) {
         done(err);
@@ -218,16 +223,11 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
             Test.fine({_id: testId, status: 'request'}, callback);
         })
         .exec(function (res) {
-            res.test.status = 'wait';
+            res.test.status = 'available';
             res.test.teacher = teacherId;
             res.test.answers = [];
-            res.test.fromTime = new Date(timeFrom);
-            res.test.toTome = new Date(timeTo);
-            agenda.setTimer('open-window', {testId: testId}, res.test.fromTime.getTime() - new Date().getTime());
-            User.findOne({_id: res.test.user}, function (err, user) {
-                agenda.setTimer('send-mail', {to: user.email, subject: 'Your test', text: 'Your test will be available in hour\n' +
-                'With love from administration of TheTuga!'});
-            });
+            res.test.fromTime = timeFrom;
+            res.test.toTome = timeTo;
             res.test.save(function (err) {
                 done(err);
             });

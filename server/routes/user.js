@@ -37,7 +37,7 @@ router.post('/subanswer', function (req, res) {
 });
 
 router.post('/end_test', function (req, res) {
-    testService.changeTestStatus('checking', req.body.testId, response.emptyResponse(res));
+    testService.finishTest(req.user.id, req.body.testId, response.emptyResponse(res));
 });
 
 router.use(mdlwares.isUser);
