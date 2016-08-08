@@ -61,6 +61,7 @@ export class UserComponent implements OnInit {
     }
 
     askTest() {
+        // TODO: (pay attention) No! get rid of native alerts, use toster or smth like that
         var that = this;
         this.status = 'requestedTest'
         // TODO: (pay attention) Use CustomHttp + Observables
