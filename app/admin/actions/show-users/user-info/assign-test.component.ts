@@ -30,6 +30,7 @@ export class AssignTestComponent implements OnInit {
 
     constructor(private route:ActivatedRoute,
                 private assignTestService:AssignTestService) {
+        this.userInfo = [];
     }
 
     ngOnInit() {

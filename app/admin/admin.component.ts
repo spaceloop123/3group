@@ -100,7 +100,7 @@ export class AdminComponent implements OnInit {
         } else {
             this.currentTab = 2;
         }
-
+        this.changeTab(this.currentTab);
         this.getTeacherList();
     }
 
