@@ -74,7 +74,7 @@ export class AssignTestComponent implements OnInit {
             .subscribe(response => {
                 console.log('test has been assigned');
             });
-
+console.log("input="+document.getElementById("inputDate").value)
     }
 
 
