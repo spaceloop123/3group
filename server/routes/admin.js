@@ -118,7 +118,7 @@ router.post('/user_history', function (req, res) {
 });
 
 router.post('/test_history', function (req, res) {
-    testService.getTestHistory(req.body.userId, req.body.testIds, response.dataResponse(res));
+    testService.getTestsHistory(req.body.userId, req.body.testIds, response.dataResponse(res));
 });
 
 router.post('/user_info', function (req, res) {
