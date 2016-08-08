@@ -16,10 +16,11 @@ export class RecordSpeechComponent implements OnChanges {
 
     ngOnChanges(changes:SimpleChanges):any {
         if (changes['filename']) {
-            this.filename = changes['filename'].currentValue;
-            console.log('this.filename ' + this.filename);
+            if(changes['filename'].currentValue !== undefined) {
+                this.filename = changes['filename'].currentValue;
+                console.log('this.filename ' + this.filename);
+            }
         }
-
     }
 
 
@@ -29,18 +30,20 @@ export class RecordSpeechComponent implements OnChanges {
     }
 
     recordAudio() {
-        this.socket = new WebSocket('ws://localhost:3001');
-        let session = {
-            audio: true,
-            video: false
-        };
-        let that = this;
-        this.socket.onopen = function (event) {
-            console.log('this.filename ' + this.filename);
-            that.socket.send('aaaa');  //send fileName(Maxim)
-        };
+        if(this.filename !== undefined) {
+            this.socket = new WebSocket('ws://localhost:3001');
+            let session = {
+                audio: true,
+                video: false
+            };
+            let that = this;
+            this.socket.onopen = function (event) {
+                console.log('this.filename ' + this.filename);
+                that.socket.send(this.filename);  //send fileName(Maxim)
+            };
 
-        this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
+            this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
+        }
     }
 
     initializeRecorder(stream) {
