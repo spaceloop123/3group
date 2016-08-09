@@ -96,20 +96,9 @@ export class AddMemberComponent implements OnInit {
     }
 
     onAssignTestForGuest() {
-        this.customHttp
-            .post(this.newMemberUrl + this.member.role, this.member)
-            .subscribe(
-                res => {
-                    toast(this.member.firstName + ' ' + this.member.lastName + ' was successfully added', 3000, 'green');
-                    this.clearForm();
-                },
-                err => this.handleError(err)
-            );
-        this.customHttp.post('/admin/new_guest', this.prepareGuest(user, teacher, data));
-        
-        this.assignTestService.addGuest(this.member, this.assignedTeacher, this.data)
+        this.customHttp.post('/admin/new_guest', this.prepareGuest())
             .subscribe(res => {
-                console.log("Service = " + JSON.stringify(this.member));
+                this.clearForm();
                 toast('The test was assigned to ' + this.member.firstName + ' ' + this.member.lastName,
                     3000, 'green');
             }, err => {
@@ -117,6 +106,20 @@ export class AddMemberComponent implements OnInit {
                     3000, 'red darken-2');
             });
     }
+
+    prepareGuest() {
+        return {
+            'firstName': this.member.firstName,
+            'lastName': this.member.lastName,
+            'email': this.member.email,
+            'teacherId': this.assignedTeacher['id'],
+            'timeFrom': this.data.dateFrom,
+            'timeTo': this.data.dateTo
+        };
+    }
+
+    // this.customHttp.post('/admin/new_guest', this.prepareGuest(user, teacher, data));
+
 
     changeChoseTeacherState(teacher) {
         this.assignedTeacher = teacher;
