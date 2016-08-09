@@ -1,4 +1,3 @@
-<!-- TODO: (pay attention) Inline style to classes !!!-->
 <div *ngIf="top.type==='TestQuestion'">
     <div class="card-content flow-text" align=left>
         <blockquote>{{top.header}}</blockquote>
@@ -11,7 +10,7 @@
                        type="radio"
                        [checked]="option['checked']"
                        (change)="changeCheckState(i)"
-                       name="test-question-options-{{i}}" />
+                       name="test-question-options-{{i}}"/>
                 <label [attr.for]="'test-question-options-' + i" class='black-text'>{{option.name}}</label>
             </p>
         </form>
@@ -22,10 +21,12 @@
     <div class="card-content flow-text" align=left>
         <blockquote>{{top.header}}</blockquote>
         <form action="#">
-            <div class="left">{{top.description}}
-                <input placeholder="enter your answer" type="test" class="validate" style="border-color: #ff7479;"
-                       [(ngModel)]="answer" name="answer">
-                {{top.info}}
+            <div style='display: inline-block;'>{{top.description}}</div>
+            <div class="left">{{top.questionParts[0]}}</div>
+            <input placeholder="enter your answer" type="test" class="validate" style="border-color: #ff7479;"
+                   [(ngModel)]="answer" name="answer">
+            <div style='display: inline-block;'>
+                {{top.questionParts[1]}}
             </div>
         </form>
     </div>
@@ -36,7 +37,7 @@
         <blockquote>{{top.header}}</blockquote>
         <div class="row">
             <div align=center>
-                <a class="btn-floating btn-large violet"
+                <a class="btn-floating btn-large waves-effect waves-light green darken-1"
                    (click)="playAydio()">
                     <i class="large material-icons" align=center>volume_up</i>
                 </a>
@@ -56,16 +57,19 @@
     <!--countdown-timer [timeLeft]="timerSec"></countdown-timer-->
     <div class="card-content flow-text" align=left style="min-height:250px; max-height: 100%">
         <blockquote>{{top.header}}</blockquote>
-        <div class="left">{{top.questionParts[0]}}
-            <select class="browser-default forms" class='{{getClassForAnswer(answer)}}' data-forms='select'
-                    style="width: 170px; display: inline-block; border-color: #ff7479"
-
-                    [(ngModel)]="answer">
+        <div class="left">{{top.questionParts[0]}}</div>
+        <div style='display: inline-block; margin-left: 10px; margin-right: 10px;'>
+            <select class="browser-default forms" [(ngModel)]="answer">
+                <option value="" disabled selected>Choose answer</option>
                 <option *ngFor="let opt of top.answers" [value]="opt">{{opt}}</option>
+
             </select>
-            {{top.questionParts[1]}}
-            <br>
+            <label></label>
         </div>
+        <div style='display: inline-block;'>
+            {{top.questionParts[1]}}
+        </div>
+
     </div>
 </div>
 

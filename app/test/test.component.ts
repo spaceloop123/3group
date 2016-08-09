@@ -30,7 +30,7 @@ export class TestComponent implements OnChanges {
     playCount:number;
     currentItem:NavigationItem;
     currentId:any;
-
+    buttonText:string = 'send';
 
     options:any[];
     answer:string;
@@ -61,6 +61,7 @@ export class TestComponent implements OnChanges {
                 this.questionInfo = this.restoreQuestionInfo();
                 this.subQuestionInfo = this.restoreSubQuestionInfo();
                 if (this.questionInfo === null) {
+
                     this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null, this.answersId);
                 }
                 if (this.subQuestionInfo === null) {
@@ -99,7 +100,14 @@ export class TestComponent implements OnChanges {
         if (this.mode === 'user') {
             if (this.questionInfo.hasSubQuestions() && !this.subQuestionInfo.onParent()) {
                 this.getSubQuestionFromServer(this.subQuestionInfo);
+                this.buttonText = 'send';
             } else {
+                if (this.questionInfo.hasSubQuestions()) {
+
+                    this.buttonText = 'go to subquestions';
+                } else {
+                    this.buttonText = 'send';
+                }
                 this.getQuestionFromServer(this.questionInfo);
 
             }
@@ -113,6 +121,10 @@ export class TestComponent implements OnChanges {
         }
     }
 
+    getButtonText() {
+        return this.buttonText;
+    }
+    
     saveQuestionInfo() {
         localStorage.setItem('questionInfo', JSON.stringify(this.questionInfo));
     }
