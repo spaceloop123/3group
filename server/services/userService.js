@@ -123,7 +123,10 @@ module.exports.getUserInfo = function (userId, done) {
                     done(null, info);
                 });
             } else {
-                Test.find({user: res.user.id, status: {$in: ['available', 'requested', 'run', 'wait']}}, function (err, tests) {
+                Test.find({
+                    user: res.user.id,
+                    status: {$in: ['available', 'requested', 'run', 'wait']}
+                }, function (err, tests) {
                     info.assignable = !(tests.length > 0);
                     done(null, info);
                 });
@@ -175,7 +178,7 @@ module.exports.addNewGuest = function (firstName, lastName, email, testData, don
                 role: 'guest'
             });
             var test = new Test({
-                status: 'available',
+                status: 'wait',
                 user: guest.id,
                 teacher: testData.teacher,
                 answers: [],
@@ -183,11 +186,12 @@ module.exports.addNewGuest = function (firstName, lastName, email, testData, don
                 toTime: new Date(testData.timeTo)
             });
             test.save(done);
+            testService.setTestSchedule(guest, test);
             mailer.sendMail(
                 email,
                 'Welcome to ProjectName',
                 'Hello, ' + firstName + ' ' + lastName + '\n' +
-                'Follow the link to start the test: http://192.168.14.81:1507/guest/allowTest?id=' + guest.id
+                'Follow the link to start the test: http://localhost:3000/guest/allowTest?id=' + guest.id
             );
         }, done, done);
 };

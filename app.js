@@ -55,8 +55,8 @@ server.on('listening', onListening);
 app.set('views', path.join(__dirname, 'app'));
 app.set('view engine', 'ejs');
 
-
-app.use(favicon(__dirname + '/app/assets/images/favicon.ico'));
+//favicon
+//app.use(favicon(__dirname + '/app/assets/images/favicon.ico'));
 
 require('./server/config/passport');
 

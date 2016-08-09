@@ -12,7 +12,12 @@ agenda.on('ready', function () {
     });
 
     agenda.define('open-window', function (job) {
-        require('../services/testService').changeTestStatus('available', job.attrs.data.testId, function () {
+        require('../services/testService').openWindow(job.attrs.data.userId, job.attrs.data.testId, function () {
+        });
+    });
+
+    agenda.define('close-window', function (job) {
+        require('../services/testService').closeWindow(job.attrs.data.userId, job.attrs.data.testId, function () {
         });
     });
 

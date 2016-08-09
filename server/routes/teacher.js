@@ -27,7 +27,7 @@ router.post('/send_mark', function (req, res) {
 });
 
 router.post('/end_test', function (req, res) {
-    testService.changeTestStatus('complete', req.body.testId, response.emptyResponse(res));
+    testService.completeTestChecking(req.user.id, req.body.testId, response.emptyResponse(res));
 });
 
 module.exports = router;

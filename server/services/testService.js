@@ -67,18 +67,16 @@ module.exports.initTest = function (userId, done) {
     }, done, done);
 };
 
-module.exports.changeTestStatus = function (status, testId, done) {
+module.exports.completeTestChecking = function (teacherId, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
-            Test.findOne({_id: testId}).populate('user teacher').exec(callback);
+            Test.findOne({_id: testId, teacher: teacherId, status: 'checking'}).populate('user teacher').exec(callback);
         })
         .exec(function (res) {
-            res.test.status = status;
+            res.test.status = 'complete';
             res.test.save();
-            if (status === 'complete') {
-                notificationService.createDoneNotification(res.test.user.id, res.test.teacher.id, testId);
-            }
-            done(null);
+            notificationService.createDoneNotification(res.test.user.id, teacherId, testId);
+            done();
         }, done, done);
 };
 
@@ -86,6 +84,31 @@ module.exports.finishTest = function (userId, testId, done) {
     new Validator()
         .checkItem('test', function (callback) {
             Test.findOne({_id: testId, user: userId, status: 'run'}, callback);
+        })
+        .exec(function (res) {
+            res.test.status = 'checking';
+            res.test.finishTime = new Date();
+            res.test.save();
+            done();
+        }, done, done);
+};
+
+module.exports.openWindow = function (userId, testId, done) {
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.findOne({_id: testId, user: userId, status: 'wait'}, callback);
+        })
+        .exec(function (res) {
+            res.test.status = 'available';
+            res.test.save();
+            done();
+        }, done, done);
+};
+
+module.exports.closeWindow = function (userId, testId, done) {
+    new Validator()
+        .checkItem('test', function (callback) {
+            Test.findOne({_id: testId, user: userId, status: 'available'}, callback);
         })
         .exec(function (res) {
             res.test.status = 'checking';
@@ -210,7 +233,7 @@ function getTestMap(answers) {
 
 module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, done) {
     var test = new Test({
-        status: 'available',
+        status: 'wait',
         user: userId,
         teacher: teacherId,
         answers: [],
@@ -218,16 +241,8 @@ module.exports.assignNewTest = function (userId, teacherId, timeFrom, timeTo, do
         toTime: new Date(timeTo)
     });
     User.findOne({_id: userId}, function (err, user) {
-        agenda.setTimer('send-mail', {
-                to: user.email,
-                subject: 'Your test',
-                text: 'Your test will be available in hour'
-            },
-            test.fromTime.getTime() - new Date().getTime() - 3600000);
-        agenda.setTimer('open-window', {testId: test.id}, test.fromTime.getTime() - new Date().getTime());
-        test.save(function (err) {
-            done(err);
-        });
+        module.exports.setTestSchedule(user, test);
+        test.save(done);
     });
 };
 
@@ -243,16 +258,19 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
             res.test.fromTime = new Date(timeFrom);
             res.test.toTome = new Date(timeTo);
             User.findOne({_id: res.test.user}, function (err, user) {
-                agenda.setTimer('send-mail', {
-                        to: user.email,
-                        subject: 'Your test',
-                        text: 'Your test will be available in hour'
-                    },
-                    res.test.fromTime.getTime() - new Date().getTime() - 3600000);
-                agenda.setTimer('open-window', {testId: res.test.id}, res.test.fromTime.getTime() - new Date().getTime());
-                res.test.save(function (err) {
-                    done(err);
-                });
+                module.exports.setTestSchedule(user, res.test);
+                res.test.save(done);
             });
         }, done, done);
 };
+
+module.exports.setTestSchedule = function setTestSchedule(user, test) {
+    agenda.setTimer('send-mail', {
+            to: user.email,
+            subject: 'Your test',
+            text: 'Your test will be available in hour'
+        },
+        test.fromTime.getTime() - new Date().getTime() - 3600000);
+    agenda.setTimer('open-window', {userId: user.id, testId: test.id}, test.fromTime.getTime() - new Date().getTime());
+    agenda.setTimer('close-window', {userId: user.id, testId: test.id}, test.toTime.getTime() - new Date().getTime());
+}
