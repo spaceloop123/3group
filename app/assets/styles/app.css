@@ -49,6 +49,10 @@ main {
     max-height: 255px;
 }
 
+.notifications .collection-item {
+    cursor: pointer;
+}
+
 .teacher-list {
     min-height: 246px;
     max-height: 255px;
