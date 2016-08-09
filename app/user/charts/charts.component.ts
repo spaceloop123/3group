@@ -141,7 +141,8 @@ export class ChartsComponent implements OnChanges {
 
     parseDate(date:string):string {
         let buffer = new Date(date);
-        return ((buffer.getMonth() + 1).toString() + '/' + (buffer.getDay() + 1).toString());
+        console.log('buffer.getDay()' + buffer.getDate());
+        return ((buffer.getMonth() + 1).toString() + '/' + (buffer.getDate()).toString());
 
     }
 

@@ -23,11 +23,12 @@
                     </div>
                     <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
                         <li *ngFor="let item of testStatistics">
-                            <div class="collapsible-header deep-purple lighten-5"><i class="material-icons">call_received</i>
+                            <div class="collapsible-header deep-purple lighten-5" style="font-size: 0.9em"><i
+                                    class="material-icons">call_received</i>
                                 <i class="material-icons">query_builder</i>
                                 {{showTime(item.date) + ' : ' +showMark(item.mark) + '%'}}
                             </div>
-                            <div class="collapsible-body" style="margin-left: 4%">
+                            <div class="collapsible-body" style="margin-left: 4%; font-size: 0.8em">
                                 <div *ngFor='let elem of item.questions'>{{elem.type + ' ' + showMark(elem.mark) + '%'}}
                                 </div>
                             </div>
