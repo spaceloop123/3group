@@ -28,10 +28,4 @@ export class AssignTestService {
             'timeTo': data.dateTo
         };
     }
-
-    addGuest(user, teacher, data) {
-        // console.log('asdasd = ' + JSON.stringify(this.prepareGuest(user, teacher, data)));
-        return this.customHttp.post('/admin/new_guest', this.prepareGuest(user, teacher, data));
-    }
-    
 }
