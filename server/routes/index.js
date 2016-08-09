@@ -15,15 +15,13 @@ var Notification = mongoose.model('Notification');
 var path = require('path');
 
 router.get('/', function (req, res) {
-    // var notification = new Notification({
-    //     type: 'done',
-    //     user: '5782a87a8ef025441931cb5b',
-    //     teacher: '5782a8ae8ef025441931cb5d',
-    //     test: '579752c31055441dd083427b'
-    // });
-    // notification.save(function (err) {
-    //     console.log(err);
-    // });
+    var question = new AudioQuestion({
+        header: 'Listen the story',
+        difficulty: 10,
+        autoCheck:  false,
+        path: 'test.wav'
+    });
+    question.save();
     res.render('index');
 });
 

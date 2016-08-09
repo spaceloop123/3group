@@ -62,5 +62,6 @@ export class DatepickerComponent implements OnInit {
         else {
             console.log("select date")
         }
+
     }
 }
