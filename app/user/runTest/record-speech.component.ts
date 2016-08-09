@@ -1,5 +1,5 @@
 import {onError} from "@angular/upgrade/src/util";
-import {Component, SimpleChanges, Input, OnChanges} from "@angular/core";
+import {Component, SimpleChanges, Input, OnChanges, OnDestroy} from "@angular/core";
 
 @Component({
     selector: 'speech-recorder',
@@ -7,20 +7,25 @@ import {Component, SimpleChanges, Input, OnChanges} from "@angular/core";
     directives: []
 })
 
-export class RecordSpeechComponent implements OnChanges {
+export class RecordSpeechComponent implements OnChanges, OnDestroy {
 
     socket:any;
     stream:any;
     recorder:any;
+    startRecord:boolean = false;
     @Input() filename;
 
     ngOnChanges(changes:SimpleChanges):any {
         if (changes['filename']) {
-            if(changes['filename'].currentValue !== undefined) {
+            if (changes['filename'].currentValue !== undefined) {
                 this.filename = changes['filename'].currentValue;
                 console.log('this.filename ' + this.filename);
             }
         }
+    }
+
+    ngOnDestroy() {
+        this.closeAudio();
     }
 
 
@@ -30,20 +35,21 @@ export class RecordSpeechComponent implements OnChanges {
     }
 
     recordAudio() {
-        if(this.filename !== undefined) {
-            this.socket = new WebSocket('ws://localhost:2016');
-            let session = {
-                audio: true,
-                video: false
-            };
-            let that = this;
-            this.socket.onopen = function (event) {
-                console.log('this.filename this.socket.onopen' + that.filename);
-                that.socket.send(that.filename);  //send fileName(Maxim)
-            };
+        this.startRecord = true;
 
-            this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
-        }
+        this.socket = new WebSocket('ws://localhost:2016');
+        let session = {
+            audio: true,
+            video: false
+        };
+        let that = this;
+        this.socket.onopen = function (event) {
+            console.log('this.filename this.socket.onopen' + that.filename);
+            that.socket.send(that.filename);  //send fileName(Maxim)
+        };
+
+        this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
+        
     }
 
     initializeRecorder(stream) {
