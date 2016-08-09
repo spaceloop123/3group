@@ -28,19 +28,4 @@ export class AssignTestService {
             'timeTo': data.dateTo
         };
     }
-
-    addGuest(user, teacher, data) {
-        return this.customHttp.post('/admin/new_guest', this.prepareGuest(user, teacher, data));
-    }
-
-    private prepareGuest(user, teacher, data) {
-        return {
-            'firstName': user.firstName,
-            'lastName': user.lastName,
-            'email': user.firstName,
-            'teacherId': teacher['id'],
-            'timeFrom': data.dateFrom,
-            'timeTo': data.dateTo
-        };
-    }
 }

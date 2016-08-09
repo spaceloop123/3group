@@ -30,7 +30,7 @@
     '@angular/forms':             { main: 'index.js', defaultExtension: 'js' },
     'angular2-localstorage':      { defaultExtension: "js" },
     'angular2-infinite-scroll':   { main: 'angular2-infinite-scroll.js', defaultExtension: "js" },
-    'ng2-charts':                 {defaultExtension: 'js'}
+    'ng2-charts':                 { defaultExtension: 'js'}
 
   };
   var ngPackageNames = [

@@ -70,6 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit():any {
+        $('#appPreloader').hide();
         this.routeChangeSubscription = this.router.events.subscribe(event => {
             if (event instanceof NavigationError) {
                 console.log('Handled that!');

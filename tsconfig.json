@@ -10,7 +10,7 @@
     "removeComments": false,
     "noImplicitAny": false,
     "rootDir": "app",
-    "outDir": "dist"
+    "outDir": "dist/app"
   },
   "exclude": [
     "node_modules"

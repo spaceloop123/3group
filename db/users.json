@@ -1,3 +1,18 @@
+{
+    "_id": ObjectId
+    (
+    "577e109c568e65dc378f11e3"
+    ),
+    "hash": "40bae0b46ca884ff1b44bbfd76a09f63c7a9594666fc6d14b9823a11bfbecf3a8820c82e8836c383d6f0fb1bd0d45805bd0a506b970351eae4870e864ce437f7",
+    "salt": "3bed64f2bb3fafc44330abc2adc5e189",
+    "username": "username",
+    "email": "username@gmail.com",
+    "__v": NumberInt
+    (
+    0
+    ),
+    "role": "user"
+}
 { 
     "_id" : ObjectId("577fde1a94f813304e821167"), 
     "hash" : "1f37eb317789e00d3f907d69e0491efb12d924dc4e15fc62d346bf3cf429ab305298d9bf94bfe92c25aa1e72ce88459463b6d412173e5411bd2881e071b55407", 
@@ -10,28 +25,19 @@
     "lastName" : "Christ"
 }
 { 
-    "_id" : ObjectId("577fde5f37b8df3041b2afc9"), 
-    "hash" : "29c06de5a16aefad34140f6c69113aab0514fe372bd66d4cac82a0be4f92b11854831ae3b511f541bfe094b3a4a902495c05eaca2f47fef8e9a9fd66862ea52c", 
-    "salt" : "f521922b6192481dfa6f41a5552693fe", 
-    "username" : "username", 
-    "email" : "username@gmail.com", 
-    "role" : "user", 
-    "__v" : NumberInt(0), 
-    "level" : NumberInt(15), 
-    "firstName" : "User", 
-    "lastName" : "User"
-}
-{ 
     "_id" : ObjectId("5782a87a8ef025441931cb5b"), 
     "email" : "a", 
     "role" : "user", 
     "hash" : "5212ecb1c77505544e4c0df5146fefb269975004b502527369c3389dd692eced724991a0252abc482aadea6d6c53ca25d66a8f685576e2f68ba857b981cedf67", 
     "salt" : "0064d245017f3e57b9f571ec4aed8196", 
     "username" : "user", 
-    "__v" : NumberInt(0), 
-    "level" : NumberInt(90), 
-    "firstName" : "SA", 
-    "lastName" : "A"
+    "__v" : NumberInt(0),
+    "level": NumberInt
+    (
+    64
+    ),
+    "firstName": "User",
+    "lastName": "Userovich"
 }
 { 
     "_id" : ObjectId("5782a8ae8ef025441931cb5d"), 
@@ -62,8 +68,11 @@
     "salt" : "e056c82d05263d24dcbd48e518626b5d", 
     "username" : "test", 
     "email" : "test@gmail.com", 
-    "role" : "user", 
-    "level" : NumberInt(5), 
+    "role" : "user",
+    "level": NumberInt
+    (
+    -14
+    ),
     "__v" : NumberInt(0), 
     "firstName" : "User", 
     "lastName" : "User"
@@ -90,6 +99,23 @@
     "__v" : NumberInt(0), 
     "firstName" : "Teacher", 
     "lastName" : "Teacher"
+}
+{
+    "_id": ObjectId
+    (
+    "578f9a936a9fc75c4368229f"
+    ),
+    "hash": "6fecacea01d3077ac5a03ffc5cd5622736d8c193f114ed6b98f959471ac8a105146f32fc252952649351d1e09206d215ff6ac0f70ba8af3618533cb38e357ef4",
+    "salt": "4dafda884deb97b8fe9e2a5ce862f20e",
+    "username": "zdfhglzhdfc",
+    "email": "lkzdgzhdfkgz",
+    "role": "teacher",
+    "__v": NumberInt
+    (
+    0
+    ),
+    "firstName": "Teacher",
+    "lastName": "Teacher"
 }
 { 
     "_id" : ObjectId("578e1b2e34cac4b0550f0eaa"), 
@@ -179,6 +205,69 @@
     "firstName" : "Maxim", 
     "lastName" : "Anikeev", 
     "username" : "Teacher15", 
-    "role" : "teacher", 
+    "role" : "teacher",
+    "__v": NumberInt
+    (
+    0
+    )
+}
+{
+    "_id": ObjectId
+    (
+    "57a34b3f0bf06b3825274ca6"
+    ),
+    "hash": "c6252e3b330693f8cea7d0d0efab185590ce86f7fb79c202c23e34ddbedbae2de9e67ca7d0110f1ded445ed6cf6aa44c894ec7d89d096aab5e7b70efe1baf8d1",
+    "salt": "90cd80a811e82dd0e2c64e26afc51327",
+    "email": "j@sf.fd",
+    "firstName": "fd",
+    "lastName": "kk",
+    "username": "Guest18",
+    "role": "guest",
+    "level": NumberInt
+    (
+    0
+    ),
+    "__v": NumberInt
+    (
+    0
+    )
+}
+{
+    "_id": ObjectId
+    (
+    "57a34d9c0bf06b3825274ca9"
+    ),
+    "hash": "693526af3315e7b893090800760f4f9fb4eb60cc2c1784ae977d41ef3973339903262fba3394b15e84d4996c0cdb7eb4352a78a887b3c9e61a9b0d602b8fd4f8",
+    "salt": "b4cb92bfaae036db916075c3c97f2802",
+    "email": "week62@gmail.com",
+    "firstName": "test",
+    "lastName": "test",
+    "username": "Guest19",
+    "role": "guest",
+    "level": NumberInt
+    (
+    0
+    ),
+    "__v": NumberInt
+    (
+    0
+    )
+}
+{
+    "_id": ObjectId
+    (
+    "57a498814fceaaf81ac0108b"
+    ),
+    "hash": "453417b59d343c82d3b479d607c4934927fd34f2503cb25faf127a91df35bdb8bfd6ed310212e01d1b2390fe881f7a20692b7f5be304b0156e76a6c1ff651a4d",
+    "salt": "06057aae65ad32ec085bb087bee0d772",
+    "email": "spaceloop123@outlook.com",
+    "firstName": "Alex",
+    "lastName": "Krasnov",
+    "username": "Guest20",
+    "role": "guest",
+    "level": NumberInt
+    (
+    0
+    ),
     "__v" : NumberInt(0)
 }

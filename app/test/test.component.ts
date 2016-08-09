@@ -30,7 +30,8 @@ export class TestComponent implements OnChanges {
     playCount:number;
     currentItem:NavigationItem;
     currentId:any;
-    buttonText:string = 'send';
+
+
 
     options:any[];
     answer:string;
@@ -41,7 +42,6 @@ export class TestComponent implements OnChanges {
         this.isPlayed = false;
         this.top = {type: "nothing"};
         this.answer = '';
-
 
     }
 
@@ -62,7 +62,6 @@ export class TestComponent implements OnChanges {
                 this.questionInfo = this.restoreQuestionInfo();
                 this.subQuestionInfo = this.restoreSubQuestionInfo();
                 if (this.questionInfo === null) {
-
                     this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null, this.answersId);
                 }
                 if (this.subQuestionInfo === null) {
@@ -115,10 +114,6 @@ export class TestComponent implements OnChanges {
         }
     }
 
-    getButtonText():string {
-        return this.buttonText;
-    }
-    
     saveQuestionInfo() {
         localStorage.setItem('questionInfo', JSON.stringify(this.questionInfo));
     }
@@ -215,7 +210,6 @@ export class TestComponent implements OnChanges {
 
 
     saveQuestionFromResponse(response) {
-        this.buttonText = 'send';
         this.question = response.question;
         if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
@@ -225,12 +219,13 @@ export class TestComponent implements OnChanges {
                 } else if (this.question.type === 'AudioQuestion') {
                     toast('You can listen this story twice', 5000);
                 }
-
             }
+
         }
         if (this.question.type === "SpeechQuestion") {
             if (this.mode === 'user') {
                 this.answer = this.testInfo.id.toString() + this.questionInfo.questionIndex.toString() + '.wav';
+                console.log('this.answer ' + this.answer + '.wav');
             } else if (this.mode === 'teacher') {
                 this.question.type = 'AudioQuestion';
             }
@@ -247,6 +242,15 @@ export class TestComponent implements OnChanges {
 
     }
 
+    getButtonText():string{
+        if(this.top.type === "ReadingQuestion" || this.top.type === "AudioQuestion") {
+            return 'go to subquestions';
+        } else{
+            return 'send';
+        }
+
+    }
+
     saveSubQuestionFromResponse(response) {
         if (this.mode === 'teacher') {
             this.answer = response.answer;
@@ -257,18 +261,12 @@ export class TestComponent implements OnChanges {
 
     processQuestion(question) {
         this.top = question;
-        this.buttonText = 'send';
         if (question.type === 'TestQuestion') {
             this.makeOptions();
-        } else if (this.top.type === 'AudioQuestion') {
-            this.buttonText = 'go to subquestions';
+        } else if (question.type === 'AudioQuestion') {
             this.myAudio = new Audio();
-        } else if (this.top.type === 'ReadingQuestion') {
-            this.buttonText = 'go to subquestions';
-        } else {
-            this.buttonText = 'send';
-        }
 
+        }
 
     }
 
@@ -319,7 +317,6 @@ export class TestComponent implements OnChanges {
     }
 
     public  sendAnswer(callBack) {
-
         this.sendAnswerToServer(this.answer, callBack);
 
     }
