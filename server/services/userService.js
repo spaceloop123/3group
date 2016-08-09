@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
+var generatePassword = require('password-generator');
 var User = mongoose.model('User');
 var Test = mongoose.model('Test');
 var Validator = require('../libs/requestValidator');
 var testService = require('./testService');
 var async = require('async');
+var mailer = require('../libs/mailer');
 
 module.exports.getUserList = function (n, filter, done) {
     var CHUNK_COUNT = 10;
@@ -115,7 +117,7 @@ module.exports.getUserInfo = function (userId, done) {
         })
         .exec(function (res) {
             var info = res.user.getMoreInfo();
-            if(res.user.role === 'teacher') {
+            if (res.user.role === 'teacher') {
                 Test.count({teacher: res.user.id, status: 'checking'}, function (err, count) {
                     info.n = count;
                     done(null, info);
@@ -128,3 +130,78 @@ module.exports.getUserInfo = function (userId, done) {
             }
         }, done, done);
 };
+
+module.exports.addNewTeacher = function (firstName, lastName, email, done) {
+    new Validator()
+        .checkItem('count', function (callback) {
+            User.count({}, callback);
+        })
+        .exec(function (res) {
+            var username = 'Teacher' + res.count;
+            var password = generatePassword(12, false);
+            addUser({
+                username: username,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                role: 'teacher'
+            });
+            mailer.sendMail(
+                email,
+                'Welcome to ProjectName',
+                'Hello, ' + firstName + ' ' + lastName + '\n' +
+                'Your username: ' + username + '\n' +
+                'Your password: ' + password
+            );
+            done();
+        }, done, done);
+};
+
+module.exports.addNewGuest = function (firstName, lastName, email, testData, done) {
+    new Validator()
+        .checkItem('count', function (callback) {
+            User.count({}, callback);
+        })
+        .exec(function (res) {
+            var username = 'Guest' + res.count;
+            var password = '11111';
+            var guest = addUser({
+                username: username,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                role: 'guest'
+            });
+            var test = new Test({
+                status: 'available',
+                user: guest.id,
+                teacher: testData.teacher,
+                answers: [],
+                fromTime: new Date(testData.timeFrom),
+                toTime: new Date(testData.timeTo)
+            });
+            test.save(done);
+            mailer.sendMail(
+                email,
+                'Welcome to ProjectName',
+                'Hello, ' + firstName + ' ' + lastName + '\n' +
+                'Follow the link to start the test: http://192.168.14.81:1507/guest/allowTest?id=' + guest.id
+            );
+        }, done, done);
+};
+
+function addUser(userData) {
+    var user = new User({
+        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        username: userData.username,
+        role: userData.role,
+        level: 0
+    });
+    user.setPassword(userData.password);
+    user.save();
+    return user;
+}

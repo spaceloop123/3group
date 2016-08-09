@@ -6,8 +6,7 @@ module.exports.dataResponse = function (res) {
 };
 
 module.exports.emptyResponse = function (res) {
-    return function (err, status) {
-        err ? res.status(500).end() :
-            status ? res.status(status).end() : res.end();
+    return function (err) {
+        err ? res.status(500).end() : res.status(200).end();
     }
 };
