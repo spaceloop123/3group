@@ -36,8 +36,24 @@ export class ChartsComponent implements OnChanges {
                     // OR //
                     //beginAtZero: true   // minimum value will be 0.
                     suggestedMax: 100
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'mark'
+
                 }
-            }]
+            }
+            ],
+            xAxes: [{
+                display: true,
+
+                scaleLabel: {
+                    display: true,
+                    labelString: 'date'
+
+                }
+            }
+            ]
         }
     };
 
