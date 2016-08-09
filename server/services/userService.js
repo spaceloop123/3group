@@ -121,7 +121,7 @@ module.exports.getUserInfo = function (userId, done) {
                     done(null, info);
                 });
             } else {
-                Test.find({status: {$in: ['available', 'requested', 'run', 'wait']}}, function (err, tests) {
+                Test.find({user: res.user.id, status: {$in: ['available', 'requested', 'run', 'wait']}}, function (err, tests) {
                     info.assignable = !(tests.length > 0);
                     done(null, info);
                 });

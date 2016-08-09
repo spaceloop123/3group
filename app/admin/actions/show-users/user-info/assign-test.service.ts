@@ -30,17 +30,8 @@ export class AssignTestService {
     }
 
     addGuest(user, teacher, data) {
+        // console.log('asdasd = ' + JSON.stringify(this.prepareGuest(user, teacher, data)));
         return this.customHttp.post('/admin/new_guest', this.prepareGuest(user, teacher, data));
     }
-
-    private prepareGuest(user, teacher, data) {
-        return {
-            'firstName': user.firstName,
-            'lastName': user.lastName,
-            'email': user.firstName,
-            'teacherId': teacher['id'],
-            'timeFrom': data.dateFrom,
-            'timeTo': data.dateTo
-        };
-    }
+    
 }
