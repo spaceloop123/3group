@@ -1,29 +1,30 @@
 <div class="card lighten-1">
     <div class='row'>
-        <div align="center" class='flow-text'>User statistics</div>
+        <div align="center" class='flow-text orange-text text-darken-4'>User statistics</div>
         <div [ngClass]='admin_style' align="left">
             <div [ngClass]='chart_style'>
-                <base-chart *ngIf="lineChartLabels.length !== 0" class="chart"
+                <base-chart class="chart" *ngIf="lineChartLabels.length !== 0"
                             [datasets]="lineChartData"
                             [labels]="lineChartLabels"
                             [options]="lineChartOptions"
-                            [colors]="lineChartColours"
-                            [legend]="lineChartLegend"
                             [chartType]="lineChartType"
+                            [colors]="lineChartColours"
                             (chartHover)="chartHovered($event)"
                             (chartClick)="chartClicked($event)"></base-chart>
+
             </div>
         </div>
         <div [ngClass]='admin_style'>
             <div [ngClass]='info_style'>
 
                 <div *ngIf="testStatistics.length !== 0" align="left">
-                    <div>
+                    <div class="orange-text text-darken-4">
                         Your results
                     </div>
                     <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
                         <li *ngFor="let item of testStatistics">
-                            <div class="collapsible-header"><i class="material-icons">query_builder</i>
+                            <div class="collapsible-header deep-purple lighten-5"><i class="material-icons">call_received</i>
+                                <i class="material-icons">query_builder</i>
                                 {{showTime(item.date) + ' : ' +showMark(item.mark) + '%'}}
                             </div>
                             <div class="collapsible-body" style="margin-left: 4%">
@@ -34,11 +35,11 @@
 
                     </ul>
                 </div>
-                <div class="collection-item grey lighten-5 amber-text text-darken-2"
+                <div class="collection-item grey lighten-5 orange-text text-darken-4"
                      *ngIf="testStatistics.length === 0 && lineChartLabels.length !== 0">
                     <p>Click on the chart to view history details</p>
                 </div>
-                <div class="collection-item grey lighten-5 amber-text text-darken-2"
+                <div class="collection-item grey lighten-5 orange-text text-darken-4"
                      *ngIf="testStatistics.length === 0 && lineChartLabels.length === 0">
                     <p>User has no statistics</p>
                 </div>
@@ -46,4 +47,3 @@
         </div>
     </div>
 </div>
-

@@ -13,7 +13,6 @@ import {MaterializeDirective} from "angular2-materialize/dist/index";
 })
 export class ChartsComponent implements OnChanges {
 
-    private showTestsUrl = 'app/user/showTests';
     @Input() role:string;
     @Input() userId:any;
     lineChartData;
@@ -25,10 +24,42 @@ export class ChartsComponent implements OnChanges {
     admin_style:string = '';
 
 
+    lineChartOptions:any = {
+        legend: {
+            display: false
+        },
+        scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+                    // OR //
+                    //beginAtZero: true   // minimum value will be 0.
+                    suggestedMax: 100
+                }
+            }]
+        }
+    };
+
+    lineChartColours:Array<any> = [
+        {
+            borderColor: '#00acc1',
+            pointBackgroundColor: '#00acc1',
+            pointBorderColor: '#5c6bc0',
+            pointHoverBackgroundColor: '#5c6bc0',
+            pointHoverBorderColor: '#00acc1'
+        }
+    ];
+
+
+    lineChartType:string = 'line';
+
+
     constructor(private http:Http) {
         this.lineChartData =[ {
             data: []
         }];
+
         this.lineChartLabels = new Array();
         this.testStatistics = new Array();
 
@@ -52,7 +83,8 @@ export class ChartsComponent implements OnChanges {
 
         if (this.role === 'user') {
             this.getTestHistoryInUserMode();
-            this.chart_style = 'col s12 m7 l7 offset-l1 charts-class flow-text';
+
+            this.chart_style = 'col s12 m7 l7 charts-class flow-text';
             this.info_style = 'col s12 m5 l4 blue-grey-text charts-class flow-text';
         } else if (this.role === 'admin') {
             this.getTestHistoryInAdminMode();
@@ -113,29 +145,6 @@ export class ChartsComponent implements OnChanges {
 
     }
 
-
-    public lineChartOptions:any = {
-        animation: false,
-        responsive: true,
-        legend: {
-            display: false
-        }
-    };
-    public lineChartColours:Array<any> = [
-
-        {
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-            tension: 0,
-            fill: false,
-        }
-    ];
-
-    public lineChartType:string = 'line';
 
 
     // events
