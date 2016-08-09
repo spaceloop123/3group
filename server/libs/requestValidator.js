@@ -32,8 +32,12 @@ Validator.prototype.checkItems = function (items) {
 Validator.prototype.exec = function (success, empty, error) {
     try {
         async.waterfall(this._tasks, function (err, res) {
-            err ? error(err) :
-                res ? success(res) : empty();
+            try {
+                err ? error(err) :
+                    res ? success(res) : empty();
+            } catch (err) {
+                error(err);
+            }
         });
     } catch (err) {
         error(err);
