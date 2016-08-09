@@ -102,9 +102,10 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     clearTestInfo() {
-        localStorage.removeItem("questionInfo");
-        localStorage.removeItem("subQuestionInfo");
-        localStorage.removeItem("testInfo");
+        let role = JSON.parse(localStorage.getItem('auth'));
+        localStorage.clear();
+        localStorage.setItem('auth', JSON.stringify(role));
+
     }
 
     afterSent(tc : TestComponent){

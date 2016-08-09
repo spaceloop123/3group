@@ -41,8 +41,6 @@ export class FinishTestPageComponent implements OnInit, OnDestroy {
 
         });
         this.autoExit();
-
-
     }
 
     ngOnDestroy(){
