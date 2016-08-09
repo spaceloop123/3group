@@ -115,6 +115,7 @@ export class AddMemberComponent implements OnInit {
                 toast('Failed to assign the test to ' + this.member.firstName + ' ' + this.member.lastName,
                     3000, 'red darken-2');
             });
+        this.clearForm();
     }
 
     prepareGuest() {
