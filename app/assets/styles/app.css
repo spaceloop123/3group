@@ -5,6 +5,16 @@
  * Made By MaterializeCSS.com
  */
 
+.loader {
+    position: fixed;
+    width: 64px;
+    height: 64px;
+    top: 50%;
+    left: 50%;
+    margin-left: -32px;
+    margin-top: -32px;
+}
+
 .page-flexbox-wrapper {
     display: flex;
     min-height: 100vh;
