@@ -18,4 +18,8 @@ router.get('/', function (req, res) {
     res.render('index');
 });
 
+router.get('/role', function (req, res) {
+    res.json(req.user ? req.user.role : null);
+});
+
 module.exports = router;

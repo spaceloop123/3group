@@ -10,6 +10,7 @@ router.get('/allowTest', function (req, res) {
         req.login(guest, function (err) {
             if (err) return res.status(404).end();
 
+            //res.redirect('http://192.168.14.81:1507/#/runTest/user');
             res.redirect('http://localhost:3000/#/runTest/user');
         });
     });

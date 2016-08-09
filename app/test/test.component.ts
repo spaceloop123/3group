@@ -230,7 +230,7 @@ export class TestComponent implements OnChanges {
         }
         if (this.question.type === "SpeechQuestion") {
             if (this.mode === 'user') {
-                this.answer = this.testInfo.id.toString() + this.questionInfo.questionIndex.toString() + +'.wav';
+                this.answer = this.testInfo.id.toString() + this.questionInfo.questionIndex.toString() + '.wav';
             } else if (this.mode === 'teacher') {
                 this.question.type = 'AudioQuestion';
             }

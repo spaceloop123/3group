@@ -13,7 +13,7 @@ var http = require('http');
 var BinaryServer = require('binaryjs').BinaryServer;
 var fs = require('fs');
 var wav = require('wav');
-//var ssw = require('./SocketServerWrite');
+var ssw = require('./SocketServerWrite');
 
 require('./server/models/Users');
 require('./server/models/questions/Questions');
@@ -43,7 +43,7 @@ var mdlwares = require('./server/libs/mdlwares');
 
 var app = express();
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.argv[2] || '3000');
 app.set('port', port);
 
 var server = http.createServer(app);
