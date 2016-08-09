@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import {DatepickerComponent} from "./datepicker.component";
+import {DatepickerComponent} from "../user-info/datepicker.component";
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
@@ -8,20 +8,20 @@ import {MaterializeDirective, toast} from "angular2-materialize";
 import {ChartsComponent} from "../../../../user/charts/charts.component";
 import {InfiniteScroll} from "angular2-infinite-scroll/angular2-infinite-scroll";
 import {StateService} from "../StateService";
-import {AssignTestService} from "./assign-test.service";
+import {AssignTestService} from "../user-info/assign-test.service";
 
 
 @Component({
-    templateUrl: 'app/admin/actions/show-users/user-info/assign-test.html',
+    templateUrl: 'app/admin/actions/show-users/guest-info/guest-info.html',
     directives: [DatepickerComponent, ChartsComponent, CHART_DIRECTIVES, ROUTER_DIRECTIVES, MaterializeDirective, InfiniteScroll],
     providers: [StateService, AssignTestService]
 })
 
-export class AssignTestComponent implements OnInit {
+export class GuestInfoComponent implements OnInit {
 
     currentUser:any;
     assignedTeacher:any;
-    userInfo:any;
+    guestInfo:any;
     sub;
     isActive;
     teacherList = [];
@@ -31,7 +31,7 @@ export class AssignTestComponent implements OnInit {
 
     constructor(private route:ActivatedRoute,
                 private assignTestService:AssignTestService) {
-        this.userInfo = [];
+        this.guestInfo = [];
     }
 
     ngOnInit() {
@@ -40,7 +40,7 @@ export class AssignTestComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             this.currentUser = params['id'];
         });
-        this.getUserInfo();
+        this.getGuestInfo();
         this.getTeacherList();
     }
 
@@ -67,17 +67,18 @@ export class AssignTestComponent implements OnInit {
         this.teacherList = this.teacherList.concat(response);
     }
 
-    getUserInfo() {
+    getGuestInfo() {
         console.log(' sdfsdf sdf sd= ' + JSON.stringify(this.currentUser));
         this.assignTestService.getUserInfoById({userId: this.currentUser})
             .subscribe(response => {
                 console.log(response);
-                this.setUser(response);
+                this.setGuest(response);
             });
     }
 
-    setUser(response) {
-        this.userInfo = response;
+    setGuest(response) {
+        this.guestInfo = response;
+        console.log('' + response.assignable);
     }
 
     assignTest() {
@@ -108,4 +109,5 @@ export class AssignTestComponent implements OnInit {
     private validateDate(date) {
         return date && date.dateFrom < date.dateTo;
     }
+
 }

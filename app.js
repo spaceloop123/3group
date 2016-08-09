@@ -10,7 +10,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var debug = require('debug')('flapper-news:server');
 var http = require('http');
-var BinaryServer = require('binaryjs').BinaryServer;
 var fs = require('fs');
 var wav = require('wav');
 var ssw = require('./SocketServerWrite');
@@ -70,6 +69,7 @@ app.use(expressSession({
     store: new MongoStore({
         //url: "mongodb://192.168.14.81/passport"
         url: "mongodb://localhost/passport"
+        // url: "mongodb://192.168.14.81/passport"
     }),
     secret: 'SECRET', resave: false, saveUninitialized: false, rolling: true,
     cookie: {secure: false, maxAge: 24 * 60 * 60 * 1000}

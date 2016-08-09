@@ -24,10 +24,10 @@
                             <div class="valign-wrapper">
                                 <span class="col s6 m6 title left-align">{{user.firstName}} {{user.lastName}}</span>
                                 <span class="col s4 m4 grey-text text-darken-1 center-align">{{user.role}}</span>
-                                    <i materialize="tooltip" *ngIf="user.role !== 'admin' && user.role !== 'guest'"
+                                    <i materialize="tooltip" *ngIf="user.role !== 'admin'"
                                        class="material-icons teal-text tooltiped"
                                        data-position="right" data-delay="10" data-tooltip="Click for details">send</i>
-                                    <span *ngIf="user.role === 'admin' || user.role === 'guest'" class="alpha-text">nbs</span>
+                                    <span *ngIf="user.role === 'admin'" class="alpha-text">nbs</span>
                             </div>
                         </a>
                     </li>

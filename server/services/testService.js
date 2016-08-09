@@ -186,6 +186,7 @@ var typeMap = {
 };
 
 function getTestMap(answers) {
+    console.log(answers);
     var map = {};
     answers.forEach(function (answer) {
         var type = typeMap[answer.question.type];

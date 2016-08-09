@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
+import {Component, Input, OnChanges, SimpleChanges, NgZone} from "@angular/core";
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from "@angular/common";
 import {Http, Headers} from "@angular/http";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
@@ -15,6 +15,7 @@ export class ChartsComponent implements OnChanges {
 
     @Input() role:string;
     @Input() userId:any;
+    currentWidth:number;
     lineChartData;
     testsData:any[];
     lineChartLabels:any[];
@@ -71,15 +72,25 @@ export class ChartsComponent implements OnChanges {
 
 
     lineChartType:string = 'line';
+    private ngZone;
 
 
-    constructor(private http:Http) {
+    constructor(private http:Http,
+                ngZone:NgZone) {
         this.lineChartData =[ {
             data: []
         }];
 
         this.lineChartLabels = new Array();
         this.testStatistics = new Array();
+
+        this.currentWidth = window.innerWidth;
+
+        window.onresize = () => {
+            ngZone.run(() => {
+                this.currentWidth = window.innerWidth;
+            });
+        };
 
     }
 

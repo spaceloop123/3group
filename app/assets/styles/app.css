@@ -12,15 +12,13 @@
     background-color: #fafafa;
 }
 
-header {
-    position: fixed;
-    width: 100%;
-    z-index: 999;
-}
-
 main {
     flex: 1 1 auto;
     margin-top: 22px;
+}
+
+.stats-card {
+    min-height: 378px;
 }
 
 .alpha-text {
@@ -138,13 +136,30 @@ main {
     padding-bottom: 15px;
 }
 
-a .disabled{
+a[disabled],
+a.disabled {
     pointer-events: none;
     cursor: default;
 }
 
+a.assign-disabled span,
+a.assign-disabled i,
+a.assign-disabled span.grey-text.text-darken-1 {
+    color: rgba(0,0,0,0.26) !important;
+    pointer-events: none;
+    cursor: default;
+}
+
+a.assign-disabled {
+    color: rgba(0,0,0,0.26);
+    pointer-events: none;
+    cursor: default;
+}
+
+a[disabled].collection-item,
 a.disabled.collection-item {
     pointer-events: none;
+    touch-action: none;
     cursor: default;
     background-color: #DFDFDF;
 }
@@ -235,4 +250,8 @@ a.disabled.collection-item {
 
 #notificationModal {
     background-color: #FAFAFA;
+}
+
+.admin-tabs {
+    overflow: hidden;
 }

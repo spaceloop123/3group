@@ -18,6 +18,8 @@ import {TeacherInfoComponent} from "./admin/actions/show-users/teacher-info/teac
 import {Constants} from "./common/constants/constants.data";
 import {AuthService} from "./common/auth/auth.service";
 import {Subscription} from "rxjs/Rx";
+import {GUID} from "./common/guid/GUID";
+import {GuestInfoComponent} from "./admin/actions/show-users/guest-info/guest-info.component";
 //components
 
 //others
@@ -41,7 +43,8 @@ import {Subscription} from "rxjs/Rx";
         TeacherCheckingComponent,
         ChartsComponent,
         ShowTestsComponent,
-        ShowUsersComponent
+        ShowUsersComponent,
+        GuestInfoComponent
     ],
     providers: [Location]
 })
