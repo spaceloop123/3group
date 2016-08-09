@@ -24,6 +24,9 @@ export class AddMemberComponent implements OnInit {
         dateTo: new Date()
     };
 
+    dateFrom:any;
+    dateTo:any;
+
     constructor(private customHttp:CustomHttp, private assignTestService:AssignTestService) {
         this.member = {};
         this.newMemberUrl = '';
@@ -96,21 +99,18 @@ export class AddMemberComponent implements OnInit {
     }
 
     onAssignTestForGuest() {
-        /*this.customHttp
-         .post(this.newMemberUrl + this.member.role, this.member)
-         .subscribe(
-         res => {
-         toast(this.member.firstName + ' ' + this.member.lastName + ' was successfully added', 3000, 'green');
-         this.clearForm();
-         },
-         err => this.handleError(err)
-         );*/
+        let date = this.getDate();
 
-        this.customHttp.post('/admin/new_guest', this.prepareGuest())
+        if (!this.validateDate(date)) {
+            toast('Date To is earlier than Date From', 3000, 'red darken-2');
+            return;
+        }
+
+        this.customHttp.post('/admin/new_guest', this.prepareGuest(date))
             .subscribe(res => {
-                console.log("Service = " + JSON.stringify(this.member));
                 toast('The test was assigned to ' + this.member.firstName + ' ' + this.member.lastName,
                     3000, 'green');
+                this.clearForm();
             }, err => {
                 toast('Failed to assign the test to ' + this.member.firstName + ' ' + this.member.lastName,
                     3000, 'red darken-2');
@@ -118,14 +118,25 @@ export class AddMemberComponent implements OnInit {
         this.clearForm();
     }
 
-    prepareGuest() {
+    getDate() {
+        return {
+            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate(),
+            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate()
+        };
+    }
+
+    private validateDate(date) {
+        return date && date.dateFrom < date.dateTo;
+    }
+
+    prepareGuest(date) {
         return {
             'firstName': this.member.firstName,
             'lastName': this.member.lastName,
             'email': this.member.email,
             'teacherId': this.assignedTeacher['id'],
-            'timeFrom': this.data.dateFrom,
-            'timeTo': this.data.dateTo
+            'timeFrom': date.dateFrom,
+            'timeTo': date.dateTo
         };
     }
 

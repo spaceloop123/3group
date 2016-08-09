@@ -1,5 +1,4 @@
-import moment from 'moment';
-
+import moment from "moment";
 import {DatepickerComponent} from "./datepicker.component";
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
@@ -102,12 +101,9 @@ export class AssignTestComponent implements OnInit {
     }
 
     getDate() {
-        this.dateTo = moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate();
-        this.dateFrom = moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate();
-
         return {
-            dateFrom: this.dateFrom,
-            dateTo: this.dateTo
+            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate(),
+            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate()
         };
     }
 
