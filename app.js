@@ -10,7 +10,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var debug = require('debug')('flapper-news:server');
 var http = require('http');
-var BinaryServer = require('binaryjs').BinaryServer;
 var fs = require('fs');
 var wav = require('wav');
 //var ssw = require('./SocketServerWrite');
@@ -30,7 +29,7 @@ require('./server/models/Answers');
 require('./server/models/Notifications');
 require('./server/libs/agenda');
 
-mongoose.connect("mongodb://localhost/test");
+mongoose.connect("mongodb://192.168.14.81/test");
 
 var routes = require('./server/routes/index');
 var auth = require('./server/routes/auth');
@@ -42,7 +41,7 @@ var mdlwares = require('./server/libs/mdlwares');
 
 var app = express();
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.argv[2] || '3000');
 app.set('port', port);
 
 var server = http.createServer(app);
@@ -67,7 +66,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(expressSession({
     store: new MongoStore({
-        url: "mongodb://localhost/passport"
+        //url: "mongodb://localhost/passport"
+        url: "mongodb://192.168.14.81/passport"
     }),
     secret: 'SECRET', resave: false, saveUninitialized: false, rolling: true,
     cookie: {secure: false, maxAge: 24 * 60 * 60 * 1000}

@@ -37,7 +37,7 @@ export class RecordSpeechComponent implements OnChanges, OnDestroy {
     recordAudio() {
         this.startRecord = true;
 
-        this.socket = new WebSocket('ws://localhost:3001');
+        this.socket = new WebSocket('ws://192.168.14.81:3001');
         let session = {
             audio: true,
             video: false

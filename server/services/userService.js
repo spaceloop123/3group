@@ -121,7 +121,10 @@ module.exports.getUserInfo = function (userId, done) {
                     done(null, info);
                 });
             } else {
-                done(null, info);
+                Test.find({status: {$in: ['available', 'requested', 'run', 'wait']}}, function (err, tests) {
+                    info.assignable = !(tests.length > 0);
+                    done(null, info);
+                });
             }
         }, done, done);
 };
