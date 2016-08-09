@@ -123,6 +123,10 @@ export class RunTestComponent implements OnInit, OnDestroy {
         this.progress = newValue;
     }
 
+    getButtonText(ts:TestComponent):string {
+        return ts.getButtonText();
+    }
+
     initTimer(deadline:string) {
         let deadlineDate = new Date(deadline);
         let currentDate = new Date();
