@@ -96,8 +96,20 @@ export class AddMemberComponent implements OnInit {
     }
 
     onAssignTestForGuest() {
+        this.customHttp
+            .post(this.newMemberUrl + this.member.role, this.member)
+            .subscribe(
+                res => {
+                    toast(this.member.firstName + ' ' + this.member.lastName + ' was successfully added', 3000, 'green');
+                    this.clearForm();
+                },
+                err => this.handleError(err)
+            );
+        this.customHttp.post('/admin/new_guest', this.prepareGuest(user, teacher, data));
+        
         this.assignTestService.addGuest(this.member, this.assignedTeacher, this.data)
             .subscribe(res => {
+                console.log("Service = " + JSON.stringify(this.member));
                 toast('The test was assigned to ' + this.member.firstName + ' ' + this.member.lastName,
                     3000, 'green');
             }, err => {
