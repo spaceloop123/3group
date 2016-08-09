@@ -79,6 +79,8 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
             this.router.navigate(['/admin/assign_test', user.id]);
         } else if (user.role === 'teacher') {
             this.router.navigate(['/admin/teacher_info', user.id]);
+        } else if (user.role === 'guest') {
+            this.router.navigate(['/admin/guest_info', user.id]);
         }
     }
 

@@ -1,5 +1,5 @@
 <div class="card lighten-1">
-    <div class='row'>
+    <div class='row' [class.stats-card]="currentWidth > 1024 && (testStatistics.length !== 0 || lineChartLabels.length !== 0)">
         <div align="center" class='flow-text orange-text text-darken-4'>User statistics</div>
         <div [ngClass]='admin_style' align="left">
             <div [ngClass]='chart_style'>

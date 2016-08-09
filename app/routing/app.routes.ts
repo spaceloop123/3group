@@ -13,6 +13,7 @@ import {AuthGuard} from "../common/auth/auth.guard";
 import {TeacherInfoComponent} from "../admin/actions/show-users/teacher-info/teacher-info.component";
 import {AuthErrorComponent} from "../common/auth/error/auth.error.component";
 import {AssignTestComponent} from "../admin/actions/show-users/user-info/assign-test.component";
+import {GuestInfoComponent} from "../admin/actions/show-users/guest-info/guest-info.component";
 
 function wrapSecured(config: RouterConfig, role: string) {
     config.forEach((route)=> {
@@ -90,6 +91,10 @@ export const ADMIN_CONFIG: RouterConfig = [
     {
         path: 'admin/teacher_info/:id',
         component: TeacherInfoComponent
+    },
+    {
+        path: 'admin/guest_info/:id',
+        component: GuestInfoComponent
     }
 ];
 

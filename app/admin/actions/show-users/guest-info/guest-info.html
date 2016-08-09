@@ -11,9 +11,9 @@
                         <div class="card-content valign-wrapper">
                             <div class="container valign">
                                 <div align="left">
-                                    <h2 class="flow-text cyan-text">{{userInfo.firstName}} {{userInfo.lastName}}</h2>
-                                    <p class="flow-text purple-text">{{userInfo.username}}</p>
-                                    <p class="blue-text">{{userInfo.email}}</p>
+                                    <h2 class="flow-text cyan-text">{{guestInfo.firstName}} {{guestInfo.lastName}}</h2>
+                                    <p class="flow-text purple-text">{{guestInfo.username}}</p>
+                                    <p class="blue-text">{{guestInfo.email}}</p>
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
             <div class="col s12 m6 l6 card-width">
                 <div class="card white valign">
                     <div class="card-content">
-                        <div class="card-title purple-text text-darken-2" align="center" style="font-weight: 400;">
+                        <div class="card-title purple-text text-darken-2" style="font-weight: 400;" align="center">
                             Assign Test
                         </div>
                         <p style="font-weight: 500;">Select estimated date and time</p>
@@ -40,16 +40,13 @@
                             <div class="col s12 m2 l2">
                                 <h6>From:</h6>
                             </div>
-                            <div id="datepicker1" class="datepicker col s12 m4 l4">
-                                <input id="dateFrom" type="date" class="datepicker" [(ngModel)]="dateFrom" [disabled]="!userInfo.assignable">
-                            </div>
-                            <div class="col s12 m2 l2">
-                                <h6>Time:</h6>
+                            <div id="datepicker1" class="datepicker col s12 m6 l6">
+                                <input id="dateFrom" type="date" class="datepicker" [(ngModel)]="dateFrom" [disabled]="!guestInfo.assignable">
                             </div>
 
                             <div class="col m2 l2" style="padding:0">
                                 <select id="hoursFrom" class="browser-default" materialize="material_select"
-                                        [disabled]="!userInfo.assignable"
+                                        [disabled]="!guestInfo.assignable"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" disabled selected>00</option>
                                     <option value="01">01</option>
@@ -80,7 +77,7 @@
 
                             <div class="col m2 l2" style="padding:0">
                                 <select id="minutesFrom" class="browser-default" materialize="material_select"
-                                        [disabled]="!userInfo.assignable"
+                                        [disabled]="!guestInfo.assignable"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" disabled selected>00</option>
                                     <option value="05">05</option>
@@ -102,16 +99,13 @@
                             <div class="col s12 m2 l2">
                                 <h6>To:</h6>
                             </div>
-                            <div id="datepicker2" class="datepicker col s12 m4 l4">
-                                <input id="dateTo" type="date" class="datepicker" [(ngModel)]="dateTo" [disabled]="!userInfo.assignable">
-                            </div>
-                            <div class="col s12 m2 l2">
-                                <h6>Time:</h6>
+                            <div id="datepicker2" class="datepicker col s12 m6 l6">
+                                <input id="dateTo" type="date" class="datepicker" [(ngModel)]="dateTo" [disabled]="!guestInfo.assignable">
                             </div>
 
                             <div class="col m2 l2" style="padding:0">
                                 <select id="hoursTo" class="browser-default" materialize="material_select"
-                                        [disabled]="!userInfo.assignable"
+                                        [disabled]="!guestInfo.assignable"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" selected>00</option>
                                     <option value="01">01</option>
@@ -142,7 +136,7 @@
 
                             <div class="col m2 l2" style="padding:0">
                                 <select id="minutesTo" class="browser-default" materialize="material_select"
-                                        [disabled]="!userInfo.assignable"
+                                        [disabled]="!guestInfo.assignable"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" selected>00</option>
                                     <option value="05">05</option>
@@ -170,8 +164,8 @@
                                 <div class="col s12 m12 offset-l1 l10">
                                     <div class="collection teacher-list list-overflow-y grey lighten-5">
                                         <a class="collection-item {{teacher.isActive}}"
+                                           [class.assign-disabled]="!guestInfo.assignable"
                                            *ngFor="let teacher of teacherList"
-                                           [class.assign-disabled]="!userInfo.assignable"
                                            href="javascript:;"
                                            (click)="assignTeacher(teacher)">
                                             <div class="valign-wrapper">
@@ -186,7 +180,7 @@
                         </div>
                     </div>
                     <div class="card-action" align="center">
-                        <button [disabled]="!userInfo.assignable" class="waves-effect default btn" (click)="assignTest()">Assign Test</button>
+                        <button [disabled]="!guestInfo.assignable" class="waves-effect default btn" (click)="assignTest()">Assign Test</button>
                     </div>
                 </div>
             </div>

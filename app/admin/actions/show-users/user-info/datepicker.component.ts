@@ -56,6 +56,7 @@ export class DatepickerComponent implements OnInit {
             this.data.dateTo.setUTCHours($('#hoursTo').val());
             this.data.dateTo.setUTCMinutes($('#minutesTo').val());
 
+
             console.log('month-test', this.data.dateFrom);
             this.notify.emit(JSON.stringify(this.data));
         }
