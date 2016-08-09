@@ -16,7 +16,7 @@ export class AssignTestService {
     }
 
     assignTest(user, teacher, data) {
-        console.log('Assing test service = ' + JSON.stringify(this.prepareDate(user, teacher, data)));
+        console.log('Assign test service = ' + JSON.stringify(this.prepareDate(user, teacher, data)));
         return this.customHttp.post('/admin/assign_test', this.prepareDate(user, teacher, data));
     }
 

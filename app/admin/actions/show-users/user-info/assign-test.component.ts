@@ -84,14 +84,18 @@ export class AssignTestComponent implements OnInit {
         let date = this.getDate();
 
         if(!this.validateDate(date)) {
-            toast('Date To is earlier than Date From', 3000, 'red darken-2');
+            toast('Enter correct date of test', 5000, 'red darken-2');
+            return;
+        } else if(!this.assignedTeacher) {
+            toast('Choose the teacher first', 5000, 'red darken-2');
             return;
         }
+
         this.assignTestService.assignTest(this.currentUser, this.assignedTeacher, date)
             .subscribe(res => {
-                toast("The test was successfully assigned", 3000, 'green');
+                toast("The test was successfully assigned", 5000, 'green');
             }, err => {
-                toast('Failed to assign the test', 3000, 'red darken-2');
+                toast('Failed to assign the test', 5000, 'red darken-2');
             });
 
         this.getUserInfo();
