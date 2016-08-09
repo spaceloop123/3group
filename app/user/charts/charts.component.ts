@@ -22,6 +22,8 @@ export class ChartsComponent implements OnChanges {
     chart_style:string;
     info_style:string;
     admin_style:string = '';
+    months:string [] = ['Jan', 'Feb', 'March', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
 
 
     lineChartOptions:any = {
@@ -157,8 +159,8 @@ export class ChartsComponent implements OnChanges {
 
     parseDate(date:string):string {
         let buffer = new Date(date);
-        console.log('buffer.getDay()' + buffer.getDate());
-        return ((buffer.getMonth() + 1).toString() + '/' + (buffer.getDate()).toString());
+        console.log('buffer.getDay()');
+        return this.months[buffer.getMonth()] + ' ' + buffer.getDate();
 
     }
 
