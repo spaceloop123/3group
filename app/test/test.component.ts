@@ -32,6 +32,7 @@ export class TestComponent implements OnChanges {
     currentId:any;
 
 
+
     options:any[];
     answer:string;
 
@@ -241,6 +242,15 @@ export class TestComponent implements OnChanges {
 
     }
 
+    getButtonText():string{
+        if(this.top.type === "ReadingQuestion" || this.top.type === "AudioQuestion") {
+            return 'go to subquestions';
+        } else{
+            return 'send';
+        }
+
+    }
+
     saveSubQuestionFromResponse(response) {
         if (this.mode === 'teacher') {
             this.answer = response.answer;
@@ -255,6 +265,7 @@ export class TestComponent implements OnChanges {
             this.makeOptions();
         } else if (question.type === 'AudioQuestion') {
             this.myAudio = new Audio();
+
         }
 
     }
@@ -306,7 +317,6 @@ export class TestComponent implements OnChanges {
     }
 
     public  sendAnswer(callBack) {
-
         this.sendAnswerToServer(this.answer, callBack);
 
     }
