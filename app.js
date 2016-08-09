@@ -30,6 +30,7 @@ require('./server/models/Answers');
 require('./server/models/Notifications');
 require('./server/libs/agenda');
 
+//mongoose.connect("mongodb://192.168.14.81/test");
 mongoose.connect("mongodb://localhost/test");
 
 var routes = require('./server/routes/index');
@@ -67,6 +68,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(expressSession({
     store: new MongoStore({
+        //url: "mongodb://192.168.14.81/passport"
         url: "mongodb://localhost/passport"
     }),
     secret: 'SECRET', resave: false, saveUninitialized: false, rolling: true,
