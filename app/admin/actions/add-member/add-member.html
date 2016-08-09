@@ -21,49 +21,49 @@
                     <div class="input-field col s12">
                         <i id="icon_first_name" class="material-icons prefix">account_circle</i>
                         <input id="icon_prefix_first_name" type="text" class="validate"
-                               placeholder="John"
+                               placeholder="First Name"
                                ngControl="firstName" [(ngModel)]="member.firstName" name="firstName">
-                        <label id="icon_label_first_name" for="icon_prefix_first_name">First Name</label>
+                       <!-- <label id="icon_label_first_name" for="icon_prefix_first_name">First Name</label>-->
                     </div>
                     <div class="input-field col s12">
                         <i id="icon_last_name" class="material-icons prefix">account_circle</i>
                         <input id="icon_prefix_last_name" type="text" class="validate"
-                               placeholder="Smith"
+                               placeholder="Last Name"
                                ngControl="lastName" [(ngModel)]="member.lastName" name="lastName"/>
-                        <label id="icon_label_last_name" for="icon_prefix_last_name">Last Name</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <i id="icon_email" class="material-icons prefix">email</i>
-                        <input id="email" type="email" class="validate"
-                               placeholder="itis@email.com"
-                               [(ngModel)]="member.email" name="email"/>
-                        <label id="icon_label_email" for="email" data-error="wrong" data-success="right">Email</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-action" align="center">
-        <button class="waves-effect waves-light btn"
-                [class.disabled]="isMemberFieldsEmpty()"
-                type="submit">
-            add
-        </button>
-    </div>
-</form>
+                        <!-- <label id="icon_label_last_name" for="icon_prefix_last_name">Last Name</label>-->
+                     </div>
+                     <div class="input-field col s12">
+                         <i id="icon_email" class="material-icons prefix">email</i>
+                         <input id="email" type="email" class="validate"
+                                placeholder="Email"
+                                [(ngModel)]="member.email" name="email"/>
+                         <!--  <label id="icon_label_email" for="email" data-error="wrong" data-success="right">Email</label>-->
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="card-action" align="center">
+           <button class="waves-effect waves-light btn"
+                   [class.disabled]="isMemberFieldsEmpty()"
+                   type="submit">
+               add
+           </button>
+       </div>
+   </form>
 
-<div id="addGuestModal" class="modal modal-fixed-footer">
-    <div class="modal-content">
-        <div class="flow-text" style="font-weight: 600">
-            <span class="black-text">Assign a test to </span>
-            <span class="blue-text">{{member.firstName}} {{member.lastName}}</span>
-        </div>
-        <div class="container">
-            <div class="row">
-                <p style="font-weight: 500;">Select estimated date and time</p>
-                <br>
+   <div id="addGuestModal" class="modal modal-fixed-footer">
+       <div class="modal-content">
+           <div class="flow-text" style="font-weight: 600">
+               <span class="black-text">Assign a test to </span>
+               <span class="blue-text">{{member.firstName}} {{member.lastName}}</span>
+           </div>
+           <div class="container">
+               <div class="row">
+                   <p style="font-weight: 500;">Select estimated date and time</p>
+                   <br>
 
-                <!-- Date picker -->
+                   <!-- Date picker -->
 
                 <div class="col s12 m12 l12">
                     <h6 class="col s2 m1 l1">From:</h6>
