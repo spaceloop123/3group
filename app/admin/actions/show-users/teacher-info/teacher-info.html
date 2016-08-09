@@ -13,7 +13,8 @@
                                     <h2 class="flow-text cyan-text">{{teacherInfo.firstName}} {{teacherInfo.lastName}}</h2>
                                     <p class="flow-text">{{teacherInfo.username}}</p>
                                     <p class="flow-text blue-text">{{teacherInfo.email}}</p>
-                                    <p>5 tests are still to check.</p>
+                                    <p *ngIf="teacherInfo.n === 0">This teacher hasn't any appointed tests to check.</p>
+                                    <p *ngIf="teacherInfo.n !== 0">{{teacherInfo.n}} tests are still to check.</p>
                                 </div>
                             </div>
                         </div>

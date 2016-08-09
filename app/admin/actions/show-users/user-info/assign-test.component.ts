@@ -76,11 +76,8 @@ export class AssignTestComponent implements OnInit {
             });
     }
 
-    testEnabled:boolean = true;
     setUser(response) {
-        console.log(this.testEnabled);
         this.userInfo = response;
-        this.userInfo.assignable = this.testEnabled;
     }
 
     assignTest() {
@@ -97,7 +94,6 @@ export class AssignTestComponent implements OnInit {
                 toast('Failed to assign the test', 3000, 'red darken-2');
             });
 
-        this.testEnabled = false;
         this.getUserInfo();
     }
 
