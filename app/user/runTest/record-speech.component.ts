@@ -37,14 +37,14 @@ export class RecordSpeechComponent implements OnChanges, OnDestroy {
     recordAudio() {
         this.startRecord = true;
 
-        this.socket = new WebSocket('ws://localhost:2016');
+        this.socket = new WebSocket('ws://localhost:3001');
         let session = {
             audio: true,
             video: false
         };
         let that = this;
         this.socket.onopen = function (event) {
-            console.log('this.filename this.socket.onopen' + that.filename);
+            //console.log('this.filename this.socket.onopen' + that.filename);
             that.socket.send(that.filename);  //send fileName(Maxim)
         };
 
