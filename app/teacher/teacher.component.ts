@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, NgZone} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {CardsColorsData} from "./cards-colors.data";
 import {CustomHttp} from "../common/services/CustomHttp";
@@ -19,11 +19,17 @@ export class TeacherComponent implements OnInit {
     currentTestId:any;
     defaultClass:string = '';
     activeClass:string = 'active';
+    currentWidth:number;
 
     constructor(private customHttp:CustomHttp,
-                private router:Router) {
-
-
+                private router:Router,
+                ngZone:NgZone) {
+        this.currentWidth = window.innerWidth;
+        window.onresize = () => {
+            ngZone.run(() => {
+                this.currentWidth = window.innerWidth;
+            });
+        };
     }
 
     ngOnInit() {

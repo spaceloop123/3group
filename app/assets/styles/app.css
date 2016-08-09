@@ -244,6 +244,10 @@ a.disabled.collection-item {
     top: 0;
 }
 
+.teacher-gif {
+    width: 100%;
+}
+
 .parent-of-badge {
     overflow: hidden;
     position: relative;

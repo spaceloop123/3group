@@ -36,6 +36,9 @@
 
     <div class="row" *ngIf="assignedTests.length == 0">
         <div class="center">
+            <div class="col s12 m12" [class.parent-of-images]="currentWidth < 800">
+                <img [class.teacher-gif]="currentWidth < 800" src="app/teacher/img/no_tests.gif" alt="no tests for you">
+            </div>
             <h5 class="grey-text text-darken-1">No tests available to check</h5>
         </div>
     </div>
