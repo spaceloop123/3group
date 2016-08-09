@@ -228,6 +228,7 @@ export class TestComponent implements OnChanges {
                 console.log('this.answer ' + this.answer + '.wav');
             } else if (this.mode === 'teacher') {
                 this.question.type = 'AudioQuestion';
+                this.question.path = this.question.answer;
             }
 
         }
@@ -291,7 +292,7 @@ export class TestComponent implements OnChanges {
         return Promise.reject(error.message || error);
     }
 
-    playAydio() {
+    playAudio() {
         if (!this.isPlayed) {
             this.myAudio.src = this.question.path;
             this.myAudio.load();
