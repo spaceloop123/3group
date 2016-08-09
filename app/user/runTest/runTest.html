@@ -16,7 +16,7 @@
             <display-test #test [testInfo]="testInfo" [mode]="opMode" [answersId] = "answersId" (progress)="setProgress($event)"></display-test>
             <div class="card-action center">
                 <button class="btn waves-effect waves-light center" type="submit" name="action"
-                        (click)="sendAndGo(test)">{{test.getButtonText()}}
+                        (click)="sendAndGo(test)">send
                     <i class="material-icons right">send</i></button>
             </div>
         </div>

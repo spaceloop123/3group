@@ -102,10 +102,9 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     clearTestInfo() {
-        let role = JSON.parse(localStorage.getItem('auth'));
-        localStorage.clear();
-        localStorage.setItem('auth', JSON.stringify(role));
-
+        localStorage.removeItem("questionInfo");
+        localStorage.removeItem("subQuestionInfo");
+        localStorage.removeItem("testInfo");
     }
 
     afterSent(tc : TestComponent){
@@ -121,10 +120,6 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     setProgress(newValue: number){
         this.progress = newValue;
-    }
-
-    getButtonText(ts:TestComponent):string {
-        return ts.getButtonText();
     }
 
     initTimer(deadline:string) {
