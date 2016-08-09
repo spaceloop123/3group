@@ -13,7 +13,8 @@
                     description</label>
             </div>
 
-            <!-- path -->
+            <upload-file></upload-file>
+
             <div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="audio-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"

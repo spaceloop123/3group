@@ -9,12 +9,13 @@ import {TestQuestion} from "../../test/test-question.class";
 import {TestQuestionComponent} from "../../test/test-question.component";
 import {InsertTestQuestionComponent} from "../../insert-test/insert-test-question.component";
 import {InsertOpenQuestionComponent} from "../../insert-open/insert-open-question.component";
+import {UploadFileComponent} from "./upload-file.component";
 
 @Component({
     selector: 'audio-question-component',
     templateUrl: 'app/admin/actions/add-question/question-type/with-subquestions/audio/audio-question.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertTestQuestionComponent,
-        InsertOpenQuestionComponent, NgSwitch, NgSwitchDefault]
+        InsertOpenQuestionComponent, NgSwitch, NgSwitchDefault, UploadFileComponent]
 })
 
 export class AudioQuestionComponent implements OnInit {
