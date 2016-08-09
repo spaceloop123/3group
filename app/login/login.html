@@ -1,0 +1,34 @@
+<div class="container valign">
+    <div class="row">
+        <div class="col m5 offset-m1 s12">
+            <div class="text text-title flow-text"><h4>{{constants.PROJECT_NAME}}</h4></div>
+            <div class="text text-subhead flow-text">{{constants.PROJECT_DESCRIPTION}}</div>
+        </div>
+        <div class="col s12 offset-m1 m5 offset-l2 l4">
+            <div class="card-panel">
+                <form (submit)="onSubmit()">
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 offset-l2 l8">
+                            <input id="login-field" type="text" class="validate" ngControl="username"
+                                   [(ngModel)]="model.username" name="login">
+                            <label for="login-field">Login</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 offset-l2 l8">
+                            <input id="password-field" type="password" class="validate"
+                                   [(ngModel)]="model.password" name="password">
+                            <label for="password-field">Password</label>
+                        </div>
+
+                    </div>
+                    <div class="center-align">
+                        <button class="waves-effect waves-light btn" id="login-btn" type="submit">login
+                        </button>
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

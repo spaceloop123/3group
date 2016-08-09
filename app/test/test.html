@@ -1,0 +1,97 @@
+<div *ngIf="top.type==='TestQuestion'">
+    <div class="card-content flow-text" align=left>
+        <blockquote>{{top.header}}</blockquote>
+        <div class="black-text">{{top.question}}</div>
+    </div>
+    <div class="card-content flow-text" align=left>
+        <form action="#">
+            <p *ngFor="let option of options; let i = index">
+                <input [attr.id]="'test-question-options-' + i"
+                       type="radio"
+                       [checked]="option['checked']"
+                       (change)="changeCheckState(i)"
+                       name="test-question-options-{{i}}"/>
+                <label [attr.for]="'test-question-options-' + i" class='black-text'>{{option.name}}</label>
+            </p>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="top.type==='InsertOpenQuestion'">
+    <div class="card-content flow-text" align=left>
+        <blockquote>{{top.header}}</blockquote>
+        <form action="#">
+            <div style='display: inline-block;'>{{top.description}}</div>
+            <div class="left">{{top.questionParts[0]}}</div>
+            <input placeholder="enter your answer" type="test" class="validate"
+                   [(ngModel)]="answer" name="answer">
+            <div style='display: inline-block;'>
+                {{top.questionParts[1]}}
+            </div>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="top.type==='AudioQuestion'">
+    <div class="card-content flow-text" align=left>
+        <blockquote>{{top.header}}</blockquote>
+        <div class="row">
+            <div align=center>
+                <a class="btn-floating btn-large waves-effect waves-light green darken-1"
+                   (click)="playAydio()">
+                    <i class="large material-icons" align=center>volume_up</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="top.type==='ReadingQuestion'">
+    <div class="card-content flow-text" align=left>
+        <blockquote>{{top.header}}</blockquote>
+        <p class="black-text">{{top.text}}</p>
+    </div>
+</div>
+
+<div *ngIf="top.type==='InsertTestQuestion'">
+    <!--countdown-timer [timeLeft]="timerSec"></countdown-timer-->
+    <div class="card-content flow-text" align=left style="min-height:250px; max-height: 100%">
+        <blockquote>{{top.header}}</blockquote>
+        <div class="left">{{top.questionParts[0]}}</div>
+        <div style='display: inline-block; margin-left: 10px; margin-right: 10px;'>
+            <select class="browser-default forms" [(ngModel)]="answer">
+                <option value="" disabled selected>Choose answer</option>
+                <option *ngFor="let opt of top.answers" [value]="opt">{{opt}}</option>
+
+            </select>
+            <label></label>
+        </div>
+        <div style='display: inline-block;'>
+            {{top.questionParts[1]}}
+        </div>
+
+    </div>
+</div>
+
+<div *ngIf="top.type==='OpenQuestion'">
+    <div class="card-content flow-text" align=left>
+        <div class="card-content" align=left>
+            <blockquote>{{top.header}}</blockquote>
+            <p class="black-text">{{top.question}}</p>
+        </div>
+        <div class="card-content flow-text" align=left>
+                        <textarea id="textarea" class="materialize-textarea"
+                                  placeholder="enter your answer" [(ngModel)]="answer"
+                                  name="answer"></textarea>
+        </div>
+    </div>
+</div>
+<div *ngIf="top.type==='SpeechQuestion'">
+    <div class="card-content flow-text" align=left>
+        <div class="card-content" align=left>
+            <blockquote>{{top.header}}</blockquote>
+            <p class="black-text">{{top.question}}</p>
+        </div>
+        <speech-recorder [filename]="answer"></speech-recorder>
+    </div>
+</div>

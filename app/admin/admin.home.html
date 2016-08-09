@@ -1,0 +1,229 @@
+<div class="container">
+    <div class="row">
+
+        <notifications-component class="col s12"
+                                 *ngIf="currentWidth < 600"
+                                 [seenNotification]="currentNotification"
+                                 (notify)="onNotificationReceived($event)"></notifications-component>
+
+        <div class="col s12 m8 l8">
+
+            <div class="row">
+                <div class="col s12 offset-m2 m8 offset-l2 l8">
+                    <ul class="tabs grey lighten-5" materialize="tabs">
+                        <li class="tab col s4 m4 l4" (click)="changeTab(1)"><a [class.active]="currentTab === 1"
+                                                                               href="#tab1"><i
+                                class="material-icons">contacts</i></a></li>
+                        <li class="tab col s4 m4 l4" (click)="changeTab(2)"><a [class.active]="currentTab === 2"
+                                                                               href="#tab2">
+                            <i class="material-icons">question_answer</i></a>
+                        </li>
+                        <li class="tab col s4 m4 l4" (click)="changeTab(3)"><a [class.active]="currentTab === 3"
+                                                                               href="#tab3"><i
+                                class="material-icons">supervisor_account</i></a></li>
+                    </ul>
+                </div>
+
+                <!-- Add member -->
+
+                <div id="tab1" class="col s12">
+                    <div class="row">
+                        <div class="col offset-l2 l8">
+                            <add-member-component></add-member-component>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add questions -->
+
+                <div id="tab2" class="col s12">
+                    <div class="row">
+                        <div class="col s12">
+                            <add-question-component></add-question-component>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show profiles -->
+
+                <div id="tab3" class="col s12">
+                    <div class="row">
+                        <div class="col s12">
+                            <show-users-component *ngIf="currentTab === 3"></show-users-component>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Notifications -->
+        <notifications-component class="notifications col m4"
+                                 *ngIf="currentWidth >= 600 && currentWidth <= 768"
+                                 [seenNotification]="currentNotification"
+                                 (notify)="onNotificationReceived($event)"></notifications-component>
+        <notifications-component class="notifications col l3"
+                                 *ngIf="currentWidth > 768"
+                                 [seenNotification]="currentNotification"
+                                 (notify)="onNotificationReceived($event)"></notifications-component>
+
+        <div id="notificationModal" class="modal modal-fixed-footer" *ngIf="currentNotification">
+            <div class="modal-content">
+                <div class="flow-text" style="font-weight: 600">
+                    <span class="blue-text">{{currentNotification.user}}</span>
+                    <span class="black-text">requested a test</span>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <p style="font-weight: 500;">Select estimated date and time</p>
+                        <br>
+
+                        <!-- Date picker -->
+
+                        <div class="col s12 m12 l12">
+                            <h6 class="col s2 m1 l1">From:</h6>
+                            <div id="datepicker1" class="datepicker col offset-s1 s9 offset-m1 m4 offset-l1 l4">
+                                <input id="dateFrom" type="date" class="datepicker">
+                            </div>
+                            <div class="col s4 offset-m1 m2 offset-l1 l2" style="padding:0">
+                                <select id="hoursFrom" class="browser-default" materialize="material_select"
+                                        [materializeSelectOptions]="selectOptions">
+                                    <option value="00" disabled selected>00</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                </select>
+                            </div>
+
+                            <div class="col offset-s4 s4 offset-m1 m2 offset-l1 l2" style="padding:0">
+                                <select id="minutesFrom" class="browser-default" materialize="material_select"
+                                        [materializeSelectOptions]="selectOptions">
+                                    <option value="00" disabled selected>00</option>
+                                    <option value="05">05</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                    <option value="35">35</option>
+                                    <option value="40">40</option>
+                                    <option value="45">45</option>
+                                    <option value="50">50</option>
+                                    <option value="55">55</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m12 l12">
+                            <h6 class="col s2 m1 l1">To:</h6>
+                            <div id="datepicker2" class="datepicker col offset-s1 s9 offset-m1 m4 offset-l1 l4">
+                                <input id="dateTo" type="date" class="datepicker">
+                            </div>
+
+                            <div class="col s4 offset-m1 m2 offset-l1 l2" style="padding:0">
+                                <select id="hoursTo" class="browser-default" materialize="material_select"
+                                        [materializeSelectOptions]="selectOptions">
+                                    <option value="00" selected>00</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                </select>
+                            </div>
+
+                            <div class="col offset-s4 s4 offset-m1 m2 offset-l1 l2" style="padding:0">
+                                <select id="minutesTo" class="browser-default" materialize="material_select"
+                                        [materializeSelectOptions]="selectOptions">
+                                    <option value="00" selected>00</option>
+                                    <option value="05">05</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                    <option value="35">35</option>
+                                    <option value="40">40</option>
+                                    <option value="45">45</option>
+                                    <option value="50">50</option>
+                                    <option value="55">55</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- End of Date picker -->
+                        <br>
+                        <p style="font-weight: 500;">Choose one teacher for checking this test</p>
+
+                        <div class="row">
+                            <div class="container teacher-container">
+                                <div class="col s12 m12 offset-l1 l10">
+                                    <div class="collection teacher-list list-overflow-y grey lighten-5">
+                                        <a class="collection-item {{teacher.isActive}}"
+                                           *ngFor="let teacher of teacherList"
+                                           href="javascript:;"
+                                           (click)="changeTeacherState(teacher)">
+                                            <div class="valign-wrapper">
+                                                <span class="col s6 m6 title left-align">
+                                                    {{teacher.firstName}} {{teacher.lastName}}</span>
+                                                <span class="col s4 m4 grey-text text-darken-1 center-align">
+                                                    {{teacher.tests}} {{teacher.n}} tests checking</span>
+                                                <i class="material-icons grey-text">assignment_ind</i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-red btn-flat red-text text-lighten-1"
+                   (click)="onDeclineNotification()">Decline</a>
+                <a class="modal-action modal-close waves-effect waves-green btn-flat green-text text-lighten-1"
+                   (click)="onAssignNotification()">Assign</a>
+            </div>
+        </div>
+    </div>
+
+</div>
