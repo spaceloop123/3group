@@ -4,20 +4,51 @@
             <div class="col s12 m12" align="center">
                 <div class="card horizontal">
                     <div class="card-image valign-wrapper">
-                        <img class="valign add-icon-container" src="app/admin/actions/show-users/img/teacher.png">
+                        <img class="valign add-icon-container hide-on-small-and-down" src="app/admin/actions/show-users/img/teacher.png" style="padding: 20px">
                     </div>
-                    <div class="card-stacked">
+
+
+                    <div class="card-stacked hide-on-small-and-down">
                         <div class="card-content valign-wrapper">
                             <div class="container valign">
                                 <div align="left">
-                                    <h2 class="flow-text cyan-text">{{teacherInfo.firstName}} {{teacherInfo.lastName}}</h2>
-                                    <p class="flow-text">{{teacherInfo.username}}</p>
-                                    <p class="flow-text blue-text">{{teacherInfo.email}}</p>
-                                    <p>5 tests are still to check.</p>
+                                    <p class="flow-text col s5 m5">Name: </p>
+                                    <p class="flow-text cyan-text col s7 m7">{{teacherInfo.firstName}} {{teacherInfo.lastName}}</p>
+
+                                    <p class="flow-text col s5 m5">Role:</p>
+                                    <p class="flow-text purple-text col s7 m7">{{teacherInfo.username}}</p>
+
+                                    <p class="flow-text col s5 m5">Email:</p>
+                                    <p class="flow-text blue-text col s7 m7">{{teacherInfo.email}}</p>
+
+                                    <p class="flow-text col s5 m5">In progress:</p>
+                                    <p class="flow-text blue-text col s7 m7">{{teacherInfo.n}} test(-s)</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="card-stacked hide-on-med-and-down-and-down">
+                        <div class="card-content valign-wrapper">
+                            <div class="container valign">
+                                <div align="left">
+                                    <p class="flow-text col s5 m5">Name: </p>
+                                    <p class="flow-text cyan-text col s7 m7">{{teacherInfo.firstName}} {{teacherInfo.lastName}}</p>
+
+                                    <p class="flow-text col s5 m5">Role:</p>
+                                    <p class="flow-text purple-text col s7 m7">{{teacherInfo.username}}</p>
+
+                                    <p class="flow-text col s5 m5">Email:</p>
+                                    <p class="flow-text blue-text col s7 m7">{{teacherInfo.email}}</p>
+
+                                    <p class="flow-text col s5 m5">In progress:</p>
+                                    <p class="flow-text blue-text col s7 m7">{{teacherInfo.n}} test(-s)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
