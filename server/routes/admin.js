@@ -55,7 +55,7 @@ router.post('/new_guest', function (req, res, next) {
             req.body.email,
             'Welcome to ProjectName',
             'Hello, ' + req.body.firstName + ' ' + req.body.lastName + '\n' +
-            'Follow the link to start the test: '
+            'Follow the link to start the test: http://192.168.14.81:1507/guest/allowTest?id=' + guest.id
         );
         res.end();
     });
