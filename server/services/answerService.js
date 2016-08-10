@@ -21,12 +21,14 @@ function putAnswer(type, userId, testId, questionId, answer, done) {
                 res.question.deleteTempFile();
             }
             res.answer.answer = answer;
-            if (res.question.autoCheck && res.question.correctAnswer === answer) {
-                res.test.result += res.question.maxCost;
-                res.user.level += res.user.level < 100;
-                res.answer.mark = res.question.maxCost;
-            } else {
-                res.user.level -= res.user.level > 0;
+            if (res.question.autoCheck) {
+                if (res.question.correctAnswer === answer) {
+                    res.test.result += res.question.maxCost;
+                    res.user.level += res.user.level < 100;
+                    res.answer.mark = res.question.maxCost;
+                } else {
+                    res.user.level -= res.user.level > 0;
+                }
             }
             res.test.maxResult += res.question.maxCost || 0;
             res.test.save();
@@ -63,10 +65,10 @@ module.exports.getAnswerById = function (answerId, done) {
             Answer.findOne({_id: answerId}).populate('question').exec(callback);
         })
         .exec(function (res) {
-            if(res.answer.question.type === 'SpeechQuestion') {
+            if (res.answer.question.type === 'SpeechQuestion') {
                 fs.createReadStream(__dirname + '/../assets/' + res.answer.answer)
                     .pipe(fs.createWriteStream(__dirname + '/../../temp/' + res.answer.answer));
-            } else if(res.answer.question.type === 'AudioQuestion') {
+            } else if (res.answer.question.type === 'AudioQuestion') {
                 res.answer.question.createTempFile();
             }
             done(null, res.answer.getAnswer());
@@ -84,9 +86,9 @@ module.exports.setMark = function (answerId, testId, proportion, done) {
             }
         })
         .exec(function (res) {
-            if(res.answer.question.type === 'SpeechQuestion') {
+            if (res.answer.question.type === 'SpeechQuestion') {
                 fs.unlink(__dirname + '/../../temp/' + res.answer.answer);
-            } else if(res.answer.question.type === 'AudioQuestion') {
+            } else if (res.answer.question.type === 'AudioQuestion') {
                 res.answer.question.deleteTempFile();
             }
             var mark = Math.floor(res.answer.question.maxCost * proportion / 100);

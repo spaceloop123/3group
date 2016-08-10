@@ -156,6 +156,7 @@ export class AddMemberComponent implements OnInit {
     }
 
     setTeacherList(response) {
+        this.teacherList = [];
         this.teacherList = this.teacherList.concat(response);
     }
 }
