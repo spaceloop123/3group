@@ -1,6 +1,8 @@
+import moment from "moment";
+
 import {Component, NgZone, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
-import {MaterializeDirective} from "angular2-materialize";
+import {MaterializeDirective, toast} from "angular2-materialize";
 import {AddMemberComponent} from "./actions/add-member/add-member.component";
 import {NotificationsComponent} from "./actions/notifications/notifications.component";
 import {AddQuestionComponent} from "./actions/add-question/add-question.component";
@@ -26,10 +28,8 @@ export class AdminComponent implements OnInit {
     assignedTeacher;
     isActive;
     teacherList = [];
-    data = {
-        dateFrom: new Date(),
-        dateTo: new Date()
-    };
+
+    date:any = {};
 
     constructor(ngZone:NgZone, private assignTestService:AssignTestService) {
         this.currentWidth = window.innerWidth;
@@ -42,7 +42,11 @@ export class AdminComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(StateService.fromDetail);
+        this.date.dateFrom = new Date();
+        this.date.dateTo = new Date();
+        this.date.hoursFrom = this.date.hoursTo = 0;
+        this.date.minutesFrom = this.date.minutesTo = 0;
+
         if (StateService.fromDetail === true) {
             this.currentTab = 3;
         } else {
@@ -69,17 +73,6 @@ export class AdminComponent implements OnInit {
         this.teacherList = this.teacherList.concat(response);
     }
 
-    getData() {
-        var a = $('#dateFrom').val();
-        var b = $('#dateTo').val();
-        this.data.dateFrom.setFullYear(parseInt(a.substr(0, 4)), parseInt(a.substr(5, 2)) - 1, parseInt(a.substr(8, 2)));
-        this.data.dateFrom.setUTCHours($('#hoursFrom').val());
-        this.data.dateFrom.setUTCMinutes($('#minutesFrom').val());
-        this.data.dateTo.setFullYear(parseInt(b.substr(0, 4)), parseInt(b.substr(5, 2)) - 1, parseInt(b.substr(8, 2)));
-        this.data.dateTo.setUTCHours($('#hoursTo').val());
-        this.data.dateTo.setUTCMinutes($('#minutesTo').val());
-    }
-
     changeTab(currentTab) {
         this.currentTab = currentTab;
     }
@@ -97,9 +90,35 @@ export class AdminComponent implements OnInit {
     }
 
     onAssignNotification() {
-        this.getData();
-        this.currentNotification = new NotificationActive(this.currentNotification, 'assign', this.assignedTeacher['id']
-            , this.data);
+        let date = this.getDate();
+
+        if(!this.validateDate(date)) {
+            toast('Enter correct date of test', 5000, 'red darken-2');
+            return;
+        } else if(!this.assignedTeacher) {
+            toast('Choose the teacher first', 5000, 'red darken-2');
+            return;
+        }
+
+        this.currentNotification = new NotificationActive(this.currentNotification, 'assign', this.assignedTeacher['id'], date);
+
+
+        // clear form
+        this.assignedTeacher = null;
+        this.date.dateFrom = new Date();
+        this.date.dateTo = new Date();
+        this.date.hoursFrom = this.date.hoursTo = 0;
+        this.date.minutesFrom = this.date.minutesTo = 0;
     }
 
+    getDate() {
+        return {
+            dateFrom: moment(this.date.dateFrom, 'YYYY-MM-DD').hour(this.date.hoursFrom).minute(this.date.minutesFrom).toDate(),
+            dateTo: moment(this.date.dateTo, 'YYYY-MM-DD').hour(this.date.hoursTo).minute(this.date.minutesTo).toDate()
+        };
+    }
+
+    private validateDate(date) {
+        return date && date.dateFrom < date.dateTo;
+    }
 }

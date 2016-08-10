@@ -21,7 +21,7 @@ export class InsertOpenQuestionComponent implements OnInit {
     }
 
     onCreateFinish() {
-        if (!this.isAllFilled(this.question)) {
+        if (!this.isAllFilled(this.question, [])) {
             toast("Fill in the question form first", 5000, '' + 'amber darken-2');
             return;
         }
@@ -37,10 +37,15 @@ export class InsertOpenQuestionComponent implements OnInit {
         this.notify.emit(-1);
     }
 
-    isAllFilled (question:any, ignoredProperties:string[] = [] ): boolean {
+    isAllFilled(question:any, ignoredProperties:string[] = []):boolean {
         question = question || {};
-        return ! Object.keys(question).some(key => {
-            return !question[key] && typeof question[key] !== 'number' && ignoredProperties.indexOf(key) === -1;
+        return !Object.keys(question).some(key => {
+            if(ignoredProperties.indexOf(key) === -1) {
+                if(!question[key] &&  ['number', 'boolean'].indexOf( typeof question[key] ) === -1) {
+                    console.log('Key '+ key+' = '+question[key]+' is not passed for '+ question);
+                    return true;
+                }
+            }
         });
     }
 }

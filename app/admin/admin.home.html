@@ -82,12 +82,19 @@
                         <!-- Date picker -->
 
                         <div class="col s12 m12 l12">
-                            <h6 class="col s2 m1 l1">From:</h6>
-                            <div id="datepicker1" class="datepicker col offset-s1 s9 offset-m1 m4 offset-l1 l4">
-                                <input id="dateFrom" type="date" class="datepicker">
+                            <div class="col s12 m2 l2">
+                                <h6>From:</h6>
                             </div>
-                            <div class="col s4 offset-m1 m2 offset-l1 l2" style="padding:0">
-                                <select id="hoursFrom" class="browser-default" materialize="material_select"
+                            <div id="datepicker1" class="datepicker col s12 m4 l4">
+                                <input id="dateFrom" type="date" class="datepicker" [(ngModel)]="date.dateFrom">
+                            </div>
+                            <div class="col s12 m2 l2">
+                                <h6>Time:</h6>
+                            </div>
+                            <div class="col m2 l2" style="padding:0">
+                                <select [(ngModel)]="date.hoursFrom"
+                                        class="browser-default"
+                                        materialize="material_select"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" disabled selected>00</option>
                                     <option value="01">01</option>
@@ -116,8 +123,10 @@
                                 </select>
                             </div>
 
-                            <div class="col offset-s4 s4 offset-m1 m2 offset-l1 l2" style="padding:0">
-                                <select id="minutesFrom" class="browser-default" materialize="material_select"
+                            <div class="col m2 l2" style="padding:0">
+                                <select [(ngModel)]="date.minutesFrom"
+                                        class="browser-default"
+                                        materialize="material_select"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" disabled selected>00</option>
                                     <option value="05">05</option>
@@ -136,13 +145,20 @@
                         </div>
 
                         <div class="col s12 m12 l12">
-                            <h6 class="col s2 m1 l1">To:</h6>
-                            <div id="datepicker2" class="datepicker col offset-s1 s9 offset-m1 m4 offset-l1 l4">
-                                <input id="dateTo" type="date" class="datepicker">
+                            <div class="col s12 m2 l2">
+                                <h6>To:</h6>
+                            </div>
+                            <div id="datepicker2" class="datepicker col s12 m4 l4">
+                                <input id="dateTo" type="date" class="datepicker" [(ngModel)]="date.dateTo">
+                            </div>
+                            <div class="col s12 m2 l2">
+                                <h6>Time:</h6>
                             </div>
 
-                            <div class="col s4 offset-m1 m2 offset-l1 l2" style="padding:0">
-                                <select id="hoursTo" class="browser-default" materialize="material_select"
+                            <div class="col m2 l2" style="padding:0">
+                                <select [(ngModel)]="date.hoursTo"
+                                        class="browser-default"
+                                        materialize="material_select"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" selected>00</option>
                                     <option value="01">01</option>
@@ -171,8 +187,10 @@
                                 </select>
                             </div>
 
-                            <div class="col offset-s4 s4 offset-m1 m2 offset-l1 l2" style="padding:0">
-                                <select id="minutesTo" class="browser-default" materialize="material_select"
+                            <div class="col m2 l2" style="padding:0">
+                                <select [(ngModel)]="date.minutesTo"
+                                        class="browser-default"
+                                        materialize="material_select"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" selected>00</option>
                                     <option value="05">05</option>
@@ -221,6 +239,7 @@
                 <a class="modal-action modal-close waves-effect waves-red btn-flat red-text text-lighten-1"
                    (click)="onDeclineNotification()">Decline</a>
                 <a class="modal-action modal-close waves-effect waves-green btn-flat green-text text-lighten-1"
+                   [class.disabled] = "!(assignedTeacher && assignedTeacher.id)"
                    (click)="onAssignNotification()">Assign</a>
             </div>
         </div>

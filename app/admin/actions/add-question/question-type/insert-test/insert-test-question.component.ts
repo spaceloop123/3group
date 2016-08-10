@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {NgSwitchDefault, NgSwitch} from "@angular/common";
-import {MaterializeDirective} from "angular2-materialize/dist/index";
+import {MaterializeDirective, toast} from "angular2-materialize/dist/index";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {InsertTestQuestion} from "./insert-test-question.class";
 
@@ -66,7 +66,12 @@ export class InsertTestQuestionComponent implements OnInit {
         this.notify.emit(-1);
     }
 
-    isAllFilled (question) {
-
+    isAllFilled(question:any, ignoredProperties:string[] = []):boolean {
+        question = question || {};
+        return !Object.keys(question).some(key => {
+            if (ignoredProperties.indexOf(key) === -1) {
+                return !question[key] && typeof question[key] !== 'number' && ignoredProperties.indexOf(key) === -1;
+            }
+        });
     }
 }

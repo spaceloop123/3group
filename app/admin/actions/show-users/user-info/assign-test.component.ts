@@ -26,8 +26,7 @@ export class AssignTestComponent implements OnInit {
     isActive;
     teacherList = [];
 
-    dateFrom:any;
-    dateTo:any;
+    date:any = {};
 
     constructor(private route:ActivatedRoute,
                 private assignTestService:AssignTestService) {
@@ -35,6 +34,13 @@ export class AssignTestComponent implements OnInit {
     }
 
     ngOnInit() {
+        // clear form
+        this.assignedTeacher = null;
+        this.date.dateFrom = new Date();
+        this.date.dateTo = new Date();
+        this.date.hoursFrom = this.date.hoursTo = 0;
+        this.date.minutesFrom = this.date.minutesTo = 0;
+
         StateService.fromDetail = true;
         //TODO check test status for user and block test assignment if test is requested or has been assigned
         this.sub = this.route.params.subscribe(params => {
@@ -103,8 +109,8 @@ export class AssignTestComponent implements OnInit {
 
     getDate() {
         return {
-            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate(),
-            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate()
+            dateFrom: moment(this.date.dateFrom, 'YYYY-MM-DD').hour(this.date.hoursFrom).minute(this.date.minutesFrom).toDate(),
+            dateTo: moment(this.date.dateTo, 'YYYY-MM-DD').hour(this.date.hoursTo).minute(this.date.minutesTo).toDate()
         };
     }
 

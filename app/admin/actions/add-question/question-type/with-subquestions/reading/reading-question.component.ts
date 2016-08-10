@@ -188,4 +188,13 @@ export class ReadingQuestionComponent implements OnInit {
     onCreateAbort() {
         this.notify.emit(-1);
     }
+
+    isAllFilled(question:any, ignoredProperties:string[] = []):boolean {
+        question = question || {};
+        return !Object.keys(question).some(key => {
+            if (ignoredProperties.indexOf(key) === -1) {
+                return !question[key] && typeof question[key] !== 'number' && ignoredProperties.indexOf(key) === -1;
+            }
+        });
+    }
 }
