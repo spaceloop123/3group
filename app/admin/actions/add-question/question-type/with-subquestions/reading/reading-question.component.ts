@@ -188,5 +188,4 @@ export class ReadingQuestionComponent implements OnInit {
     onCreateAbort() {
         this.notify.emit(-1);
     }
-
 }

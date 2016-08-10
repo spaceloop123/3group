@@ -49,6 +49,10 @@ export class InsertTestQuestionComponent implements OnInit {
     }
 
     onCreateFinish() {
+        if (!this.isAllFilled(this.question)) {
+            toast("Fill in the question form first", 5000, '' + 'amber darken-2');
+            return;
+        }
         this.question.state = 'done';
         console.log(this.question);
         this.notify.emit(this.question);
@@ -60,5 +64,9 @@ export class InsertTestQuestionComponent implements OnInit {
 
     onCreateAbort() {
         this.notify.emit(-1);
+    }
+
+    isAllFilled (question) {
+
     }
 }

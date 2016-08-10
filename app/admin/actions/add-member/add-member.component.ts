@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective, toast} from "angular2-materialize";
@@ -120,8 +122,8 @@ export class AddMemberComponent implements OnInit {
 
     getDate() {
         return {
-            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate(),
-            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate()
+            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom-guest').val()).minute(+$('#minutesFrom-guest').val()).toDate(),
+            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo-guest').val()).minute(+$('#minutesTo-guest').val()).toDate()
         };
     }
 
@@ -159,14 +161,4 @@ export class AddMemberComponent implements OnInit {
         this.teacherList = this.teacherList.concat(response);
     }
 
-    getData() {
-        var a = $('#dateFrom-guest').val();
-        var b = $('#dateTo-guest').val();
-        this.data.dateFrom.setFullYear(parseInt(a.substr(0, 4)), parseInt(a.substr(5, 2)) - 1, parseInt(a.substr(8, 2)));
-        this.data.dateFrom.setUTCHours($('#hoursFrom-guest').val());
-        this.data.dateFrom.setUTCMinutes($('#minutesFrom-guest').val());
-        this.data.dateTo.setFullYear(parseInt(b.substr(0, 4)), parseInt(b.substr(5, 2)) - 1, parseInt(b.substr(8, 2)));
-        this.data.dateTo.setUTCHours($('#hoursTo-guest').val());
-        this.data.dateTo.setUTCMinutes($('#minutesTo-guest').val());
-    }
 }

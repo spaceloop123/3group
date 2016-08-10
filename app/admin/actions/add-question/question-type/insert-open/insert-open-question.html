@@ -68,7 +68,8 @@
 
     <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
         <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="insert-open-question-finish-btn-{{question.id}}"
-           (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
+           (click)="onCreateFinish()"
+           [class.assign-disabled]="!isAllFilled(question)"><i class="material-icons green-text">done</i></a>
         <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="insert-open-question-edit-btn-{{question.id}}"
            (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
         <a class="waves-effect btn-flat" id="insert-open-question-abort-btn-{{question.id}}"

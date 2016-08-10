@@ -273,3 +273,7 @@ a.disabled.collection-item {
 .admin-tabs {
     overflow: hidden;
 }
+
+.header-email {
+    font-style: italic;
+}

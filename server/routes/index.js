@@ -18,8 +18,14 @@ router.get('/', function (req, res) {
     res.render('index');
 });
 
-router.get('/role', function (req, res) {
-    res.json(req.user ? req.user.role : null);
+router.get('/authinfo', function (req, res) {
+    res.json(
+        req.user ? {
+            username: req.user.username,
+            role: req.user.role,
+            email: req.user.email
+        } : null
+    );
 });
 
 module.exports = router;

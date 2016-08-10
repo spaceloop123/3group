@@ -1,6 +1,6 @@
 export interface AuthData {
 	username:string,
-	usernameValid: boolean,
+	usernameValid:boolean,
 	password:string,
-	submitAttempt: boolean
+	submitAttempt:boolean
 }

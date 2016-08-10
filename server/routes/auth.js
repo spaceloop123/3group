@@ -10,7 +10,9 @@ module.exports.login = function (req, res, next) {
     passport.authenticate('local', function (err, user) {
         if (user) {
             req.login(user, function (err) {
-                return err ? res.status(401).end() : res.json({role: user.role});
+                return err ?
+                    res.status(401).end() :
+                    res.json({role: user.role, username: user.username,  email: user.email});
             });
         } else {
             return res.status(401).json(err);
