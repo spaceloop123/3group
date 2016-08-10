@@ -9,15 +9,9 @@ import {AuthService} from "../auth/auth.service";
 })
 
 export class HeaderComponent {
+	auth:AuthService;
 
 	constructor(private authService:AuthService) {
-	}
-
-	checkLogin() {
-		return ( window.location.href.indexOf("/login") !== -1);
-	}
-
-	goAway() {
-		this.authService.logOut();
+		this.auth = authService;
 	}
 }

@@ -255,7 +255,7 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
             res.test.teacher = teacherId;
             res.test.answers = [];
             res.test.fromTime = new Date(timeFrom);
-            res.test.toTome = new Date(timeTo);
+            res.test.toTime = new Date(timeTo);
             User.findOne({_id: res.test.user}, function (err, user) {
                 module.exports.setTestSchedule(user, res.test);
                 res.test.save(done);

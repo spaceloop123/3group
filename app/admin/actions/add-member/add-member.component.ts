@@ -158,15 +158,4 @@ export class AddMemberComponent implements OnInit {
     setTeacherList(response) {
         this.teacherList = this.teacherList.concat(response);
     }
-
-    getData() {
-        var a = $('#dateFrom-guest').val();
-        var b = $('#dateTo-guest').val();
-        this.data.dateFrom.setFullYear(parseInt(a.substr(0, 4)), parseInt(a.substr(5, 2)) - 1, parseInt(a.substr(8, 2)));
-        this.data.dateFrom.setUTCHours($('#hoursFrom-guest').val());
-        this.data.dateFrom.setUTCMinutes($('#minutesFrom-guest').val());
-        this.data.dateTo.setFullYear(parseInt(b.substr(0, 4)), parseInt(b.substr(5, 2)) - 1, parseInt(b.substr(8, 2)));
-        this.data.dateTo.setUTCHours($('#hoursTo-guest').val());
-        this.data.dateTo.setUTCMinutes($('#minutesTo-guest').val());
-    }
 }

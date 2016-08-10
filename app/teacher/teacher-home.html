@@ -1,21 +1,29 @@
 <div *ngIf="assignedTests">
-    <div materialize="carousel"
-         class="carousel carousel-custom hide-on-small-and-down valign"
-         *ngIf="assignedTests.length != 0">
-        <a class="carousel-item carousel-content-custom" href="javascript:;" *ngFor="let test of assignedTests">
-            <div class="card center-align {{test.color}}">
-                <div class="card-content white-text">
-                    <span class="card-title left">{{test.number}}</span>
-					<!--TODO: (pay attention) Think about get rid of br-s-->
-                    <br><br><br>
-                    <h5 class="flow-text">{{test.date}}</h5>
-                    <br><br>
-                </div>
-                <div class="card-action center">
-                    <a class="waves-effect grey btn" [ngClass]='test.cardClass' (click)="checkTest(test)">Check</a>
+
+    <div class="row" *ngIf="assignedTests.length != 0">
+        <div class="col s10 m10 offset-m1 offset-s1">
+            <div class="card">
+                <div class="card-content">
+                    <div materialize="carousel"
+                         class="carousel carousel-custom hide-on-small-and-down valign">
+                        <a class="carousel-item carousel-content-custom" href="javascript:;" *ngFor="let test of assignedTests">
+                            <div class="card center-align {{test.color}}">
+                                <div class="card-content white-text">
+                                    <span class="card-title left">{{test.number}}</span>
+                                    <!--TODO: (pay attention) Think about get rid of br-s-->
+                                    <br><br><br>
+                                    <h5 class="flow-text">{{test.date}}</h5>
+                                    <br><br>
+                                </div>
+                                <div class="card-action center">
+                                    <a class="waves-effect grey btn" [ngClass]='test.cardClass' (click)="checkTest(test)">Check</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 
     <div class="row hide-on-med-and-up">
@@ -36,6 +44,9 @@
 
     <div class="row" *ngIf="assignedTests.length == 0">
         <div class="center">
+            <!--<div class="col s12 m12" [class.parent-of-images]="currentWidth < 800">-->
+                <!--<img [class.teacher-gif]="currentWidth < 800" src="app/teacher/img/no_tests.gif" alt="no tests for you">-->
+            <!--</div>-->
             <h5 class="grey-text text-darken-1">No tests available to check</h5>
         </div>
     </div>

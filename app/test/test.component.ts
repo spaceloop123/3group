@@ -30,6 +30,7 @@ export class TestComponent implements OnChanges {
     playCount:number;
     currentItem:NavigationItem;
     currentId:any;
+    src:string;
 
 
 
@@ -210,27 +211,31 @@ export class TestComponent implements OnChanges {
 
 
     saveQuestionFromResponse(response) {
+        this.src = '';
         this.question = response.question;
         if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
-            if (this.mode === 'user') {
-                if (this.question.type === 'ReadingQuestion') {
+            if (this.mode === 'user' && this.question.type === 'ReadingQuestion') {
                     toast('You can read this text only once', 5000);
-                } else if (this.question.type === 'AudioQuestion') {
-                    toast('You can listen this story twice', 5000);
-                }
+
             }
 
         }
+        if (this.question.type === 'AudioQuestion') {
+            this.src = this.question.path;
+        }
+
         if (this.question.type === "SpeechQuestion") {
             if (this.mode === 'user') {
                 this.answer = this.testInfo.id.toString() + this.questionInfo.questionIndex.toString() + '.wav';
                 console.log('this.answer ' + this.answer + '.wav');
             } else if (this.mode === 'teacher') {
                 this.question.type = 'AudioQuestion';
+                this.src = response.answer;
             }
 
         }
+
         this.saveQuestionInfo();
         this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
         this.saveSubQuestionInfo();
@@ -238,6 +243,7 @@ export class TestComponent implements OnChanges {
         this.processQuestion(this.question);
         if (this.mode === 'teacher') {
             this.answer = response.answer;
+
         }
 
     }
@@ -291,29 +297,16 @@ export class TestComponent implements OnChanges {
         return Promise.reject(error.message || error);
     }
 
-    playAydio() {
+    playAudio() {
         if (!this.isPlayed) {
-            this.myAudio.src = this.question.path;
+
+            this.myAudio.src = this.src;
             this.myAudio.load();
             this.isPlayed = true;
             this.playCount = 0;
         }
+        this.myAudio.play();
 
-        if (this.mode === 'user') {
-
-            if (this.playCount < 2 && this.myAudio.paused) {
-                this.myAudio.play();
-                var that = this;
-                this.myAudio.addEventListener("ended", () => that.playCount += 1);
-            }
-
-            if (this.playCount >= 2) {
-                //console.log('Your have spent all of the attempts!');
-                toast('Sorry. Your have spent all of the attempts!', 2000, 'rounded')
-            }
-        } else {
-            this.myAudio.play();
-        }
     }
 
     public  sendAnswer(callBack) {
