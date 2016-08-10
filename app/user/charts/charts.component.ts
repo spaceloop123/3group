@@ -169,7 +169,7 @@ export class ChartsComponent implements OnChanges {
 
     processTestData() {
         for (let item of this.testsData) {
-            this.lineChartData[0].data.push(item.mark);
+            this.lineChartData[0].data.push(this.showMark(item.mark));
             this.lineChartLabels.push(this.parseDate(item.date));
 
         }
@@ -257,7 +257,9 @@ export class ChartsComponent implements OnChanges {
 
     showTime(date:string):string {
         let time = new Date(date);
-        return time.getHours().toString() + ':' + time.getMinutes().toString();
+        let minute = (time.getMinutes() < 10) ? ('0' + time.getMinutes().toString()) : time.getMinutes().toString();
+
+        return time.getHours().toString() + ':' + minute;
     }
 
     showMark(mark:number):string {
