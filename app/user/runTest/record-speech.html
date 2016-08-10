@@ -3,8 +3,12 @@
         <a class="btn-floating btn-large waves-effect waves-light green darken-1" (click)="recordAudio()">
             <i class="material-icons">mic_none</i></a>
     </div>
-    <div *ngIf="startRecord===true">
+    <div *ngIf="startRecord===true && stopRecord ===false">
         <a class="btn-floating btn-large waves-effect waves-light red lighten-1" (click)="closeAudio()">
             <i class="material-icons">mic_off</i></a>
+    </div>
+    <div *ngIf="stopRecord===true">
+        <a class="btn-floating btn-large waves-effect waves-light disabled">
+            <i class="material-icons">mic_none</i></a>
     </div>
 </div>

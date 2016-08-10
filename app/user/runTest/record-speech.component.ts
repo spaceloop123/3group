@@ -13,14 +13,12 @@ export class RecordSpeechComponent implements OnChanges, OnDestroy {
     stream:any;
     recorder:any;
     startRecord:boolean = false;
+    stopRecord:boolean = false;
     @Input() filename;
 
     ngOnChanges(changes:SimpleChanges):any {
         if (changes['filename']) {
-            if (changes['filename'].currentValue !== undefined) {
-                this.filename = changes['filename'].currentValue;
-                console.log('this.filename ' + this.filename);
-            }
+            this.filename = changes['filename'].currentValue;
         }
     }
 
@@ -37,7 +35,7 @@ export class RecordSpeechComponent implements OnChanges, OnDestroy {
     recordAudio() {
         this.startRecord = true;
 
-        this.socket = new WebSocket('ws://localhost:3001');
+        this.socket = new WebSocket('ws://localhost:2016');
         let session = {
             audio: true,
             video: false
@@ -49,7 +47,7 @@ export class RecordSpeechComponent implements OnChanges, OnDestroy {
         };
 
         this.getUserMediaWrapper(session, ((s) => that.initializeRecorder(s)), onError);
-        
+
     }
 
     initializeRecorder(stream) {
@@ -81,6 +79,7 @@ export class RecordSpeechComponent implements OnChanges, OnDestroy {
     }
 
     closeAudio() {
+        this.stopRecord = true;
         if (this.recorder !== undefined) {
             this.recorder.disconnect();
             this.recorder = undefined;
