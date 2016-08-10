@@ -60,7 +60,7 @@
         <div class="left">{{top.questionParts[0]}}</div>
         <div style='display: inline-block; margin-left: 10px; margin-right: 10px;'>
             <select class="browser-default forms" [(ngModel)]="answer">
-                <option value="" disabled selected>Choose answer</option>
+                <option value="" disabled selected>choose answer</option>
                 <option *ngFor="let opt of top.answers" [value]="opt">{{opt}}</option>
 
             </select>
