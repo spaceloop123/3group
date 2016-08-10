@@ -142,8 +142,8 @@ module.exports.addNewTeacher = function (firstName, lastName, email, done) {
         })
         .exec(function (res) {
             var username = 'Teacher' + res.count;
-            var password = generatePassword(12, false);
-            addUser({
+            var password = generatePassword(8, false);
+            addUsere({
                 username: username,
                 password: password,
                 firstName: firstName,

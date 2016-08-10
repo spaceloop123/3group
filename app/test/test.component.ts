@@ -223,6 +223,7 @@ export class TestComponent implements OnChanges {
         }
         if (this.question.type === 'AudioQuestion') {
             this.src = this.question.path;
+            this.isPlayed = false;
         }
 
         if (this.question.type === "SpeechQuestion") {
@@ -232,6 +233,7 @@ export class TestComponent implements OnChanges {
             } else if (this.mode === 'teacher') {
                 this.question.type = 'AudioQuestion';
                 this.src = response.answer;
+                this.isPlayed = false;
             }
 
         }

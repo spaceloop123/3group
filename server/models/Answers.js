@@ -28,9 +28,13 @@ AnswerSchema.methods.getAnswerId = function () {
 };
 
 AnswerSchema.methods.getAnswer = function () {
+    var answer;
+    if(this.question.type === 'SpeechQuestion') {
+        answer = '../../../temp/' + this.answer;
+    }
     return {
         question: this.question.getQuestion(),
-        answer: this.answer
+        answer: answer || this.answer
     }
 };
 
