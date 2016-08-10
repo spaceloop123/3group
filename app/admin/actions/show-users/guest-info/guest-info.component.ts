@@ -1,5 +1,4 @@
-import moment from 'moment';
-
+import moment from "moment";
 import {DatepickerComponent} from "../user-info/datepicker.component";
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
@@ -41,6 +40,7 @@ export class GuestInfoComponent implements OnInit {
 	    this.date.hoursFrom = this.date.hoursTo = 0;
 	    this.date.minutesFrom = this.date.minutesTo = 0;
 
+        StateService.fromDetail = true;
 	    StateService.fromDetail = true;
         //TODO check test status for user and block test assignment if test is requested or has been assigned
         this.sub = this.route.params.subscribe(params => {

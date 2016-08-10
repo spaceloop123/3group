@@ -37,8 +37,8 @@ export class AssignTestComponent implements OnInit {
         this.assignedTeacher = null;
         this.date.dateFrom = new Date();
         this.date.dateTo = new Date();
-        this.date.hoursFrom = this.date.hoursTo = 0;
-        this.date.minutesFrom = this.date.minutesTo = 0;
+        this.date.hoursFrom = this.date.hoursTo = '00';
+        this.date.minutesFrom = this.date.minutesTo = '00';
 
         StateService.fromDetail = true;
         //TODO check test status for user and block test assignment if test is requested or has been assigned

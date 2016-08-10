@@ -1,9 +1,9 @@
+import moment from "moment";
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective, toast} from "angular2-materialize";
 import {CustomHttp} from "../../../common/services/CustomHttp";
 import {AssignTestService} from "../show-users/user-info/assign-test.service";
-import moment = require("moment/moment");
 
 @Component({
     selector: 'add-member-component',
@@ -109,12 +109,9 @@ export class AddMemberComponent implements OnInit {
 
         this.customHttp.post('/admin/new_guest', this.prepareGuest(date))
             .subscribe(res => {
-                toast('The test was assigned to ' + this.member.firstName + ' ' + this.member.lastName,
-                    3000, 'green');
-                this.clearForm();
+                toast('The test was successfully assigned', 3000, 'green');
             }, err => {
-                toast('Failed to assign the test to ' + this.member.firstName + ' ' + this.member.lastName,
-                    3000, 'red darken-2');
+                toast('Failed to assign the test', 3000, 'red darken-2');
             });
         this.clearForm();
     }

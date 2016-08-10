@@ -145,7 +145,7 @@ export class ChartsComponent implements OnChanges {
 
     processTestData() {
         for (let item of this.testsData) {
-            this.lineChartData[0].data.push(this.showMarkitem.mark);
+            this.lineChartData[0].data.push(this.showMark(item.mark));
             this.lineChartLabels.push(this.parseDate(item.date));
 
         }

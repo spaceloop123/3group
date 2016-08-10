@@ -1,3 +1,4 @@
+import moment from "moment";
 import {Component, NgZone, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective, toast} from "angular2-materialize";
@@ -8,7 +9,6 @@ import {ShowUsersComponent} from "./actions/show-users/show-users.component";
 import {NotificationActive} from "./actions/notifications/notification.active.class";
 import {StateService} from "./actions/show-users/StateService";
 import {AssignTestService} from "./actions/show-users/user-info/assign-test.service";
-import moment = require("moment/moment");
 
 @Component({
     selector: 'admin-component',
@@ -30,9 +30,6 @@ export class AdminComponent implements OnInit {
 
     date:any = {};
 
-    dateFrom:any;
-    dateTo:any;
-
     constructor(ngZone:NgZone, private assignTestService:AssignTestService) {
         this.currentWidth = window.innerWidth;
 
@@ -44,8 +41,10 @@ export class AdminComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dateFrom = new Date();
-        this.dateTo = new Date();
+        this.date.dateFrom = new Date();
+        this.date.dateTo = new Date();
+        this.date.hoursFrom = this.date.hoursTo = '00';
+        this.date.minutesFrom = this.date.minutesTo = '00';
 
         if (StateService.fromDetail === true) {
             this.currentTab = 3;
@@ -72,13 +71,6 @@ export class AdminComponent implements OnInit {
     setTeacherList(response) {
         this.teacherList = [];
         this.teacherList = this.teacherList.concat(response);
-    }
-
-    getDate() {
-        return {
-            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate(),
-            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate()
-        };
     }
 
     changeTab(currentTab) {
@@ -110,9 +102,20 @@ export class AdminComponent implements OnInit {
 
         this.currentNotification = new NotificationActive(this.currentNotification, 'assign', this.assignedTeacher['id'], date);
 
+
+        // clear form
         this.assignedTeacher = null;
-        this.dateFrom = new Date();
-        this.dateTo = new Date();
+        this.date.dateFrom = new Date();
+        this.date.dateTo = new Date();
+        this.date.hoursFrom = this.date.hoursTo = 0;
+        this.date.minutesFrom = this.date.minutesTo = 0;
+    }
+
+    getDate() {
+        return {
+            dateFrom: moment(this.date.dateFrom, 'YYYY-MM-DD').hour(this.date.hoursFrom).minute(this.date.minutesFrom).toDate(),
+            dateTo: moment(this.date.dateTo, 'YYYY-MM-DD').hour(this.date.hoursTo).minute(this.date.minutesTo).toDate()
+        };
     }
 
     private validateDate(date) {
