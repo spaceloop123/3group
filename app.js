@@ -83,6 +83,7 @@ app.use('/', routes);
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use('/app', express.static(__dirname + '/app/'));
 app.use('/dist', express.static(__dirname + '/dist/'));
+app.use('/temp', express.static(__dirname + '/temp/'));
 app.use('/systemjs.config.js', express.static(__dirname + '/systemjs.config.js'));
 
 //routes

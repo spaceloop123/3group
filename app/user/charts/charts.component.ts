@@ -1,10 +1,9 @@
-import {Component, Input, OnChanges, SimpleChanges, NgZone} from "@angular/core";
+import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from "@angular/common";
 import {Http, Headers} from "@angular/http";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 import {TestStatistics} from "./test.statistics";
 import {MaterializeDirective} from "angular2-materialize/dist/index";
-import {CustomHttp} from "../../common/services/CustomHttp";
 
 
 @Component({
@@ -16,7 +15,6 @@ export class ChartsComponent implements OnChanges {
 
     @Input() role:string;
     @Input() userId:any;
-    currentWidth:number;
     lineChartData;
     testsData:any[];
     lineChartLabels:any[];
@@ -73,25 +71,15 @@ export class ChartsComponent implements OnChanges {
 
 
     lineChartType:string = 'line';
-    private ngZone;
 
 
-    constructor(private customHttp:CustomHttp,
-                ngZone:NgZone) {
+    constructor(private http:Http) {
         this.lineChartData =[ {
             data: []
         }];
 
         this.lineChartLabels = new Array();
         this.testStatistics = new Array();
-
-        this.currentWidth = window.innerWidth;
-
-        window.onresize = () => {
-            ngZone.run(() => {
-                this.currentWidth = window.innerWidth;
-            });
-        };
 
     }
 
@@ -128,34 +116,22 @@ export class ChartsComponent implements OnChanges {
 
     getTestHistoryInUserMode() {
         var that = this;
-        /* this.http.get('/' + this.role + '/history')
+        this.http.get('/' + this.role + '/history')
             .toPromise()
             .then(response => that.initTestsHistory(response.json()))
-         .catch(that.handleError);*/
-        this.customHttp.get('/' + this.role + '/history')
-            .subscribe(response => {
-                that.initTestsHistory(response)
-            });
+            .catch(that.handleError);
     }
 
     getTestHistoryInAdminMode() {
         var that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        /*this.http
+        this.http
             .post('/' + this.role + '/user_history',
                 JSON.stringify({userId: that.userId}), {headers: header})
             .toPromise()
             .then(response => that.initTestsHistory(response.json()))
-         .catch(that.handleError);*/
-        this.customHttp
-            .post('/' + this.role + '/user_history', {userId: that.userId})
-            .subscribe(
-                res => {
-                    that.initTestsHistory(res);
-                },
-                err => this.handleError(err)
-            );
+            .catch(that.handleError);
     }
 
 
@@ -169,7 +145,7 @@ export class ChartsComponent implements OnChanges {
 
     processTestData() {
         for (let item of this.testsData) {
-            this.lineChartData[0].data.push(this.showMark(item.mark));
+            this.lineChartData[0].data.push(this.showMarkitem.mark);
             this.lineChartLabels.push(this.parseDate(item.date));
 
         }
@@ -209,20 +185,12 @@ export class ChartsComponent implements OnChanges {
         var header = new Headers();
         //console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
         header.append('Content-Type', 'application/json');
-        /*this.http
+        this.http
             .post('/' + this.role + '/test_history',
                 JSON.stringify({testIds: that.testsData[index].tests}), {headers: header})
             .toPromise()
             .then(response => that.updateTestStatustics(response.json()))
-         .catch(that.handleError);*/
-        this.customHttp
-            .post('/' + this.role + '/test_history', {testIds: that.testsData[index].tests})
-            .subscribe(
-                res => {
-                    that.updateTestStatustics(res);
-                },
-                err => this.handleError(err)
-            );
+            .catch(that.handleError);
     }
 
     testHistoryInAdminMode(index:number) {
@@ -230,20 +198,12 @@ export class ChartsComponent implements OnChanges {
         var header = new Headers();
         //console.log('that.testsData[index].testId} ' + that.testsData[index].testId);
         header.append('Content-Type', 'application/json');
-        /*this.http
+        this.http
             .post('/' + this.role + '/test_history',
                 JSON.stringify({userId: that.userId, testIds: that.testsData[index].tests}), {headers: header})
             .toPromise()
             .then(response => that.updateTestStatustics(response.json()))
-         .catch(that.handleError);*/
-        this.customHttp
-            .post('/' + this.role + '/test_history', {userId: that.userId, testIds: that.testsData[index].tests})
-            .subscribe(
-                res => {
-                    that.updateTestStatustics(res);
-                },
-                err => this.handleError(err)
-            );
+            .catch(that.handleError);
     }
 
     public chartHovered(e:any):void {
@@ -257,9 +217,8 @@ export class ChartsComponent implements OnChanges {
 
     showTime(date:string):string {
         let time = new Date(date);
-        let minute = (time.getMinutes() < 10) ? ('0' + time.getMinutes().toString()) : time.getMinutes().toString();
-
-        return time.getHours().toString() + ':' + minute;
+        let min = (time.getMinutes() < 10) ? ('0' + time.getMinutes()) : time.getMinutes();
+        return time.getHours().toString() + ':' + time.getMinutes().toString();
     }
 
     showMark(mark:number):string {
