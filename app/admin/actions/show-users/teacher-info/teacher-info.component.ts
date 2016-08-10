@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, NgZone} from "@angular/core";
 import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {CustomHttp} from "../../../../common/services/CustomHttp";
 import {StateService} from "../StateService";
@@ -16,9 +16,19 @@ export class TeacherInfoComponent implements OnInit {
     private teacherInfo:any;
     private sub;
 
+    currentWidth:number;
+
     constructor(private route:ActivatedRoute,
-                private customHttp:CustomHttp) {
+                private customHttp:CustomHttp,
+                ngZone:NgZone) {
         this.teacherInfo = [];
+        this.currentWidth = window.innerWidth;
+
+        window.onresize = () => {
+            ngZone.run(() => {
+                this.currentWidth = window.innerWidth;
+            });
+        };
     }
 
     getTeacherInfo() {
