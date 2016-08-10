@@ -1,5 +1,4 @@
-import {OnDestroy, OnInit, Component, Input, Output, EventEmitter, SimpleChanges, OnChanges} from "@angular/core";
-import {Observable} from "rxjs/Rx";
+import {OnDestroy, Component, Input, SimpleChanges, OnChanges} from "@angular/core";
 
 @Component({
     selector: 'upload-file',
@@ -32,7 +31,7 @@ export class UploadFileComponent implements OnChanges, OnDestroy {
     }
 
     streamFileToServer() {
-        let socket = new WebSocket('ws://localhost:2016');
+        let socket = new WebSocket('ws://localhost:2015');
         let that = this;
         socket.onopen = function (event) {
             socket.send(that.id + '.wav');
