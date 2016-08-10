@@ -1,0 +1,221 @@
+<form (submit)="onSubmit()" class="card white" id="add-member-form">
+    <div class="card-content black-text">
+        <div class="card-title flow-text" align="center">Add member</div>
+        <div class="row">
+            <form class="col s12 offset-m2 m8 offset-l2 l8">
+                <p>
+                    <input [checked]="member.role === 'guest'" (click)="changeMemberType()"
+                           name="member-type" type="radio" id="admin-member-1"
+                           class="with-gap"/>
+                    <label for="admin-member-1" class="black-text">Guest</label>
+                </p>
+                <p>
+                    <input [checked]="member.role === 'teacher'" (click)="changeMemberType()"
+                           name="member-type" type="radio" id="admin-member-2"
+                           class="with-gap"/>
+                    <label for="admin-member-2" class="black-text">Teacher</label>
+                </p>
+            </form>
+            <div class="col s12 offset-m2 m8 offset-l2 l8">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i id="icon_first_name" class="material-icons prefix">account_circle</i>
+                        <input id="icon_prefix_first_name" type="text" class="validate"
+                               placeholder="First Name"
+                               ngControl="firstName" [(ngModel)]="member.firstName" name="firstName">
+                       <!-- <label id="icon_label_first_name" for="icon_prefix_first_name">First Name</label>-->
+                    </div>
+                    <div class="input-field col s12">
+                        <i id="icon_last_name" class="material-icons prefix">account_circle</i>
+                        <input id="icon_prefix_last_name" type="text" class="validate"
+                               placeholder="Last Name"
+                               ngControl="lastName" [(ngModel)]="member.lastName" name="lastName"/>
+                        <!-- <label id="icon_label_last_name" for="icon_prefix_last_name">Last Name</label>-->
+                     </div>
+                     <div class="input-field col s12">
+                         <i id="icon_email" class="material-icons prefix">email</i>
+                         <input id="email" type="email" class="validate"
+                                placeholder="Email"
+                                [(ngModel)]="member.email" name="email"/>
+                         <!--  <label id="icon_label_email" for="email" data-error="wrong" data-success="right">Email</label>-->
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="card-action" align="center">
+           <button class="waves-effect waves-light btn"
+                   [class.disabled]="isMemberFieldsEmpty()"
+                   type="submit">
+               add
+           </button>
+       </div>
+   </form>
+
+<div id="addGuestModal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <div class="flow-text" style="font-weight: 600">
+            <span class="black-text">Assign a test to </span>
+            <span class="blue-text">{{member.firstName}} {{member.lastName}}</span>
+        </div>
+        <div class="container">
+            <div class="row">
+                <p style="font-weight: 500;">Select estimated date and time</p>
+                <br>
+
+                <!-- Date picker -->
+
+                <div class="row">
+                    <div class="col s12 m2 l2">
+                        <h6>From:</h6>
+                    </div>
+                    <div id="datepicker1" class="datepicker col s12 m4 l4">
+                        <input id="dateFrom" type="date" class="datepicker" [(ngModel)]="dateFrom">
+                    </div>
+                    <div class="col s12 m2 l2">
+                        <h6>Time:</h6>
+                    </div>
+
+                    <div class="col m2 l2" style="padding:0">
+                        <select id="hoursFrom" class="browser-default" materialize="material_select"
+                                [materializeSelectOptions]="selectOptions">
+                            <option value="00" disabled selected>00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                    </div>
+
+                    <div class="col m2 l2" style="padding:0">
+                        <select id="minutesFrom" class="browser-default" materialize="material_select"
+                                [materializeSelectOptions]="selectOptions">
+                            <option value="00" disabled selected>00</option>
+                            <option value="05">05</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="35">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m2 l2">
+                        <h6>To:</h6>
+                    </div>
+                    <div id="datepicker2" class="datepicker col s12 m4 l4">
+                        <input id="dateTo" type="date" class="datepicker" [(ngModel)]="dateTo">
+                    </div>
+                    <div class="col s12 m2 l2">
+                        <h6>Time:</h6>
+                    </div>
+
+                    <div class="col m2 l2" style="padding:0">
+                        <select id="hoursTo" class="browser-default" materialize="material_select"
+                                [materializeSelectOptions]="selectOptions">
+                            <option value="00" selected>00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                    </div>
+
+                    <div class="col m2 l2" style="padding:0">
+                        <select id="minutesTo" class="browser-default" materialize="material_select"
+                                [materializeSelectOptions]="selectOptions">
+                            <option value="00" selected>00</option>
+                            <option value="05">05</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="35">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- End of Date picker -->
+                <br>
+                <p style="font-weight: 500;">Choose one teacher for checking this test</p>
+
+                <div class="row">
+                    <div class="container teacher-container">
+                        <div class="col s12 m12 offset-l1 l10">
+                            <div class="collection teacher-list list-overflow-y grey lighten-5">
+                                <a class="collection-item {{teacher.isActive}}"
+                                   *ngFor="let teacher of teacherList"
+                                   href="javascript:;"
+                                   (click)="changeChoseTeacherState(teacher)">
+                                    <div class="valign-wrapper">
+                                                <span class="col s6 m6 title left-align">
+                                                    {{teacher.firstName}} {{teacher.lastName}}</span>
+                                                <span class="col s4 m4 grey-text text-darken-1 center-align">
+                                                    {{teacher.tests}} {{teacher.n}} tests checking</span>
+                                        <i class="material-icons grey-text">assignment_ind</i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-red btn-flat red-text text-lighten-1">
+            Cancel</a>
+        <a class="modal-action modal-close waves-effect waves-green btn-flat green-text text-lighten-1"
+           (click)="onAssignTestForGuest()">Ok</a>
+    </div>
+</div>

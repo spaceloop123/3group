@@ -1,0 +1,75 @@
+<div align='center'>
+    <div class="center noselect">
+        <ul class="pagination" show-prev-next="true">
+            <li [ngClass]="leftIconStatus" (click)="goToPreviousItem(test)">
+                <i class="material-icons">chevron_left</i></li>
+            <li *ngFor="let item of navigationItems; let i = index" [ngClass]="getState(i)">
+                <a (click)="goByItem(i, test)">
+                    {{item.show()}}</a>
+            </li>
+            <li [ngClass]='rightIconStatus' (click)="goToNextItem(test)">
+                <i class="material-icons">chevron_right</i></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row noselect ">
+    <div class="col s12 m10 l10 card-width offset-l1  offset-m1">
+        <div class="card white valign">
+            <div class='teacher'>
+                <display-test #test [testInfo]="testInfo" [mode]="opMode" [answersId]="answersId"></display-test>
+            </div>
+            <div class="card-action">
+                <div class="row">
+                    <div class="col s12 m5 l5" style="font-size: 1.1em">
+                        <p [ngClass]='markPlaceClass'>Swipe to evaluate question: </p>
+                        <p class="blue-grey-text darken-1">Your mark: {{rangeValue}}</p>
+                    </div>
+                    <div class="col s12 m7 l7" style="margin-top: 2%">
+                        <p class="range-field" [ngClass]='sendButtonClass'>
+                            <input type="range" name="blabla" id="test5" min="0" max="100" autofocus
+                                   [(ngModel)]="rangeValue"/>
+                        </p>
+                        <p class="range-field" [ngClass]='nextButtonClass'>
+                            <input type="range" name="blabla" id="test6" min="0" max="100" autofocus
+                                   disabled [(ngModel)]="rangeValue"/>
+                        </p>
+                        <p class="range-field" [ngClass]='finishButtonClass'>
+                            <input type="range" name="blabla" id="test7" min="0" max="100" autofocus
+                                   disabled [(ngModel)]="rangeValue"/>
+                        </p>
+                    </div>
+                    <div class="col s12 m6 offset-m3 l6 offset-l3 center">
+                        <div align="center" class='teacher-checking-button'>
+                            <button class="btn waves-effect waves-light center" type="submit" name="action"
+                                    [ngClass]='sendButtonClass'
+                                    (click)='sendAndGo(test)'>Confirm
+                                <!--<i class="material-icons right">send</i>-->
+                            </button>
+                            <button class="btn waves-effect waves-light center" type="submit" name="action"
+                                    [ngClass]='nextButtonClass'
+                                    (click)="goToNextItem(test)">Next
+                                <!--<i class="material-icons right">send</i>-->
+                            </button>
+                            <button class="btn waves-effect waves-light center" type="submit" name="action"
+                                    [ngClass]='finishButtonClass'
+                                    (click)="finishCheckTest()">finish
+                                <!--<i class="material-icons right">send</i>-->
+                            </button>
+                            <button class="btn waves-effect waves-light center" type="submit" name="action"
+                                    [ngClass]='parentButtonClass' type="submit"
+                                    name="action"
+                                    (click)='goToParent(test)'><i class="material-icons">swap_horiz</i>
+                            </button>
+                            <button class="btn waves-effect waves-light center" type="submit" name="action"
+                                    [ngClass]='childButtonClass' type="submit"
+                                    name="action"
+                                    (click)='goToChild(test)'><i class="material-icons">swap_horiz</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

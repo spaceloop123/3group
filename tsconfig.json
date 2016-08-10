@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "system",
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "rootDir" : "app",
-    "outDir" : "dist/app"
-  }
+    "rootDir": "app",
+    "outDir": "dist/app"
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

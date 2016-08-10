@@ -1,0 +1,24 @@
+<div class='row'>
+    <div class="col card-panel offset-l1 offset-m1" align=center>
+        <countdown-timer class=" valign-wrapper" [timeLeft]="timerSec" (onExpired)="finishTest($event)"></countdown-timer>
+    </div>
+</div>
+<div class='row'>
+    <div class="col s12 m10 l10 card-width offset-l1  offset-m1" align=center>
+        <div class="progress">
+            <div class="determinate" [style.width]="progress + '%'"></div>
+        </div>
+    </div>
+</div>
+<div class="row noselect">
+    <div class="col s12 m10 l10 card-width offset-l1  offset-m1" align=center>
+        <div class="card white valign">
+            <display-test #test [testInfo]="testInfo" [mode]="opMode" [answersId] = "answersId" (progress)="setProgress($event)"></display-test>
+            <div class="card-action center">
+                <button class="btn waves-effect waves-light center" type="submit" name="action"
+                        (click)="sendAndGo(test)">{{test.getButtonText()}}
+                    <i class="material-icons right">send</i></button>
+            </div>
+        </div>
+    </div>
+</div>

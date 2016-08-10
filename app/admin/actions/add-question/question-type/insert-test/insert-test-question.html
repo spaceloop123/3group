@@ -1,0 +1,115 @@
+<div class="row">
+    <form action="#" class="col s12 offset-m2 m8 offset-l2 l8">
+        <div class="row">
+
+            <!-- header -->
+            <div class="input-field col s12 m12 l12">
+                <textarea class="materialize-textarea" id="insert-test-question-header-{{question.id}}"
+                          [attr.disabled]="(question.state !== 'edit') ? true : null"
+                          [(ngModel)]="question.header"
+                          placeholder="E.g: Choose the correct option"
+                          name="insert-test-question-header-{{question.id}}"></textarea>
+                <label [attr.for]="'insert-test-question-header-' + question.id" class="active">Simple and clear
+                    description</label>
+            </div>
+
+
+            <!-- difficulty -->
+            <div class="input-field col s12 m6 l6">
+                <input id="insert-test-question-difficulty-{{question.id}}"
+                       [attr.disabled]="(question.state !== 'edit') || (question.isSubQuestion) ? true : null"
+                       placeholder="Of 1 to 100"
+                       type="number" min="1" max="100" class="validate"
+                       [(ngModel)]="question.difficulty"
+                       name="insert-test-question-difficulty-{{question.id}}"/>
+                <label [attr.for]="'insert-test-question-difficulty-' + question.id" class="active"
+                       data-error="wrong">Complexity</label>
+            </div>
+            <!-- maxCost -->
+            <div class="input-field col s12 m6 l6">
+                <input id="insert-test-question-maxCost-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       placeholder="Of 1 to 10"
+                       type="number" min="1" max="10" class="validate"
+                       [(ngModel)]="question.maxCost"
+                       name="insert-test-question-maxCost-{{question.id}}"/>
+                <label [attr.for]="'insert-test-question-maxCost-' + question.id" data-error="wrong"
+                       class="active">Weight</label>
+            </div>
+
+
+            <div class="col s12 m12 l12">
+                <p class="blue-grey-text">Write down your question divided into two parts without a correct answer: </p>
+            </div>
+            <!-- questions -->
+            <div class="input-field col s12 m6 l6">
+                <textarea class="materialize-textarea"
+                          [attr.id]="'insert-test-question-question-' + question.id + '-1'"
+                          [attr.disabled]="question.state !== 'edit' ? true : null"
+                          placeholder="E.g: My mom"
+                          type="text"
+                          [(ngModel)]="question.question[0].content"
+                          name="insert-test-question-question-{{question.id}}-1"></textarea>
+                <label [attr.for]="'insert-test-question-answer-' + question.id + '-1'" class="active"></label>
+            </div>
+            <div class="input-field col s12 m6 l6">
+                <textarea class="materialize-textarea"
+                          [attr.id]="'insert-test-question-question-' + question.id + '-2'"
+                          [attr.disabled]="question.state !== 'edit' ? true : null"
+                          placeholder="to visit me this summer"
+                          type="text"
+                          [(ngModel)]="question.question[1].content"
+                          name="insert-test-question-question-{{question.id}}-2"></textarea>
+                <label [attr.for]="'insert-test-question-answer-' + question.id + '-2'" class="active"></label>
+            </div>
+
+            <!-- number of answers -->
+            <div class="input-field col s12 m12 l12">
+                <input id="insert-test-question-answersNumber-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       placeholder="min 2, max 5"
+                       type="number" min="2" max="5" pattern="[0-9]" class="validate"
+                       [(ngModel)]="oldAnswersLength"
+                       (change)="resizeAnswers()"
+                       name="insert-test-question-answersNumber-{{question.id}}"/>
+                <label [attr.for]="'insert-test-question-answersNumber-' + question.id" data-error="wrong"
+                       class="active">Number of options</label>
+            </div>
+
+            <!-- answers -->
+            <div class="input-field col s12 m12 l12" *ngFor="let item of question.answers; let i = index">
+                <input [attr.id]="'insert-test-question-answer-' + question.id + '-' + i"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       type="text"
+                       placeholder="Write your option"
+                       [(ngModel)]="item.content"
+                       name="insert-test-question-answer-{{question.id}}-{{i}}"/>
+                <label [attr.for]="'insert-test-question-answer-' + question.id + '-' + i" class="active">Option {{i +
+                    1}}</label>
+            </div>
+
+            <!-- correct answer number -->
+            <div class="input-field col s12 m12 l12">
+                <input id="insert-test-question-answersCorrect-{{question.id}}"
+                       [attr.disabled]="question.state !== 'edit' ? true : null"
+                       placeholder="Number of the correct option"
+                       type="number" min="1" max="{{oldAnswersLength}}" class="validate"
+                       [(ngModel)]="question.correctAnswerIdx"
+                       (change)="changeCorrectAnswerIdx()"
+                       name="insert-test-question-answersCorrect-{{question.id}}"/>
+                <label [attr.for]="'insert-test-question-answersCorrect-' + question.id" data-error="wrong"
+                       class="active">Correct option</label>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="col s12 m12 l12" [ngSwitch]="question.state" align="center">
+        <a *ngSwitchCase="'edit'" class="waves-effect btn-flat" id="insert-test-question-finish-btn-{{question.id}}"
+           (click)="onCreateFinish()"><i class="material-icons green-text">done</i></a>
+        <a *ngSwitchCase="'done'" class="waves-effect btn-flat" id="insert-test-question-edit-btn-{{question.id}}"
+           (click)="onEditStart()"><i class="material-icons orange-text">mode_edit</i></a>
+        <a class="waves-effect btn-flat" id="insert-test-question-abort-btn-{{question.id}}"
+           (click)="onCreateAbort()"><i class="material-icons red-text">delete</i></a>
+    </div>
+</div>

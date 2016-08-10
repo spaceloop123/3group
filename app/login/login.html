@@ -1,0 +1,42 @@
+<div class="container valign">
+    <div class="row">
+        <div class="col m5 offset-m1 s12">
+            <h1 class="elegant elegant-shadow">THE TUGA</h1>
+            <p class="text text-subhead flow-text blue-grey-text text-darken-2">
+                Simple, clean and customizable online testing service for English language level assessment
+
+                <!--
+                This system is an easy-to-use, customizable online testing service
+                for English level assessment, providing appointment of adaptive tasks and tracking your progress.
+-->
+
+            </p>
+        </div>
+        <div class="col s12 offset-m1 m5 offset-l2 l4">
+            <div class="card-panel">
+                <form (submit)="onSubmit()">
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 offset-l2 l8">
+                            <input id="login-field" type="text" class="validate" ngControl="username"
+                                   [(ngModel)]="model.username" name="login">
+                            <label for="login-field">Login</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 offset-l2 l8">
+                            <input id="password-field" type="password" class="validate"
+                                   [(ngModel)]="model.password" name="password">
+                            <label for="password-field">Password</label>
+                        </div>
+
+                    </div>
+                    <div class="center-align">
+                        <button class="waves-effect waves-light btn" id="login-btn" type="submit">login
+                        </button>
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
