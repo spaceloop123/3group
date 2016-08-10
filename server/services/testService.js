@@ -264,12 +264,13 @@ module.exports.acceptTestRequest = function (testId, teacherId, timeFrom, timeTo
 };
 
 module.exports.setTestSchedule = function setTestSchedule(user, test) {
-    agenda.setTimer('send-mail', {
-            to: user.email,
-            subject: 'Your test',
-            text: 'Your test will be available in hour'
-        },
-        test.fromTime.getTime() - new Date().getTime() - 3600000);
+    if (test.fromTime.getTime() > new Date().getTime)
+        agenda.setTimer('send-mail', {
+                to: user.email,
+                subject: 'Your test',
+                text: 'Your test will be available in hour'
+            },
+            test.fromTime.getTime() - new Date().getTime() - 3600000);
     agenda.setTimer('open-window', {userId: user.id, testId: test.id}, test.fromTime.getTime() - new Date().getTime());
     agenda.setTimer('close-window', {userId: user.id, testId: test.id}, test.toTime.getTime() - new Date().getTime());
-}
+};

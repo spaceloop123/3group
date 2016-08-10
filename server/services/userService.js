@@ -6,6 +6,7 @@ var Validator = require('../libs/requestValidator');
 var testService = require('./testService');
 var async = require('async');
 var mailer = require('../libs/mailer');
+var agenda = require('../libs/agenda');
 
 module.exports.getUserList = function (n, filter, done) {
     var CHUNK_COUNT = 10;
@@ -187,12 +188,11 @@ module.exports.addNewGuest = function (firstName, lastName, email, testData, don
             });
             test.save(done);
             testService.setTestSchedule(guest, test);
-            mailer.sendMail(
-                email,
-                'Welcome to ProjectName',
-                'Hello, ' + firstName + ' ' + lastName + '\n' +
+            agenda.setTimer('send-mail', {
+                to: email, subject: 'Welcome to TheTUGA', text: 'Hello, ' + firstName + ' ' + lastName + '\n' +
                 'Follow the link to start the test: http://localhost:3000/guest/allowTest?id=' + guest.id
-            );
+                //'Follow the link to start the test: http://192.168.14.81:1507/guest/allowTest?id=' + guest.id
+            }, test.fromTime.getTime() - new Date().getTime());
         }, done, done);
 };
 
