@@ -153,7 +153,7 @@ module.exports.addNewTeacher = function (firstName, lastName, email, done) {
             });
             mailer.sendMail(
                 email,
-                'Welcome to ProjectName',
+                'Welcome to TheTUGA',
                 'Hello, ' + firstName + ' ' + lastName + '\n' +
                 'Your username: ' + username + '\n' +
                 'Your password: ' + password
