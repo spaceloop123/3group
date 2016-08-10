@@ -1,11 +1,13 @@
 <div *ngIf="assignedTests">
 
-    <div class="row" *ngIf="assignedTests.length != 0">
+    <div class="row hide-on-small-and-down" *ngIf="assignedTests.length != 0">
         <div class="col s10 m10 offset-m1 offset-s1">
             <div class="card">
+                <br>
+                <div class="card-title cyan-text text-darken-3 center">Tests to check</div>
                 <div class="card-content">
                     <div materialize="carousel"
-                         class="carousel carousel-custom hide-on-small-and-down valign">
+                         class="carousel carousel-custom valign">
                         <a class="carousel-item carousel-content-custom" href="javascript:;" *ngFor="let test of assignedTests">
                             <div class="card center-align {{test.color}}">
                                 <div class="card-content white-text">
@@ -26,7 +28,8 @@
         </div>
     </div>
 
-    <div class="row hide-on-med-and-up">
+    <div class="row hide-on-med-and-up" *ngIf="assignedTests.length != 0">
+        <div class="cyan-text text-darken-3 center flow-text">TESTS TO CHECK</div>
         <div class="col offset-s1 s10" *ngFor="let test of assignedTests">
             <div class="card center-align {{test.color}}">
                 <div class="card-content white-text center">
