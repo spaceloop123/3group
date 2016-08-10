@@ -244,9 +244,9 @@ a.disabled.collection-item {
     top: 0;
 }
 
-.teacher-gif {
-    width: 100%;
-}
+/*.teacher-gif {*/
+    /*width: 100%;*/
+/*}*/
 
 .parent-of-badge {
     overflow: hidden;
@@ -275,5 +275,5 @@ a.disabled.collection-item {
 }
 
 .header-email {
-    font-style: italic;
+    padding-right: 20px;
 }
