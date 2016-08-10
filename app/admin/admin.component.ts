@@ -8,6 +8,7 @@ import {ShowUsersComponent} from "./actions/show-users/show-users.component";
 import {NotificationActive} from "./actions/notifications/notification.active.class";
 import {StateService} from "./actions/show-users/StateService";
 import {AssignTestService} from "./actions/show-users/user-info/assign-test.service";
+import moment = require("moment/moment");
 
 @Component({
     selector: 'admin-component',
