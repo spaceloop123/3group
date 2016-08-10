@@ -5,15 +5,18 @@
             <div class="col s12 m6 card-width" align="center">
                 <div class="card horizontal">
                     <div class="card-image valign-wrapper">
-                        <img class="valign add-icon-container" src="app/admin/actions/show-users/img/user.png">
+                        <img class="valign add-icon-container" src="app/admin/actions/show-users/img/user.png"
+                             style="padding: 5px">
                     </div>
                     <div class="card-stacked">
                         <div class="card-content valign-wrapper">
                             <div class="container valign">
                                 <div align="left">
-                                    <h2 class="flow-text cyan-text">{{userInfo.firstName}} {{userInfo.lastName}}</h2>
+                                    <p class="flow-text cyan-text">{{userInfo.firstName}} {{userInfo.lastName}}</p>
                                     <p class="flow-text purple-text">{{userInfo.username}}</p>
-                                    <p class="flow-text blue-text">{{userInfo.email}}</p>
+                                    <p class="flow-text blue-text" style="letter-spacing:-0.05em">{{userInfo.email}}</p>
+
+
                                 </div>
                             </div>
                         </div>

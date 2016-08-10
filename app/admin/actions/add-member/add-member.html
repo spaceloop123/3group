@@ -23,34 +23,34 @@
                         <input id="icon_prefix_first_name" type="text" class="validate"
                                placeholder="First Name"
                                ngControl="firstName" [(ngModel)]="member.firstName" name="firstName">
-                        <!--<label id="icon_label_first_name" for="icon_prefix_first_name">First Name</label>-->
+                       <!-- <label id="icon_label_first_name" for="icon_prefix_first_name">First Name</label>-->
                     </div>
                     <div class="input-field col s12">
                         <i id="icon_last_name" class="material-icons prefix">account_circle</i>
                         <input id="icon_prefix_last_name" type="text" class="validate"
                                placeholder="Last Name"
                                ngControl="lastName" [(ngModel)]="member.lastName" name="lastName"/>
-                        <!--<label id="icon_label_last_name" for="icon_prefix_last_name">Last Name</label>-->
-                    </div>
-                    <div class="input-field col s12">
-                        <i id="icon_email" class="material-icons prefix">email</i>
-                        <input id="email" type="email" class="validate"
-                               placeholder="Email"
-                               [(ngModel)]="member.email" name="email"/>
-                        <label id="icon_label_email" for="email" data-error="wrong" data-success="right"></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-action" align="center">
-        <button class="waves-effect waves-light btn"
-                [class.disabled]="isMemberFieldsEmpty()"
-                type="submit">
-            add
-        </button>
-    </div>
-</form>
+                        <!-- <label id="icon_label_last_name" for="icon_prefix_last_name">Last Name</label>-->
+                     </div>
+                     <div class="input-field col s12">
+                         <i id="icon_email" class="material-icons prefix">email</i>
+                         <input id="email" type="email" class="validate"
+                                placeholder="Email"
+                                [(ngModel)]="member.email" name="email"/>
+                         <!--  <label id="icon_label_email" for="email" data-error="wrong" data-success="right">Email</label>-->
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="card-action" align="center">
+           <button class="waves-effect waves-light btn"
+                   [class.disabled]="isMemberFieldsEmpty()"
+                   type="submit">
+               add
+           </button>
+       </div>
+   </form>
 
 <div id="addGuestModal" class="modal modal-fixed-footer">
     <div class="modal-content">

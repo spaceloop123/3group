@@ -3,6 +3,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective, toast} from "angular2-materialize";
 import {CustomHttp} from "../../../common/services/CustomHttp";
 import {AssignTestService} from "../show-users/user-info/assign-test.service";
+import moment = require("moment/moment");
 
 @Component({
     selector: 'add-member-component',
