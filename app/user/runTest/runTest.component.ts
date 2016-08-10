@@ -6,6 +6,7 @@ import {MaterializeDirective} from "angular2-materialize";
 import {TestInfo} from "../../test/test.info";
 import {TimerComponent} from "./timer.component";
 import {TestComponent} from "../../test/test.component";
+import {CustomHttp} from "../../common/services/CustomHttp";
 
 @Component({
     templateUrl: 'app/user/runTest/runTest.html',
@@ -23,7 +24,7 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     constructor(private route:ActivatedRoute,
                 private router:Router,
-                private http:Http) {
+                private customHttp:CustomHttp) {
 
         this.progress = 80;
         this.opMode = 'user';
@@ -54,10 +55,11 @@ export class RunTestComponent implements OnInit, OnDestroy {
 
     getTestInfoFromServer(){
         var that = this;
-        this.http.get('/user/init_test')
-            .toPromise()
-            .then(response => that.onResponse(response))
-            .catch(this.handleError);
+
+        this.customHttp.get('/user/init_test')
+            .subscribe(response => {
+                that.onResponse(response);
+            });
     }
 
     saveTestInfo(){
@@ -65,8 +67,8 @@ export class RunTestComponent implements OnInit, OnDestroy {
     }
 
     onResponse(response) {
-        console.log(response.json().deadline + ' ' + response.json().count + ' ' + response.json().testId);
-        this.initTestInfo(response.json().deadline, response.json().count, response.json().testId);
+        console.log(response.deadline + ' ' + response.count + ' ' + response.testId);
+        this.initTestInfo(response.deadline, response.count, response.testId);
 
         //this.getNextQuestionFromServer();
     }
@@ -92,12 +94,20 @@ export class RunTestComponent implements OnInit, OnDestroy {
         let that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        this.http
+        this.customHttp
+            .post('/user/end_test', {testId: that.testInfo.id})
+            .subscribe(
+                res => {
+                    that.router.navigate(['/finishTest', that.role])
+                },
+                err => this.handleError(err)
+            );
+        /*this.http
             .post('/user/end_test',
                 JSON.stringify({testId: that.testInfo.id}), {headers: header})
             .toPromise()
             .then(response => that.router.navigate(['/finishTest', that.role]))
-            .catch();
+         .catch();*/
 
     }
 

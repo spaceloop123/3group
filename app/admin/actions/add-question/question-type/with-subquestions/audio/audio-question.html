@@ -12,17 +12,17 @@
                 <label [attr.for]="'audio-question-header-' + question.id" class="active">Simple and clear
                     description</label>
             </div>
-
-            <upload-file></upload-file>
-
-            <div class="input-field col s12 m12 l12">
+            <div id="audio-question-header-{{question.id}} + 'blabla'">
+                <upload-file #uploadAudio [id]='question.path'></upload-file>
+            </div>
+            <!--div class="input-field col s12 m12 l12">
                 <textarea class="materialize-textarea" id="audio-question-question-{{question.id}}"
                           [attr.disabled]="question.state !== 'edit' ? true : null"
                           placeholder="Path to the audio file"
                           [(ngModel)]="question.path"
                           name="audio-question-question-{{question.id}}"></textarea>
                 <label [attr.for]="'audio-question-question-' + question.id" class="active">Path</label>
-            </div>
+            </div-->
 
             <!-- difficulty -->
             <div class="input-field col s12 m6 l6">

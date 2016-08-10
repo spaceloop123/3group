@@ -8,11 +8,13 @@ import {Observable} from "rxjs/Rx";
 })
 
 export class UploadFileComponent implements OnChanges, OnDestroy {
-
+    @Input() id:any;
     array:any[];
 
     ngOnChanges(changes:SimpleChanges):any {
-
+        if (changes['id']) {
+            this.id = changes['id'].currentValue;
+        }
     }
 
     onFileChangeListener(event) {
@@ -33,15 +35,10 @@ export class UploadFileComponent implements OnChanges, OnDestroy {
         let socket = new WebSocket('ws://localhost:2016');
         let that = this;
         socket.onopen = function (event) {
-            //socket.send('filename');
+            socket.send(that.id + '.wav');
             socket.send(that.array);
             socket.close();
         };
-    }
-
-    printSelectedFileName() {
-        console.log('printSelectedFileName ' + this.selectedFile);
-        console.log('printSelectedFileName1 ' + this.selectedFile1);
     }
 
     ngOnDestroy() {

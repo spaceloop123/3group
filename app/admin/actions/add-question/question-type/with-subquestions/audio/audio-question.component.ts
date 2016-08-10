@@ -55,7 +55,7 @@ export class AudioQuestionComponent implements OnInit {
 
     ngOnInit():any {
         this.oldSubQuestionsLength = this.question.subQuestions.length;
-
+        this.question.path = this.question.id + Date.now();
         this.questionsCatalog = [
             {
                 type: new TestQuestion(null, false).type,
@@ -148,6 +148,7 @@ export class AudioQuestionComponent implements OnInit {
             return toast('First, complete editing Audio Question', 5000, 'amber darken-1');
         }
         this.question.state = 'done';
+        this.question.action = (e) => this.streamFile(e);
         this.notify.emit(this.question);
         console.log(this.question.state);
     }
@@ -161,6 +162,10 @@ export class AudioQuestionComponent implements OnInit {
             }
         }
         return f;
+    }
+
+    streamFile(uploadAudio:UploadFileComponent) {
+        uploadAudio.streamFileToServer();
     }
 
     onEditStart() {
