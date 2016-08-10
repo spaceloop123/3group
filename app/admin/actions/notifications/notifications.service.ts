@@ -30,6 +30,14 @@ export class NotificationsService {
     }
 
     private prepareAcceptNotification(notification:NotificationActive) {
+        console.log('AAAAAAAA' + JSON.stringify({
+                'notificationId': notification.notificationId,
+                'testId': notification.testId,
+                'userId': notification.userId,
+                'teacherId': notification.teacherId,
+                'timeFrom': notification.date.dateFrom,
+                'timeTo': notification.date.dateTo
+            }));
         return {
             'notificationId': notification.notificationId,
             'testId': notification.testId,

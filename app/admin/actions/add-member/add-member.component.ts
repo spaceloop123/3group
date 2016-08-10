@@ -1,5 +1,3 @@
-import moment from "moment";
-
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective, toast} from "angular2-materialize";
@@ -122,8 +120,8 @@ export class AddMemberComponent implements OnInit {
 
     getDate() {
         return {
-            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom-guest').val()).minute(+$('#minutesFrom-guest').val()).toDate(),
-            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo-guest').val()).minute(+$('#minutesTo-guest').val()).toDate()
+            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate(),
+            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate()
         };
     }
 
@@ -160,5 +158,4 @@ export class AddMemberComponent implements OnInit {
     setTeacherList(response) {
         this.teacherList = this.teacherList.concat(response);
     }
-
 }

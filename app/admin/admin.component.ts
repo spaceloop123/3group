@@ -1,5 +1,3 @@
-import moment from "moment";
-
 import {Component, NgZone, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MaterializeDirective, toast} from "angular2-materialize";
@@ -31,6 +29,9 @@ export class AdminComponent implements OnInit {
 
     date:any = {};
 
+    dateFrom:any;
+    dateTo:any;
+
     constructor(ngZone:NgZone, private assignTestService:AssignTestService) {
         this.currentWidth = window.innerWidth;
 
@@ -42,10 +43,8 @@ export class AdminComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.date.dateFrom = new Date();
-        this.date.dateTo = new Date();
-        this.date.hoursFrom = this.date.hoursTo = 0;
-        this.date.minutesFrom = this.date.minutesTo = 0;
+        this.dateFrom = new Date();
+        this.dateTo = new Date();
 
         if (StateService.fromDetail === true) {
             this.currentTab = 3;
@@ -73,6 +72,13 @@ export class AdminComponent implements OnInit {
         this.teacherList = this.teacherList.concat(response);
     }
 
+    getDate() {
+        return {
+            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate(),
+            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate()
+        };
+    }
+
     changeTab(currentTab) {
         this.currentTab = currentTab;
     }
@@ -92,30 +98,19 @@ export class AdminComponent implements OnInit {
     onAssignNotification() {
         let date = this.getDate();
 
-        if(!this.validateDate(date)) {
+        if (!this.validateDate(date)) {
             toast('Enter correct date of test', 5000, 'red darken-2');
             return;
-        } else if(!this.assignedTeacher) {
+        } else if (!this.assignedTeacher) {
             toast('Choose the teacher first', 5000, 'red darken-2');
             return;
         }
 
         this.currentNotification = new NotificationActive(this.currentNotification, 'assign', this.assignedTeacher['id'], date);
 
-
-        // clear form
         this.assignedTeacher = null;
-        this.date.dateFrom = new Date();
-        this.date.dateTo = new Date();
-        this.date.hoursFrom = this.date.hoursTo = 0;
-        this.date.minutesFrom = this.date.minutesTo = 0;
-    }
-
-    getDate() {
-        return {
-            dateFrom: moment(this.date.dateFrom, 'YYYY-MM-DD').hour(this.date.hoursFrom).minute(this.date.minutesFrom).toDate(),
-            dateTo: moment(this.date.dateTo, 'YYYY-MM-DD').hour(this.date.hoursTo).minute(this.date.minutesTo).toDate()
-        };
+        this.dateFrom = new Date();
+        this.dateTo = new Date();
     }
 
     private validateDate(date) {
