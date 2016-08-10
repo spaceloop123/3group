@@ -216,7 +216,7 @@ export class TestComponent implements OnChanges {
         if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
             if (this.mode === 'user' && this.question.type === 'ReadingQuestion') {
-                    toast('You can read this text only once', 5000);
+                toast('You can read this text only once', 5000);
 
             }
 
