@@ -69,6 +69,7 @@ export class AdminComponent implements OnInit {
     }
 
     setTeacherList(response) {
+        this.teacherList = [];
         this.teacherList = this.teacherList.concat(response);
     }
 
