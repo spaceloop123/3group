@@ -40,7 +40,6 @@ export class TeacherInfoComponent implements OnInit {
             console.log('that.currentUser ' + this.currentUser);
         });
         this.getTeacherInfo();
-
         console.log('Teacher INfo = ' + JSON.stringify(this.teacherInfo));
     }
 }

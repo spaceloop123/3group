@@ -7,14 +7,14 @@
                 <div class="col s12 m6 l6 card-width">
                     <div class="card white valign">
                         <div class="card-image">
-                            <div align="center" class="parent-of-images">
-                                <img *ngIf="status==='available'"
+                            <div align="center" class="parent-of-images" [ngSwitch]="status">
+                                <img *ngSwitchCase="'available'"
                                      class="image-gif" src="app/user/runTest/img/testToRun.gif">
-                                <img *ngIf="status==='run'"
+                                <img *ngSwitchCase="'run'"
                                      class="image-gif" src="app/user/runTest/img/super-runner.gif">
-                                <img *ngIf="status==='notAvailable'"
+                                <img *ngSwitchCase="'notAvailable'"
                                      class="image-gif" src="app/user/runTest/img/people.gif" >
-                                <img *ngIf="status==='requested'"
+                                <img *ngSwitchCase="'requested'"
                                      class="image-gif" src="app/user/runTest/img/waiting.gif">
                             </div>
                             <span *ngIf="status==='available'"
@@ -88,5 +88,3 @@
 <div *ngIf="status ===''">
     loading...
 </div>
-<!--speech-recorder></speech-recorder>
-<play-audio></play-audio-->

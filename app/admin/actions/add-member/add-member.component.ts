@@ -24,6 +24,9 @@ export class AddMemberComponent implements OnInit {
         dateTo: new Date()
     };
 
+    dateFrom:any;
+    dateTo:any;
+
     constructor(private customHttp:CustomHttp, private assignTestService:AssignTestService) {
         this.member = {};
         this.newMemberUrl = '';
@@ -96,14 +99,45 @@ export class AddMemberComponent implements OnInit {
     }
 
     onAssignTestForGuest() {
-        this.assignTestService.addGuest(this.member, this.assignedTeacher, this.data)
+        let date = this.getDate();
+
+        if (!this.validateDate(date)) {
+            toast('Date To is earlier than Date From', 3000, 'red darken-2');
+            return;
+        }
+
+        this.customHttp.post('/admin/new_guest', this.prepareGuest(date))
             .subscribe(res => {
                 toast('The test was assigned to ' + this.member.firstName + ' ' + this.member.lastName,
                     3000, 'green');
+                this.clearForm();
             }, err => {
                 toast('Failed to assign the test to ' + this.member.firstName + ' ' + this.member.lastName,
                     3000, 'red darken-2');
             });
+        this.clearForm();
+    }
+
+    getDate() {
+        return {
+            dateFrom: moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate(),
+            dateTo: moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate()
+        };
+    }
+
+    private validateDate(date) {
+        return date && date.dateFrom < date.dateTo;
+    }
+
+    prepareGuest(date) {
+        return {
+            'firstName': this.member.firstName,
+            'lastName': this.member.lastName,
+            'email': this.member.email,
+            'teacherId': this.assignedTeacher['id'],
+            'timeFrom': date.dateFrom,
+            'timeTo': date.dateTo
+        };
     }
 
     changeChoseTeacherState(teacher) {
@@ -123,16 +157,5 @@ export class AddMemberComponent implements OnInit {
 
     setTeacherList(response) {
         this.teacherList = this.teacherList.concat(response);
-    }
-
-    getData() {
-        var a = $('#dateFrom-guest').val();
-        var b = $('#dateTo-guest').val();
-        this.data.dateFrom.setFullYear(parseInt(a.substr(0, 4)), parseInt(a.substr(5, 2)) - 1, parseInt(a.substr(8, 2)));
-        this.data.dateFrom.setUTCHours($('#hoursFrom-guest').val());
-        this.data.dateFrom.setUTCMinutes($('#minutesFrom-guest').val());
-        this.data.dateTo.setFullYear(parseInt(b.substr(0, 4)), parseInt(b.substr(5, 2)) - 1, parseInt(b.substr(8, 2)));
-        this.data.dateTo.setUTCHours($('#hoursTo-guest').val());
-        this.data.dateTo.setUTCMinutes($('#minutesTo-guest').val());
     }
 }

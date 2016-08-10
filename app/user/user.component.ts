@@ -4,11 +4,14 @@ import {Http} from "@angular/http";
 import {CustomHttp} from "../common/services/CustomHttp";
 import {RecordSpeechComponent} from "./runTest/record-speech.component";
 import {PlayAudioComponent} from "./runTest/play-audio.component";
+import {MaterializeDirective, toast} from "angular2-materialize";
+import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user/user-home.html',
-    directives: [ROUTER_DIRECTIVES, UserComponent, RecordSpeechComponent, PlayAudioComponent]
+    directives: [ROUTER_DIRECTIVES, UserComponent, RecordSpeechComponent, PlayAudioComponent,
+        MaterializeDirective, REACTIVE_FORM_DIRECTIVES]
 })
 
 export class UserComponent implements OnInit {
@@ -36,10 +39,14 @@ export class UserComponent implements OnInit {
     getTestInfo() {
         var that = this;
         //TODO (pay attention) Use CustomHttp + Observables
-        this.http.get('/user/test_info')
+        /*this.http.get('/user/test_info')
             .toPromise()
             .then(response => that.parseTestInfo(response.json()))
-            .catch(that.handleError);
+         .catch(that.handleError);*/
+        this.customHttp.get('/user/test_info')
+            .subscribe(response => {
+                that.parseTestInfo(response);
+            });
     }
 
 
@@ -56,24 +63,37 @@ export class UserComponent implements OnInit {
         while (this.status !== 'available') {
             setTimeout(function () {
                 this.getTestInfo();
-            }, 3000); // TODO: (pay attention) What happens here, why 3000 (move to constant if it's needed part of app)
+            }, 1000);
         }
     }
 
     askTest() {
-        // TODO: (pay attention) No! get rid of native alerts, use toster or smth like that
         var that = this;
         this.status = 'requestedTest'
         // TODO: (pay attention) Use CustomHttp + Observables
-        this.http.get('/user/ask_test')
+        /*this.http.get('/user/ask_test')
             .toPromise()
             .then(response => that.status = 'requested')
-            .catch(this.handleError);
+         .catch(this.handleError);*/
+        this.customHttp.get('/user/ask_test')
+            .subscribe(response => {
+                that.status = 'requested'
+            });
     }
 
     runTest() {
         console.log('runtest');
-        this.router.navigate(['/runTest', 'user']);
+        let flag = (localStorage.getItem('testInfo') ? 1 : -1);
+        console.log(flag);
+        console.log(this.status);
+        console.log('blabla');
+        if (this.status === 'run' && flag === 1) {
+            this.router.navigate(['/runTest', 'user']);
+        } else if (this.status === 'available' && flag === -1) {
+            this.router.navigate(['/runTest', 'user']);
+        } else {
+            toast('Sorry, you did something wrong', 5000, 'orange');
+        }
 
     }
 

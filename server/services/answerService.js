@@ -4,6 +4,7 @@ var User = mongoose.model('User');
 var Test = mongoose.model('Test');
 var Question = mongoose.model('Question');
 var Validator = require('../libs/requestValidator');
+var fs = require('fs');
 
 module.exports.addAnswer = function (userId, testId, questionId, answer, done) {
     putAnswer('answer', userId, testId, questionId, answer, done);
@@ -28,6 +29,7 @@ function putAnswer(type, userId, testId, questionId, answer, done) {
                 res.user.level -= res.user.level > 0;
             }
             res.test.maxResult += res.question.maxCost || 0;
+            res.test.save();
             res.user.save();
             res.answer.save();
             done();
@@ -61,6 +63,12 @@ module.exports.getAnswerById = function (answerId, done) {
             Answer.findOne({_id: answerId}).populate('question').exec(callback);
         })
         .exec(function (res) {
+            if(res.answer.question.type === 'SpeechQuestion') {
+                fs.createReadStream(__dirname + '/../assets/' + res.answer.answer)
+                    .pipe(fs.createWriteStream(__dirname + '/../../temp/' + res.answer.answer));
+            } else if(res.answer.question.type === 'AudioQuestion') {
+                res.answer.question.createTempFile();
+            }
             done(null, res.answer.getAnswer());
         }, done, done);
 };
@@ -76,10 +84,14 @@ module.exports.setMark = function (answerId, testId, proportion, done) {
             }
         })
         .exec(function (res) {
+            if(res.answer.question.type === 'SpeechQuestion') {
+                fs.unlink(__dirname + '/../../temp/' + res.answer.answer);
+            } else if(res.answer.question.type === 'AudioQuestion') {
+                res.answer.question.deleteTempFile();
+            }
             var mark = Math.floor(res.answer.question.maxCost * proportion / 100);
             res.answer.mark = mark;
             res.test.result += mark;
-            res.test.maxResult += res.answer.question.maxCost;
             res.answer.save();
             res.test.save();
             done();

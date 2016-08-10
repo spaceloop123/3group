@@ -7,7 +7,10 @@ import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class AuthService {
-	private _loading: Observable<any>;
+	private _loading:Observable<AuthService>;
+
+	private _email:string = null;
+	private _username:string = null;
 	private _role:string = null;
 
 	constructor(private customHttp:CustomHttp,
@@ -15,12 +18,20 @@ export class AuthService {
 		this.restore();
 	}
 
+	get isauth() {
+		return !!this._role;
+	}
+
+	get username() {
+		return this._username;
+	}
+
 	get role() {
 		return this._role;
 	}
-	set role(role: string) {
-		this._role = role;
-		localStorage.setItem('auth', this._role);
+
+	get email() {
+		return this._email;
 	}
 
 	public logIn(loginData:AuthData, errHandler?:(err, data) => void) {
@@ -29,7 +40,7 @@ export class AuthService {
 			.post("/login", loginData)
 			.subscribe(
 				res => {
-					that.role = res.role;
+					that.setData(res);
 					that.updateRouteFromRole();
 				},
 				err => errHandler(err, loginData)
@@ -42,7 +53,7 @@ export class AuthService {
 			.subscribe(
 				() => {
 					localStorage.clear();
-					that.role = null;
+					that.setData(null);
 					that.updateRouteFromRole();
 				}
 			);
@@ -58,11 +69,16 @@ export class AuthService {
 
 	private restore() {
 		let that = this,
-			config = localStorage.getItem('auth') || '';
-		if(config) {
-			this._loading = that.customHttp.get('/role');
-		    this._loading.subscribe((role) =>{
-				that._role = role || '';
+			config = localStorage.getItem('auth');
+		try {
+			config = config && JSON.parse(config) || false;
+		} catch (syntaxError) {
+			config = null;
+		}
+		if (config) {
+			this._loading = that.customHttp.get('/authinfo');
+			this._loading.subscribe((info) => {
+				that.setData(info);
 				that._loading = null;
 			}, ()=>{
 				that._loading = null;
@@ -72,7 +88,15 @@ export class AuthService {
 		}
 	}
 
-	public ready(): Observable<AuthService> {
+	private setData(info) {
+		info = info || {role: null, username: null};
+		this._role = info.role;
+		this._username = info.username;
+		this._email = info.email;
+		localStorage.setItem('auth', (!!this._role).toString());
+	}
+
+	public ready():Observable<AuthService> {
 		let that = this;
 		return this._loading ? this._loading.map(() => that) : Observable.of(this);
 	}

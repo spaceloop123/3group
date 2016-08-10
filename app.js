@@ -12,7 +12,7 @@ var debug = require('debug')('flapper-news:server');
 var http = require('http');
 var fs = require('fs');
 var wav = require('wav');
-var ssw = require('./SocketServerWrite');
+//var ssw = require('./SocketServerWrite');
 
 require('./server/models/Users');
 require('./server/models/questions/Questions');
@@ -29,7 +29,7 @@ require('./server/models/Answers');
 require('./server/models/Notifications');
 require('./server/libs/agenda');
 
-//mongoose.connect("mongodb://192.168.14.81/test");
+// mongoose.connect("mongodb://192.168.14.81/test");
 mongoose.connect("mongodb://localhost/test");
 
 var routes = require('./server/routes/index');
@@ -55,9 +55,8 @@ server.on('listening', onListening);
 app.set('views', path.join(__dirname, 'app'));
 app.set('view engine', 'ejs');
 
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//favicon
+app.use(favicon(__dirname + '/app/assets/images/favicon.ico'));
 
 require('./server/config/passport');
 
@@ -67,9 +66,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(expressSession({
     store: new MongoStore({
-        //url: "mongodb://192.168.14.81/passport"
         url: "mongodb://localhost/passport"
-        // url: "mongodb://192.168.14.81/passport"
     }),
     secret: 'SECRET', resave: false, saveUninitialized: false, rolling: true,
     cookie: {secure: false, maxAge: 24 * 60 * 60 * 1000}
@@ -79,14 +76,14 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//index
 app.use('/', routes);
 
-app.use('/node_modules', express.static(__dirname + '/node_modules/'));
-app.use('/server', function (req, res) {
-    res.status(403).end();
-});
-app.use('/', express.static(__dirname));
-app.use('/fonts', express.static(__dirname + 'public'));
+//static
+app.use('/node_modules', express.static(__dirname + '/node_modules'));
+app.use('/app', express.static(__dirname + '/app/'));
+app.use('/dist', express.static(__dirname + '/dist/'));
+app.use('/systemjs.config.js', express.static(__dirname + '/systemjs.config.js'));
 
 //routes
 app.post('/login', auth.login);

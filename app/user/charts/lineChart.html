@@ -1,14 +1,13 @@
 <div class="card lighten-1">
-    <div class='row' [class.stats-card]="currentWidth > 1024 && (testStatistics.length !== 0 || lineChartLabels.length !== 0)" style="height:20%;">
-
-
-            <div align="center" class='flow-text orange-text text-darken-4'>User statistics</div>
-
-            <div align="center" *ngIf="testStatistics.length === 0 && lineChartLabels.length === 0">
-            <img  class="image-gif" src="app/user/runTest/img/nullBot.gif" style="max-width:50%; position:relative">
-            <div class="collection-item grey lighten-5 orange-text text-darken-4">
-            <h5>User has no statistics</h5>
-                </div>
+    <div class='row'
+         [class.stats-card]="currentWidth > 1024 && (testStatistics.length !== 0 || lineChartLabels.length !== 0)"
+         style="height:20%;">
+        <div align="center" class='flow-text orange-text text-darken-4'>User statistics</div>
+        <div align="center" *ngIf="testStatistics.length === 0 && lineChartLabels.length === 0">
+            <img class="image-gif" src="app/user/runTest/img/nullBot.gif" style="max-width:50%; position:relative">
+            <div class="orange-text text-darken-4">
+                <h5>User has no statistics</h5>
+            </div>
         </div>
         <div [ngClass]='admin_style' align="left">
             <div [ngClass]='chart_style'>
@@ -51,5 +50,3 @@
         </div>
     </div>
 </div>
-
-

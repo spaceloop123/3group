@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from "moment";
 
 import {DatepickerComponent} from "./datepicker.component";
 import {Component, OnInit} from "@angular/core";
@@ -26,8 +26,7 @@ export class AssignTestComponent implements OnInit {
     isActive;
     teacherList = [];
 
-    dateFrom:any;
-    dateTo:any;
+    date:any = {};
 
     constructor(private route:ActivatedRoute,
                 private assignTestService:AssignTestService) {
@@ -35,6 +34,13 @@ export class AssignTestComponent implements OnInit {
     }
 
     ngOnInit() {
+        // clear form
+        this.assignedTeacher = null;
+        this.date.dateFrom = new Date();
+        this.date.dateTo = new Date();
+        this.date.hoursFrom = this.date.hoursTo = 0;
+        this.date.minutesFrom = this.date.minutesTo = 0;
+
         StateService.fromDetail = true;
         //TODO check test status for user and block test assignment if test is requested or has been assigned
         this.sub = this.route.params.subscribe(params => {
@@ -84,24 +90,27 @@ export class AssignTestComponent implements OnInit {
         let date = this.getDate();
 
         if(!this.validateDate(date)) {
-            toast('Date To is earlier than Date From', 3000, 'red darken-2');
+            toast('Enter correct date of test', 5000, 'red darken-2');
+            return;
+        } else if(!this.assignedTeacher) {
+            toast('Choose the teacher first', 5000, 'red darken-2');
             return;
         }
+
         this.assignTestService.assignTest(this.currentUser, this.assignedTeacher, date)
             .subscribe(res => {
-                toast("The test was successfully assigned", 3000, 'green');
+                toast("The test was successfully assigned", 5000, 'green');
             }, err => {
-                toast('Failed to assign the test', 3000, 'red darken-2');
+                toast('Failed to assign the test', 5000, 'red darken-2');
             });
+
+        this.getUserInfo();
     }
 
     getDate() {
-        this.dateTo = moment(this.dateTo, 'YYYY-MM-DD').hour(+$('#hoursTo').val()).minute(+$('#minutesTo').val()).toDate();
-        this.dateFrom = moment(this.dateFrom, 'YYYY-MM-DD').hour(+$('#hoursFrom').val()).minute(+$('#minutesFrom').val()).toDate();
-
         return {
-            dateFrom: this.dateFrom,
-            dateTo: this.dateTo
+            dateFrom: moment(this.date.dateFrom, 'YYYY-MM-DD').hour(this.date.hoursFrom).minute(this.date.minutesFrom).toDate(),
+            dateTo: moment(this.date.dateTo, 'YYYY-MM-DD').hour(this.date.hoursTo).minute(this.date.minutesTo).toDate()
         };
     }
 

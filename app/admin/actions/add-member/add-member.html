@@ -52,26 +52,32 @@
        </div>
    </form>
 
-   <div id="addGuestModal" class="modal modal-fixed-footer">
-       <div class="modal-content">
-           <div class="flow-text" style="font-weight: 600">
-               <span class="black-text">Assign a test to </span>
-               <span class="blue-text">{{member.firstName}} {{member.lastName}}</span>
-           </div>
-           <div class="container">
-               <div class="row">
-                   <p style="font-weight: 500;">Select estimated date and time</p>
-                   <br>
+<div id="addGuestModal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <div class="flow-text" style="font-weight: 600">
+            <span class="black-text">Assign a test to </span>
+            <span class="blue-text">{{member.firstName}} {{member.lastName}}</span>
+        </div>
+        <div class="container">
+            <div class="row">
+                <p style="font-weight: 500;">Select estimated date and time</p>
+                <br>
 
-                   <!-- Date picker -->
+                <!-- Date picker -->
 
-                <div class="col s12 m12 l12">
-                    <h6 class="col s2 m1 l1">From:</h6>
-                    <div id="datepicker1-guest" class="datepicker col offset-s1 s9 offset-m1 m4 offset-l1 l4">
-                        <input id="dateFrom-guest" type="date" class="datepicker">
+                <div class="row">
+                    <div class="col s12 m2 l2">
+                        <h6>From:</h6>
                     </div>
-                    <div class="col s4 offset-m1 m2 offset-l1 l2" style="padding:0">
-                        <select id="hoursFrom-guest" class="browser-default" materialize="material_select"
+                    <div id="datepicker1" class="datepicker col s12 m4 l4">
+                        <input id="dateFrom" type="date" class="datepicker" [(ngModel)]="dateFrom">
+                    </div>
+                    <div class="col s12 m2 l2">
+                        <h6>Time:</h6>
+                    </div>
+
+                    <div class="col m2 l2" style="padding:0">
+                        <select id="hoursFrom" class="browser-default" materialize="material_select"
                                 [materializeSelectOptions]="selectOptions">
                             <option value="00" disabled selected>00</option>
                             <option value="01">01</option>
@@ -100,8 +106,8 @@
                         </select>
                     </div>
 
-                    <div class="col offset-s4 s4 offset-m1 m2 offset-l1 l2" style="padding:0">
-                        <select id="minutesFrom-guest" class="browser-default" materialize="material_select"
+                    <div class="col m2 l2" style="padding:0">
+                        <select id="minutesFrom" class="browser-default" materialize="material_select"
                                 [materializeSelectOptions]="selectOptions">
                             <option value="00" disabled selected>00</option>
                             <option value="05">05</option>
@@ -119,14 +125,19 @@
                     </div>
                 </div>
 
-                <div class="col s12 m12 l12">
-                    <h6 class="col s2 m1 l1">To:</h6>
-                    <div id="datepicker2-guest" class="datepicker col offset-s1 s9 offset-m1 m4 offset-l1 l4">
-                        <input id="dateTo-guest" type="date" class="datepicker">
+                <div class="row">
+                    <div class="col s12 m2 l2">
+                        <h6>To:</h6>
+                    </div>
+                    <div id="datepicker2" class="datepicker col s12 m4 l4">
+                        <input id="dateTo" type="date" class="datepicker" [(ngModel)]="dateTo">
+                    </div>
+                    <div class="col s12 m2 l2">
+                        <h6>Time:</h6>
                     </div>
 
-                    <div class="col s4 offset-m1 m2 offset-l1 l2" style="padding:0">
-                        <select id="hoursTo-guest" class="browser-default" materialize="material_select"
+                    <div class="col m2 l2" style="padding:0">
+                        <select id="hoursTo" class="browser-default" materialize="material_select"
                                 [materializeSelectOptions]="selectOptions">
                             <option value="00" selected>00</option>
                             <option value="01">01</option>
@@ -155,8 +166,8 @@
                         </select>
                     </div>
 
-                    <div class="col offset-s4 s4 offset-m1 m2 offset-l1 l2" style="padding:0">
-                        <select id="minutesTo-guest" class="browser-default" materialize="material_select"
+                    <div class="col m2 l2" style="padding:0">
+                        <select id="minutesTo" class="browser-default" materialize="material_select"
                                 [materializeSelectOptions]="selectOptions">
                             <option value="00" selected>00</option>
                             <option value="05">05</option>

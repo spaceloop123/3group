@@ -30,7 +30,9 @@ export class TestComponent implements OnChanges {
     playCount:number;
     currentItem:NavigationItem;
     currentId:any;
-    buttonText:string = 'send';
+    src:string;
+
+
 
     options:any[];
     answer:string;
@@ -41,7 +43,6 @@ export class TestComponent implements OnChanges {
         this.isPlayed = false;
         this.top = {type: "nothing"};
         this.answer = '';
-
 
     }
 
@@ -62,7 +63,6 @@ export class TestComponent implements OnChanges {
                 this.questionInfo = this.restoreQuestionInfo();
                 this.subQuestionInfo = this.restoreSubQuestionInfo();
                 if (this.questionInfo === null) {
-
                     this.questionInfo = new QuestionInfo(this.testInfo.id, 1, null, this.answersId);
                 }
                 if (this.subQuestionInfo === null) {
@@ -115,10 +115,6 @@ export class TestComponent implements OnChanges {
         }
     }
 
-    getButtonText():string {
-        return this.buttonText;
-    }
-    
     saveQuestionInfo() {
         localStorage.setItem('questionInfo', JSON.stringify(this.questionInfo));
     }
@@ -215,27 +211,33 @@ export class TestComponent implements OnChanges {
 
 
     saveQuestionFromResponse(response) {
-        this.buttonText = 'send';
+        this.src = '';
         this.question = response.question;
         if (this.question.subQuestions) {
             this.questionInfo.subQuestions = this.question.subQuestions;
-            if (this.mode === 'user') {
-                if (this.question.type === 'ReadingQuestion') {
-                    toast('You can read this text only once', 5000);
-                } else if (this.question.type === 'AudioQuestion') {
-                    toast('You can listen this story twice', 5000);
-                }
+            if (this.mode === 'user' && this.question.type === 'ReadingQuestion') {
+                toast('You can read this text only once', 5000);
 
             }
+
         }
+        if (this.question.type === 'AudioQuestion') {
+            this.src = this.question.path;
+            this.isPlayed = false;
+        }
+
         if (this.question.type === "SpeechQuestion") {
             if (this.mode === 'user') {
                 this.answer = this.testInfo.id.toString() + this.questionInfo.questionIndex.toString() + '.wav';
+                console.log('this.answer ' + this.answer + '.wav');
             } else if (this.mode === 'teacher') {
                 this.question.type = 'AudioQuestion';
+                this.src = response.answer;
+                this.isPlayed = false;
             }
 
         }
+
         this.saveQuestionInfo();
         this.subQuestionInfo = SubQuestionsInfo.empty(this.testInfo.id);
         this.saveSubQuestionInfo();
@@ -243,6 +245,16 @@ export class TestComponent implements OnChanges {
         this.processQuestion(this.question);
         if (this.mode === 'teacher') {
             this.answer = response.answer;
+
+        }
+
+    }
+
+    getButtonText():string{
+        if(this.top.type === "ReadingQuestion" || this.top.type === "AudioQuestion") {
+            return 'go to subquestions';
+        } else{
+            return 'send';
         }
 
     }
@@ -257,18 +269,12 @@ export class TestComponent implements OnChanges {
 
     processQuestion(question) {
         this.top = question;
-        this.buttonText = 'send';
         if (question.type === 'TestQuestion') {
             this.makeOptions();
-        } else if (this.top.type === 'AudioQuestion') {
-            this.buttonText = 'go to subquestions';
+        } else if (question.type === 'AudioQuestion') {
             this.myAudio = new Audio();
-        } else if (this.top.type === 'ReadingQuestion') {
-            this.buttonText = 'go to subquestions';
-        } else {
-            this.buttonText = 'send';
-        }
 
+        }
 
     }
 
@@ -293,33 +299,19 @@ export class TestComponent implements OnChanges {
         return Promise.reject(error.message || error);
     }
 
-    playAydio() {
+    playAudio() {
         if (!this.isPlayed) {
-            this.myAudio.src = this.question.path;
+
+            this.myAudio.src = this.src;
             this.myAudio.load();
             this.isPlayed = true;
             this.playCount = 0;
         }
+        this.myAudio.play();
 
-        if (this.mode === 'user') {
-
-            if (this.playCount < 2 && this.myAudio.paused) {
-                this.myAudio.play();
-                var that = this;
-                this.myAudio.addEventListener("ended", () => that.playCount += 1);
-            }
-
-            if (this.playCount >= 2) {
-                //console.log('Your have spent all of the attempts!');
-                toast('Sorry. Your have spent all of the attempts!', 2000, 'rounded')
-            }
-        } else {
-            this.myAudio.play();
-        }
     }
 
     public  sendAnswer(callBack) {
-
         this.sendAnswerToServer(this.answer, callBack);
 
     }

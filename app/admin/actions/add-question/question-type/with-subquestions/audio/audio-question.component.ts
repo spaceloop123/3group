@@ -9,12 +9,13 @@ import {TestQuestion} from "../../test/test-question.class";
 import {TestQuestionComponent} from "../../test/test-question.component";
 import {InsertTestQuestionComponent} from "../../insert-test/insert-test-question.component";
 import {InsertOpenQuestionComponent} from "../../insert-open/insert-open-question.component";
+import {UploadFileComponent} from "./upload-file.component";
 
 @Component({
     selector: 'audio-question-component',
     templateUrl: 'app/admin/actions/add-question/question-type/with-subquestions/audio/audio-question.html',
     directives: [ROUTER_DIRECTIVES, MaterializeDirective, TestQuestionComponent, InsertTestQuestionComponent,
-        InsertOpenQuestionComponent, NgSwitch, NgSwitchDefault]
+        InsertOpenQuestionComponent, NgSwitch, NgSwitchDefault, UploadFileComponent]
 })
 
 export class AudioQuestionComponent implements OnInit {
@@ -54,7 +55,7 @@ export class AudioQuestionComponent implements OnInit {
 
     ngOnInit():any {
         this.oldSubQuestionsLength = this.question.subQuestions.length;
-
+        this.question.path = this.question.id + Date.now();
         this.questionsCatalog = [
             {
                 type: new TestQuestion(null, false).type,
@@ -147,6 +148,7 @@ export class AudioQuestionComponent implements OnInit {
             return toast('First, complete editing Audio Question', 5000, 'amber darken-1');
         }
         this.question.state = 'done';
+        this.question.action = (e) => this.streamFile(e);
         this.notify.emit(this.question);
         console.log(this.question.state);
     }
@@ -162,11 +164,24 @@ export class AudioQuestionComponent implements OnInit {
         return f;
     }
 
+    streamFile(uploadAudio:UploadFileComponent) {
+        uploadAudio.streamFileToServer();
+    }
+
     onEditStart() {
         this.question.state = 'edit';
     }
 
     onCreateAbort() {
         this.notify.emit(-1);
+    }
+
+    isAllFilled(question:any, ignoredProperties:string[] = []):boolean {
+        question = question || {};
+        return !Object.keys(question).some(key => {
+            if (ignoredProperties.indexOf(key) === -1) {
+                return !question[key] && typeof question[key] !== 'number' && ignoredProperties.indexOf(key) === -1;
+            }
+        });
     }
 }

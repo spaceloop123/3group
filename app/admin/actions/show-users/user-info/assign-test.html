@@ -41,14 +41,16 @@
                                 <h6>From:</h6>
                             </div>
                             <div id="datepicker1" class="datepicker col s12 m4 l4">
-                                <input id="dateFrom" type="date" class="datepicker" [(ngModel)]="dateFrom" [disabled]="!userInfo.assignable">
+                                <input type="date" class="datepicker" [(ngModel)]="date.dateFrom" [disabled]="!userInfo.assignable">
                             </div>
                             <div class="col s12 m2 l2">
                                 <h6>Time:</h6>
                             </div>
 
                             <div class="col m2 l2" style="padding:0">
-                                <select id="hoursFrom" class="browser-default" materialize="material_select"
+                                <select class="browser-default"
+                                        materialize="material_select"
+                                        [(ngModel)]="date.hoursFrom"
                                         [disabled]="!userInfo.assignable"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" disabled selected>00</option>
@@ -79,7 +81,9 @@
                             </div>
 
                             <div class="col m2 l2" style="padding:0">
-                                <select id="minutesFrom" class="browser-default" materialize="material_select"
+                                <select class="browser-default"
+                                        materialize="material_select"
+                                        [(ngModel)]="date.minutesFrom"
                                         [disabled]="!userInfo.assignable"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" disabled selected>00</option>
@@ -103,14 +107,16 @@
                                 <h6>To:</h6>
                             </div>
                             <div id="datepicker2" class="datepicker col s12 m4 l4">
-                                <input id="dateTo" type="date" class="datepicker" [(ngModel)]="dateTo" [disabled]="!userInfo.assignable">
+                                <input type="date" class="datepicker" [(ngModel)]="date.dateTo" [disabled]="!userInfo.assignable">
                             </div>
                             <div class="col s12 m2 l2">
                                 <h6>Time:</h6>
                             </div>
 
                             <div class="col m2 l2" style="padding:0">
-                                <select id="hoursTo" class="browser-default" materialize="material_select"
+                                <select class="browser-default"
+                                        materialize="material_select"
+                                        [(ngModel)]="date.hoursTo"
                                         [disabled]="!userInfo.assignable"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" selected>00</option>
@@ -141,7 +147,9 @@
                             </div>
 
                             <div class="col m2 l2" style="padding:0">
-                                <select id="minutesTo" class="browser-default" materialize="material_select"
+                                <select class="browser-default"
+                                        materialize="material_select"
+                                        [(ngModel)]="date.minutesTo"
                                         [disabled]="!userInfo.assignable"
                                         [materializeSelectOptions]="selectOptions">
                                     <option value="00" selected>00</option>

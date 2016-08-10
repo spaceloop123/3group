@@ -5,6 +5,7 @@ import {NavigationItem} from "./navigation.item";
 import {TestComponent} from "../test/test.component";
 import {TestInfo} from "../test/test.info";
 import {MaterializeDirective} from "angular2-materialize";
+import {CustomHttp} from "../common/services/CustomHttp";
 
 @Component({
     templateUrl: 'app/teacher/teacher-checking.html',
@@ -37,7 +38,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
     markPlaceClass:string = 'green-text text-darken-1';
 
     constructor(private route:ActivatedRoute,
-                private http:Http,
+                private customHttp:CustomHttp,
                 private router:Router) {
         this.navigationItems = new Array();
         this.answersId = [];
@@ -62,11 +63,18 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         // TODO: (pay attention) CustomHttp + Observables
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        this.http.post('/teacher/check_test',
+        /*this.http.post('/teacher/check_test',
             JSON.stringify({testId: that.currentTest}), {headers: header})
             .toPromise()
             .then(response => that.onResponse(response))
-            .catch();
+         .catch();*/
+        this.customHttp
+            .post('/teacher/check_test', {testId: that.currentTest})
+            .subscribe(
+                res => {
+                    that.onResponse(res)
+                }
+            );
     }
 
 
@@ -143,14 +151,22 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
         let that = this;
         var header = new Headers();
         header.append('Content-Type', 'application/json');
-        this.http
+        /*this.http
             .post('/teacher/end_test',
                 JSON.stringify({testId: testId}), {headers: header})
             .toPromise()
             .then(response => {
                 that.router.navigate(['/teacher']);
                 that.clearTestInfo();
-            }).catch();
+         }).catch();*/
+        this.customHttp
+            .post('/teacher/end_test', {testId: testId})
+            .subscribe(
+                res => {
+                    that.router.navigate(['/teacher']);
+                    that.clearTestInfo();
+                }
+            );
 
     }
 
@@ -275,7 +291,7 @@ export class TeacherCheckingComponent implements OnInit, OnDestroy {
 
 
     onResponse(response) {
-        this.answersId = response.json().answers;
+        this.answersId = response.answers;
         this.makeNavigation(this.answersId);
         //console.log("onResponce after makeNav() = " + JSON.stringify(this.navigationItems));
         //console.log(this.answersId);
